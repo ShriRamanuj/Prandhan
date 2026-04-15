@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Health Plan Comparison | Girdhar Gopal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hdfc-red: #C8102E;
+    --care-green: #2E7D32;
+    --care-yellow: #F9A825;
+    --gold: #D4A017;
+    --gold-light: #F0C040;
+    --bg: #0f0f0f;
+    --card: #1a1a1a;
+    --border: rgba(255,255,255,0.08);
+    --text: #f0f0f0;
+    --muted: #888;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); overflow:hidden; height:100vh; width:100vw; }
+  .slides { width:100%; height:100vh; position:relative; }
+  .slide { position:absolute; inset:0; display:flex; flex-direction:column; opacity:0; pointer-events:none; transition:opacity .5s ease,transform .5s ease; transform:translateX(60px); overflow:hidden; }
+  .slide.active { opacity:1; pointer-events:all; transform:translateX(0); }
+  .slide.exit   { opacity:0; transform:translateX(-60px); }
+
+  /* NAV */
+  .nav { position:fixed; bottom:18px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:12px; z-index:100; background:rgba(20,20,20,.92); border:1px solid var(--border); padding:7px 18px; border-radius:50px; backdrop-filter:blur(20px); }
+  .nav button { background:var(--hdfc-red); color:#fff; border:none; width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:15px; display:flex; align-items:center; justify-content:center; transition:all .2s; }
+  .nav button:hover { background:#e01535; transform:scale(1.1); }
+  .nav button:disabled { background:#333; cursor:not-allowed; transform:none; }
+  .dots { display:flex; gap:6px; align-items:center; }
+  .dot { width:7px; height:7px; border-radius:50%; background:#444; cursor:pointer; transition:all .3s; }
+  .dot.active { background:var(--hdfc-red); width:20px; border-radius:4px; }
+  .slide-counter { color:var(--muted); font-size:10px; min-width:38px; text-align:center; }
+
+  /* TOPBAR */
+  .topbar { display:flex; align-items:center; justify-content:space-between; padding:10px 28px; border-bottom:1px solid var(--border); flex-shrink:0; background:rgba(10,10,10,.85); backdrop-filter:blur(10px); }
+  .logo-area { display:flex; align-items:center; gap:8px; }
+  .logo-box { background:var(--hdfc-red); color:#fff; font-family:'Playfair Display',serif; font-weight:900; font-size:10px; padding:4px 8px; border-radius:4px; letter-spacing:1px; }
+  .logo-care { background:var(--care-green); color:#fff; font-family:'DM Sans',sans-serif; font-weight:700; font-size:10px; padding:4px 8px; border-radius:4px; letter-spacing:0.5px; }
+  .client-tag { font-size:11px; color:var(--muted); border:1px solid var(--border); padding:3px 10px; border-radius:20px; }
+  .prepared-by { font-size:10px; color:var(--muted); text-align:right; }
+
+  /* SLIDE CONTENT */
+  .slide-content { flex:1; padding:18px 28px 68px; display:flex; flex-direction:column; overflow-y:auto; }
+  .section-marker { display:inline-block; width:24px; height:3px; background:var(--hdfc-red); border-radius:2px; margin-bottom:7px; }
+  .slide-title { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; margin-bottom:3px; }
+  .slide-desc  { font-size:11px; color:var(--muted); margin-bottom:14px; }
+
+  /* SLIDE 1 */
+  #slide-1 { background:radial-gradient(ellipse at 20% 50%,rgba(200,16,46,.12) 0%,transparent 55%),radial-gradient(ellipse at 80% 20%,rgba(46,125,50,.08) 0%,transparent 50%),#0a0a0a; justify-content:center; align-items:center; text-align:center; }
+  .title-badge { display:inline-block; font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); border:1px solid var(--gold); padding:5px 16px; border-radius:30px; margin-bottom:20px; animation:fadeUp .6s .2s both; }
+  .main-title  { font-family:'Playfair Display',serif; font-size:clamp(28px,4.5vw,52px); font-weight:900; line-height:1.1; margin-bottom:10px; animation:fadeUp .6s .4s both; }
+  .main-title span { color:var(--hdfc-red); }
+  .subtitle-text { font-size:13px; color:var(--muted); margin-bottom:28px; animation:fadeUp .6s .6s both; }
+  .plan-pills { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; animation:fadeUp .6s .8s both; margin-bottom:26px; }
+  .plan-pill { display:flex; align-items:center; gap:6px; padding:6px 14px; border-radius:50px; font-size:11px; font-weight:500; border:1px solid; }
+  .pill-s5    { border-color:#5B9BD5; color:#5B9BD5; background:rgba(91,155,213,.1); }
+  .pill-super { border-color:#81C784; color:#81C784; background:rgba(129,199,132,.1); }
+  .pill-plus  { border-color:var(--hdfc-red); color:#ff6b7a; background:rgba(200,16,46,.1); }
+  .pill-care  { border-color:var(--care-yellow); color:var(--care-yellow); background:rgba(249,168,37,.1); }
+  .pill-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+  .dot-blue { background:#5B9BD5; } .dot-grn { background:#81C784; } .dot-red { background:var(--hdfc-red); } .dot-yel { background:var(--care-yellow); }
+  .deduct-note { font-size:11px; color:var(--muted); background:rgba(255,255,255,.04); border:1px solid var(--border); padding:8px 16px; border-radius:8px; animation:fadeUp .6s 1s both; }
+
+  /* SLIDE 2 — ARCH (5 cols) */
+  .arch-grid { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:10px; flex:1; }
+  .arch-card { border-radius:12px; padding:14px; border:1px solid; display:flex; flex-direction:column; gap:9px; }
+  .ac-s5    { background:rgba(21,101,192,.08);  border-color:rgba(21,101,192,.25); }
+  .ac-super { background:rgba(27,94,32,.1);     border-color:rgba(76,175,80,.3); }
+  .ac-plus  { background:rgba(200,16,46,.07);   border-color:rgba(200,16,46,.25); }
+  .ac-care  { background:rgba(249,168,37,.07);  border-color:rgba(249,168,37,.3); }
+  .arch-plan-name { font-size:9px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--muted); }
+  .arch-si  { font-family:'Playfair Display',serif; font-size:22px; font-weight:900; line-height:1; }
+  .arch-si-blue { color:#90CAF9; } .arch-si-grn { color:#81C784; } .arch-si-red { color:#ff8a9a; } .arch-si-yel { color:var(--care-yellow); }
+  .layer-stack { display:flex; flex-direction:column; gap:4px; }
+  .layer { display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.07); border-radius:5px; padding:6px 9px; font-size:10px; }
+  .layer-name { color:var(--muted); } .layer-val { font-weight:600; }
+  .lv-blue { color:#90CAF9; } .lv-green { color:#69F0AE; } .lv-gold { color:var(--gold-light); } .lv-yel { color:var(--care-yellow); }
+  .yr-title { font-size:8px; letter-spacing:.5px; text-transform:uppercase; color:var(--muted); margin-bottom:2px; }
+  .yr-row   { display:flex; justify-content:space-between; align-items:center; border-radius:5px; padding:5px 8px; font-size:10px; margin-bottom:2px; }
+  .yr-label { color:var(--muted); } .yr-val { font-weight:700; } .yr-note { font-size:8px; }
+  .restore-sep { border-top:1px dashed rgba(105,240,174,.22); padding-top:6px; display:flex; justify-content:space-between; align-items:center; font-size:9px; }
+  .care-note { font-size:8px; color:var(--care-yellow); margin-top:2px; line-height:1.4; }
+
+  /* SLIDE 3 — TABLE */
+  .comp-table { width:100%; border-collapse:collapse; font-size:11px; }
+  .comp-table th { padding:9px 10px; text-align:center; font-weight:600; font-size:10px; letter-spacing:.4px; border-bottom:2px solid; position:sticky; top:0; z-index:5; }
+  .th-feature { text-align:left; background:#111; border-bottom-color:var(--border); color:var(--muted); width:22%; }
+  .th-s5    { background:rgba(21,101,192,.15); border-bottom-color:#1565C0; color:#90CAF9; }
+  .th-super { background:rgba(27,94,32,.2);    border-bottom-color:#388E3C; color:#81C784; }
+  .th-plus  { background:rgba(200,16,46,.12);  border-bottom-color:var(--hdfc-red); color:#ff8a9a; }
+  .th-care  { background:rgba(249,168,37,.12); border-bottom-color:var(--care-yellow); color:var(--care-yellow); }
+  .comp-table td { padding:8px 10px; border-bottom:1px solid var(--border); vertical-align:middle; }
+  .comp-table tr:hover td { background:rgba(255,255,255,.02); }
+  .td-feature { font-weight:500; color:#ccc; }
+  .td-val { text-align:center; font-weight:500; }
+  .td-s5  { background:rgba(21,101,192,.04); } .td-super { background:rgba(27,94,32,.06); }
+  .td-plus { background:rgba(200,16,46,.04); } .td-care  { background:rgba(249,168,37,.04); }
+  .hl-gold { color:var(--gold-light); font-weight:600; } .hl-green { color:#69F0AE; font-weight:600; }
+  .hl-red  { color:#ff6b7a; font-weight:600; }  .hl-blue { color:#90CAF9; font-weight:600; }
+  .hl-grn  { color:#81C784; font-weight:600; }  .hl-yel  { color:var(--care-yellow); font-weight:600; }
+  .muted-val { color:var(--muted); font-size:10px; }
+  .badge { display:inline-block; font-size:8px; padding:2px 6px; border-radius:20px; font-weight:600; letter-spacing:.5px; text-transform:uppercase; }
+  .badge-inf  { background:rgba(212,160,23,.15); color:var(--gold-light); border:1px solid rgba(212,160,23,.3); }
+  .badge-good { background:rgba(76,175,80,.15);  color:#69F0AE; border:1px solid rgba(76,175,80,.3); }
+  .badge-care { background:rgba(249,168,37,.15); color:var(--care-yellow); border:1px solid rgba(249,168,37,.3); }
+
+  /* SLIDE 4 — IB */
+  .ib-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; flex:1; align-items:start; }
+  .ib-table { width:100%; border-collapse:collapse; font-size:11px; background:rgba(200,16,46,.04); border-radius:10px; overflow:hidden; border:1px solid rgba(200,16,46,.2); }
+  .ib-table th { background:rgba(200,16,46,.14); color:#ff8a9a; padding:8px 12px; text-align:center; font-size:9px; letter-spacing:.5px; border-bottom:1px solid rgba(200,16,46,.2); }
+  .ib-table th:first-child { text-align:left; }
+  .ib-table td { padding:8px 12px; text-align:center; border-bottom:1px solid rgba(255,255,255,.05); font-weight:500; }
+  .ib-table td:first-child { text-align:left; color:var(--muted); font-weight:400; }
+  .ib-table tr:last-child td { border-bottom:none; color:var(--gold-light); font-weight:700; }
+  .ib-explainer { display:flex; flex-direction:column; gap:10px; }
+  .ib-explain-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:12px 16px; }
+  .ib-ec-title { font-size:11px; font-weight:600; color:var(--gold-light); margin-bottom:4px; }
+  .ib-ec-text  { font-size:10px; color:var(--muted); line-height:1.6; }
+  .vs-badge { display:inline-flex; align-items:center; gap:7px; background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:6px; padding:6px 12px; font-size:10px; margin-bottom:5px; }
+  .vs-no  { color:var(--muted); text-decoration:line-through; }
+  .vs-yes { color:#69F0AE; font-weight:600; }
+
+  /* SLIDE 5 — RESTORE */
+  .restore-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .restore-card { border-radius:11px; padding:16px; border:1px solid var(--border); background:var(--card); }
+  .rc-title { font-size:9px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
+  .rc-head  { font-size:12px; font-weight:600; margin-bottom:10px; }
+  .rc-row   { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,.04); padding:7px 10px; border-radius:6px; font-size:11px; margin-bottom:5px; }
+  .rc-row.good { background:rgba(105,240,174,.06); border:1px solid rgba(105,240,174,.15); }
+
+  /* SLIDE 6 — CARE SUPREME FOCUS */
+  .care-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; flex:1; }
+  .care-feat-card { background:rgba(249,168,37,.05); border:1px solid rgba(249,168,37,.2); border-radius:12px; padding:16px; }
+  .care-feat-title { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--care-yellow); margin-bottom:10px; }
+  .care-feat-row { display:flex; justify-content:space-between; align-items:flex-start; padding:6px 0; border-bottom:1px solid rgba(255,255,255,.05); font-size:11px; gap:8px; }
+  .care-feat-row:last-child { border-bottom:none; }
+  .cfr-label { color:var(--muted); flex-shrink:0; width:55%; }
+  .cfr-val   { text-align:right; font-weight:500; color:#eee; }
+
+  /* SLIDE 7 — VERDICT */
+  #slide-7 { background:radial-gradient(ellipse at 70% 30%,rgba(200,16,46,.1) 0%,transparent 55%),radial-gradient(ellipse at 20% 70%,rgba(46,125,50,.06) 0%,transparent 50%),#0a0a0a; }
+  .verdict-grid { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:10px; flex:1; }
+  .verdict-card { border-radius:14px; padding:16px; border:1px solid; display:flex; flex-direction:column; gap:9px; position:relative; overflow:hidden; }
+  .vc-s5    { background:rgba(21,101,192,.08); border-color:rgba(21,101,192,.25); }
+  .vc-super { background:rgba(27,94,32,.1);    border-color:rgba(76,175,80,.25); }
+  .vc-plus  { background:rgba(200,16,46,.08);  border-color:rgba(200,16,46,.35); }
+  .vc-care  { background:rgba(249,168,37,.07); border-color:rgba(249,168,37,.3); }
+  .vc-plus::before { content:'★ BEST HDFC'; position:absolute; top:10px; right:-20px; background:var(--hdfc-red); color:#fff; font-size:6px; font-weight:700; letter-spacing:.5px; padding:12px 24px 4px; transform:rotate(45deg); }
+  .vc-plan  { font-size:9px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); }
+  .vc-name  { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; }
+  .vc-ideal { font-size:10px; color:var(--muted); }
+  .pros-list { display:flex; flex-direction:column; gap:5px; }
+  .pro-item { display:flex; align-items:flex-start; gap:5px; font-size:10px; }
+  .pro-icon { color:#69F0AE; flex-shrink:0; } .con-icon { color:#ff6b7a; flex-shrink:0; }
+  .vc-premium { margin-top:auto; padding-top:9px; border-top:1px solid var(--border); font-size:10px; }
+  .vc-prem-val { font-family:'Playfair Display',serif; font-size:16px; font-weight:700; }
+
+  @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+  ::-webkit-scrollbar { width:4px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background:#333; border-radius:2px; }
+</style>
+</head>
+<body>
+<div class="slides">
+
+<!-- ══ SLIDE 1: WELCOME ══ -->
+<div class="slide active" id="slide-1" style="background:radial-gradient(ellipse at 30% 40%,rgba(200,16,46,.18) 0%,transparent 55%),radial-gradient(ellipse at 75% 70%,rgba(46,125,50,.1) 0%,transparent 50%),#080808;justify-content:center;align-items:center;">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:24px;max-width:800px;width:100%;padding:32px;text-align:center;">
+    <div style="display:flex;align-items:center;gap:18px;animation:fadeUp .6s .1s both;">
+      <div style="background:linear-gradient(135deg,var(--hdfc-red),#8B0000);color:#fff;font-family:Playfair Display,serif;font-weight:900;font-size:20px;padding:14px 22px;border-radius:14px;letter-spacing:1px;box-shadow:0 8px 32px rgba(200,16,46,.35);">SONIS</div>
+      <div style="text-align:left;">
+        <div style="font-family:Playfair Display,serif;font-size:22px;font-weight:900;color:#fff;line-height:1.1;">Professional Insurance Services</div>
+        <div style="font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-top:4px;">Your Trusted Health Insurance Partner</div>
+      </div>
+    </div>
+    <div style="width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);"></div>
+    <div style="animation:fadeUp .6s .3s both;">
+      <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">Welcome, Mr. Girdhar Gopal</div>
+      <h1 style="font-family:Playfair Display,serif;font-size:clamp(24px,3.5vw,42px);font-weight:900;line-height:1.15;">Let us Choose the <span style="color:var(--hdfc-red);">Best Health Plan</span><br>for Your Family</h1>
+      <p style="font-size:13px;color:var(--muted);margin-top:10px;">We have carefully analysed 4 plans across HDFC Ergo and Care Health<br>to help you make the most informed decision for your family of 4.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;animation:fadeUp .6s .5s both;">
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 22px;display:flex;align-items:center;gap:14px;">
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#1565C0,#0D47A1);display:flex;align-items:center;justify-content:center;font-family:Playfair Display,serif;font-size:20px;font-weight:900;color:#fff;flex-shrink:0;box-shadow:0 4px 16px rgba(21,101,192,.4);">D</div>
+        <div style="text-align:left;">
+          <div style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);">Your Advisor</div>
+          <div style="font-family:Playfair Display,serif;font-size:17px;font-weight:700;color:#fff;margin:2px 0;">Dattatray Pujari</div>
+          <div style="font-size:13px;color:#69F0AE;font-weight:600;">&#128222; 93253 77528</div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:18px 22px;display:flex;align-items:center;gap:14px;">
+        <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--hdfc-red),#8B0000);display:flex;align-items:center;justify-content:center;font-family:Playfair Display,serif;font-size:20px;font-weight:900;color:#fff;flex-shrink:0;box-shadow:0 4px 16px rgba(200,16,46,.4);">A</div>
+        <div style="text-align:left;">
+          <div style="font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);">Your Advisor</div>
+          <div style="font-family:Playfair Display,serif;font-size:17px;font-weight:700;color:#fff;margin:2px 0;">Archana Soni</div>
+          <div style="font-size:13px;color:#69F0AE;font-weight:600;">&#128222; 98509 77528</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;animation:fadeUp .6s .7s both;">
+      <div style="font-size:11px;color:var(--muted);">10/306/1, Sarvoday Nagar, Near Hirkani Hotel, Gokul, Ichalkaranji - 416115</div>
+      <button onclick="goTo(2)" style="display:inline-flex;align-items:center;gap:10px;background:var(--hdfc-red);color:#fff;border:none;padding:12px 32px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;font-family:DM Sans,sans-serif;box-shadow:0 4px 20px rgba(200,16,46,.4);">
+        Let us Begin the Comparison &#8250;
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 2: PLAN OVERVIEW ══ -->
+<div class="slide" id="slide-2">
+  <div class="topbar">
+    <div class="logo-area">
+      <div class="logo-box">HDFC ERGO</div>
+      <div style="color:var(--muted);font-size:11px;">vs</div>
+      <div class="logo-care">CARE HEALTH</div>
+      <div class="client-tag">Plan Comparison</div>
+    </div>
+    <div class="prepared-by">Sonis Professional Insurance Services<br><span style="color:#555;">Ichalkaranji</span></div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:36px;text-align:center;">
+    <div class="title-badge">Health Insurance Analysis</div>
+    <h1 class="main-title">Choosing the Right<br><span>Health Plan</span></h1>
+    <p class="subtitle-text">A comprehensive feature-by-feature comparison for <strong style="color:#eee;">Mr. Girdhar Gopal</strong> &nbsp;(Family of 4)</p>
+    <div class="plan-pills">
+      <div class="plan-pill pill-s5">   <div class="pill-dot dot-blue"></div>Optima Secure · ₹5 Lakh · HDFC Ergo</div>
+      <div class="plan-pill pill-super"><div class="pill-dot dot-grn"></div>Optima Super Secure · ₹10 Lakh · HDFC Ergo</div>
+      <div class="plan-pill pill-plus"> <div class="pill-dot dot-red"></div>Optima Secure+ · ₹10 Lakh · HDFC Ergo</div>
+      <div class="plan-pill pill-care"> <div class="pill-dot dot-yel"></div>Care Supreme · ₹10 Lakh · Care Health</div>
+    </div>
+    <div class="deduct-note">⚠️ HDFC Plans with <strong style="color:#eee;">₹25,000 Aggregate Deductible</strong> &nbsp;|&nbsp; 2 Adults + 2 Children &nbsp;|&nbsp; Tier 2 / Zone 4 Pricing</div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 2: COVERAGE ARCHITECTURE ══ -->
+<div class="slide" id="slide-3">
+  <div class="topbar">
+    <div class="logo-area"><div class="logo-box">HDFC ERGO</div><div style="color:var(--muted);font-size:10px;margin:0 4px;">vs</div><div class="logo-care">CARE HEALTH</div><div class="client-tag">Coverage Architecture</div></div>
+    <div class="prepared-by">Girdhar Gopal · 2A + 2C</div>
+  </div>
+  <div class="slide-content">
+    <div class="section-marker"></div>
+    <h2 class="slide-title">How Much Cover Do You Actually Get?</h2>
+    <p class="slide-desc">Maximum claimable amount per year — your real protection ceiling, year by year</p>
+    <div class="arch-grid">
+
+      <!-- S5 -->
+      <div class="arch-card ac-s5">
+        <div><div class="arch-plan-name">HDFC Ergo · Optima Secure</div><div class="arch-si arch-si-blue">₹5 Lakh</div><div style="font-size:9px;color:var(--muted);margin-top:2px;">Base Sum Insured</div></div>
+        <div class="layer-stack">
+          <div class="layer"><span class="layer-name">Base SI</span><span class="layer-val lv-blue">₹5 L</span></div>
+          <div class="layer"><span class="layer-name">Secure Benefit (1×)</span><span class="layer-val lv-green">₹5 L</span></div>
+          <div class="layer"><span class="layer-name">Plus Bonus (50%/yr, max 100%)</span><span class="layer-val lv-gold">upto ₹5 L</span></div>
+        </div>
+        <div class="yr-title">Max Single Claim — Year-wise</div>
+        <div class="yr-row" style="background:rgba(144,202,249,.08);border:1px solid rgba(144,202,249,.15);"><span class="yr-label">Year 1</span><span class="yr-val" style="color:#90CAF9;">₹10 L</span><span class="yr-note" style="color:var(--muted);">Base+Secure</span></div>
+        <div class="yr-row" style="background:rgba(144,202,249,.08);border:1px solid rgba(144,202,249,.15);"><span class="yr-label">Year 2</span><span class="yr-val" style="color:#90CAF9;">₹12.5 L</span><span class="yr-note" style="color:var(--muted);">+₹2.5L bonus</span></div>
+        <div class="yr-row" style="background:rgba(144,202,249,.08);border:1px solid rgba(144,202,249,.15);"><span class="yr-label">Year 3</span><span class="yr-val" style="color:#90CAF9;">₹15 L</span><span class="yr-note" style="color:var(--gold);">Capped ✓</span></div>
+        <div class="yr-row" style="background:rgba(144,202,249,.05);border:1px solid rgba(144,202,249,.1);"><span class="yr-label">Year 4+</span><span class="yr-val" style="color:#90CAF9;">₹15 L</span><span class="yr-note" style="color:#ff6b7a;">No growth</span></div>
+        <div class="restore-sep"><span style="color:#69F0AE;">+ Restore (Unlimited)</span><span style="font-weight:700;color:#69F0AE;">₹5 L each</span></div>
+      </div>
+
+      <!-- SUPER SECURE -->
+      <div class="arch-card ac-super">
+        <div><div class="arch-plan-name">HDFC Ergo · Optima <span style="color:#81C784;">Super</span> Secure</div><div class="arch-si arch-si-grn">₹10 Lakh</div><div style="font-size:9px;color:var(--muted);margin-top:2px;">Base Sum Insured</div></div>
+        <div class="layer-stack">
+          <div class="layer"><span class="layer-name">Base SI</span><span class="layer-val lv-blue">₹10 L</span></div>
+          <div class="layer" style="border-color:rgba(129,199,132,.3);background:rgba(129,199,132,.07);"><span class="layer-name">Secure Benefit <strong style="color:#81C784;">(2×)</strong></span><span class="layer-val" style="color:#81C784;">₹20 L</span></div>
+          <div class="layer"><span class="layer-name">Plus Bonus (50%/yr, max 100%)</span><span class="layer-val lv-gold">upto ₹10 L</span></div>
+        </div>
+        <div class="yr-title">Max Single Claim — Year-wise</div>
+        <div class="yr-row" style="background:rgba(129,199,132,.1);border:1px solid rgba(129,199,132,.25);"><span class="yr-label">Year 1</span><span class="yr-val" style="color:#81C784;">₹30 L</span><span class="yr-note" style="color:var(--muted);">Base+2×Secure</span></div>
+        <div class="yr-row" style="background:rgba(129,199,132,.1);border:1px solid rgba(129,199,132,.25);"><span class="yr-label">Year 2</span><span class="yr-val" style="color:#81C784;">₹35 L</span><span class="yr-note" style="color:var(--muted);">+₹5L bonus</span></div>
+        <div class="yr-row" style="background:rgba(129,199,132,.1);border:1px solid rgba(129,199,132,.25);"><span class="yr-label">Year 3</span><span class="yr-val" style="color:#81C784;">₹40 L</span><span class="yr-note" style="color:var(--gold);">Capped ✓</span></div>
+        <div class="yr-row" style="background:rgba(129,199,132,.05);border:1px solid rgba(129,199,132,.1);"><span class="yr-label">Year 4+</span><span class="yr-val" style="color:#81C784;">₹40 L</span><span class="yr-note" style="color:#ff6b7a;">No growth</span></div>
+        <div class="restore-sep"><span style="color:#69F0AE;">+ Restore (Unlimited)</span><span style="font-weight:700;color:#69F0AE;">₹10 L each</span></div>
+      </div>
+
+      <!-- SECURE PLUS -->
+      <div class="arch-card ac-plus">
+        <div><div class="arch-plan-name">HDFC Ergo · Optima Secure <span style="color:#ff8a9a;">PLUS</span></div><div class="arch-si arch-si-red">₹10 Lakh</div><div style="font-size:9px;color:var(--muted);margin-top:2px;">Base Sum Insured</div></div>
+        <div class="layer-stack">
+          <div class="layer"><span class="layer-name">Base SI</span><span class="layer-val lv-blue">₹10 L</span></div>
+          <div class="layer"><span class="layer-name">Secure Benefit (1×)</span><span class="layer-val lv-green">₹10 L</span></div>
+          <div class="layer" style="border-color:rgba(212,160,23,.3);background:rgba(212,160,23,.07);"><span class="layer-name">∞ Infinite Benefit</span><span class="layer-val lv-gold">+₹10L after each yr</span></div>
+        </div>
+        <div class="yr-title">Max Single Claim — Year-wise</div>
+        <div class="yr-row" style="background:rgba(200,16,46,.08);border:1px solid rgba(200,16,46,.2);"><span class="yr-label">Year 1</span><span class="yr-val" style="color:#ff8a9a;">₹20 L</span><span class="yr-note" style="color:var(--muted);">Base+Secure</span></div>
+        <div class="yr-row" style="background:rgba(200,16,46,.08);border:1px solid rgba(200,16,46,.2);"><span class="yr-label">Year 2</span><span class="yr-val" style="color:#ff8a9a;">₹30 L</span><span class="yr-note" style="color:var(--gold);">+₹10L Infinite</span></div>
+        <div class="yr-row" style="background:rgba(200,16,46,.08);border:1px solid rgba(200,16,46,.2);"><span class="yr-label">Year 3</span><span class="yr-val" style="color:#ff8a9a;">₹40 L</span><span class="yr-note" style="color:var(--gold);">+₹20L Infinite</span></div>
+        <div class="yr-row" style="background:rgba(212,160,23,.1);border:1px solid rgba(212,160,23,.3);"><span class="yr-label">Year 4</span><span class="yr-val" style="color:var(--gold-light);">₹50 L</span><span class="yr-note" style="color:#69F0AE;">Grows ∞</span></div>
+        <div class="restore-sep"><span style="color:#69F0AE;">+ Restore (Unlimited)</span><span style="font-weight:700;color:#69F0AE;">₹10 L each</span></div>
+        <div style="font-size:8px;color:var(--gold);">No cap — grows every year forever!</div>
+      </div>
+
+      <!-- CARE SUPREME -->
+      <div class="arch-card ac-care">
+        <div><div class="arch-plan-name">Care Health · Care <span style="color:var(--care-yellow);">Supreme</span></div><div class="arch-si arch-si-yel">₹10 Lakh</div><div style="font-size:9px;color:var(--muted);margin-top:2px;">Base Sum Insured</div></div>
+        <div class="layer-stack">
+          <div class="layer"><span class="layer-name">Base SI</span><span class="layer-val lv-yel">₹10 L</span></div>
+          <div class="layer"><span class="layer-name">Cumulative Bonus (50%/yr)</span><span class="layer-val lv-gold">+₹5L/yr, max ₹10L</span></div>
+          <div class="layer" style="border-color:rgba(249,168,37,.25);background:rgba(249,168,37,.05);"><span class="layer-name">✱ Bonus Super (add-on opt.)</span><span class="layer-val lv-yel">upto 500% SI!</span></div>
+        </div>
+        <div class="yr-title">Max Claim — Year-wise (Base + Bonus Super✱)</div>
+        <div class="yr-row" style="background:rgba(249,168,37,.08);border:1px solid rgba(249,168,37,.2);"><span class="yr-label">Year 1</span><span class="yr-val" style="color:var(--care-yellow);">₹10 L</span><span class="yr-note" style="color:var(--muted);">Base only</span></div>
+        <div class="yr-row" style="background:rgba(249,168,37,.08);border:1px solid rgba(249,168,37,.2);"><span class="yr-label">Year 2</span><span class="yr-val" style="color:var(--care-yellow);">₹15 L</span><span class="yr-note" style="color:var(--muted);">/ ✱₹20L</span></div>
+        <div class="yr-row" style="background:rgba(249,168,37,.08);border:1px solid rgba(249,168,37,.2);"><span class="yr-label">Year 3</span><span class="yr-val" style="color:var(--care-yellow);">₹20 L</span><span class="yr-note" style="color:var(--muted);">/ ✱₹30L</span></div>
+        <div class="yr-row" style="background:rgba(249,168,37,.08);border:1px solid rgba(249,168,37,.2);"><span class="yr-label">Year 4</span><span class="yr-val" style="color:var(--care-yellow);">₹20 L</span><span class="yr-note" style="color:var(--muted);">/ ✱₹40L</span></div>
+        <div class="yr-row" style="background:rgba(249,168,37,.06);border:1px solid rgba(249,168,37,.12);"><span class="yr-label">Year 5-6</span><span class="yr-val" style="color:var(--care-yellow);">₹20 L</span><span class="yr-note" style="color:var(--gold);">/ ✱₹50-60L then capped</span></div>
+        <div class="restore-sep"><span style="color:#69F0AE;">+ Auto Recharge (Unlimited)</span><span style="font-weight:700;color:#69F0AE;">₹10 L each</span></div>
+        <div class="care-note">✱ With Bonus Super add-on: ₹20L→₹60L (Yr2→Yr6), capped at 500% SI</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 3: FEATURE TABLE ══ -->
+<div class="slide" id="slide-4">
+  <div class="topbar">
+    <div class="logo-area"><div class="logo-box">HDFC ERGO</div><div style="color:var(--muted);font-size:10px;margin:0 4px;">vs</div><div class="logo-care">CARE HEALTH</div><div class="client-tag">Feature Comparison</div></div>
+    <div class="prepared-by">Girdhar Gopal · 2A + 2C</div>
+  </div>
+  <div class="slide-content" style="padding-bottom:72px;">
+    <div class="section-marker"></div>
+    <h2 class="slide-title">Feature-by-Feature Comparison</h2>
+    <p class="slide-desc">All key features across all four plans — HDFC Ergo vs Care Health</p>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th class="th-feature">Feature</th>
+          <th class="th-s5">Optima Secure<br><small>₹5L · HDFC</small></th>
+          <th class="th-super">Optima Super Secure<br><small>₹10L · HDFC</small></th>
+          <th class="th-plus">Optima Secure+<br><small>₹10L · HDFC</small></th>
+          <th class="th-care">Care Supreme<br><small>₹10L · Care Health</small></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-feature">Base Sum Insured</td><td class="td-val td-s5 hl-blue">₹5 L</td><td class="td-val td-super hl-grn">₹10 L</td><td class="td-val td-plus hl-blue">₹10 L</td><td class="td-val td-care hl-yel">₹10 L</td></tr>
+        <tr><td class="td-feature">Secure / Equivalent Benefit</td><td class="td-val td-s5">1× · ₹5 L</td><td class="td-val td-super"><strong style="color:#81C784;">2× · ₹20 L</strong></td><td class="td-val td-plus">1× · ₹10 L</td><td class="td-val td-care"><span class="muted-val">No Secure Benefit</span></td></tr>
+        <tr><td class="td-feature">Coverage Growth</td><td class="td-val td-s5"><span class="muted-val">Plus: +50%/yr, max 100%</span></td><td class="td-val td-super"><span class="muted-val">Plus: +50%/yr, max 100%</span></td><td class="td-val td-plus"><span class="badge badge-inf">∞ Infinite</span><br><small class="muted-val">+100%/yr, no limit</small></td><td class="td-val td-care"><span class="muted-val">CB: +50%/yr, max 100%</span><br><small style="color:var(--care-yellow);">✱ Bonus Super: up to 500%</small></td></tr>
+        <tr><td class="td-feature">Max Claim — Year 1</td><td class="td-val td-s5">₹10 L</td><td class="td-val td-super hl-grn">₹30 L</td><td class="td-val td-plus">₹20 L</td><td class="td-val td-care hl-yel">₹10 L</td></tr>
+        <tr><td class="td-feature">Max Claim — Year 2</td><td class="td-val td-s5">₹12.5 L</td><td class="td-val td-super hl-grn">₹35 L</td><td class="td-val td-plus hl-red">₹30 L</td><td class="td-val td-care">₹15 L</td></tr>
+        <tr><td class="td-feature">Max Claim — Year 3</td><td class="td-val td-s5">₹15 L <span class="muted-val">(capped)</span></td><td class="td-val td-super hl-grn">₹40 L <span class="muted-val">(capped)</span></td><td class="td-val td-plus hl-red">₹40 L</td><td class="td-val td-care">₹20 L <span class="muted-val">(capped)</span></td></tr>
+        <tr><td class="td-feature">Max Claim — Year 4+</td><td class="td-val td-s5">₹15 L <span class="muted-val">(no growth)</span></td><td class="td-val td-super">₹40 L <span class="muted-val">(no growth)</span></td><td class="td-val td-plus hl-gold">₹50L, ₹60L… <span class="badge badge-inf">∞</span></td><td class="td-val td-care">₹20 L <span class="muted-val">(base, no growth)</span><br><small style="color:var(--care-yellow);">✱ Bonus Super: ₹40L→₹60L (Yr4→Yr6) then capped</small></td></tr>
+        <tr><td class="td-feature">Auto Restore / Recharge</td><td class="td-val td-s5 hl-green"><span class="badge badge-good">Unlimited</span></td><td class="td-val td-super hl-green"><span class="badge badge-good">Unlimited</span></td><td class="td-val td-plus hl-green"><span class="badge badge-good">Unlimited</span></td><td class="td-val td-care hl-yel"><span class="badge badge-care">Unlimited</span><br><small class="muted-val">Same &amp; unrelated illness</small></td></tr>
+        <tr><td class="td-feature">Room Rent</td><td class="td-val td-s5">At Actuals</td><td class="td-val td-super">At Actuals</td><td class="td-val td-plus">At Actuals</td><td class="td-val td-care hl-yel">Up to SI</td></tr>
+        <tr><td class="td-feature">ICU Cover</td><td class="td-val td-s5">At Actuals</td><td class="td-val td-super">At Actuals</td><td class="td-val td-plus">At Actuals</td><td class="td-val td-care hl-yel">Up to SI</td></tr>
+        <tr><td class="td-feature">Protect / Claim Shield Benefit</td><td class="td-val td-s5 hl-green">✓ Protect</td><td class="td-val td-super hl-green">✓ Protect</td><td class="td-val td-plus hl-green">✓ Protect</td><td class="td-val td-care"><span class="muted-val">✱ Claim Shield (optional)</span></td></tr>
+        <tr><td class="td-feature">Pre / Post Hospitalisation</td><td class="td-val td-s5">60 / 180 days</td><td class="td-val td-super">60 / 180 days</td><td class="td-val td-plus">60 / 180 days</td><td class="td-val td-care hl-yel">60 / 180 days</td></tr>
+        <tr><td class="td-feature">Air Ambulance</td><td class="td-val td-s5">Up to ₹5 L</td><td class="td-val td-super">Up to ₹5 L</td><td class="td-val td-plus">Up to ₹5 L</td><td class="td-val td-care"><span class="muted-val">✱ Up to ₹5L (optional add-on)</span></td></tr>
+        <tr><td class="td-feature">Daily Cash (Shared Room)</td><td class="td-val td-s5">₹800/day</td><td class="td-val td-super">₹1,000/day</td><td class="td-val td-plus">₹800/day</td><td class="td-val td-care"><span class="muted-val">Not mentioned</span></td></tr>
+        <tr><td class="td-feature">Preventive Health Checkup</td><td class="td-val td-s5">₹2,500/yr</td><td class="td-val td-super">₹5,000/yr</td><td class="td-val td-plus">₹5,000/yr</td><td class="td-val td-care hl-yel">Annual · once per insured</td></tr>
+        <tr><td class="td-feature">AYUSH / Home Healthcare</td><td class="td-val td-s5 hl-green">✓</td><td class="td-val td-super hl-green">✓</td><td class="td-val td-plus hl-green">✓</td><td class="td-val td-care hl-yel">✓ Up to SI</td></tr>
+        <tr><td class="td-feature">E-Consultation / E-Opinion</td><td class="td-val td-s5">E-Opinion (51 CI)</td><td class="td-val td-super">E-Opinion (51 CI)</td><td class="td-val td-plus">E-Opinion (51 CI)</td><td class="td-val td-care hl-yel">Unlimited E-Consult (GP)</td></tr>
+        <tr><td class="td-feature">Modern Treatment</td><td class="td-val td-s5 hl-green">✓</td><td class="td-val td-super hl-green">✓</td><td class="td-val td-plus hl-green">✓</td><td class="td-val td-care hl-yel">✓ No sub-limits</td></tr>
+        <tr><td class="td-feature">Wellness / Fitness Benefits</td><td class="td-val td-s5"><span class="muted-val">—</span></td><td class="td-val td-super"><span class="muted-val">—</span></td><td class="td-val td-plus"><span class="muted-val">—</span></td><td class="td-val td-care hl-yel">Up to 30% renewal discount on steps</td></tr>
+        <tr><td class="td-feature">Aggregate Deductible</td><td class="td-val td-s5">₹25,000</td><td class="td-val td-super">₹25,000</td><td class="td-val td-plus">₹25,000</td><td class="td-val td-care"><span class="muted-val">Not applicable</span></td></tr>
+        <tr><td class="td-feature">Insurer</td><td class="td-val td-s5 hl-blue">HDFC ERGO</td><td class="td-val td-super hl-grn">HDFC ERGO</td><td class="td-val td-plus hl-red">HDFC ERGO</td><td class="td-val td-care hl-yel">Care Health Ins.</td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:9px;color:var(--muted);margin-top:8px;">✱ = Optional add-on, available on additional premium</div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 4: CARE SUPREME FOCUS ══ -->
+<div class="slide" id="slide-5">
+  <div class="topbar">
+    <div class="logo-area"><div class="logo-care">CARE HEALTH</div><div class="client-tag">Care Supreme · Detailed Features</div></div>
+    <div class="prepared-by">Care Health Insurance</div>
+  </div>
+  <div class="slide-content">
+    <div class="section-marker" style="background:var(--care-yellow);"></div>
+    <h2 class="slide-title">Care Supreme — What Makes It Unique?</h2>
+    <p class="slide-desc">Care Health Insurance's flagship plan — key highlights and optional power features</p>
+    <div class="care-grid">
+      <div>
+        <div class="care-feat-card" style="margin-bottom:12px;">
+          <div class="care-feat-title">🏥 Inbuilt Core Features</div>
+          <div class="care-feat-row"><span class="cfr-label">Base Sum Insured</span><span class="cfr-val">₹5L / 7L / 10L / 15L / 25L / 50L / 100L</span></div>
+          <div class="care-feat-row"><span class="cfr-label">Room Rent</span><span class="cfr-val hl-yel">Up to SI (no capping)</span></div>
+          <div class="care-feat-row"><span class="cfr-label">ICU Cover</span><span class="cfr-val hl-yel">Up to SI</span></div>
+          <div class="care-feat-row"><span class="cfr-label">Day Care / Modern Treatment</span><span class="cfr-val hl-yel">✓ All — No sub-limits</span></div>
+          <div class="care-feat-row"><span class="cfr-label">Pre / Post Hospitalization</span><span class="cfr-val">60 / 180 days</span></div>
+          <div class="care-feat-row"><span class="cfr-label">AYUSH Treatment</span><span class="cfr-val">Up to SI</span></div>
+          <div class="care-feat-row"><span class="cfr-label">Domiciliary Hospitalization</span><span class="cfr-val">Up to SI</span></div>
+          <div class="care-feat-row"><span class="cfr-label">Organ Donor Cover</span><span class="cfr-val">Up to SI</span></div>
+          <div class="care-feat-row"><span class="cfr-label">Auto Recharge (Restore)</span><span class="cfr-val hl-yel">Unlimited — same &amp; unrelated illness</span></div>
+          <div class="care-feat-row"><span class="cfr-label">Unlimited E-Consultation</span><span class="cfr-val">General Physician</span></div>
+          <div class="care-feat-row"><span class="cfr-label">Cumulative Bonus (Base)</span><span class="cfr-val">+50%/yr · Max 100% · No reduction on claim</span></div>
+          <div class="care-feat-row"><span class="cfr-label">Road Ambulance</span><span class="cfr-val">Up to SI (for ₹15L+) · ₹10,000 for below</span></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="care-feat-card">
+          <div class="care-feat-title">⭐ Optional Power Add-ons</div>
+          <div class="care-feat-row"><span class="cfr-label">Cumulative Bonus Super</span><span class="cfr-val" style="color:var(--care-yellow);">+100%/yr · Max 500% of SI!</span></div>
+          <div class="care-feat-row"><span class="cfr-label">Cumulative Bonus Booster</span><span class="cfr-val" style="color:var(--care-yellow);">100%/yr · Unlimited times · irrespective of claims</span></div>
+          <div class="care-feat-row"><span class="cfr-label">Unlimited Care</span><span class="cfr-val" style="color:#69F0AE;">1 lifetime claim with NO SI limit!</span></div>
+          <div class="care-feat-row"><span class="cfr-label">Air Ambulance</span><span class="cfr-val">Up to ₹5 Lakh/yr</span></div>
+          <div class="care-feat-row"><span class="cfr-label">Annual Health Check-up</span><span class="cfr-val">Once per insured per year</span></div>
+          <div class="care-feat-row"><span class="cfr-label">Claim Shield</span><span class="cfr-val">68 non-payable items covered</span></div>
+          <div class="care-feat-row"><span class="cfr-label">Instant Cover</span><span class="cfr-val">Diabetes/BP/Asthma after 30 days wait</span></div>
+        </div>
+        <div class="care-feat-card">
+          <div class="care-feat-title">💪 Wellness Benefit (Steps)</div>
+          <div style="display:flex;flex-direction:column;gap:5px;font-size:11px;">
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">270+ healthy days/yr</span><span style="color:#69F0AE;font-weight:600;">30% renewal discount</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">240 healthy days/yr</span><span style="color:#69F0AE;font-weight:600;">20% discount</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">180 healthy days/yr</span><span style="color:var(--gold-light);font-weight:600;">15% discount</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">&lt;120 days</span><span style="color:#ff6b7a;font-weight:600;">0% discount</span></div>
+            <div style="font-size:9px;color:var(--muted);margin-top:3px;">10,000 steps/day counted as 1 healthy day via tracking app</div>
+          </div>
+        </div>
+        <div style="background:rgba(249,168,37,.06);border:1px solid rgba(249,168,37,.2);border-radius:10px;padding:10px 14px;font-size:10px;color:var(--care-yellow);">
+          🏆 Awarded 'Best Claim Settlement Company of the Year' — 9th Annual India Insurance Summit 2025
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 5: INFINITE BENEFIT ══ -->
+<div class="slide" id="slide-6">
+  <div class="topbar">
+    <div class="logo-area"><div class="logo-box">HDFC ERGO</div><div class="client-tag">Optima Secure+ · Infinite Benefit</div></div>
+    <div class="prepared-by">Exclusive to Optima Secure+</div>
+  </div>
+  <div class="slide-content">
+    <div class="section-marker"></div>
+    <h2 class="slide-title">Infinite Benefit vs Cumulative Bonus Super</h2>
+    <p class="slide-desc">How long-term coverage growth compares — Optima Secure+ (HDFC) vs Care Supreme with Bonus Super add-on</p>
+    <div class="ib-grid">
+      <div>
+        <table class="ib-table">
+          <thead><tr><th>Year</th><th>Secure+ Max Claim</th><th>Care Supreme (Base)</th><th>Care + Bonus Super✱</th></tr></thead>
+          <tbody>
+            <tr><td>Year 1</td><td style="color:#ff8a9a;">₹20 L</td><td style="color:var(--care-yellow);">₹10 L</td><td style="color:var(--care-yellow);">₹10 L</td></tr>
+            <tr><td>Year 2</td><td style="color:#ff8a9a;">₹30 L</td><td style="color:var(--care-yellow);">₹15 L</td><td style="color:var(--care-yellow);">₹20 L</td></tr>
+            <tr><td>Year 3</td><td style="color:#ff8a9a;">₹40 L</td><td style="color:var(--care-yellow);">₹20 L (capped)</td><td style="color:var(--care-yellow);">₹30 L</td></tr>
+            <tr><td>Year 4</td><td style="color:var(--gold-light);">₹50 L</td><td style="color:var(--muted);">₹20 L (no growth)</td><td style="color:var(--care-yellow);">₹40 L</td></tr>
+            <tr><td>Year 5</td><td style="color:var(--gold-light);">₹60 L</td><td style="color:var(--muted);">₹20 L (no growth)</td><td style="color:var(--care-yellow);">₹50 L</td></tr>
+            <tr><td>Year 6</td><td style="color:var(--gold-light);">₹70 L</td><td style="color:var(--muted);">₹20 L (no growth)</td><td style="color:var(--care-yellow);">₹60 L (capped 500%)</td></tr>
+            <tr><td>Year 7+</td><td style="color:var(--gold-light);">₹80L+ ∞</td><td style="color:var(--muted);">₹20 L (no growth)</td><td style="color:var(--muted);">₹60 L (no further growth)</td></tr>
+          </tbody>
+        </table>
+        <div style="background:rgba(105,240,174,.06);border:1px solid rgba(105,240,174,.18);border-radius:8px;padding:9px 12px;font-size:10px;color:#69F0AE;margin-top:10px;">✅ Both plans have Unlimited Restore/Recharge on top of these amounts</div>
+        <div style="background:rgba(249,168,37,.06);border:1px solid rgba(249,168,37,.2);border-radius:8px;padding:9px 12px;font-size:10px;color:var(--care-yellow);margin-top:8px;">✱ Care Supreme's Bonus Super is an optional add-on at additional premium. Base plan has no Secure Benefit — Year 1 coverage is only ₹10 Lakh.</div>
+      </div>
+      <div class="ib-explainer">
+        <div class="vs-badge"><span class="vs-no">Secure (HDFC): Plus Bonus capped at max 100% of Base SI</span></div>
+        <div class="vs-badge"><span class="vs-yes">Secure+ (HDFC): +100% every year → ∞ NO LIMIT EVER</span></div>
+        <div class="ib-explain-card">
+          <div class="ib-ec-title">🔑 Key Difference: Year 1 Cover</div>
+          <div class="ib-ec-text">Optima Super Secure gives the highest first-year cover at ₹30L (2× Secure Benefit). Optima Secure+ gives ₹20L. Care Supreme base plan gives only ₹10L in Year 1 — significantly lower, though it catches up with Bonus Super add-on from Year 2 onwards.</div>
+        </div>
+        <div class="ib-explain-card">
+          <div class="ib-ec-title">📊 Long-Term Winner</div>
+          <div class="ib-ec-text">Optima Secure+ is the only plan with truly unlimited growth (∞). Care Supreme's Bonus Super caps at 500% of SI (₹60L for ₹10L base). After Year 5, only Secure+ keeps growing. For a young family taking a 20-year view, Secure+ has no competition.</div>
+        </div>
+        <div class="ib-explain-card">
+          <div class="ib-ec-title">💡 Care Supreme's Unique Edge</div>
+          <div class="ib-ec-text">Care Supreme offers "Unlimited Care" add-on — one lifetime claim with absolutely NO SI limit. This is a once-in-a-lifetime catastrophic cover feature not available in any HDFC plan. It also has the 30% wellness renewal discount, making it attractive for health-conscious families.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 6: RESTORE BENEFIT ══ -->
+<div class="slide" id="slide-7">
+  <div class="topbar">
+    <div class="logo-area"><div class="logo-box">HDFC ERGO</div><div style="color:var(--muted);font-size:10px;margin:0 4px;">vs</div><div class="logo-care">CARE HEALTH</div><div class="client-tag">Restore / Recharge Benefit</div></div>
+    <div class="prepared-by">Common Strength — All Plans</div>
+  </div>
+  <div class="slide-content">
+    <div class="section-marker"></div>
+    <h2 class="slide-title">Auto Restore / Recharge — All Plans Include This</h2>
+    <p class="slide-desc">All four plans automatically restore the Base SI after every claim — unlimited times in a policy year</p>
+    <div style="background:rgba(105,240,174,.06);border:1px solid rgba(105,240,174,.2);border-radius:12px;padding:14px 18px;margin-bottom:14px;display:flex;align-items:center;gap:12px;">
+      <div style="font-size:30px;">♻️</div>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:#69F0AE;margin-bottom:3px;">Every plan restores Base Sum Insured — unlimited times per year</div>
+        <div style="font-size:11px;color:var(--muted);">Member A, B, C or D — each time Base SI is used, it is restored automatically. Care Supreme also covers recharge for same illness (not just unrelated illness).</div>
+      </div>
+    </div>
+    <div class="restore-grid" style="margin-bottom:14px;">
+      <div class="restore-card">
+        <div class="rc-title">How Restore Works — Family of 4</div>
+        <div class="rc-head">Multiple Members Hospitalized — Same Year</div>
+        <div class="rc-row good"><span style="font-size:14px;">👤</span><div><div style="color:#ccc;font-size:11px;">Member A hospitalized — uses full Base SI</div><div style="color:var(--muted);font-size:9px;">Base SI exhausted → Restore triggers</div></div><div style="margin-left:auto;color:#69F0AE;font-weight:600;font-size:11px;">✓ Restored</div></div>
+        <div class="rc-row good"><span style="font-size:14px;">👤</span><div><div style="color:#ccc;font-size:11px;">Member B hospitalized — uses restored SI</div><div style="color:var(--muted);font-size:9px;">Restored SI exhausted → Restore triggers again</div></div><div style="margin-left:auto;color:#69F0AE;font-weight:600;font-size:11px;">✓ Restored</div></div>
+        <div class="rc-row good"><span style="font-size:14px;">👤</span><div><div style="color:#ccc;font-size:11px;">Member C &amp; D hospitalized — still covered</div><div style="color:var(--muted);font-size:9px;">No limit on restorations per year</div></div><div style="margin-left:auto;color:#69F0AE;font-weight:600;font-size:11px;">✓ Covered</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="restore-card">
+          <div class="rc-title">Important Notes</div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:11px;margin-top:6px;">
+            <div style="display:flex;gap:7px;"><span style="color:#69F0AE;">✓</span>Triggered on partial or complete exhaustion of Base SI</div>
+            <div style="display:flex;gap:7px;"><span style="color:#69F0AE;">✓</span>Care Supreme: restores for same OR unrelated illness</div>
+            <div style="display:flex;gap:7px;"><span style="color:#69F0AE;">✓</span>HDFC Plans: restores for any illness covered in policy</div>
+            <div style="display:flex;gap:7px;"><span style="color:#ff6b7a;">✗</span>Restore does NOT carry forward to next policy year</div>
+            <div style="display:flex;gap:7px;"><span style="color:#ff6b7a;">✗</span>Secure/Infinite Benefit exhaustion does NOT trigger Restore</div>
+          </div>
+        </div>
+        <div style="background:rgba(212,160,23,.05);border:1px solid rgba(212,160,23,.2);border-radius:10px;padding:11px 14px;">
+          <div style="font-size:11px;font-weight:600;color:var(--gold-light);margin-bottom:6px;">💡 Restore Amount by Plan</div>
+          <div style="display:flex;flex-direction:column;gap:5px;font-size:11px;">
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Optima Secure 5L (HDFC)</span><span style="color:#90CAF9;font-weight:600;">₹5 L per restore</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Optima Super Secure 10L (HDFC)</span><span style="color:#81C784;font-weight:600;">₹10 L per restore</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Optima Secure+ 10L (HDFC)</span><span style="color:#ff8a9a;font-weight:600;">₹10 L per restore</span></div>
+            <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted);">Care Supreme 10L (Care Health)</span><span style="color:var(--care-yellow);font-weight:600;">₹10 L per recharge</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 7: VERDICT ══ -->
+<div class="slide" id="slide-8">
+  <div class="topbar">
+    <div class="logo-area"><div class="logo-box">HDFC ERGO</div><div style="color:var(--muted);font-size:10px;margin:0 4px;">vs</div><div class="logo-care">CARE HEALTH</div><div class="client-tag">Recommendation</div></div>
+    <div class="prepared-by">Sonis Professional Insurance Services</div>
+  </div>
+  <div class="slide-content">
+    <div class="section-marker"></div>
+    <h2 class="slide-title">Final Verdict — Which Plan for Girdhar Gopal?</h2>
+    <p class="slide-desc">Personalized recommendation based on family composition, coverage needs, and long-term value</p>
+    <div class="verdict-grid">
+
+      <div class="verdict-card vc-s5">
+        <div><div class="vc-plan">Option A · HDFC Ergo</div><div class="vc-name" style="color:#90CAF9;">Optima Secure<br>₹5 Lakh</div><div class="vc-ideal">Only if budget is very tight</div></div>
+        <div class="pros-list">
+          <div class="pro-item"><span class="pro-icon">✓</span>Lowest premium</div>
+          <div class="pro-item"><span class="pro-icon">✓</span>Unlimited Restore · ₹5L each</div>
+          <div class="pro-item"><span class="con-icon">✗</span>Very low SI for family of 4</div>
+          <div class="pro-item"><span class="con-icon">✗</span>Max only ₹15L (capped Yr3)</div>
+          <div class="pro-item"><span class="con-icon">✗</span>Not suitable as sole cover</div>
+        </div>
+        <div class="vc-premium"><div style="font-size:9px;color:var(--muted);">Annual Premium</div><div class="vc-prem-val" style="color:#90CAF9;">Call us for premium</div></div>
+      </div>
+
+      <div class="verdict-card vc-super">
+        <div><div class="vc-plan">Option B · HDFC Ergo</div><div class="vc-name" style="color:#81C784;">Optima Super Secure<br>₹10 Lakh</div><div class="vc-ideal">Best immediate Day-1 cover</div></div>
+        <div class="pros-list">
+          <div class="pro-item"><span class="pro-icon">✓</span>₹30L cover from Day 1</div>
+          <div class="pro-item"><span class="pro-icon">✓</span>Unlimited Restore · ₹10L</div>
+          <div class="pro-item"><span class="pro-icon">✓</span>Max ₹40L capped Yr3</div>
+          <div class="pro-item"><span class="pro-icon">✓</span>Best for age &gt;45 or pre-existing</div>
+          <div class="pro-item"><span class="con-icon">✗</span>Growth stops at ₹40L forever</div>
+        </div>
+        <div class="vc-premium"><div style="font-size:9px;color:var(--muted);">Annual Premium</div><div class="vc-prem-val" style="color:#81C784;">Call us for premium</div></div>
+      </div>
+
+      <div class="verdict-card vc-plus">
+        <div><div class="vc-plan">⭐ Recommended · HDFC Ergo</div><div class="vc-name" style="color:#ff8a9a;">Optima Secure+<br>₹10 Lakh</div><div class="vc-ideal">Best long-term — grows every year ∞</div></div>
+        <div class="pros-list">
+          <div class="pro-item"><span class="pro-icon">✓</span>Infinite Benefit — no cap ever</div>
+          <div class="pro-item"><span class="pro-icon">✓</span>₹20L Yr1 → ₹50L+ by Yr4</div>
+          <div class="pro-item"><span class="pro-icon">✓</span>Unlimited Restore · ₹10L</div>
+          <div class="pro-item"><span class="pro-icon">✓</span>Cheaper than Secure 10L</div>
+          <div class="pro-item"><span class="pro-icon">✓</span>Deductible waiver after 5 yrs</div>
+        </div>
+        <div class="vc-premium"><div style="font-size:9px;color:var(--muted);">Annual Premium</div><div class="vc-prem-val" style="color:#ff8a9a;">Call us for premium</div></div>
+      </div>
+
+      <div class="verdict-card vc-care">
+        <div><div class="vc-plan">Option D · Care Health</div><div class="vc-name" style="color:var(--care-yellow);">Care Supreme<br>₹10 Lakh</div><div class="vc-ideal">Strong alternative — great wellness features</div></div>
+        <div class="pros-list">
+          <div class="pro-item"><span class="pro-icon">✓</span>No sub-limits on any treatment</div>
+          <div class="pro-item"><span class="pro-icon">✓</span>Unlimited Recharge · same illness</div>
+          <div class="pro-item"><span class="pro-icon">✓</span>Up to 30% wellness discount</div>
+          <div class="pro-item"><span class="pro-icon">✓</span>Bonus Super add-on: up to 500%</div>
+          <div class="pro-item"><span class="con-icon">✗</span>Year 1 cover only ₹10L (base)</div>
+          <div class="pro-item"><span class="con-icon">✗</span>No Secure Benefit equivalent</div>
+        </div>
+        <div class="vc-premium"><div style="font-size:9px;color:var(--muted);">Annual Premium</div><div class="vc-prem-val" style="color:var(--care-yellow);">Call us for premium</div></div>
+      </div>
+
+    </div>
+    <div style="background:rgba(200,16,46,.06);border:1px solid rgba(200,16,46,.18);border-radius:10px;padding:11px 16px;font-size:10px;margin-top:11px;display:flex;align-items:center;gap:12px;">
+      <div style="font-size:22px;">💬</div>
+      <div>
+        <div style="font-weight:600;color:#ff8a9a;margin-bottom:2px;">Advisory Note — Sonis Professional Insurance Services</div>
+        <div style="font-size:10px;color:var(--muted);line-height:1.6;">For Mr. Girdhar Gopal's family of 4: <strong style="color:#eee;">Optima Secure+</strong> is the best long-term choice — Infinite Benefit means protection grows every year with no ceiling. <strong style="color:#eee;">Optima Super Secure</strong> is best if Day-1 high cover (₹30L) is needed. <strong style="color:#eee;">Care Supreme</strong> is a strong alternative with no sub-limits, same-illness recharge, and wellness discounts — worth comparing premiums. Final recommendation depends on premium quotation for all plans.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ SLIDE 9: CONTACT ══ -->
+<div class="slide" id="slide-9" style="background:radial-gradient(ellipse at 50% 30%,rgba(200,16,46,.15) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(46,125,50,.08) 0%,transparent 50%),#080808;justify-content:center;align-items:center;">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:20px;max-width:680px;width:100%;padding:32px;text-align:center;">
+    <div style="background:linear-gradient(135deg,var(--hdfc-red),#8B0000);color:#fff;font-family:'Playfair Display',serif;font-weight:900;font-size:22px;padding:14px 28px;border-radius:14px;letter-spacing:1px;box-shadow:0 8px 32px rgba(200,16,46,.35);animation:fadeUp .6s .1s both;">SONIS</div>
+    <div style="animation:fadeUp .6s .2s both;">
+      <div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:900;">Professional Insurance Services</div>
+      <div style="font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-top:5px;">Your Trusted Health Insurance Partner</div>
+    </div>
+    <div style="width:60px;height:2px;background:var(--hdfc-red);border-radius:2px;animation:fadeUp .6s .3s both;"></div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.9;animation:fadeUp .6s .35s both;">
+      10/306/1, Sarvoday Nagar<br>
+      Near Hirkani Hotel, "Gokul"<br>
+      <strong style="color:#ccc;">Ichalkaranji - 416115</strong>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;animation:fadeUp .6s .45s both;">
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:14px;">
+        <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#1565C0,#0D47A1);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:#fff;flex-shrink:0;">D</div>
+        <div style="text-align:left;">
+          <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;">Dattatray Pujari</div>
+          <div style="font-size:13px;color:#69F0AE;font-weight:600;margin-top:3px;">📞 93253 77528</div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:14px;">
+        <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--hdfc-red),#8B0000);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:900;color:#fff;flex-shrink:0;">A</div>
+        <div style="text-align:left;">
+          <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;">Archana Soni</div>
+          <div style="font-size:13px;color:#69F0AE;font-weight:600;margin-top:3px;">📞 98509 77528</div>
+        </div>
+      </div>
+    </div>
+    <div style="background:rgba(212,160,23,.08);border:1px solid rgba(212,160,23,.2);border-radius:10px;padding:11px 24px;font-size:13px;color:var(--gold-light);animation:fadeUp .6s .55s both;">
+      ✉️ &nbsp;archanasonis@gmail.com
+    </div>
+    <div style="display:flex;gap:12px;align-items:center;animation:fadeUp .6s .65s both;">
+      <div style="padding:6px 14px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.5px;background:rgba(200,16,46,.15);color:#ff8a9a;border:1px solid rgba(200,16,46,.3);">HDFC ERGO Partner</div>
+      <div style="padding:6px 14px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.5px;background:rgba(249,168,37,.12);color:var(--care-yellow);border:1px solid rgba(249,168,37,.3);">Care Health Partner</div>
+    </div>
+    <div style="font-family:'Playfair Display',serif;font-size:15px;color:var(--muted);animation:fadeUp .6s .75s both;">
+      Thank you, Mr. Girdhar Gopal — we look forward to serving you! 🙏
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 9: CONTACT ══ -->
+</div><!-- /slides -->
+
+<div class="nav">
+  <button id="prevBtn" disabled onclick="navigate(-1)">‹</button>
+  <div class="dots" id="dots"></div>
+  <span class="slide-counter" id="counter">1 / 9</span>
+  <button id="nextBtn" onclick="navigate(1)">›</button>
+</div>
+
+<script>
+  const totalSlides = 9;
+  let current = 1;
+  const dotsEl = document.getElementById('dots');
+  const counterEl = document.getElementById('counter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  for (let i = 1; i <= totalSlides; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 1 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  }
+
+  function navigate(dir) {
+    const n = current + dir;
+    if (n < 1 || n > totalSlides) return;
+    goTo(n);
+  }
+
+  function goTo(n) {
+    if (n === current) return;
+    const old = document.getElementById('slide-' + current);
+    const nw  = document.getElementById('slide-' + n);
+    old.classList.remove('active');
+    old.classList.add('exit');
+    setTimeout(() => old.classList.remove('exit'), 500);
+    nw.style.transform = n > current ? 'translateX(60px)' : 'translateX(-60px)';
+    setTimeout(() => nw.classList.add('active'), 50);
+    current = n;
+    updateUI();
+  }
+
+  function updateUI() {
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i + 1 === current));
+    counterEl.textContent = current + ' / ' + totalSlides;
+    prevBtn.disabled = current === 1;
+    nextBtn.disabled = current === totalSlides;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   navigate(-1);
+  });
+
+  updateUI();
+</script>
+</body>
+</html>
