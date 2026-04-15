@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonis Professional Insurance Services | Ichalkaranji</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0D1B2A;
+  --navy-mid: #1B2F45;
+  --teal: #1A6B72;
+  --teal-light: #2A8F98;
+  --gold: #C9963A;
+  --gold-light: #E4B860;
+  --cream: #FAF7F2;
+  --white: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --care: #E8761A;
+  --niva: #7C3AED;
+  --icici: #D52B1E;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* ── STICKY NAV ── */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(13,27,42,0.97);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 48px;
+  border-bottom: 1px solid rgba(201,150,58,0.25);
+}
+.nav-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  letter-spacing: 0.5px;
+}
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a {
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold-light); }
+.nav-cta {
+  background: var(--gold);
+  color: var(--navy) !important;
+  padding: 7px 18px;
+  border-radius: 6px;
+  font-weight: 600 !important;
+  color: #fff !important;
+}
+.nav-cta:hover { background: var(--gold-light) !important; }
+
+/* ── HERO ── */
+.hero {
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+  padding: 72px 48px 56px;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 80% 20%, rgba(26,107,114,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse at 10% 80%, rgba(201,150,58,0.12) 0%, transparent 50%);
+}
+.hero-grid {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.hero-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.hero-title span { color: var(--gold-light); }
+.hero-tagline {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 28px;
+  max-width: 520px;
+}
+.hero-address {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(201,150,58,0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  max-width: 420px;
+}
+.hero-address-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+.hero-advisor-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex-shrink: 0;
+}
+.advisor-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 260px;
+  transition: all 0.3s;
+}
+.advisor-card:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(201,150,58,0.4);
+  transform: translateX(4px);
+}
+.advisor-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.av-d { background: linear-gradient(135deg,#1565C0,#0D47A1); box-shadow: 0 4px 14px rgba(21,101,192,0.45); }
+.av-a { background: linear-gradient(135deg,#C9963A,#8B6320); box-shadow: 0 4px 14px rgba(201,150,58,0.45); }
+.advisor-info { display: flex; flex-direction: column; gap: 2px; }
+.advisor-role { font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+.advisor-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 700; color: #fff; }
+.advisor-phone { font-size: 0.85rem; color: #69F0AE; font-weight: 600; }
+.advisor-email { font-size: 0.8rem; color: var(--gold-light); }
+
+/* ── COMPARE BANNER ── */
+.compare-banner {
+  background: linear-gradient(135deg, var(--teal) 0%, #0D4F55 100%);
+  padding: 32px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.compare-banner::before {
+  content: '';
+  position: absolute;
+  right: -60px; top: -60px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+}
+.compare-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+}
+.compare-text h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.compare-text p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.75);
+  max-width: 540px;
+}
+.compare-text p strong { color: #fff; }
+.compare-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gold);
+  color: var(--navy);
+  text-decoration: none;
+  padding: 14px 30px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  transition: all 0.3s;
+  box-shadow: 0 4px 20px rgba(201,150,58,0.5);
+  flex-shrink: 0;
+}
+.compare-btn:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(201,150,58,0.6);
+}
+.compare-btn-arrow { font-size: 1.1rem; transition: transform 0.2s; }
+.compare-btn:hover .compare-btn-arrow { transform: translateX(4px); }
+
+/* ── MAIN CONTENT ── */
+.main { max-width: 1300px; margin: 0 auto; padding: 48px 48px 60px; }
+
+/* ── SECTION TITLE ── */
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--gold);
+}
+.section-head h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+.section-badge {
+  background: var(--gold);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.section-badge.active { background: #10b981; }
+
+/* ── POLICIES BANNER ── */
+.policies-banner {
+  background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
+  border-radius: 16px;
+  padding: 36px;
+  margin-bottom: 48px;
+  box-shadow: 0 8px 32px rgba(15,118,110,0.25);
+}
+.policies-banner-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.policies-banner-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+.active-badge {
+  background: #10b981;
+  color: #fff;
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  animation: pulse 2.5s infinite;
+}
+@keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.05);} }
+
+.policy-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+}
+.policy-card {
+  background: #fff;
+  padding: 28px 24px;
+  border-radius: 12px;
+  text-align: center;
+  transition: all 0.3s;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+}
+.policy-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+.policy-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.policy-card h3 { color: var(--navy); font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; font-family: 'Cormorant Garamond', serif; }
+.policy-card p { color: var(--muted); font-size: 0.88rem; margin-bottom: 18px; }
+.policy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: linear-gradient(135deg,#0f766e,#115e59);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 7px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  box-shadow: 0 3px 10px rgba(15,118,110,0.3);
+}
+.policy-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 16px rgba(15,118,110,0.4); }
+
+/* ── SERVICES TABLE ── */
+.provider-section { margin-bottom: 52px; }
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+}
+thead { background: linear-gradient(135deg,var(--navy),var(--navy-mid)); color: #fff; }
+th {
+  padding: 16px 18px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: 0.3px;
+}
+tbody tr { background: #fff; transition: all 0.2s; }
+tbody tr:nth-child(even) { background: #f8fafc; }
+tbody tr:hover { background: #EFF8F9; }
+td {
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+.service-name { font-weight: 600; color: var(--navy); }
+
+.link-cell { display: flex; gap: 8px; flex-wrap: wrap; }
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 13px;
+  background: linear-gradient(135deg,var(--teal),#0D4F55);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s;
+  box-shadow: 0 2px 6px rgba(26,107,114,0.2);
+}
+.link-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,107,114,0.35); background: linear-gradient(135deg,#2A8F98,var(--teal)); }
+.link-btn::before { content:'🔗'; font-size:0.75rem; }
+.na-badge { display:inline-block; padding:5px 12px; background:#f1f5f9; color:var(--muted); border-radius:5px; font-size:0.82rem; font-weight:500; }
+.hospital-badge { display:inline-block; padding:5px 12px; background:#dbeafe; color:#1e40af; border-radius:5px; font-size:0.82rem; font-weight:600; }
+
+/* ── RESOURCES ── */
+.resources-section {
+  background: linear-gradient(135deg,#fef9e7,#fdf3d6);
+  padding: 32px;
+  border-radius: 14px;
+  border: 2px solid var(--gold);
+  margin-top: 0;
+}
+.resources-section h3 {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--navy);
+  font-size: 1.7rem;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+.resource-card {
+  background: #fff;
+  padding: 18px 20px;
+  border-radius: 8px;
+  border-left: 4px solid var(--gold);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  transition: all 0.25s;
+}
+.resource-card:hover { transform: translateX(5px); box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+.resource-card h4 { color: var(--navy); margin-bottom: 10px; font-size: 1rem; font-weight: 600; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.8);
+  text-align: center;
+  padding: 36px 48px;
+}
+.footer-inner { max-width: 1300px; margin: 0 auto; }
+.footer-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin-bottom: 8px;
+}
+.footer-tagline { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+.footer-contacts { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-bottom: 20px; }
+.footer-contact { font-size: 0.9rem; }
+.footer-contact span { color: #69F0AE; font-weight: 600; }
+.footer-divider { width: 40px; height: 2px; background: var(--gold); margin: 16px auto; border-radius: 2px; }
+.footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.35); }
+.footer-address { font-size: 0.82rem; color: rgba(255,255,255,0.45); margin-bottom: 16px; line-height: 1.7; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px);} to{opacity:1;transform:translateY(0);} }
+.hero-grid { animation: fadeUp 0.7s ease both; }
+.compare-banner { animation: fadeUp 0.7s 0.1s ease both; }
+.main { animation: fadeUp 0.7s 0.15s ease both; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px) {
+  .topnav { padding: 12px 24px; }
+  .nav-links { gap: 16px; }
+  .hero { padding: 48px 24px 40px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  .compare-banner { padding: 24px; }
+  .compare-inner { flex-direction: column; }
+  .main { padding: 32px 24px 48px; }
+  .policy-cards-grid { grid-template-columns: 1fr; }
+  .footer-contacts { flex-direction: column; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── STICKY NAV ── -->
+<nav class="topnav">
+  <div class="nav-brand">Sonis Insurance</div>
+  <div class="nav-links">
+    <a href="#policies">Policies</a>
+    <a href="#services">Services</a>
+    <a href="#resources">Resources</a>
+    <a href="https://shriramanuj.github.io/Prandhan/girdhar_gopal_plan_comparison.html" target="_blank" class="nav-cta">🔍 Compare Plans</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">Est. · Ichalkaranji · Maharashtra</div>
+      <h1 class="hero-title">
+        Sonis Professional<br>
+        <span>Insurance Services</span>
+      </h1>
+      <p class="hero-tagline">Your Trusted Health Insurance Partner — guiding families across Ichalkaranji with expert advice on HDFC Ergo, Care Health, Niva Bupa &amp; ICICI Prudential.</p>
+      <div class="hero-address">
+        <span class="hero-address-icon">📍</span>
+        <div>
+          10/306/1, Sarvoday Nagar<br>
+          Near Hirkani Hotel, "Gokul"<br>
+          <strong style="color:rgba(255,255,255,0.85);">Ichalkaranji — 416115</strong><br>
+          <a href="mailto:archanasonis@gmail.com" style="color:var(--gold-light);text-decoration:none;font-size:0.82rem;">✉️ archanasonis@gmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-advisor-cards">
+      <div class="advisor-card">
+        <div class="advisor-avatar av-d">D</div>
+        <div class="advisor-info">
+          <span class="advisor-role">Your Advisor</span>
+          <span class="advisor-name">Dattatray Pujari</span>
+          <span class="advisor-phone">📞 93253 77528</span>
+        </div>
+      </div>
+      <div class="advisor-card">
+        <div class="advisor-avatar av-a">A</div>
+        <div class="advisor-info">
+          <span class="advisor-role">Your Advisor</span>
+          <span class="advisor-name">Archana Soni</span>
+          <span class="advisor-phone">📞 98509 77528</span>
+          <span class="advisor-email">archanasonis@gmail.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PLAN COMPARISON BANNER ── -->
+<section class="compare-banner">
+  <div class="compare-inner">
+    <div class="compare-text">
+      <h3>🔍 Not Sure Which Plan to Choose?</h3>
+      <p>Let us compare the plans for you. We have prepared a detailed, feature-by-feature comparison of <strong>HDFC Ergo</strong> vs <strong>Care Health</strong> — covering coverage, Infinite Benefit, Restore, and more — so you can make an informed decision.</p>
+    </div>
+    <a href="https://shriramanuj.github.io/Prandhan/girdhar_gopal_plan_comparison.html" target="_blank" class="compare-btn">
+      Let's Compare Plans
+      <span class="compare-btn-arrow">›</span>
+    </a>
+  </div>
+</section>
+
+<!-- ── MAIN CONTENT ── -->
+<main class="main">
+
+  <!-- Current Policies -->
+  <section id="policies" class="policies-banner">
+    <div class="policies-banner-header">
+      <h2>📋 Current Year Policies 2025–26</h2>
+      <span class="active-badge">● Active</span>
+    </div>
+    <div class="policy-cards-grid">
+      <div class="policy-card">
+        <div class="policy-icon">🏥</div>
+        <h3>HDFC Ergo</h3>
+        <p>Client Policies 2025–26</p>
+        <a href="https://onedrive.live.com/?id=%2Fpersonal%2Fdd8f95a585fd50fb%2FDocuments%2FMEDICLAIM%20INSURANCE%2FHDFC%20ERGO%2FClient%20Policy%2F2025%2D26%20HDF%20ERGO" class="policy-btn" target="_blank">📁 View Policies</a>
+      </div>
+      <div class="policy-card">
+        <div class="policy-icon">💙</div>
+        <h3>Care Insurance</h3>
+        <p>Client Policies 2025–26</p>
+        <a href="https://1drv.ms/f/c/dd8f95a585fd50fb/IgD4LGGqP9yLSKX8gwCDAYHEAa3FOjmt2IuH9vaiO2JpAMA?e=5d9zEy" class="policy-btn" target="_blank">📁 View Policies</a>
+      </div>
+      <div class="policy-card">
+        <div class="policy-icon">🛡️</div>
+        <h3>Niva Bupa</h3>
+        <p>Client Policies 2025–26</p>
+        <a href="https://1drv.ms/f/c/dd8f95a585fd50fb/IgC_DzbTR_mVQove19RBI6oLAdxF28KlsK_xeNfm6IiLwlQ?e=mKjlS6" class="policy-btn" target="_blank">📁 View Policies</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Table -->
+  <section id="services" class="provider-section">
+    <div class="section-head">
+      <h2>Insurance Services</h2>
+      <span class="section-badge">Quick Access</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>🏥 HDFC Ergo</th>
+          <th>💙 Care Insurance</th>
+          <th>🛡️ Niva Bupa</th>
+          <th>🔵 ICICI Prudential</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="service-name">Renewal Payment</td>
+          <td><a href="https://www.hdfcergo.com/renew-hdfc-ergo-policy" class="link-btn" target="_blank">Pay Now</a></td>
+          <td><a href="https://www.careinsurance.com/rhicl/proposalcp/renew/index-care" class="link-btn" target="_blank">Pay Now</a></td>
+          <td><a href="https://transactions.nivabupa.com/renewal/renewpolicies.aspx?utm_source=CW&utm_medium=&utm_campaign=" class="link-btn" target="_blank">Pay Now</a></td>
+          <td><a href="https://www.iciciprulife.com/services/pay-life-insurance-premium-online.html?UID=39390" class="link-btn" target="_blank">Pay Now</a></td>
+        </tr>
+        <tr>
+          <td class="service-name">Pre-Intimation of Claim</td>
+          <td><a href="https://selfhelp.hdfcergo.com/SelfHelp/Authentication/ClaimRegistration" class="link-btn" target="_blank">Submit</a></td>
+          <td><a href="https://www.careinsurance.com/rhicl/login/register" class="link-btn" target="_blank">Submit</a></td>
+          <td><span class="na-badge">Not Applicable</span></td>
+          <td><span class="na-badge">—</span></td>
+        </tr>
+        <tr>
+          <td class="service-name">Cashless Pre-Intimation</td>
+          <td><span class="hospital-badge">At Hospital</span></td>
+          <td><span class="hospital-badge">At Hospital</span></td>
+          <td><a href="https://transactions.nivabupa.com/cashlessclaims/pages/intimation-claim.aspx" class="link-btn" target="_blank">Submit</a></td>
+          <td><span class="na-badge">—</span></td>
+        </tr>
+        <tr>
+          <td class="service-name">Claim Form</td>
+          <td><a href="https://www.hdfcergo.com/download/claim-form" class="link-btn" target="_blank">Download</a></td>
+          <td><span class="na-badge">—</span></td>
+          <td><a href="https://transactions.nivabupa.com/claims/pages/claimdocupload.aspx?utm_source=customerservice&utm_medium=CS&utm_campaign=internal&utm_content=submitRMclaim" class="link-btn" target="_blank">Download</a></td>
+          <td><span class="na-badge">—</span></td>
+        </tr>
+        <tr>
+          <td class="service-name">Network Hospital List</td>
+          <td><a href="https://www.hdfcergo.com/locators/cashless-hospitals-networks" class="link-btn" target="_blank">View List</a></td>
+          <td><a href="https://www.careinsurance.com/health-plan-network-hospitals.html?search_type=ipd&search1=Pune&latlng=18.4645115%2C73.8872252" class="link-btn" target="_blank">View List</a></td>
+          <td><a href="https://rules.nivabupa.com/hospital-network/" class="link-btn" target="_blank">View List</a></td>
+          <td><span class="na-badge">—</span></td>
+        </tr>
+        <tr>
+          <td class="service-name">Download Policy Copy</td>
+          <td><a href="https://www.hdfcergo.com/dashboard/auth/login/?ru=L3BvbGljeS9wb2xpY3ktc2VsZWN0aW9uP2FjdGlvbj1lbWFpbFBvbGljeUNvcHk%253D&fromLogout=true" class="link-btn" target="_blank">Download</a></td>
+          <td><span class="na-badge">—</span></td>
+          <td><a href="https://rules.nivabupa.com/customer-service/step1;id=4;question_text=Download%20Policy%20Copy;priority=1000;options=null;validation_on_submit=true;action_val=API%20Call;redirect_url=null;query_type_val=NFTR;subject_code=null;tooltip=null" class="link-btn" target="_blank">Download</a></td>
+          <td><span class="na-badge">—</span></td>
+        </tr>
+        <tr>
+          <td class="service-name">All About Claim</td>
+          <td><a href="https://selfhelp.hdfcergo.com/SelfHelp/CustomerSupportMenu" class="link-btn" target="_blank">Info</a></td>
+          <td><a href="https://selfcare.careinsurance.com/" class="link-btn" target="_blank">Info</a></td>
+          <td><a href="https://transactions.nivabupa.com/claims/pages/health-claim.aspx?utm_source=customerservice&utm_medium=CS&utm_campaign=internal&utm_content=claimprocess" class="link-btn" target="_blank">Info</a></td>
+          <td><span class="na-badge">—</span></td>
+        </tr>
+        <tr>
+          <td class="service-name">Excluded Hospital List</td>
+          <td><a href="https://www.hdfcergo.com/docs/default-source/documents/excluded-hospital.pdf" class="link-btn" target="_blank">View PDF</a></td>
+          <td><span class="na-badge">—</span></td>
+          <td><span class="na-badge">—</span></td>
+          <td><span class="na-badge">—</span></td>
+        </tr>
+        <tr>
+          <td class="service-name">Customer Self-Help Portal</td>
+          <td><a href="https://selfhelp.hdfcergo.com/SelfHelp/CustomerSupportMenu" class="link-btn" target="_blank">Login</a></td>
+          <td><a href="https://selfcare.careinsurance.com/" class="link-btn" target="_blank">Login</a></td>
+          <td><span class="na-badge">—</span></td>
+          <td><span class="na-badge">—</span></td>
+        </tr>
+        <tr>
+          <td class="service-name">Claim Escalation</td>
+          <td>
+            <div class="link-cell">
+              <a href="mailto:healthclaims@hdfcergo.com" class="link-btn">✉️ Email</a>
+              <a href="tel:02262346234" class="link-btn">📞 022-6234-6234</a>
+            </div>
+          </td>
+          <td><span class="na-badge">—</span></td>
+          <td><span class="na-badge">—</span></td>
+          <td><span class="na-badge">—</span></td>
+        </tr>
+        <tr>
+          <td class="service-name">WhatsApp Support – MyRA</td>
+          <td><a href="https://wa.me/918169500500" class="link-btn" target="_blank">📱 8169500500</a></td>
+          <td><span class="na-badge">—</span></td>
+          <td><span class="na-badge">—</span></td>
+          <td><span class="na-badge">—</span></td>
+        </tr>
+        <tr>
+          <td class="service-name">Official Website</td>
+          <td><a href="https://www.hdfcergo.com/" class="link-btn" target="_blank">Visit</a></td>
+          <td><a href="https://www.careinsurance.com/" class="link-btn" target="_blank">Visit</a></td>
+          <td><a href="https://www.nivabupa.com/" class="link-btn" target="_blank">Visit</a></td>
+          <td><a href="https://www.iciciprulife.com/" class="link-btn" target="_blank">Visit</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Resources -->
+  <section id="resources" class="resources-section">
+    <h3>Policy Documents &amp; Resources</h3>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <h4>📄 All Policy Wordings</h4>
+        <div class="link-cell">
+          <a href="https://www.hdfcergo.com/download/policy-wordings/health" class="link-btn" target="_blank">HDFC Ergo</a>
+        </div>
+      </div>
+      <div class="resource-card">
+        <h4>🔄 Optima Restore</h4>
+        <div class="link-cell">
+          <a href="https://customer-portal-assets.hdfcergo.com/documents/PolicyWordings_OptimaRestore-811520192624.pdf" class="link-btn" target="_blank">Policy Wording</a>
+        </div>
+      </div>
+      <div class="resource-card">
+        <h4>🛡️ Optima Secure</h4>
+        <div class="link-cell">
+          <a href="https://customer-portal-assets.hdfcergo.com/assets/v2/docs/default-source/downloads/policy-wordings/health/optima-secure-revision/optima-secure-revision-pw-647504209314.pdf" class="link-btn" target="_blank">Policy Wording</a>
+          <a href="https://customer-portal-assets.hdfcergo.com/documents/my-optima-secure-prospectus-641753208509.pdf" class="link-btn" target="_blank">Brochure</a>
+        </div>
+      </div>
+      <div class="resource-card">
+        <h4>⚡ HDFC Energy-H Policy</h4>
+        <div class="link-cell">
+          <a href="https://customer-portal-assets.hdfcergo.com/documents/energy-combined-pw-cis-919573709506.pdf" class="link-btn" target="_blank">Policy Wording</a>
+        </div>
+      </div>
+      <div class="resource-card">
+        <h4>⏳ 2-Year Waiting Period Diseases</h4>
+        <div class="link-cell">
+          <a href="https://drive.google.com/file/d/1lcR2nBeCSaBM4K8qEBuirqC68w43rVjJ/view?usp=sharing" class="link-btn" target="_blank">Disease List</a>
+        </div>
+      </div>
+      <div class="resource-card">
+        <h4>🏥 Day Care Services</h4>
+        <div class="link-cell">
+          <a href="https://drive.google.com/file/d/1e0SQlhXdKqlQTPu9A65-aZHcnx9Y-wo1/view?usp=sharing" class="link-btn" target="_blank">Services List</a>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:28px;padding-top:20px;border-top:2px solid var(--gold);display:flex;align-items:center;justify-content:space-between;flex-wrap:gap;">
+      <div>
+        <h4 style="color:var(--navy);margin-bottom:10px;font-size:1rem;">📁 Complete Policy Archive</h4>
+        <a href="https://drive.google.com/drive/folders/1HyzQnA_jWJcNGPN1nm9I4yiHGskSnzAM?usp=drive_link" class="link-btn" target="_blank">Access Google Drive Folder</a>
+      </div>
+      <div style="text-align:right;">
+        <h4 style="color:var(--teal);margin-bottom:10px;font-size:1rem;">🔍 Plan Comparison Tool</h4>
+        <a href="https://shriramanuj.github.io/Prandhan/girdhar_gopal_plan_comparison.html" class="link-btn" target="_blank" style="background:linear-gradient(135deg,var(--teal),#0D4F55);">Compare Plans — HDFC vs Care</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">Sonis Professional Insurance Services</div>
+    <div class="footer-tagline">Your Trusted Health Insurance Partner</div>
+    <div class="footer-address">
+      10/306/1, Sarvoday Nagar, Near Hirkani Hotel, "Gokul", Ichalkaranji — 416115<br>
+      ✉️ archanasonis@gmail.com
+    </div>
+    <div class="footer-contacts">
+      <div class="footer-contact">📞 Dattatray Pujari &nbsp;— <span>93253 77528</span></div>
+      <div class="footer-contact">📞 Archana Soni &nbsp;— <span>98509 77528</span></div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <a href="https://shriramanuj.github.io/Prandhan/girdhar_gopal_plan_comparison.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);text-decoration:none;padding:9px 22px;border-radius:7px;font-weight:700;font-size:0.88rem;">🔍 Compare Health Plans</a>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-copy">© 2026 Sonis Professional Insurance Services · All Rights Reserved · Ichalkaranji</div>
+  </div>
+</footer>
+
+</body>
+</html>
