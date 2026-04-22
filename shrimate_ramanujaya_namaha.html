@@ -32,14 +32,14 @@
 
   /* HERO */
   .hero {
-    background:linear-gradient(180deg,#4A0A12 0%,#6B0F1A 35%,#8B1520 65%,#A01825 100%);
+    background:linear-gradient(180deg,#7B2D00 0%,#A03C00 30%,#B84A00 60%,#C85A10 85%,#D4700A 100%);
     position:relative; overflow:hidden; padding-bottom:48px;
   }
   .hero::before {
     content:''; position:absolute; inset:0; pointer-events:none;
     background:
-      radial-gradient(ellipse at 20% 50%,rgba(212,160,23,0.12) 0%,transparent 60%),
-      radial-gradient(ellipse at 80% 50%,rgba(212,160,23,0.12) 0%,transparent 60%);
+      radial-gradient(ellipse at 20% 50%,rgba(255,200,80,0.18) 0%,transparent 60%),
+      radial-gradient(ellipse at 80% 50%,rgba(255,200,80,0.18) 0%,transparent 60%);
   }
 
   .hero-banner-wrap { display:flex; justify-content:center; padding:24px 20px 0; }
@@ -214,6 +214,137 @@
 
   .footer-bottom{font-size:0.75rem;color:rgba(255,248,231,0.28);border-top:1px solid rgba(255,255,255,0.06);padding-top:14px;margin-top:4px;}
 
+
+  /* SPECIAL HIGHLIGHT BOXES */
+  .special-section {
+    background: linear-gradient(135deg, #fff8ee 0%, #fff3e0 50%, #fff8ee 100%);
+    padding: 40px 20px;
+    position: relative;
+  }
+  .special-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .special-card {
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    padding: 32px 28px 28px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow:
+      0 4px 24px rgba(180,80,0,0.12),
+      0 1px 4px rgba(180,80,0,0.08);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    transition: all 0.35s ease;
+  }
+  .special-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(135deg, #FF6B00, #D4A017, #FF6B00);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  .special-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    border-radius: 20px 20px 0 0;
+    background: linear-gradient(90deg, #FF6B00, #D4A017, #FF6B00);
+  }
+  .special-card:hover {
+    transform: translateY(-8px);
+    box-shadow:
+      0 16px 48px rgba(180,80,0,0.22),
+      0 4px 12px rgba(180,80,0,0.12);
+  }
+  .special-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, #FF6B00, #D4A017);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    width: fit-content;
+  }
+  .special-icon {
+    font-size: 2.8rem;
+    margin-bottom: 14px;
+    display: block;
+    filter: drop-shadow(0 2px 6px rgba(255,107,0,0.3));
+  }
+  .special-title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #6B0F1A;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .special-title span {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: #888;
+    font-style: italic;
+    margin-top: 4px;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .special-desc {
+    font-size: 0.88rem;
+    color: #666;
+    line-height: 1.7;
+    flex: 1;
+    font-style: italic;
+    margin-bottom: 18px;
+  }
+  .special-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(90deg, #FF6B00, #D4A017);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    width: fit-content;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 14px rgba(255,107,0,0.35);
+  }
+  .special-card:hover .special-action {
+    box-shadow: 0 6px 20px rgba(255,107,0,0.5);
+    gap: 12px;
+  }
+  .special-glow {
+    position: absolute;
+    bottom: -30px;
+    right: -30px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(255,107,0,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
   /* FADE IN */
   .fade-in{opacity:0;transform:translateY(26px);transition:opacity 0.6s ease,transform 0.6s ease;}
   .fade-in.visible{opacity:1;transform:translateY(0);}
@@ -272,6 +403,70 @@
 </div>
 
 <div class="border-pattern"></div>
+
+<!-- SEARCH TOOLS -->
+<div class="tools-section">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-title fade-in">
+      <h2>🔍 खोज उपकरण — Search Tools</h2>
+      <div class="subtitle">Interactive HTML tools to search Prandhan &amp; Bhajan Mala</div>
+    </div>
+    <div class="tools-grid">
+      <a href="https://shriramanuj.github.io/Prandhan/Shree_Vaishnav_Prandhan.html" target="_blank" class="tool-card fade-in">
+        <span class="tool-icon-big">🔎</span>
+        <h3>श्रीवैष्णव प्रन्धन खोज</h3>
+        <p>Interactive search tool for Shree Vaishnav Prandhan — find any verse or stotra within the complete Prandhan database.</p>
+        <div class="tool-link">Prandhan Search खोलें →</div>
+      </a>
+      <a href="https://shriramanuj.github.io/Prandhan/Shree_Vaishnav_Bhajan_Mala.html" target="_blank" class="tool-card fade-in">
+        <span class="tool-icon-big">🎶</span>
+        <h3>श्रीवैष्णव भजन माला खोज</h3>
+        <p>Search through the complete Bhajan Mala — find any bhajan by name or keyword, and jump instantly to its YouTube link.</p>
+        <div class="tool-link">Bhajan Search खोलें →</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- SPECIAL HIGHLIGHT BOXES -->
+<div class="special-section">
+  <div class="special-grid">
+
+    <!-- Box 1: Ramanuj Swamiji -->
+    <a href="https://shriramanuj.github.io/Prandhan/ramanuj_swamiji.html" target="_blank" class="special-card fade-in">
+      <div class="special-glow"></div>
+      <span class="special-badge">✨ विशेष संग्रह · Special Collection</span>
+      <span class="special-icon">🌺</span>
+      <div class="special-title">
+        श्री रामानुज स्वामीजी — उत्सव संग्रह
+        <span>Stotra · Archana · Bhajan · Aarti</span>
+      </div>
+      <p class="special-desc">
+        श्री रामानुज स्वामीजी के उत्सव का सम्पूर्ण संग्रह — स्तोत्र, अर्चना, भजन एवं आरती सहित।
+        Complete festive collection dedicated to Shri Ramanuj Swamiji.
+      </p>
+      <div class="special-action">खोलें — Open →</div>
+    </a>
+
+    <!-- Box 2: Chandavali -->
+    <a href="https://shriramanuj.github.io/Prandhan/chandavali.html" target="_blank" class="special-card fade-in">
+      <div class="special-glow"></div>
+      <span class="special-badge">✨ छन्दावली · Chandavali</span>
+      <span class="special-icon">📜</span>
+      <div class="special-title">
+        श्री सिय-पिय-मिलन छन्दावली
+        <span>अनन्त श्री विभूषित स्वामीजी श्री सीतारामाचार्यजी महाराज</span>
+      </div>
+      <p class="special-desc">
+        परम पूज्य स्वामीजी महाराज द्वारा गाये गये भावपूर्ण छन्दों का दिव्य संग्रह।
+        Divine collection of devotional Chands sung by Anant Shri Vibhushit Swamiji Maharaj.
+      </p>
+      <div class="special-action">खोलें — Open →</div>
+    </a>
+
+  </div>
+</div>
 
 <!-- RESOURCES -->
 <section>
@@ -342,22 +537,12 @@
       <div class="card-body">
         <span class="card-icon">🌸</span>
         <div class="card-label">दर्शन · Darshan</div>
-        <div class="card-title">Divya Darshan — by Pankaj Bhaiji</div>
-        <p class="card-desc">Sacred Divya Darshan collection by Pankaj Bhaiji — visual and audio experience of temple darshans.</p>
+        <div class="card-title">Divya Darshan Images</div>
+        <p class="card-desc">Sacred Divya Darshan Images — divine darshan of temples and sacred places in the Shrivaishnav sampradaya.</p>
         <div class="card-action">दर्शन करें →</div>
       </div>
     </a>
 
-    <a href="https://drive.google.com/drive/folders/1F815KgajDWcHkO8OaLlvOI3WuI1k9FrC" target="_blank" class="card fade-in">
-      <div class="card-top maroon"></div>
-      <div class="card-body">
-        <span class="card-icon">🔔</span>
-        <div class="card-label">स्तोत्र · Stotra</div>
-        <div class="card-title">Sri Srinidhi Akkarakani Swamiji — Stotra Recordings</div>
-        <p class="card-desc">Rare stotra recordings by Sri Srinidhi Akkarakani Swamiji — authentic audio in traditional sampradaya style.</p>
-        <div class="card-action">सुनें →</div>
-      </div>
-    </a>
 
     <a href="https://drive.google.com/drive/folders/1XlzJ1GJNp8LWipbmxARf278skjW2rM2Y" target="_blank" class="card fade-in">
       <div class="card-top blue"></div>
@@ -417,29 +602,6 @@
   <cite>— श्री नित्यलीला ग्रन्थ, भाग १८ — श्री स्वामीजी सरकार का आशीर्वाद पूर्ण निर्णय (Nitya Lila Granth 18)</cite>
 </div>
 
-<!-- SEARCH TOOLS -->
-<div class="tools-section">
-  <div style="max-width:1100px;margin:0 auto;">
-    <div class="section-title fade-in">
-      <h2>🔍 खोज उपकरण — Search Tools</h2>
-      <div class="subtitle">Interactive HTML tools to search Prandhan &amp; Bhajan Mala</div>
-    </div>
-    <div class="tools-grid">
-      <a href="https://shriramanuj.github.io/Prandhan/Shree_Vaishnav_Prandhan.html" target="_blank" class="tool-card fade-in">
-        <span class="tool-icon-big">🔎</span>
-        <h3>श्रीवैष्णव प्रन्धन खोज</h3>
-        <p>Interactive search tool for Shree Vaishnav Prandhan — find any verse or stotra within the complete Prandhan database.</p>
-        <div class="tool-link">Prandhan Search खोलें →</div>
-      </a>
-      <a href="https://shriramanuj.github.io/Prandhan/Shree_Vaishnav_Bhajan_Mala.html" target="_blank" class="tool-card fade-in">
-        <span class="tool-icon-big">🎶</span>
-        <h3>श्रीवैष्णव भजन माला खोज</h3>
-        <p>Search through the complete Bhajan Mala — find any bhajan by name or keyword, and jump instantly to its YouTube link.</p>
-        <div class="tool-link">Bhajan Search खोलें →</div>
-      </a>
-    </div>
-  </div>
-</div>
 
 <!-- CALENDAR -->
 <div class="calendar-section">
