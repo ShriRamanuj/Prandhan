@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Senior Health Advantage — Sonis Professional Insurance Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{
+  --navy:#0D1B2A;--navy-mid:#1B2F45;
+  --gold:#C9963A;--gold-light:#E4B860;
+  --sr:#F5A623;--sr-dark:#D4880A;--sr-light:#FBBF24;
+  --sr-blue:#005DA8;--sr-soft:#FFFBEB;--sr-mid:#FDE68A;
+  --cream:#FAF7F2;--white:#fff;
+  --text:#1e293b;--muted:#64748b;--border:#e2e8f0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);line-height:1.6;}
+
+.topnav{position:sticky;top:0;z-index:200;background:rgba(13,27,42,0.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:10px 32px;border-bottom:1px solid rgba(245,166,35,0.3);gap:12px;flex-wrap:wrap;}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--gold-light);white-space:nowrap;}
+.nav-tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+.nav-tabs::-webkit-scrollbar{display:none;}
+.nav-tab{flex-shrink:0;font-size:12px;font-weight:500;padding:5px 16px;border-radius:99px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:rgba(255,255,255,0.65);cursor:pointer;white-space:nowrap;transition:all .15s;font-family:'DM Sans',sans-serif;}
+.nav-tab:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.nav-tab.active{background:var(--sr);color:var(--navy);border-color:var(--sr);font-weight:700;}
+.nav-contact{font-size:12px;color:var(--gold-light);white-space:nowrap;font-weight:500;flex-shrink:0;}
+
+.hero{background:var(--navy);position:relative;overflow:hidden;padding:52px 32px 44px;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%,rgba(245,166,35,.15) 0%,transparent 55%),radial-gradient(ellipse at 10% 80%,rgba(0,93,168,.1) 0%,transparent 50%);}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+.hero-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
+@media(max-width:700px){.hero-grid{grid-template-columns:1fr;}.hero-cards{display:none!important;}}
+.hero-eyebrow{font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600;}
+.hero-badge-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+.hero-insurer{background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);border-radius:8px;padding:5px 12px;font-size:.8rem;font-weight:700;color:var(--sr);letter-spacing:.5px;}
+.hero-award{font-size:.72rem;color:rgba(255,255,255,.45);}
+.hero-senior-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.25);border-radius:10px;padding:10px 16px;margin-bottom:14px;}
+.hero-senior-icon{font-size:1.4rem;}
+.hero-senior-txt{font-size:.8rem;color:rgba(255,255,255,.7);line-height:1.4;}
+.hero-senior-txt strong{color:var(--sr-light);}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.4rem);font-weight:700;color:#fff;line-height:1.1;margin-bottom:12px;}
+.hero-title span{color:var(--sr);}
+.hero-tagline{font-size:.95rem;color:rgba(255,255,255,.62);margin-bottom:20px;max-width:500px;line-height:1.6;}
+.hero-chips{display:flex;gap:10px;flex-wrap:wrap;}
+.hchip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 12px;}
+.hchip-val{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--sr);}
+.hchip-txt{font-size:.72rem;color:rgba(255,255,255,.68);line-height:1.3;}
+.hero-cards{display:flex;flex-direction:column;gap:12px;}
+.advisor-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:12px;min-width:240px;transition:all .3s;}
+.advisor-card:hover{background:rgba(255,255,255,.1);border-color:rgba(201,150,58,.4);transform:translateX(4px);}
+.av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:#fff;flex-shrink:0;}
+.av-d{background:linear-gradient(135deg,#1565C0,#0D47A1);box-shadow:0 4px 14px rgba(21,101,192,.45);}
+.av-a{background:linear-gradient(135deg,#C9963A,#8B6320);box-shadow:0 4px 14px rgba(201,150,58,.45);}
+.adv-role{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);}
+.adv-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#fff;}
+.adv-phone{font-size:.82rem;color:#69F0AE;font-weight:600;}
+.adv-email{font-size:.78rem;color:var(--gold-light);}
+
+.important-banner{background:linear-gradient(135deg,var(--sr-dark) 0%,#A16207 100%);padding:13px 32px;}
+.ib-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.ib-icon{font-size:1.4rem;flex-shrink:0;}
+.ib-text{font-size:.85rem;color:#fff;line-height:1.5;}
+
+.stats-bar{background:var(--sr-blue);padding:13px 32px;}
+.stats-inner{max-width:1100px;margin:0 auto;display:flex;gap:28px;flex-wrap:wrap;justify-content:center;}
+.stat-item{color:#fff;text-align:center;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;}
+.stat-lbl{font-size:.7rem;opacity:.82;letter-spacing:.4px;}
+
+.main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 3rem;}
+.section{display:none;}.section.active{display:block;}
+.sec-head{margin-bottom:1.5rem;}
+.sec-eyebrow{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--sr-dark);font-weight:600;margin-bottom:6px;}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--navy);border-bottom:3px solid var(--sr);padding-bottom:8px;margin-bottom:6px;}
+.sec-sub{font-size:.9rem;color:var(--muted);line-height:1.55;max-width:680px;}
+.sec-cat{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sr-dark);margin-bottom:.6rem;margin-top:.5rem;}
+.card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+
+/* ── CO-PAYMENT ALERT ── */
+.copay-alert{background:var(--sr-soft);border:1.5px solid var(--sr-mid);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;}
+.ca-title{font-size:.9rem;font-weight:700;color:var(--sr-dark);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.copay-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:.5rem;}
+.copay-card{background:#fff;border:1px solid var(--sr-mid);border-radius:10px;padding:1rem;text-align:center;}
+.copay-age{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--sr-dark);margin-bottom:4px;}
+.copay-pct{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:var(--sr-dark);}
+.copay-note{font-size:.75rem;color:#92400E;margin-top:3px;line-height:1.4;}
+.copay-calc{background:#fff;border:1px solid var(--sr-mid);border-radius:10px;padding:1rem;margin-top:10px;}
+.calc-title{font-size:.78rem;font-weight:700;color:var(--sr-dark);margin-bottom:.75rem;}
+.calc-row{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted);margin-bottom:5px;}
+.calc-row.total{color:var(--navy);font-weight:700;border-top:1px solid var(--border);padding-top:5px;margin-top:5px;}
+.calc-row.you{color:#D97706;font-weight:700;}
+.calc-row.ins{color:#065F46;font-weight:700;}
+
+/* QUIZ */
+.progress-bar{height:4px;background:var(--border);border-radius:99px;margin-bottom:1.75rem;overflow:hidden;}
+.progress-fill{height:100%;background:var(--sr);border-radius:99px;transition:width .35s;}
+.quiz-step{display:none;}.quiz-step.active{display:block;}
+.q-text{font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:1rem;line-height:1.45;}
+.q-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:520px){.q-options{grid-template-columns:1fr;}}
+.q-opt{padding:.9rem 1.1rem;border:1px solid var(--border);border-radius:10px;font-size:.88rem;color:var(--text);cursor:pointer;text-align:left;background:#fff;transition:all .15s;font-family:'DM Sans',sans-serif;line-height:1.4;}
+.q-opt:hover{border-color:var(--sr);background:var(--sr-soft);}
+.q-opt.selected{border:2px solid var(--sr);background:var(--sr-soft);color:var(--sr-dark);}
+.result-box{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);border-radius:14px;padding:1.75rem;margin-top:1.25rem;}
+.result-eyebrow{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);margin-bottom:8px;}
+.result-plan{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#fff;margin-bottom:8px;}
+.rbadge{display:inline-block;font-size:.72rem;font-weight:700;padding:3px 12px;border-radius:99px;margin-bottom:10px;letter-spacing:.03em;}
+.rb-sr{background:rgba(245,166,35,.2);color:var(--sr);border:1px solid rgba(245,166,35,.35);}
+.rb-blue{background:rgba(0,93,168,.2);color:#6BBAFF;border:1px solid rgba(0,93,168,.35);}
+.rb-green{background:rgba(16,185,129,.15);color:#6ee7b7;border:1px solid rgba(16,185,129,.25);}
+.result-why{font-size:.88rem;color:rgba(255,255,255,.72);line-height:1.75;margin-top:8px;}
+.result-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:1.1rem;}
+.rbtn{font-size:.82rem;font-weight:600;padding:.6rem 1.2rem;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.rbtn:hover{background:rgba(255,255,255,.15);}
+.rbtn-p{background:var(--sr);color:var(--navy);border-color:var(--sr);}
+.rbtn-p:hover{background:var(--sr-dark);}
+
+/* BENEFITS */
+.ben-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:10px;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.ben-card:hover{border-color:var(--sr);box-shadow:0 4px 16px rgba(245,166,35,.1);}
+.ben-card.open{border-color:var(--sr);}
+.ben-hdr{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.ben-left{flex:1;}
+.bbadge{display:inline-block;font-size:.68rem;font-weight:700;padding:2px 10px;border-radius:99px;margin-bottom:5px;letter-spacing:.04em;}
+.bb-sr{background:#fff5e6;color:var(--sr-dark);}
+.bb-blue{background:#e6f0fb;color:#005DA8;}
+.bb-green{background:#ecfdf5;color:#065F46;}
+.bb-teal{background:#e8f6f7;color:#0D5E64;}
+.bb-red{background:#fff0f0;color:#991B1B;}
+.bb-purple{background:#f0eeff;color:#5B21B6;}
+.bb-gray{background:#f8f7f5;color:#444;}
+.ben-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--navy);}
+.ben-sub{font-size:.82rem;color:var(--muted);margin-top:2px;}
+.ben-arrow{font-size:13px;color:var(--muted);transition:transform .2s;flex-shrink:0;}
+.ben-card.open .ben-arrow{transform:rotate(180deg);}
+.ben-detail{display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);}
+.ben-card.open .ben-detail{display:block;}
+.ben-detail p{font-size:.875rem;color:var(--muted);line-height:1.75;margin-bottom:.85rem;}
+.chips-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:.5rem;}
+.chip{font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--cream);color:var(--muted);border:1px solid var(--border);}
+
+/* SUB-LIMIT TABLE */
+.si-table{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:.75rem;}
+.si-table th{text-align:left;font-weight:700;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--border);background:var(--cream);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;}
+.si-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text);}
+.si-table tr:hover td{background:#fffbf0;}
+.si-table td:not(:first-child){text-align:center;}
+.si-table th:not(:first-child){text-align:center;}
+.hl-row td{font-weight:700;background:var(--sr-soft)!important;color:var(--sr-dark);}
+
+/* HEALTH CHECKUP GRID */
+.checkup-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:.75rem;}
+.checkup-card{background:#fff;border:1px solid var(--border);border-radius:8px;padding:.75rem 1rem;text-align:center;font-size:.82rem;font-weight:600;color:var(--navy);border-top:3px solid var(--sr);}
+
+/* SIMULATOR */
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:1.25rem;}
+.sc-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1rem;cursor:pointer;transition:all .15s;}
+.sc-card:hover{border-color:var(--sr);}
+.sc-card.active{border:2px solid var(--sr);background:var(--sr-soft);}
+.sc-title{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.sc-card.active .sc-title{color:var(--sr-dark);}
+.sc-sub{font-size:.75rem;color:var(--muted);line-height:1.4;}
+.flow-row{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}
+.flow-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0;}
+.fn-base{background:#EFF6FF;color:#1D4ED8;}
+.fn-ncb{background:#FFF5E6;color:#D4880A;}
+.fn-rech{background:#ECFDF5;color:#065F46;}
+.fn-cop{background:var(--sr-soft);color:var(--sr-dark);}
+.fn-sub{background:#f0eeff;color:#5B21B6;}
+.flow-body{flex:1;}
+.flow-lbl{font-size:.875rem;font-weight:700;color:var(--navy);}
+.flow-desc{font-size:.78rem;color:var(--muted);margin-top:3px;line-height:1.45;}
+.flow-amt{font-size:1.1rem;font-weight:700;margin-top:6px;color:#065F46;}
+.flow-amt.red{color:#991B1B;}
+.bar-wrap{height:12px;background:var(--cream);border-radius:99px;overflow:hidden;margin-top:6px;}
+.bar-fill{height:100%;border-radius:99px;transition:width .55s ease;}
+.b-blue{background:#378ADD;}
+.b-sr{background:var(--sr);}
+.b-green{background:#1D9E75;}
+.b-red{background:#E24B4A;}
+
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:1rem 0;}
+.metric{background:var(--cream);border-radius:10px;padding:.85rem 1rem;border:1px solid var(--border);}
+.metric-lbl{font-size:.72rem;color:var(--muted);margin-bottom:4px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;}
+.metric-val{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:var(--navy);}
+.metric-val.green{color:#065F46;}
+.metric-val.amber{color:var(--sr-dark);}
+.metric-val.red{color:#991B1B;}
+.metric-hint{font-size:.72rem;color:var(--muted);margin-top:2px;}
+
+.slider-row{display:flex;align-items:center;gap:14px;margin-bottom:1.1rem;flex-wrap:wrap;}
+.slider-lbl{font-size:.875rem;color:var(--muted);min-width:130px;font-weight:500;}
+.slider-val{font-size:.9rem;font-weight:700;color:var(--navy);min-width:70px;text-align:right;}
+input[type=range]{flex:1;min-width:120px;height:4px;accent-color:var(--sr);cursor:pointer;}
+select{flex:1;min-width:200px;font-size:.875rem;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--text);cursor:pointer;font-family:'DM Sans',sans-serif;}
+.chart-wrap{position:relative;width:100%;height:280px;margin-top:1.25rem;}
+.legend-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:1rem;font-size:.82rem;color:var(--muted);}
+.leg-item{display:flex;align-items:center;gap:6px;}
+.leg-dot{width:12px;height:12px;border-radius:3px;display:inline-block;flex-shrink:0;}
+
+.wait-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:1rem;}
+.wait-card{background:#fff;border-radius:10px;padding:1rem 1rem 1rem 1.1rem;border:1px solid var(--border);border-left:4px solid;}
+.wc-sr{border-left-color:var(--sr);}
+.wc-red{border-left-color:#DC2626;}
+.wc-blue{border-left-color:var(--sr-blue);}
+.wc-green{border-left-color:#059669;}
+.wc-teal{border-left-color:#0D9488;}
+.wc-gray{border-left-color:#94a3b8;}
+.wc-purple{border-left-color:#7C3AED;}
+.wait-type{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:5px;}
+.wait-period{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--navy);}
+.wait-note{font-size:.78rem;color:var(--muted);margin-top:5px;line-height:1.45;}
+.warn-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #f59e0b;border-radius:12px;padding:1.25rem;margin-top:1rem;}
+.warn-title{font-size:.9rem;font-weight:700;color:#92400E;margin-bottom:5px;}
+.warn-body{font-size:.82rem;color:#92400E;line-height:1.7;}
+.sr-box{background:var(--sr-soft);border:1px solid var(--sr-mid);border-radius:12px;padding:1.25rem;margin-top:1rem;}
+.sr-title{font-size:.9rem;font-weight:700;color:var(--sr-dark);margin-bottom:5px;}
+.sr-body{font-size:.82rem;color:#92400E;line-height:1.7;}
+
+.agent-footer{background:var(--navy);padding:28px 32px;border-top:2px solid rgba(245,166,35,.25);margin-top:2rem;}
+.af-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.af-brand{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--gold-light);}
+.af-address{font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.7;margin-top:3px;}
+.af-contacts{display:flex;gap:24px;flex-wrap:wrap;}
+.af-person{text-align:center;}
+.af-role{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.35);margin-bottom:2px;}
+.af-pname{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#fff;}
+.af-phone{font-size:.85rem;color:#69F0AE;font-weight:600;}
+.af-email{font-size:.75rem;color:var(--gold-light);}
+.af-copy{font-size:.68rem;color:rgba(255,255,255,.25);margin-top:6px;}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="nav-brand">Sonis Insurance</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('quiz')">Find my plan</button>
+    <button class="nav-tab" onclick="showTab('benefits')">Benefits</button>
+    <button class="nav-tab" onclick="showTab('simulator')">Claim simulator</button>
+    <button class="nav-tab" onclick="showTab('growth')">SI growth</button>
+    <button class="nav-tab" onclick="showTab('waiting')">Waiting periods</button>
+  </div>
+  <div class="nav-contact">📞 98509 77528</div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">Sonis Professional Insurance Services · Ichalkaranji</div>
+        <div class="hero-badge-row">
+          <span class="hero-insurer">Care Health Insurance</span>
+          <span class="hero-award">Claims Service Leader of the Year 2024</span>
+        </div>
+        <div class="hero-senior-badge">
+          <span class="hero-senior-icon">🧓</span>
+          <span class="hero-senior-txt"><strong>Exclusively for senior citizens aged 60+</strong><br>Affordable health insurance designed for our beloved elders — no upper age limit, lifelong renewable</span>
+        </div>
+        <div class="hero-title">Senior Health <span>Advantage</span></div>
+        <div class="hero-tagline">Purpose-built for seniors. No upper age limit, lifelong renewability, annual health check-up from Day 1, and a plan designed around the realities of senior healthcare needs.</div>
+        <div class="hero-chips">
+          <div class="hchip"><div class="hchip-val">60+</div><div class="hchip-txt">Age 60 minimum<br>no upper limit</div></div>
+          <div class="hchip"><div class="hchip-val">∞</div><div class="hchip-txt">Lifelong<br>renewability</div></div>
+          <div class="hchip"><div class="hchip-val">10%</div><div class="hchip-txt">NCB per year<br>max 50%</div></div>
+          <div class="hchip"><div class="hchip-val">Day 1</div><div class="hchip-txt">Health check-up<br>from Year 1</div></div>
+        </div>
+      </div>
+      <div class="hero-cards">
+        <div class="advisor-card">
+          <div class="av av-d">D</div>
+          <div>
+            <div class="adv-role">Senior Advisor</div>
+            <div class="adv-name">Dattatray Pujari</div>
+            <div class="adv-phone">📞 93253 77528</div>
+          </div>
+        </div>
+        <div class="advisor-card">
+          <div class="av av-a">A</div>
+          <div>
+            <div class="adv-role">Founder &amp; Advisor</div>
+            <div class="adv-name">Archana Soni</div>
+            <div class="adv-phone">📞 98509 77528</div>
+            <div class="adv-email">archanasonis@gmail.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="important-banner">
+  <div class="ib-inner">
+    <span class="ib-icon">⚠️</span>
+    <div class="ib-text"><strong>Co-payment applies on all claims:</strong> 50% co-payment for insured up to age 70. An additional 10% applies after age 70 (total 60%). This is the most critical feature to understand before buying. All claim scenarios below show the actual amounts you pay vs the insurer pays.</div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-num">60+</div><div class="stat-lbl">Minimum age</div></div>
+    <div class="stat-item"><div class="stat-num">∞</div><div class="stat-lbl">No upper age limit</div></div>
+    <div class="stat-item"><div class="stat-num">50%</div><div class="stat-lbl">Co-pay up to 70</div></div>
+    <div class="stat-item"><div class="stat-num">60%</div><div class="stat-lbl">Co-pay above 70</div></div>
+    <div class="stat-item"><div class="stat-num">24 mo</div><div class="stat-lbl">PED wait (optional)</div></div>
+    <div class="stat-item"><div class="stat-num">Day 1</div><div class="stat-lbl">Health check-up</div></div>
+  </div>
+</div>
+
+<main class="main">
+
+<!-- ═══ TAB 1: FIND MY PLAN ═══ -->
+<div id="tab-quiz" class="section active">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Senior Health Advantage · Personalised Guide</div>
+    <div class="sec-title">Find the right plan for you</div>
+    <div class="sec-sub">Senior Health Advantage is specifically designed for those aged 60 and above. Answer these questions to find the most suitable configuration for your situation.</div>
+  </div>
+
+  <div class="copay-alert" style="margin-bottom:1.25rem">
+    <div class="ca-title">⚠️ The most important fact — understand co-payment first</div>
+    <div class="copay-grid">
+      <div class="copay-card">
+        <div class="copay-age">Age 60 to 70 years</div>
+        <div class="copay-pct">50%</div>
+        <div class="copay-note">You pay 50% of every admissible claim. Insurer pays 50%. Optional cover.</div>
+      </div>
+      <div class="copay-card">
+        <div class="copay-age">Age above 70 years</div>
+        <div class="copay-pct">60%</div>
+        <div class="copay-note">Additional 10% applies. You pay 60% of every claim. Insurer pays 40%.</div>
+      </div>
+    </div>
+    <div class="copay-calc">
+      <div class="calc-title">Example: ₹2 lakh hospitalisation claim</div>
+      <div class="calc-row"><span>Total admissible claim</span><span>₹2,00,000</span></div>
+      <div class="calc-row you"><span>You pay (50% co-pay, age ≤70)</span><span>₹1,00,000</span></div>
+      <div class="calc-row ins"><span>Insurer pays</span><span>₹1,00,000</span></div>
+      <div style="height:1px;background:var(--border);margin:6px 0;"></div>
+      <div class="calc-row you"><span>You pay (60% co-pay, age &gt;70)</span><span>₹1,20,000</span></div>
+      <div class="calc-row ins"><span>Insurer pays</span><span>₹80,000</span></div>
+    </div>
+    <div style="font-size:.78rem;color:#92400E;margin-top:.75rem;padding:.6rem .75rem;background:rgba(245,166,35,.08);border-radius:8px;border-left:3px solid var(--sr)">
+      Despite the co-payment, Senior Health Advantage is often the <strong>only plan available</strong> for seniors above 70 with pre-existing conditions. The alternative — no cover at all — means paying 100% of every claim yourself. The insurer still contributes 40–50% of every claim.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="progress-bar"><div class="progress-fill" id="qprog" style="width:0%"></div></div>
+    <div class="quiz-step active" id="qs-0">
+      <div class="q-text">1. What is the age of the senior to be insured?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(0,'60_65')">60 to 65 years</button>
+        <button class="q-opt" onclick="pickQ(0,'65_70')">65 to 70 years</button>
+        <button class="q-opt" onclick="pickQ(0,'70_75')">70 to 75 years</button>
+        <button class="q-opt" onclick="pickQ(0,'75plus')">Above 75 years</button>
+      </div>
+    </div>
+    <div class="quiz-step" id="qs-1">
+      <div class="q-text">2. Does the senior have any pre-existing conditions (BP, Diabetes, Heart condition, Kidney issues, Cancer etc.)?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(1,'multi')">Yes — multiple conditions</button>
+        <button class="q-opt" onclick="pickQ(1,'one')">Yes — one condition (controlled)</button>
+        <button class="q-opt" onclick="pickQ(1,'no')">No known pre-existing conditions</button>
+        <button class="q-opt" onclick="pickQ(1,'unsure')">Possibly — not confirmed</button>
+      </div>
+    </div>
+    <div class="quiz-step" id="qs-2">
+      <div class="q-text">3. Is this policy for just one person or for a couple (both aged 60+)?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(2,'solo')">Just for me (individual)</button>
+        <button class="q-opt" onclick="pickQ(2,'couple')">Self + spouse — both above 60</button>
+        <button class="q-opt" onclick="pickQ(2,'multi_ind')">Multiple seniors — separate SI each</button>
+        <button class="q-opt" onclick="pickQ(2,'family')">Buying for my elderly parent(s)</button>
+      </div>
+    </div>
+    <div class="quiz-step" id="qs-3">
+      <div class="q-text">4. What sum insured are you considering?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(3,'5l')">₹5 lakh — keep premium affordable</button>
+        <button class="q-opt" onclick="pickQ(3,'10l')">₹10 lakh — higher coverage</button>
+        <button class="q-opt" onclick="pickQ(3,'unsure')">Not sure — need guidance</button>
+        <button class="q-opt" onclick="pickQ(3,'both')">One at ₹5L and one at ₹10L</button>
+      </div>
+    </div>
+    <div class="quiz-step" id="qs-4">
+      <div class="q-text">5. Is the senior already covered under any other health policy?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(4,'corp')">Yes — corporate group cover from son/daughter's employer</button>
+        <button class="q-opt" onclick="pickQ(4,'existing')">Yes — existing retail health policy</button>
+        <button class="q-opt" onclick="pickQ(4,'none')">No other cover at all</button>
+        <button class="q-opt" onclick="pickQ(4,'pmjay')">Only Ayushman Bharat / PMJAY</button>
+      </div>
+    </div>
+    <div id="quiz-result" style="display:none">
+      <div style="height:1px;background:var(--border);margin:1.25rem 0;"></div>
+      <div class="result-box">
+        <div class="result-eyebrow">Our recommendation for you</div>
+        <div class="result-plan" id="rec-plan">Senior Health Advantage</div>
+        <span class="rbadge" id="rec-badge"></span>
+        <div class="result-why" id="rec-why"></div>
+        <div class="result-btns">
+          <button class="rbtn rbtn-p" onclick="showTab('benefits')">Explore all benefits</button>
+          <button class="rbtn" onclick="showTab('simulator')">Simulate a claim</button>
+          <button class="rbtn" onclick="resetQuiz()">Retake</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB 2: BENEFITS ═══ -->
+<div id="tab-benefits" class="section">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Senior Health Advantage · Complete Feature Guide</div>
+    <div class="sec-title">All benefits — explained simply</div>
+    <div class="sec-sub">Senior Health Advantage is built around affordability for seniors. Every benefit below is accompanied by honest notes on sub-limits and co-payment implications.</div>
+  </div>
+
+  <div class="copay-alert" style="margin-bottom:1rem">
+    <div class="ca-title" style="margin-bottom:4px">⚠️ Co-payment reminder — applies to every benefit below</div>
+    <div style="font-size:.82rem;color:#92400E;line-height:1.6;">50% co-payment (age ≤70) or 60% co-payment (age &gt;70) is deducted from every admissible claim settlement. All benefit amounts shown below are before co-payment. Your actual receipt from the insurer will be 50% or 40% of the admissible amount respectively.</div>
+  </div>
+
+  <div class="sec-cat">Core inbuilt benefits</div>
+  <div id="ben-core"></div>
+  <div class="sec-cat" style="margin-top:.75rem">Coverage features &amp; important restrictions</div>
+  <div id="ben-coverage"></div>
+
+  <div class="sec-cat" style="margin-top:.75rem">Sub-limits on specified diseases — both SI options</div>
+  <div style="overflow-x:auto">
+    <table class="si-table">
+      <thead>
+        <tr><th>Disease / Procedure</th><th>₹5L SI</th><th>₹10L SI</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Cataract (per eye)</td><td>₹40,000</td><td>₹40,000</td></tr>
+        <tr class="hl-row"><td>Total knee replacement (per knee)</td><td>₹1,00,000</td><td>₹1,20,000</td></tr>
+        <tr><td>Cerebrovascular accident &amp; cardiovascular diseases</td><td>₹2,00,000</td><td>₹2,50,000</td></tr>
+        <tr><td>Cancer (incl. chemotherapy / radiotherapy)</td><td>₹2,00,000</td><td>₹2,50,000</td></tr>
+        <tr class="hl-row"><td>Medical renal diseases (incl. dialysis)</td><td>₹2,00,000</td><td>₹2,50,000</td></tr>
+        <tr><td>Treatment of breakage of long bones</td><td>₹2,00,000</td><td>₹2,50,000</td></tr>
+        <tr><td>Surgeon / Specialist / Consultant fees</td><td colspan="2">Max 25% of SI per hospitalisation</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="font-size:.75rem;color:var(--muted);margin-top:.6rem;line-height:1.6">All sub-limit amounts are before co-payment deduction. Actual insurer payment = sub-limit × (50% or 40%). Sub-limits are total inclusive of pre-hospitalisation, hospitalisation and post-hospitalisation for that condition in the policy year.</div>
+
+  <div class="sec-cat" style="margin-top:.75rem">Annual health check-up — test panel (from Day 1)</div>
+  <div class="checkup-grid">
+    <div class="checkup-card">Complete Blood Count with ESR</div>
+    <div class="checkup-card">Urine Routine</div>
+    <div class="checkup-card">Blood Group</div>
+    <div class="checkup-card">Fasting Blood Sugar</div>
+    <div class="checkup-card">Lipid Profile</div>
+    <div class="checkup-card">Kidney Function Test</div>
+    <div class="checkup-card">ECG</div>
+  </div>
+  <div style="font-size:.78rem;color:var(--muted);margin-top:.6rem;line-height:1.6">Available cashless at Care Health network labs from Day 1 (Year 1). Book via Care Health mobile app or partner portal. No co-payment on health check-up benefit.</div>
+</div>
+
+<!-- ═══ TAB 3: CLAIM SIMULATOR ═══ -->
+<div id="tab-simulator" class="section">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Senior Health Advantage · Real-Life Scenarios</div>
+    <div class="sec-title">Claim simulator — your money, traced clearly</div>
+    <div class="sec-sub">Every scenario below shows the full picture including co-payment, sub-limits and what the insurer actually pays. No surprises.</div>
+  </div>
+  <div class="sc-grid" id="sc-grid"></div>
+  <div class="card" id="sim-output" style="min-height:220px"></div>
+</div>
+
+<!-- ═══ TAB 4: SI GROWTH ═══ -->
+<div id="tab-growth" class="section">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Senior Health Advantage · NCB Growth Chart</div>
+    <div class="sec-title">How your coverage grows with No Claim Bonus</div>
+    <div class="sec-sub">Senior Health Advantage's NCB adds 10% of base SI for every claim-free year up to a maximum of 50%. This is an optional cover. The NCB reduces by 10% if a claim is made — but the base SI never falls below the original.</div>
+  </div>
+  <div class="card">
+    <div class="slider-row">
+      <span class="slider-lbl">Base sum insured</span>
+      <input type="range" min="5" max="10" step="5" value="5" id="g-si" oninput="renderChart()">
+      <span class="slider-val" id="g-si-out">₹5 L</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-lbl">Your age</span>
+      <select id="g-age" onchange="renderChart()">
+        <option value="50">Age 60–70 (50% co-payment)</option>
+        <option value="60">Age above 70 (60% co-payment)</option>
+      </select>
+      <span style="min-width:0"></span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-lbl">Claim pattern</span>
+      <select id="g-plan" onchange="renderChart()">
+        <option value="noclaim">No claims — maximum NCB growth</option>
+        <option value="oneclaim">One claim in Year 3</option>
+        <option value="alternate">Alternate year claims</option>
+      </select>
+      <span style="min-width:0"></span>
+    </div>
+    <div class="chart-wrap"><canvas id="growth-chart" role="img" aria-label="Bar chart showing Senior Health Advantage SI and NCB growth over years with insurer payment after co-payment."></canvas></div>
+    <div class="legend-row" id="growth-legend"></div>
+    <div class="metric-grid" id="growth-metrics" style="margin-top:1.25rem"></div>
+    <div style="font-size:.78rem;color:var(--muted);margin-top:.75rem;line-height:1.6;padding:.75rem;background:var(--cream);border-radius:8px;border:1px solid var(--border)">
+      <strong>NCB rules:</strong> +10% of base SI per claim-free year (max 50%). If a claim is paid, NCB reduces by 10% of base SI — but total SI never falls below the original base SI. Co-payment applies on every claim regardless of NCB status. NCB is an optional cover.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB 5: WAITING PERIODS ═══ -->
+<div id="tab-waiting" class="section">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Senior Health Advantage · What You Must Know</div>
+    <div class="sec-title">Waiting periods — complete senior guide</div>
+    <div class="sec-sub">Senior Health Advantage has a 24-month PED wait as an optional cover — significantly better than many senior plans. Here is every waiting period and restriction clearly explained.</div>
+  </div>
+
+  <div class="card">
+    <div class="wait-grid">
+      <div class="wait-card wc-sr">
+        <div class="wait-type">Initial waiting period</div>
+        <div class="wait-period">30 days</div>
+        <div class="wait-note">No illness claims in the first 30 days. Accidents are always exempt. Waived on portability if prior continuous coverage exceeds 12 months.</div>
+      </div>
+      <div class="wait-card wc-blue">
+        <div class="wait-type">Named ailments wait period</div>
+        <div class="wait-period">24 months</div>
+        <div class="wait-note">Specific listed conditions — cataract, hernia, joint replacement, BPH, gallstones, kidney stones and more — excluded for 2 years. Portability credit reduces this.</div>
+      </div>
+      <div class="wait-card wc-red">
+        <div class="wait-type">Pre-existing diseases (PED)</div>
+        <div class="wait-period">24 months*</div>
+        <div class="wait-note">PED wait is an optional cover (additional premium). With it, all pre-existing conditions are covered after 24 months. Without this optional cover, PED may remain excluded permanently — ask your advisor.</div>
+      </div>
+      <div class="wait-card wc-sr">
+        <div class="wait-type">Co-payment (age ≤70)</div>
+        <div class="wait-period">50% forever</div>
+        <div class="wait-note">50% co-payment is mandatory and permanent for insured up to age 70. This is an optional cover that must be opted. It applies from Day 1, every claim, throughout the policy.</div>
+      </div>
+      <div class="wait-card wc-red">
+        <div class="wait-type">Co-payment (age &gt;70)</div>
+        <div class="wait-period">60% forever</div>
+        <div class="wait-note">An additional 10% co-payment applies once the insured crosses age 70. Total co-payment becomes 60%. This additional 10% is also an optional cover. Cannot be waived.</div>
+      </div>
+      <div class="wait-card wc-green">
+        <div class="wait-type">Annual health check-up</div>
+        <div class="wait-period">Available Day 1</div>
+        <div class="wait-note">Health check-up available from Year 1 itself — no waiting period. CBC, urine, FBS, lipid profile, KFT, ECG covered cashless at network labs on advance booking.</div>
+      </div>
+      <div class="wait-card wc-teal">
+        <div class="wait-type">Moratorium period</div>
+        <div class="wait-period">60 months</div>
+        <div class="wait-note">After 5 continuous years of coverage, no claim can be contested on grounds of non-disclosure — except proven fraud. The most important long-term protection for seniors.</div>
+      </div>
+      <div class="wait-card wc-gray">
+        <div class="wait-type">Portability credit</div>
+        <div class="wait-period">Carry forward</div>
+        <div class="wait-note">Waiting periods served with a previous insurer are credited here under IRDAI portability rules. Apply at least 30 days before current policy renewal. NCB may also transfer.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sr-box">
+    <div class="sr-title">🧓 Key insight for families insuring elderly parents</div>
+    <div class="sr-body">
+      <strong>Why Senior Health Advantage despite the 50–60% co-payment?</strong><br><br>
+      Most standard health plans will either refuse seniors above 65–70, or impose very high loading on premium, or exclude all pre-existing conditions permanently. Senior Health Advantage accepts seniors with no upper age limit and covers PED after just 24 months (optional cover).<br><br>
+      The co-payment is not a punishment — it is the mechanism that makes premium affordable. A 50% insurer contribution on a ₹5L hospitalisation still means ₹2.5L relief. Without any policy, the family pays 100% themselves.<br><br>
+      <strong>Recommendation:</strong> Pair Senior Health Advantage with a personal health corpus of ₹1–2L for your co-payment portion. The insurer covers the rest. Your Sonis advisor can help structure this appropriately.
+    </div>
+  </div>
+
+  <div class="warn-box" style="margin-top:1rem">
+    <div class="warn-title">Optional covers — understand what you are buying</div>
+    <div class="warn-body">Several benefits marked with (*) in this plan are optional covers that must be specifically opted and paid for. These include: PED wait period cover, NCB, co-payment (yes — even the co-payment option must be opted), room rent, ICU charges, advance technology methods and pre/post-hospitalisation. Confirm with your Sonis advisor exactly which optional covers are included in the plan you are buying so there is no gap in coverage at claim time.</div>
+  </div>
+</div>
+
+</main>
+
+<footer class="agent-footer">
+  <div class="af-inner">
+    <div>
+      <div class="af-brand">Sonis Professional Insurance Services</div>
+      <div class="af-address">10/306/1, Sarvoday Nagar, Near Hirkani Hotel, "Gokul", Ichalkaranji — 416115<br>Your trusted health insurance partner across Ichalkaranji &amp; Kolhapur district</div>
+      <div class="af-copy" style="margin-top:8px">© 2026 Sonis Professional Insurance Services · All Rights Reserved</div>
+    </div>
+    <div class="af-contacts">
+      <div class="af-person">
+        <div class="af-role">Senior Advisor</div>
+        <div class="af-pname">Dattatray Pujari</div>
+        <div class="af-phone">📞 93253 77528</div>
+      </div>
+      <div class="af-person">
+        <div class="af-role">Founder &amp; Advisor</div>
+        <div class="af-pname">Archana Soni</div>
+        <div class="af-phone">📞 98509 77528</div>
+        <div class="af-email">archanasonis@gmail.com</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+var tabs=['quiz','benefits','simulator','growth','waiting'];
+function showTab(id){
+  tabs.forEach(function(t){document.getElementById('tab-'+t).classList.remove('active');});
+  document.querySelectorAll('.nav-tab').forEach(function(b,i){b.classList.toggle('active',tabs[i]===id);});
+  document.getElementById('tab-'+id).classList.add('active');
+  if(id==='growth')setTimeout(renderChart,80);
+  if(id==='benefits')renderBenefits();
+  if(id==='simulator')initSim();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+var qa={},cq=0;
+function pickQ(qi,val){
+  qa[qi]=val;
+  document.querySelectorAll('#qs-'+qi+' .q-opt').forEach(function(b){b.classList.remove('selected');});
+  event.currentTarget.classList.add('selected');
+  setTimeout(function(){
+    if(qi<4){document.getElementById('qs-'+qi).classList.remove('active');cq=qi+1;document.getElementById('qs-'+cq).classList.add('active');document.getElementById('qprog').style.width=Math.round(((qi+1)/5)*100)+'%';}
+    else{document.getElementById('qprog').style.width='100%';showResult();}
+  },230);
+}
+function showResult(){
+  document.querySelectorAll('.quiz-step').forEach(function(s){s.classList.remove('active');});
+  var a=qa,plan,badge,bclass,why;
+  var age=a[0];var si=a[3]==='10l'?10:5;
+  var copay=age==='70_75'||age==='75plus'?'60%':'50%';
+  var insurer=age==='70_75'||age==='75plus'?'40%':'50%';
+
+  if(age==='75plus'){
+    plan='Senior Health Advantage — ₹10L SI (strongly recommended at 75+)';badge='High-age pick';bclass='rb-sr';
+    why='At age above 75, the co-payment is 60% of every claim. To keep the insurer\'s contribution meaningful in absolute terms, the higher SI of ₹10L is strongly recommended. On a ₹5L claim at ₹10L SI: the insurer pays ₹2L (40% of ₹5L). At ₹5L SI, the insurer pays ₹2L too — but your effective sub-limits on cancer, renal and cardiovascular treatment are lower at ₹2L vs ₹2.5L. Every rupee of sub-limit matters at this age.';
+  } else if(a[1]==='multi'||a[1]==='one'){
+    plan='Senior Health Advantage — ₹'+si+'L SI + PED optional cover';badge='Pre-existing condition pick';bclass='rb-blue';
+    why='With pre-existing conditions, the most critical optional cover to include is the PED Wait Period cover. Without it, pre-existing conditions may remain excluded permanently. With it, all pre-existing conditions are covered after 24 months — a 2-year wait. At '+copay+' co-payment, the insurer contributes '+insurer+' of every post-PED claim. This is still far better than zero coverage.';
+  } else if(a[2]==='couple'){
+    plan='Senior Health Advantage — Floater, ₹'+si+'L SI (both insured)';badge='Couple plan';bclass='rb-green';
+    why='The floater option covers both spouses under one SI of ₹'+si+'L. If one partner is in the lower age bracket (≤70) and the other above 70, be aware that different co-payment rates may apply per insured at time of claim. The NCB grows on the floater SI as a whole. Annual health check-up is available for both insured members from Day 1.';
+  } else if(a[4]==='corp'||a[4]==='existing'){
+    plan='Senior Health Advantage — ₹5L SI as top-up / parallel cover';badge='Complementary cover';bclass='rb-sr';
+    why='If the senior already has some cover, Senior Health Advantage at ₹5L SI works as an additional layer. The annual health check-up from Day 1 is a standalone value even if the rest of the cover is modest. NCB grows the SI from ₹5L to ₹7.5L over 5 claim-free years. The '+copay+' co-payment remains the key consideration.';
+  } else {
+    plan='Senior Health Advantage — ₹'+si+'L SI';badge='Standard senior pick';bclass='rb-sr';
+    why='Senior Health Advantage at ₹'+si+'L SI is the most accessible health plan for a senior aged 60+. No upper age limit, lifelong renewable, annual health check-up from Day 1, and NCB that grows the SI by 10%/year. Co-payment is '+copay+' — the insurer pays '+insurer+' of every admissible claim. Budget ₹50,000–₹1,00,000 as a personal co-pay reserve to handle your share of claims. Your Sonis advisor will walk through the exact optional covers to include.';
+  }
+  document.getElementById('rec-plan').textContent=plan;
+  var b=document.getElementById('rec-badge');b.className='rbadge '+bclass;b.textContent=badge;
+  document.getElementById('rec-why').textContent=why;
+  document.getElementById('quiz-result').style.display='block';
+}
+function resetQuiz(){
+  qa={};cq=0;document.getElementById('quiz-result').style.display='none';document.getElementById('qprog').style.width='0%';
+  document.querySelectorAll('.quiz-step').forEach(function(s,i){s.classList.toggle('active',i===0);s.querySelectorAll('.q-opt').forEach(function(b){b.classList.remove('selected');});});
+}
+
+var coreBens=[
+  {badge:'bb-blue',bname:'In-patient care — hospitalisation up to SI',sub:'Room, nursing, ICU, surgery, doctor fees — all covered',
+   detail:'Care covers all in-patient hospitalisation expenses up to the sum insured — room charges, nursing, ICU, surgeon fees, doctor fees, anaesthesia, blood, oxygen and OT charges.\n\nCritical restrictions for Senior Health Advantage:\n(1) Room Rent (optional): Twin Sharing Room only. If a higher room is taken, proportionate deduction applies on all associated expenses.\n(2) ICU Charges (optional): Up to 2% of SI per day.\n(3) Surgeon / Specialist / Consultant Fees: Capped at maximum 25% of SI per hospitalisation — this is the most impactful sub-limit to plan for.\n(4) Co-payment: 50% (age ≤70) or 60% (age >70) on the admissible claim after all sub-limit adjustments.',
+   chips:['Up to SI','Room: Twin sharing (optional cover)','ICU: max 2% of SI/day (optional)','Surgeon/specialist: max 25% of SI','50%/60% co-payment on all claims']},
+  {badge:'bb-sr',bname:'No Claim Bonus — 10% per claim-free year (optional)',sub:'SI grows by 10% every year you do not claim, up to 50%',
+   detail:'NCB is an optional cover that adds 10% of base SI at each renewal in which no claim is made. It accumulates to a maximum of 50% of the base SI (5 claim-free years).\n\nOn ₹5L base SI: Year 1 = ₹5.5L, Year 3 = ₹6.5L, Year 5 = ₹7.5L (maximum).\nOn ₹10L base SI: Year 5 = ₹15L at maximum NCB.\n\nIf a claim is made: NCB reduces by 10% of base SI. But the total SI never falls below the original base SI. NCB must be opted as an additional cover when buying the policy.',
+   chips:['10% added per claim-free year','Max 50% of base SI','Reduces 10% if claim made','Base SI never falls below original','Must be opted as additional cover']},
+  {badge:'bb-green',bname:'Annual health check-up — from Day 1',sub:'7 tests cashless at network labs — no waiting, no co-payment',
+   detail:'Senior Health Advantage includes an annual health check-up available from Day 1 — Year 1 onwards with no waiting period. It covers 7 essential tests on cashless basis at Care Health network labs.\n\nTest panel: Complete Blood Count with ESR, Urine Routine, Blood Group, Fasting Blood Sugar, Lipid Profile, Kidney Function Test and ECG. These are the most relevant tests for seniors monitoring common age-related conditions.\n\nImportant: Available on advance booking only — through Care Health mobile app or partner portal. No co-payment applies on this benefit.',
+   chips:['Available from Year 1 — no wait','7 tests cashless at network labs','CBC, FBS, Lipid, KFT, ECG covered','Advance booking via app required','No co-payment on this benefit']},
+  {badge:'bb-sr',bname:'No Claim Bonus — calculator',sub:'Grow your effective SI over claim-free years',
+   detail:'Think of NCB as your reward for staying healthy. Each claim-free year adds ₹50,000 (10% of ₹5L) or ₹1,00,000 (10% of ₹10L) to your coverage — at no extra premium. After 5 consecutive claim-free years the maximum NCB is reached and the SI stabilises.\n\nEven if one claim is made in Year 3, the NCB does not reset to zero — it reduces by just 10% (one step back). The NCB can then be rebuilt in subsequent claim-free years.',
+   chips:['₹5L SI: max NCB ₹2.5L (reaches ₹7.5L)','₹10L SI: max NCB ₹5L (reaches ₹15L)','NCB is step-wise — not all-or-nothing','One bad year only steps back one notch','Explore the growth chart tab for visuals']},
+];
+
+var coverageBens=[
+  {badge:'bb-teal',bname:'Day care treatments — all procedures covered',sub:'Less than 24-hour hospitalisations — no minimum stay',
+   detail:'All listed day care treatments that require hospitalisation for less than 24 hours are covered up to the sum insured. This is important for seniors who need procedures like cataract surgery, chemotherapy sittings, dialysis or angiography.\n\nSub-limits still apply to specific conditions (cataract, cancer etc.) even when treated as day care. Co-payment also applies to day care claims at the same 50%/60% rate.',
+   chips:['All day care procedures covered','Up to SI (before sub-limits)','Co-payment applies','Cataract sub-limit: ₹40,000 per eye','Cancer chemotherapy: ₹2L/₹2.5L annual limit']},
+  {badge:'bb-teal',bname:'AYUSH treatment — up to sum insured',sub:'Ayurveda, Yoga, Homeopathy and other systems covered',
+   detail:'AYUSH inpatient treatment is covered up to the sum insured. All 5 AYUSH systems are covered — Ayurveda, Yoga and Naturopathy, Unani, Siddha and Homeopathy. Must be at a recognised AYUSH hospital. Inpatient care only.\n\nCo-payment applies to AYUSH claims as well. Many seniors prefer AYUSH treatment for joint conditions, digestive ailments and general recovery — this coverage is meaningful for that demographic.',
+   chips:['Up to SI','All 5 AYUSH systems','Recognised hospital required','Inpatient only','Co-payment applies']},
+  {badge:'bb-teal',bname:'Domiciliary hospitalisation — up to sum insured',sub:'Home treatment when admission is impossible',
+   detail:'Domiciliary hospitalisation is covered up to the sum insured if home treatment continues for more than 3 consecutive days and is for a condition that would ordinarily require hospitalisation. A treating doctor\'s written prescription is required.\n\nFor seniors who cannot be easily moved to a hospital, or in situations where no bed is available, this provides meaningful coverage for doctor visits, nursing and medication at home. Co-payment applies.',
+   chips:['Up to SI','Must exceed 3 consecutive days','Doctor prescription required','When patient cannot be moved','Co-payment applies']},
+  {badge:'bb-blue',bname:'Organ donor cover — up to sum insured',sub:'Donor hospitalisation covered under your policy',
+   detail:'If you are the recipient of an organ transplant, the hospitalisation expenses of the donor for the harvesting procedure are covered under your policy up to the sum insured. The donor does not need to be separately insured.\n\nTransplant must comply with applicable law. Your own claim as recipient must be admissible. Donor pre/post-hospitalisation and organ transport costs are excluded. Co-payment applies on the donor component as well.',
+   chips:['Donor surgery under recipient policy','Up to SI','Transplant law compliance required','Donor pre/post excluded','Co-payment applies']},
+  {badge:'bb-blue',bname:'Unlimited e-consultations — general physicians',sub:'Free unlimited teleconsultations — inbuilt',
+   detail:'Unlimited e-consultations with empanelled general physicians are available through the Care Health mobile app at no extra cost. This is extremely useful for seniors for minor ailment queries, prescription renewals, follow-up questions and medication guidance — without needing to visit a clinic.\n\nDiscount Connect (inbuilt): Discounts on consultations, diagnostics and other services at Care\'s network partners — useful for managing routine senior healthcare costs.',
+   chips:['Unlimited e-consultations','General physicians via mobile app','Inbuilt — no extra cost','No co-payment on e-consultations','Discount Connect for network savings']},
+  {badge:'bb-blue',bname:'Ambulance cover — 1% of SI or ₹5,000 (lower)',sub:'Road ambulance per hospitalisation',
+   detail:'Road ambulance expenses are covered per hospitalisation — up to 1% of SI or ₹5,000, whichever is lower.\n\nFor ₹5L SI: 1% = ₹5,000. So for ₹5L plans, the cap is ₹5,000 per hospitalisation.\nFor ₹10L SI: 1% = ₹10,000 but since ₹5,000 is lower, the cap is ₹5,000 per hospitalisation.\n\nThis benefit is modest and covers emergency ambulance costs only. The co-payment does not apply on ambulance reimbursement — check your policy schedule to confirm.',
+   chips:['1% of SI or ₹5,000 — whichever lower','Effectively ₹5,000 for both SI options','Per hospitalisation','Emergency use only','Confirm co-pay applicability at claim']},
+  {badge:'bb-gray',bname:'Advance technology methods — with sub-limits',sub:'Modern medical procedures covered with applicable caps',
+   detail:'Advanced / modern treatment methods — such as robotic surgery, laser treatments or other technology-based procedures — are covered under Senior Health Advantage as an optional cover, subject to applicable sub-limits on treatments as specified in the policy schedule.\n\nSince specific sub-limits are not listed in the brochure summary for advanced technology, your Sonis advisor can share the exact applicable limits from the detailed policy wording before purchase.',
+   chips:['Optional cover — must be opted','Subject to applicable sub-limits','Modern / robotic surgery covered','Ask advisor for exact sub-limit details','Co-payment applies']},
+];
+
+var benRendered=false;
+function renderBenefits(){
+  if(benRendered)return;benRendered=true;
+  document.getElementById('ben-core').innerHTML=buildBenHTML(coreBens,'c');
+  document.getElementById('ben-coverage').innerHTML=buildBenHTML(coverageBens,'v');
+}
+function buildBenHTML(arr,prefix){
+  var h='';
+  arr.forEach(function(b,i){
+    var id=prefix+'-'+i;
+    h+='<div class="ben-card" onclick="toggleBen(\''+id+'\')" id="bc-'+id+'">';
+    h+='<div class="ben-hdr"><div class="ben-left"><span class="bbadge '+b.badge+'">'+b.bname+'</span>';
+    h+='<div class="ben-name">'+b.bname+'</div><div class="ben-sub">'+b.sub+'</div>';
+    h+='</div><span class="ben-arrow" id="arr-'+id+'">&#9662;</span></div>';
+    h+='<div class="ben-detail" id="bd-'+id+'">';
+    b.detail.split('\n\n').forEach(function(p){if(p.trim())h+='<p>'+p.trim()+'</p>';});
+    h+='<div class="chips-row">';b.chips.forEach(function(ch){h+='<span class="chip">'+ch+'</span>';});
+    h+='</div></div></div>';
+  });
+  return h;
+}
+function toggleBen(id){
+  var c=document.getElementById('bc-'+id),d=document.getElementById('bd-'+id),a=document.getElementById('arr-'+id);
+  var open=c.classList.contains('open');
+  document.querySelectorAll('.ben-card').forEach(function(x){x.classList.remove('open');});
+  document.querySelectorAll('.ben-detail').forEach(function(x){x.style.display='none';});
+  document.querySelectorAll('.ben-arrow').forEach(function(x){x.style.transform='';});
+  if(!open){c.classList.add('open');d.style.display='block';a.style.transform='rotate(180deg)';}
+}
+
+var scenarios=[
+  {title:'Hip surgery — age 67',sub:'₹5L SI · ₹3L claim · 50% co-payment',
+   note:'Total admissible bill: ₹3L. Co-payment 50% = ₹1.5L (you). Insurer pays ₹1.5L. Surgeon fee sub-limit also applies.',
+   steps:[
+    {cls:'fn-cop',lbl:'Co-payment (50% — age ≤70)',desc:'₹1,50,000 (50% of ₹3L) — you pay this first from your own funds.',amt:0,bc:'',bar:0,cop:true,copamt:'₹1,50,000'},
+    {cls:'fn-sub',lbl:'Surgeon fee sub-limit check',desc:'Surgeon fee is capped at 25% of SI = ₹1.25L per hospitalisation. Total surgeon charges of ₹1.1L in this case — within limit, no additional deduction.',amt:0,bc:'',bar:0,note:true},
+    {cls:'fn-base',lbl:'Insurer pays remaining 50%',desc:'₹1,50,000 paid by insurer. Cashless settlement at network hospital.',amt:1.5,bar:50,bc:'b-blue'},
+    {cls:'fn-rech',lbl:'Automatic Recharge',desc:'₹5L SI reinstated after exhaustion — available once per year for a different condition.',amt:5,bar:100,bc:'b-green'},
+   ]},
+  {title:'Cancer chemotherapy — age 72',sub:'₹5L SI · Annual chemo cost ₹3.5L · 60% co-payment',
+   note:'Cancer sub-limit: ₹2L (₹5L SI). Admissible claim = ₹2L. 60% co-pay = ₹1.2L you pay. Insurer pays ₹80,000.',
+   steps:[
+    {cls:'fn-sub',lbl:'Cancer sub-limit applies',desc:'Total chemo cost ₹3.5L — but cancer sub-limit for ₹5L SI = ₹2L (inclusive of pre, hospitalisation and post for cancer in the year). Admissible: ₹2L.',amt:0,bc:'',bar:0,note:true},
+    {cls:'fn-cop',lbl:'Co-payment (60% — age &gt;70)',desc:'60% of ₹2L = ₹1,20,000 — you pay from your funds.',amt:0,bc:'',bar:0,cop:true,copamt:'₹1,20,000'},
+    {cls:'fn-base',lbl:'Insurer pays 40% of sub-limited amount',desc:'₹80,000 paid by insurer. The ₹1.5L balance beyond the sub-limit (₹3.5L − ₹2L) is borne entirely by the insured.',amt:0.8,bar:16,bc:'b-blue'},
+   ]},
+  {title:'NCB growth — 3 claim-free years',sub:'₹5L SI · Age 63 · No claims Year 1, 2, 3',
+   note:'No claims in 3 years → NCB accumulates to ₹1.5L → effective SI reaches ₹6.5L at no extra premium.',
+   steps:[
+    {cls:'fn-ncb',lbl:'End of Year 1 — no claim',desc:'+10% of ₹5L = ₹50,000 NCB added. Effective SI: ₹5.5L.',amt:0.5,bar:10,bc:'b-sr'},
+    {cls:'fn-ncb',lbl:'End of Year 2 — no claim',desc:'+₹50,000 more. Total NCB: ₹1L. Effective SI: ₹6L.',amt:0.5,bar:10,bc:'b-sr'},
+    {cls:'fn-ncb',lbl:'End of Year 3 — no claim',desc:'+₹50,000 more. Total NCB: ₹1.5L. Effective SI: ₹6.5L.',amt:0.5,bar:10,bc:'b-sr'},
+    {cls:'fn-rech',lbl:'Recharge available throughout',desc:'₹5L recharge available each year for any different condition — safety net intact.',amt:5,bar:100,bc:'b-green'},
+   ]},
+  {title:'Cataract surgery (both eyes) — age 68',sub:'₹5L SI · ₹90,000 total · 50% co-payment',
+   note:'Cataract sub-limit ₹40,000 per eye = ₹80,000 max. Actual bill ₹90,000. Admissible: ₹80,000. You pay 50% = ₹40,000. Insurer pays ₹40,000.',
+   steps:[
+    {cls:'fn-sub',lbl:'Cataract sub-limit: ₹40,000 per eye',desc:'Total bill ₹90,000. Sub-limit = ₹40,000 × 2 eyes = ₹80,000. ₹10,000 balance paid by you directly.',amt:0,bc:'',bar:0,note:true},
+    {cls:'fn-cop',lbl:'Co-payment 50% on admissible ₹80,000',desc:'50% of ₹80,000 = ₹40,000 — you pay. Insurer pays ₹40,000.',amt:0,bc:'',bar:0,cop:true,copamt:'₹40,000 co-pay + ₹10,000 excess = ₹50,000 total'},
+    {cls:'fn-base',lbl:'Insurer pays ₹40,000',desc:'₹40,000 settled. On a ₹90,000 bill, you bear ₹50,000 and insurer bears ₹40,000.',amt:0.4,bar:8,bc:'b-blue'},
+   ]},
+];
+
+var simInit=false;
+function initSim(){
+  if(!simInit){
+    var g=document.getElementById('sc-grid'),h='';
+    scenarios.forEach(function(sc,i){h+='<div class="sc-card'+(i===0?' active':'')+'" id="sc'+i+'" onclick="pickSc('+i+')"><div class="sc-title">'+sc.title+'</div><div class="sc-sub">'+sc.sub+'</div></div>';});
+    g.innerHTML=h;simInit=true;
+  }
+  pickSc(0);
+}
+function pickSc(idx){
+  document.querySelectorAll('.sc-card').forEach(function(c,i){c.classList.toggle('active',i===idx);});
+  var sc=scenarios[idx];
+  var h='<div style="font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:.5rem">'+sc.title+'</div>';
+  h+='<div style="font-size:.78rem;color:var(--muted);margin-bottom:1.1rem;padding:.6rem .75rem;background:var(--sr-soft);border-radius:8px;border-left:3px solid var(--sr)">'+sc.note+'</div>';
+  h+='<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.85rem">Step-by-step flow</div>';
+  sc.steps.forEach(function(s,i){
+    if(s.note){h+='<div class="flow-row"><div class="flow-num fn-sub">'+(i+1)+'</div><div class="flow-body"><div class="flow-lbl">'+s.lbl+'</div><div class="flow-desc">'+s.desc+'</div></div></div>';return;}
+    h+='<div class="flow-row"><div class="flow-num '+s.cls+'">'+(i+1)+'</div><div class="flow-body">';
+    h+='<div class="flow-lbl">'+s.lbl+'</div><div class="flow-desc">'+s.desc+'</div>';
+    if(s.cop){h+='<div class="flow-amt red">'+s.copamt+' (you pay)</div><div style="font-size:.75rem;color:var(--sr-dark);margin-top:3px;padding:5px 8px;background:var(--sr-soft);border-radius:6px">Mandatory co-payment — applies to every claim</div>';}
+    else if(s.amt>0){h+='<div class="flow-amt">₹'+s.amt+'L</div><div class="bar-wrap"><div class="bar-fill '+s.bc+'" style="width:'+s.bar+'%"></div></div>';}
+    h+='</div></div>';
+  });
+  document.getElementById('sim-output').innerHTML=h;
+}
+
+var gChart=null;
+function renderChart(){
+  var si=parseInt(document.getElementById('g-si').value);
+  var plan=document.getElementById('g-plan').value;
+  var age=parseInt(document.getElementById('g-age').value);
+  var copay=age/100;var insurer=1-copay;
+  var yrs=6;
+  document.getElementById('g-si-out').textContent='₹'+si+' L';
+  var labels=[],base=[],ncb=[],ins_pay=[];
+  var accNCB=0;
+  for(var y=1;y<=yrs;y++){
+    labels.push('Yr '+y);base.push(si);
+    var claimed=(plan==='oneclaim'&&y===3)||(plan==='alternate'&&y%2===0);
+    if(claimed){accNCB=Math.max(0,accNCB-si*0.1);}
+    else{accNCB=Math.min(accNCB+si*0.1,si*0.5);}
+    ncb.push(Math.round(accNCB*10)/10);
+    ins_pay.push(Math.round((si+accNCB)*insurer*10)/10);
+  }
+  var lastNCB=ncb[yrs-1];var effSI=si+lastNCB;
+  var insMax=Math.round(effSI*insurer*10)/10;
+  document.getElementById('growth-metrics').innerHTML=
+    '<div class="metric"><div class="metric-lbl">Year 6 effective SI</div><div class="metric-val">₹'+effSI+'L</div><div class="metric-hint">base + NCB</div></div>'+
+    '<div class="metric"><div class="metric-lbl">NCB accumulated</div><div class="metric-val amber">₹'+lastNCB+'L</div><div class="metric-hint">after 6 years</div></div>'+
+    '<div class="metric"><div class="metric-lbl">Insurer pays (max)</div><div class="metric-val green">₹'+insMax+'L</div><div class="metric-hint">after co-payment</div></div>'+
+    '<div class="metric"><div class="metric-lbl">Your co-payment</div><div class="metric-val red">'+age+'%</div><div class="metric-hint">of every claim</div></div>';
+  document.getElementById('growth-legend').innerHTML=
+    '<div class="leg-item"><div class="leg-dot" style="background:#378ADD"></div>Base SI</div>'+
+    '<div class="leg-item"><div class="leg-dot" style="background:#F5A623"></div>NCB accumulated</div>'+
+    '<div class="leg-item"><div class="leg-dot" style="background:#1D9E75"></div>Insurer\'s payment (after co-pay)</div>';
+  if(gChart)gChart.destroy();
+  gChart=new Chart(document.getElementById('growth-chart').getContext('2d'),{
+    type:'bar',
+    data:{labels:labels,datasets:[
+      {label:'Base SI',data:base,backgroundColor:'#378ADD',borderWidth:0},
+      {label:'NCB',data:ncb,backgroundColor:'#F5A623',borderWidth:0},
+      {label:'Insurer pays',data:ins_pay,backgroundColor:'#1D9E75',borderWidth:0,stack:'ins'},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.dataset.label+': ₹'+c.raw+'L';}}}},
+      scales:{
+        x:{stacked:true,grid:{display:false},ticks:{font:{size:11}}},
+        y:{stacked:true,ticks:{callback:function(v){return'₹'+v+'L';},font:{size:11}},grid:{color:'rgba(0,0,0,0.05)'}}
+      }}
+  });
+}
+
+renderBenefits();
+</script>
+</body>
+</html>
