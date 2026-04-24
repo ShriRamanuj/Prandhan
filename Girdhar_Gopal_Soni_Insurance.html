@@ -459,7 +459,184 @@ footer {
   .main { padding: 32px 24px 48px; }
   .policy-cards-grid { grid-template-columns: 1fr; }
   .footer-contacts { flex-direction: column; gap: 12px; }
+  .plan-finder { padding: 48px 24px; }
+  .plan-grid { grid-template-columns: 1fr; }
+  .pf-cta-strip { flex-direction: column; }
+  .persona-tabs { gap: 6px; }
 }
+
+/* ══════════════════════════════════
+   PLAN FINDER SECTION
+══════════════════════════════════ */
+.plan-finder {
+  background: var(--navy);
+  padding: 72px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.plan-finder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 0% 50%, rgba(201,150,58,0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 0%, rgba(26,107,114,0.09) 0%, transparent 50%);
+  pointer-events: none;
+}
+.pf-inner { max-width: 1300px; margin: 0 auto; position: relative; z-index: 1; }
+.pf-header { text-align: center; margin-bottom: 48px; }
+.pf-eyebrow {
+  font-size: 0.72rem; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); font-weight: 700; margin-bottom: 12px;
+}
+.pf-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; color: #fff;
+  line-height: 1.15; margin-bottom: 14px;
+}
+.pf-title span { color: var(--gold-light); }
+.pf-sub { font-size: 1rem; color: rgba(255,255,255,0.5); max-width: 560px; margin: 0 auto; line-height: 1.7; }
+
+.persona-tabs {
+  display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 44px;
+}
+.ptab {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-radius: 99px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.65); font-size: 0.88rem; font-weight: 500;
+  cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+  white-space: nowrap;
+}
+.ptab:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.ptab.active { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 700; }
+.ptab-icon { font-size: 1.1rem; }
+
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+  gap: 20px;
+}
+.plan-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  padding: 28px 24px 24px;
+  display: flex; flex-direction: column;
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.plan-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  border-radius: 18px 18px 0 0;
+}
+.plan-card:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.22);
+  transform: translateY(-5px);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.35);
+}
+.plan-card.featured { border-color: rgba(201,150,58,0.4); background: rgba(201,150,58,0.05); }
+.plan-card.plan-hidden { display: none; }
+
+.pc-secure::before { background: linear-gradient(90deg,#1A6B72,#2A8F98); }
+.pc-plus::before { background: linear-gradient(90deg,#E53935,#FF5252); }
+.pc-supreme::before { background: linear-gradient(90deg,#F5A623,#FBBF24); }
+.pc-heart::before { background: linear-gradient(90deg,#E53935,#B71C1C); }
+.pc-senior::before { background: linear-gradient(90deg,#7C3AED,#5B21B6); }
+
+.plan-card-eyebrow {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; margin-bottom: 8px;
+}
+.pc-secure .plan-card-eyebrow { color: #4dd0d8; }
+.pc-plus .plan-card-eyebrow { color: #ff8a80; }
+.pc-supreme .plan-card-eyebrow { color: #F5A623; }
+.pc-heart .plan-card-eyebrow { color: #ff8a80; }
+.pc-senior .plan-card-eyebrow { color: #c4b5fd; }
+
+.plan-card-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.55rem; font-weight: 700; color: #fff;
+  margin-bottom: 4px; line-height: 1.2;
+}
+.plan-card-insurer { font-size: 0.73rem; color: rgba(255,255,255,0.38); margin-bottom: 14px; }
+.plan-for-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.73rem; font-weight: 700; padding: 4px 12px;
+  border-radius: 99px; margin-bottom: 14px; border: 1px solid;
+}
+.pfb-teal { background: rgba(26,107,114,0.15); color: #4dd0d8; border-color: rgba(26,107,114,0.3); }
+.pfb-red { background: rgba(229,57,53,0.12); color: #ff8a80; border-color: rgba(229,57,53,0.25); }
+.pfb-amber { background: rgba(245,166,35,0.12); color: #F5A623; border-color: rgba(245,166,35,0.25); }
+.pfb-green { background: rgba(16,185,129,0.12); color: #6ee7b7; border-color: rgba(16,185,129,0.25); }
+.pfb-purple { background: rgba(124,58,237,0.12); color: #c4b5fd; border-color: rgba(124,58,237,0.25); }
+
+.plan-card-desc { font-size: 0.84rem; color: rgba(255,255,255,0.55); line-height: 1.7; flex: 1; margin-bottom: 18px; }
+.plan-highlights { display: flex; flex-direction: column; gap: 7px; margin-bottom: 22px; }
+.plan-hl { display: flex; align-items: flex-start; gap: 8px; font-size: 0.78rem; color: rgba(255,255,255,0.5); line-height: 1.4; }
+.plan-hl::before { content: '›'; font-size: 1rem; line-height: 1.2; flex-shrink: 0; color: rgba(255,255,255,0.25); }
+.pc-plus .plan-hl::before { color: #ff8a80; }
+.pc-supreme .plan-hl::before { color: #F5A623; }
+.pc-heart .plan-hl::before { color: #ff8a80; }
+.pc-senior .plan-hl::before { color: #c4b5fd; }
+.pc-secure .plan-hl::before { color: #4dd0d8; }
+
+.plan-explore-btn {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 18px; border-radius: 10px;
+  text-decoration: none; font-size: 0.85rem; font-weight: 700;
+  transition: all 0.2s; border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06); color: #fff;
+  font-family: 'DM Sans', sans-serif;
+}
+.plan-explore-btn:hover { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.3); transform: none; }
+.pc-plus .plan-explore-btn { border-color: rgba(229,57,53,0.3); }
+.pc-plus .plan-explore-btn:hover { background: rgba(229,57,53,0.18); border-color: rgba(229,57,53,0.5); }
+.pc-supreme .plan-explore-btn { border-color: rgba(245,166,35,0.3); }
+.pc-supreme .plan-explore-btn:hover { background: rgba(245,166,35,0.18); border-color: rgba(245,166,35,0.5); }
+.pc-heart .plan-explore-btn { border-color: rgba(229,57,53,0.3); }
+.pc-heart .plan-explore-btn:hover { background: rgba(229,57,53,0.18); border-color: rgba(229,57,53,0.5); }
+.pc-senior .plan-explore-btn { border-color: rgba(124,58,237,0.3); }
+.pc-senior .plan-explore-btn:hover { background: rgba(124,58,237,0.18); border-color: rgba(124,58,237,0.5); }
+.pc-secure .plan-explore-btn { border-color: rgba(26,107,114,0.35); }
+.pc-secure .plan-explore-btn:hover { background: rgba(26,107,114,0.2); border-color: rgba(26,107,114,0.5); }
+.peb-arrow { font-size: 1.1rem; transition: transform 0.2s; }
+.plan-explore-btn:hover .peb-arrow { transform: translateX(4px); }
+
+.featured-ribbon {
+  position: absolute; top: 16px; right: -30px;
+  background: var(--gold); color: var(--navy);
+  font-size: 0.6rem; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 4px 38px;
+  transform: rotate(45deg);
+}
+.pf-cta-strip {
+  margin-top: 52px; padding: 28px 32px;
+  background: rgba(201,150,58,0.07);
+  border: 1px solid rgba(201,150,58,0.2);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 20px;
+}
+.pf-cta-text h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 700; color: var(--gold-light); margin-bottom: 5px;
+}
+.pf-cta-text p { font-size: 0.88rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+.pf-cta-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.pf-cta-btn {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 24px; border-radius: 8px;
+  text-decoration: none; font-size: 0.88rem; font-weight: 700;
+  transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+}
+.pf-btn-gold { background: var(--gold); color: var(--navy); }
+.pf-btn-gold:hover { background: var(--gold-light); }
+.pf-btn-outline { background: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.2); }
+.pf-btn-outline:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.4); }
 </style>
 </head>
 <body>
@@ -468,7 +645,8 @@ footer {
 <nav class="topnav">
   <div class="nav-brand">Sonis Insurance</div>
   <div class="nav-links">
-    <a href="#policies">Policies</a>
+    <a href="#plan-finder">Find My Plan</a>
+      <a href="#policies">Policies</a>
     <a href="#services">Services</a>
     <a href="#resources">Resources</a>
     <a href="https://shriramanuj.github.io/Prandhan/girdhar_gopal_plan_comparison.html" target="_blank" class="nav-cta">🔍 Compare Plans</a>
@@ -528,6 +706,156 @@ footer {
       Let's Compare Plans
       <span class="compare-btn-arrow">›</span>
     </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     PLAN FINDER — WHICH PLAN IS RIGHT FOR ME
+══════════════════════════════════════ -->
+<section class="plan-finder" id="plan-finder">
+  <div class="pf-inner">
+
+    <div class="pf-header">
+      <div class="pf-eyebrow">Sonis Professional Insurance Services</div>
+      <h2 class="pf-title">Every person has a <span>different need.</span><br>We have the right plan for each.</h2>
+      <p class="pf-sub">Whether you are young and healthy, managing a chronic condition, a cardiac patient, or a senior — there is a plan built exactly for your situation. Filter by who you are.</p>
+    </div>
+
+    <!-- Persona Filter Tabs -->
+    <div class="persona-tabs">
+      <button class="ptab active" onclick="filterPlans('all')" id="ptab-all">
+        <span class="ptab-icon">🌟</span> Show All Plans
+      </button>
+      <button class="ptab" onclick="filterPlans('young')" id="ptab-young">
+        <span class="ptab-icon">💪</span> Young &amp; Healthy
+      </button>
+      <button class="ptab" onclick="filterPlans('family')" id="ptab-family">
+        <span class="ptab-icon">👨‍👩‍👧</span> Family Cover
+      </button>
+      <button class="ptab" onclick="filterPlans('chronic')" id="ptab-chronic">
+        <span class="ptab-icon">💊</span> BP / Diabetes / Chronic
+      </button>
+      <button class="ptab" onclick="filterPlans('cardiac')" id="ptab-cardiac">
+        <span class="ptab-icon">🫀</span> Cardiac Patient
+      </button>
+      <button class="ptab" onclick="filterPlans('senior')" id="ptab-senior">
+        <span class="ptab-icon">🧓</span> Senior Citizen 60+
+      </button>
+    </div>
+
+    <!-- Plan Cards Grid -->
+    <div class="plan-grid" id="plan-grid">
+
+      <!-- my:Optima Secure -->
+      <div class="plan-card pc-secure" data-tags="all young family chronic">
+        <div class="plan-card-eyebrow">HDFC ERGO · Health Insurance</div>
+        <div class="plan-card-name">my:Optima Secure</div>
+        <div class="plan-card-insurer">Base plan · SI ₹5L to ₹50L</div>
+        <div class="plan-for-badge pfb-teal">✓ Great for families &amp; first-time buyers</div>
+        <p class="plan-card-desc">A solid, layered plan with Secure Benefit (doubles cover from Day 1), Plus Benefit (50% annual growth), and Auto Restore. The right foundation for anyone buying health insurance for the first time or looking for a reliable all-rounder.</p>
+        <div class="plan-highlights">
+          <div class="plan-hl">Secure Benefit: 100% extra cover from Day 1 — free</div>
+          <div class="plan-hl">Plus Benefit: +50%/year up to 100% — even after claims</div>
+          <div class="plan-hl">Auto Restore: SI refills after exhaustion — once/year</div>
+          <div class="plan-hl">Room rent at actuals — no sub-limit risk</div>
+          <div class="plan-hl">ABCD add-on: BP, Diabetes covered in 30 days</div>
+        </div>
+        <a href="https://shriramanuj.github.io/Prandhan/optima_secure_sonis.html" target="_blank" class="plan-explore-btn">
+          Explore this plan <span class="peb-arrow">›</span>
+        </a>
+      </div>
+
+      <!-- Optima Secure+ -->
+      <div class="plan-card pc-plus featured" data-tags="all young family chronic">
+        <div class="featured-ribbon">Most Powerful</div>
+        <div class="plan-card-eyebrow">HDFC ERGO · Newest Launch</div>
+        <div class="plan-card-name">Optima Secure+</div>
+        <div class="plan-card-insurer">Premium plan · SI ₹10L to ₹2 Cr</div>
+        <div class="plan-for-badge pfb-red">🔥 For those who want unlimited growth</div>
+        <p class="plan-card-desc">The only health plan in India where your sum insured grows by 100% every single year — forever, with no cap, irrespective of claims. Combine this with Secure Benefit (doubles from Day 1), unlimited Auto Restore, and Protect Benefit — this is the ultimate health plan.</p>
+        <div class="plan-highlights">
+          <div class="plan-hl">Infinite Benefit: +100% base SI added every year — no ceiling</div>
+          <div class="plan-hl">Secure Benefit: 2× cover from Day 1 — inbuilt</div>
+          <div class="plan-hl">Unlimited Auto Restore — same illness also eligible</div>
+          <div class="plan-hl">Protect Benefit: 60+ non-medical items covered</div>
+          <div class="plan-hl">Aggregate deductible: save up to 65% on premium</div>
+        </div>
+        <a href="https://shriramanuj.github.io/Prandhan/optima_secure_plus_sonis.html" target="_blank" class="plan-explore-btn">
+          Explore this plan <span class="peb-arrow">›</span>
+        </a>
+      </div>
+
+      <!-- Care Supreme -->
+      <div class="plan-card pc-supreme" data-tags="all young family chronic">
+        <div class="plan-card-eyebrow">Care Health Insurance · Flagship</div>
+        <div class="plan-card-name">Care Supreme</div>
+        <div class="plan-card-insurer">Premium plan · SI ₹5L to ₹1 Cr</div>
+        <div class="plan-for-badge pfb-amber">✓ Best for active, health-conscious families</div>
+        <p class="plan-card-desc">Unlimited auto recharge for related AND unrelated illnesses. Cumulative Bonus that never reduces on claims. No sub-limits on any treatment. Earn up to 30% renewal discount just by walking 10,000 steps a day. The most wellness-forward health plan available.</p>
+        <div class="plan-highlights">
+          <div class="plan-hl">Unlimited Auto Recharge — same illness eligible</div>
+          <div class="plan-hl">CB 50%/year — never reduces, even after claims</div>
+          <div class="plan-hl">Zero sub-limits: modern and conventional both at full SI</div>
+          <div class="plan-hl">30% renewal discount for staying active</div>
+          <div class="plan-hl">Instant Cover: BP, Diabetes in just 30 days (add-on)</div>
+        </div>
+        <a href="https://shriramanuj.github.io/Prandhan/care_supreme_sonis.html" target="_blank" class="plan-explore-btn">
+          Explore this plan <span class="peb-arrow">›</span>
+        </a>
+      </div>
+
+      <!-- Care Heart -->
+      <div class="plan-card pc-heart" data-tags="all cardiac">
+        <div class="plan-card-eyebrow">Care Health Insurance · Specialist Plan</div>
+        <div class="plan-card-name">Care Heart</div>
+        <div class="plan-card-insurer">Cardiac patients only · SI ₹3L to ₹10L</div>
+        <div class="plan-for-badge pfb-red">🫀 Only for post-cardiac surgery patients</div>
+        <p class="plan-card-desc">India's dedicated health plan for people who have already undergone cardiac surgery or a procedure. A standard health plan would make you wait 36 months for coverage — Care Heart covers cardiac conditions after just 2 years. No other plan does this.</p>
+        <div class="plan-highlights">
+          <div class="plan-hl">Only 2-year PED wait — vs 36 months in standard plans</div>
+          <div class="plan-hl">Annual cardiac health check-up from Year 1 — cashless</div>
+          <div class="plan-hl">Lifelong renewability — no upper age limit</div>
+          <div class="plan-hl">NCB: +10%/year up to 50% — auto recharge once/year</div>
+          <div class="plan-hl">Co-payment applies: 20% (≤70 yrs) / 30% (&gt;70 yrs)</div>
+        </div>
+        <a href="https://shriramanuj.github.io/Prandhan/care_heart_sonis.html" target="_blank" class="plan-explore-btn">
+          Explore this plan <span class="peb-arrow">›</span>
+        </a>
+      </div>
+
+      <!-- Senior Health Advantage -->
+      <div class="plan-card pc-senior" data-tags="all senior">
+        <div class="plan-card-eyebrow">Care Health Insurance · Senior Plan</div>
+        <div class="plan-card-name">Senior Health Advantage</div>
+        <div class="plan-card-insurer">Age 60+ only · SI ₹5L to ₹10L</div>
+        <div class="plan-for-badge pfb-purple">🧓 Exclusively for senior citizens aged 60+</div>
+        <p class="plan-card-desc">Affordable health insurance for seniors with no upper age limit and lifelong renewability. Most standard plans refuse seniors above 65 or exclude all pre-existing conditions. Senior Health Advantage accepts everyone and covers PED after just 24 months. Annual health check-up from Day 1.</p>
+        <div class="plan-highlights">
+          <div class="plan-hl">No upper age limit — lifelong renewable</div>
+          <div class="plan-hl">PED wait only 24 months (optional cover)</div>
+          <div class="plan-hl">Annual health check-up from Day 1 — 7 tests cashless</div>
+          <div class="plan-hl">NCB: +10%/year up to 50% of SI</div>
+          <div class="plan-hl">Co-payment: 50% (≤70 yrs) / 60% (&gt;70 yrs) — plan accordingly</div>
+        </div>
+        <a href="https://shriramanuj.github.io/Prandhan/senior_health_advantage_sonis.html" target="_blank" class="plan-explore-btn">
+          Explore this plan <span class="peb-arrow">›</span>
+        </a>
+      </div>
+
+    </div><!-- /plan-grid -->
+
+    <!-- Advisor CTA Strip -->
+    <div class="pf-cta-strip">
+      <div class="pf-cta-text">
+        <h3>Not sure which plan is right for you?</h3>
+        <p>Our advisors will understand your health history, family size and budget — and recommend the exact plan and configuration for your situation. No obligation, no pressure.</p>
+      </div>
+      <div class="pf-cta-btns">
+        <a href="tel:9325377528" class="pf-cta-btn pf-btn-gold">📞 Call Dattatray — 93253 77528</a>
+        <a href="tel:9850977528" class="pf-cta-btn pf-btn-outline">📞 Call Archana — 98509 77528</a>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -749,5 +1077,25 @@ footer {
   </div>
 </footer>
 
+<script>
+function filterPlans(tag) {
+  // Update tabs
+  document.querySelectorAll('.ptab').forEach(function(t) { t.classList.remove('active'); });
+  document.getElementById('ptab-' + tag).classList.add('active');
+  // Filter cards
+  document.querySelectorAll('.plan-card').forEach(function(card) {
+    var tags = card.getAttribute('data-tags') || '';
+    if (tag === 'all' || tags.indexOf(tag) !== -1) {
+      card.classList.remove('plan-hidden');
+    } else {
+      card.classList.add('plan-hidden');
+    }
+  });
+  // Smooth scroll to grid on mobile
+  if (window.innerWidth < 700) {
+    document.getElementById('plan-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+</script>
 </body>
 </html>
