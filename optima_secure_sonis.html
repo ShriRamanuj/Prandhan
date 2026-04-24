@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>my:Optima Secure — Sonis Professional Insurance Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f7f7f5;
+    --bg-tertiary: #f0eeea;
+    --bg-info: #e6f1fb;
+    --bg-success: #eaf3de;
+    --bg-warning: #faeeda;
+    --bg-danger: #fcebeb;
+    --text-primary: #1a1a18;
+    --text-secondary: #5f5e5a;
+    --text-tertiary: #888780;
+    --text-info: #185fa5;
+    --text-success: #3b6d11;
+    --text-warning: #854f0b;
+    --text-danger: #a32d2d;
+    --border-light: rgba(0,0,0,0.1);
+    --border-mid: rgba(0,0,0,0.18);
+    --border-info: #85b7eb;
+    --border-success: #97c459;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --blue-50: #E6F1FB; --blue-800: #0C447C;
+    --teal-50: #E1F5EE; --teal-800: #085041;
+    --amber-50: #FAEEDA; --amber-800: #633806;
+    --coral-50: #FAECE7; --coral-800: #712B13;
+    --purple-50: #EEEDFE; --purple-800: #3C3489;
+    --green-50: #EAF3DE; --green-800: #27500A;
+    --gray-50: #F1EFE8; --gray-800: #444441;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-primary: #1e1e1c;
+      --bg-secondary: #2a2a28;
+      --bg-tertiary: #242422;
+      --bg-info: #0c2840;
+      --bg-success: #162808;
+      --bg-warning: #2a1a04;
+      --bg-danger: #2a0c0c;
+      --text-primary: #e8e6e0;
+      --text-secondary: #9a9890;
+      --text-tertiary: #6a6860;
+      --text-info: #85b7eb;
+      --text-success: #97c459;
+      --text-warning: #ef9f27;
+      --text-danger: #f09595;
+      --border-light: rgba(255,255,255,0.1);
+      --border-mid: rgba(255,255,255,0.18);
+      --border-info: #185fa5;
+      --border-success: #3b6d11;
+      --blue-50: #0c2840; --blue-800: #b5d4f4;
+      --teal-50: #042c1a; --teal-800: #9fe1cb;
+      --amber-50: #2a1a04; --amber-800: #fac775;
+      --coral-50: #2a0e06; --coral-800: #f5c4b3;
+      --purple-50: #1a1840; --purple-800: #cecbf6;
+      --green-50: #0e1e04; --green-800: #c0dd97;
+      --gray-50: #2a2a26; --gray-800: #d3d1c7;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── SONIS NAVBAR ── */
+  :root{
+    --navy:#0D1B2A;--navy-mid:#1B2F45;
+    --gold:#C9963A;--gold-light:#E4B860;
+    --teal-s:#1A6B72;
+  }
+  .site-header{
+    background:rgba(13,27,42,0.97);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(201,150,58,0.25);
+    padding:0 1.5rem;
+    position:sticky;top:0;z-index:200;
+  }
+  .header-inner{
+    max-width:1100px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    height:58px;gap:1rem;
+  }
+  .logo-area{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+  .logo-badge{
+    font-family:'Cormorant Garamond',serif;
+    font-size:1.15rem;font-weight:700;
+    color:var(--gold-light);letter-spacing:.5px;
+  }
+  .logo-title{
+    font-size:12px;font-weight:500;
+    color:rgba(255,255,255,0.5);
+    border-left:1px solid rgba(255,255,255,0.15);
+    padding-left:10px;
+  }
+  .top-nav{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;}
+  .top-nav::-webkit-scrollbar{display:none;}
+  .nav-btn{
+    flex-shrink:0;font-size:12px;font-weight:500;
+    padding:5px 16px;border-radius:99px;
+    border:1px solid rgba(255,255,255,0.12);
+    background:transparent;color:rgba(255,255,255,0.65);
+    cursor:pointer;white-space:nowrap;transition:all .15s;
+    font-family:'DM Sans',sans-serif;
+  }
+  .nav-btn:hover{background:rgba(255,255,255,0.08);color:#fff;}
+  .nav-btn.active{
+    background:var(--gold);color:var(--navy);
+    border-color:var(--gold);font-weight:700;
+  }
+  .nav-contact{
+    font-size:12px;color:var(--gold-light);
+    white-space:nowrap;font-weight:500;flex-shrink:0;
+  }
+  /* ── SONIS HERO ── */
+  .sonis-hero{
+    background:var(--navy);position:relative;overflow:hidden;
+    padding:48px 1.5rem 40px;
+  }
+  .sonis-hero::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(ellipse at 80% 20%,rgba(26,107,114,.2) 0%,transparent 55%),
+               radial-gradient(ellipse at 10% 80%,rgba(201,150,58,.1) 0%,transparent 50%);
+  }
+  .hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+  .hero-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
+  @media(max-width:700px){.hero-grid{grid-template-columns:1fr;}.hero-cards{display:none!important;}}
+  .hero-eyebrow{
+    font-size:.7rem;letter-spacing:3px;text-transform:uppercase;
+    color:var(--gold);margin-bottom:8px;font-weight:600;
+  }
+  .hero-product-badge{
+    display:inline-block;
+    background:rgba(26,107,114,.2);border:1px solid rgba(26,107,114,.4);
+    color:#4dd0d8;font-size:11px;font-weight:700;
+    padding:3px 12px;border-radius:99px;margin-bottom:10px;letter-spacing:.5px;
+  }
+  .hero-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(2rem,4vw,3.2rem);font-weight:700;
+    color:#fff;line-height:1.1;margin-bottom:10px;
+  }
+  .hero-title span{color:var(--gold-light);}
+  .hero-tagline{font-size:.9rem;color:rgba(255,255,255,.6);margin-bottom:20px;max-width:480px;line-height:1.6;}
+  .hero-cards{display:flex;flex-direction:column;gap:12px;}
+  .advisor-card{
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+    border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:12px;min-width:230px;
+    transition:all .3s;
+  }
+  .advisor-card:hover{background:rgba(255,255,255,.1);border-color:rgba(201,150,58,.4);transform:translateX(4px);}
+  .av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#fff;flex-shrink:0;}
+  .av-d{background:linear-gradient(135deg,#1565C0,#0D47A1);box-shadow:0 4px 14px rgba(21,101,192,.45);}
+  .av-a{background:linear-gradient(135deg,#C9963A,#8B6320);box-shadow:0 4px 14px rgba(201,150,58,.45);}
+  .adv-role{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);}
+  .adv-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#fff;}
+  .adv-phone{font-size:.82rem;color:#69F0AE;font-weight:600;}
+  .adv-email{font-size:.75rem;color:var(--gold-light);}
+  /* ── STATS BAR ── */
+  .stats-bar{background:var(--teal-s);padding:12px 1.5rem;}
+  .stats-inner{max-width:1100px;margin:0 auto;display:flex;gap:28px;flex-wrap:wrap;justify-content:center;}
+  .stat-item{color:#fff;text-align:center;}
+  .stat-num{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;}
+  .stat-lbl{font-size:.68rem;opacity:.8;letter-spacing:.4px;}
+  /* ── SECTION LABEL ── */
+  .sec-cat{
+    font-size:.7rem;font-weight:700;text-transform:uppercase;
+    letter-spacing:.08em;color:var(--teal-s);margin-bottom:.6rem;
+    margin-top:.5rem;
+  }
+  /* ── AGENT FOOTER ── */
+  .agent-footer{
+    background:var(--navy);padding:28px 1.5rem;
+    border-top:2px solid rgba(201,150,58,.25);
+    margin-top:2rem;
+  }
+  .af-inner{
+    max-width:1100px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+  }
+  .af-brand{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--gold-light);}
+  .af-address{font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.7;margin-top:3px;}
+  .af-contacts{display:flex;gap:24px;flex-wrap:wrap;}
+  .af-person{text-align:center;}
+  .af-role{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.35);margin-bottom:2px;}
+  .af-pname{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#fff;}
+  .af-phone{font-size:.85rem;color:#69F0AE;font-weight:600;}
+  .af-email{font-size:.75rem;color:var(--gold-light);}
+  .af-copy{font-size:.68rem;color:rgba(255,255,255,.25);margin-top:6px;}
+
+  /* ── LAYOUT ── */
+  .main-wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .sec-header { margin-bottom: 1.5rem; }
+  .sec-title { font-size: 22px; font-weight: 600; color: var(--text-primary); margin-bottom: 5px; }
+  .sec-sub { font-size: 14px; color: var(--text-secondary); line-height: 1.55; max-width: 680px; }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  /* ── BADGES ── */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 99px;
+    margin-bottom: 6px;
+    letter-spacing: 0.03em;
+  }
+  .badge-blue   { background: var(--blue-50);   color: var(--blue-800); }
+  .badge-teal   { background: var(--teal-50);   color: var(--teal-800); }
+  .badge-amber  { background: var(--amber-50);  color: var(--amber-800); }
+  .badge-coral  { background: var(--coral-50);  color: var(--coral-800); }
+  .badge-purple { background: var(--purple-50); color: var(--purple-800); }
+  .badge-green  { background: var(--green-50);  color: var(--green-800); }
+  .badge-gray   { background: var(--gray-50);   color: var(--gray-800); }
+
+  .divider { height: 1px; background: var(--border-light); margin: 1.25rem 0; }
+
+  /* ── METRICS ── */
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin: 1rem 0;
+  }
+  .metric {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1rem;
+  }
+  .metric-lbl { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+  .metric-val { font-size: 24px; font-weight: 700; color: var(--text-primary); }
+  .metric-hint { font-size: 11px; color: var(--text-tertiary); margin-top: 3px; }
+
+  /* ── FORM CONTROLS ── */
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 1.1rem;
+    flex-wrap: wrap;
+  }
+  .slider-lbl { font-size: 13px; color: var(--text-secondary); min-width: 130px; }
+  .slider-val { font-size: 14px; font-weight: 600; color: var(--text-primary); min-width: 70px; text-align: right; }
+  input[type=range] { flex: 1; min-width: 150px; height: 4px; accent-color: #185fa5; cursor: pointer; }
+  select {
+    flex: 1;
+    min-width: 200px;
+    font-size: 13px;
+    padding: 8px 12px;
+    border: 1px solid var(--border-mid);
+    border-radius: var(--radius-md);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 0.65rem 1.25rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-mid);
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn:hover { background: var(--bg-secondary); }
+  .btn-info { background: var(--bg-info); border-color: var(--border-info); color: var(--text-info); }
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1rem; }
+
+  /* ── QUIZ ── */
+  .progress-bar { height: 3px; background: var(--border-light); border-radius: 99px; margin-bottom: 1.75rem; overflow: hidden; }
+  .progress-fill { height: 100%; background: #185fa5; border-radius: 99px; transition: width 0.35s; }
+  .quiz-step { display: none; }
+  .quiz-step.active { display: block; }
+  .q-text { font-size: 16px; font-weight: 500; color: var(--text-primary); margin-bottom: 1.1rem; line-height: 1.45; }
+  .q-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 520px) { .q-options { grid-template-columns: 1fr; } }
+  .q-opt {
+    padding: 0.9rem 1.1rem;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    color: var(--text-primary);
+    cursor: pointer;
+    text-align: left;
+    background: var(--bg-primary);
+    transition: all 0.15s;
+    line-height: 1.4;
+  }
+  .q-opt:hover { border-color: var(--border-mid); background: var(--bg-secondary); }
+  .q-opt.selected { border: 2px solid var(--border-info); background: var(--bg-info); color: var(--text-info); }
+  .result-box { background: var(--bg-secondary); border-radius: var(--radius-lg); padding: 1.5rem; margin-top: 1.25rem; }
+  .result-plan { font-size: 24px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px; }
+  .result-why { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-top: 10px; }
+
+  /* ── BENEFITS ── */
+  .ben-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .ben-card:hover { border-color: var(--border-mid); }
+  .ben-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .ben-header-left { flex: 1; }
+  .ben-name { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-top: 5px; }
+  .ben-sub { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+  .ben-arrow { font-size: 13px; color: var(--text-tertiary); transition: transform 0.2s; flex-shrink: 0; }
+  .ben-card.open .ben-arrow { transform: rotate(180deg); }
+  .ben-detail {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-light);
+  }
+  .ben-card.open .ben-detail { display: block; }
+  .ben-detail p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 0.85rem; }
+  .chips-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.5rem; }
+
+  /* ── SIMULATOR ── */
+  .sc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-bottom: 1.25rem; }
+  .sc-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.1rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .sc-card:hover { border-color: var(--border-mid); }
+  .sc-card.active { border: 2px solid var(--border-info); background: var(--bg-info); }
+  .sc-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 3px; }
+  .sc-card.active .sc-title { color: var(--text-info); }
+  .sc-sub { font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+  .sc-card.active .sc-sub { color: var(--text-info); opacity: 0.85; }
+
+  .flow-row { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+  .flow-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
+  }
+  .fn-base    { background: var(--blue-50);   color: var(--blue-800); }
+  .fn-plus    { background: var(--teal-50);   color: var(--teal-800); }
+  .fn-secure  { background: var(--purple-50); color: var(--purple-800); }
+  .fn-restore { background: var(--amber-50);  color: var(--amber-800); }
+  .fn-gap     { background: var(--coral-50);  color: var(--coral-800); }
+  .flow-body { flex: 1; }
+  .flow-lbl { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+  .flow-desc { font-size: 12px; color: var(--text-secondary); margin-top: 3px; line-height: 1.45; }
+  .flow-amt { font-size: 17px; font-weight: 700; margin-top: 6px; }
+  .amt-green { color: #0f6e56; }
+  .amt-red   { color: #a32d2d; }
+  .amt-blue  { color: #185fa5; }
+  .bar-wrap { height: 14px; background: var(--bg-secondary); border-radius: 99px; overflow: hidden; margin-top: 7px; }
+  .bar-fill { height: 100%; border-radius: 99px; transition: width 0.55s ease; }
+  .bar-blue   { background: #378ADD; }
+  .bar-teal   { background: #1D9E75; }
+  .bar-purple { background: #7F77DD; }
+  .bar-amber  { background: #EF9F27; }
+  .bar-red    { background: #E24B4A; }
+
+  /* ── GROWTH CHART ── */
+  .chart-wrap { position: relative; width: 100%; height: 300px; margin-top: 1.25rem; }
+
+  /* ── WAITING PERIODS ── */
+  .wait-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 1rem; }
+  .wait-card { background: var(--bg-secondary); border-radius: var(--radius-md); padding: 1rem; }
+  .wait-type { font-size: 12px; color: var(--text-secondary); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
+  .wait-period { font-size: 22px; font-weight: 700; color: var(--text-primary); }
+  .wait-note { font-size: 12px; color: var(--text-tertiary); margin-top: 5px; line-height: 1.45; }
+  .wait-accent { border-left: 3px solid; border-radius: 0 var(--radius-md) var(--radius-md) 0; padding-left: 1rem; }
+  .wa-blue   { border-color: #378ADD; }
+  .wa-teal   { border-color: #1D9E75; }
+  .wa-amber  { border-color: #EF9F27; }
+  .wa-purple { border-color: #7F77DD; }
+  .wa-green  { border-color: #639922; }
+  .wa-coral  { border-color: #D85A30; }
+  .wa-gray   { border-color: #888780; }
+
+  @media (max-width: 640px) {
+    .main-wrap { padding: 1.25rem 1rem; }
+    .metric-val { font-size: 20px; }
+    .sec-title { font-size: 19px; }
+    .header-inner { height: 52px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo-area">
+      <span class="logo-badge">Sonis Insurance</span>
+      <span class="logo-title">my:Optima Secure · HDFC ERGO</span>
+    </div>
+    <nav class="top-nav">
+      <button class="nav-btn active" onclick="showSection('quiz')">Find my plan</button>
+      <button class="nav-btn" onclick="showSection('benefits')">Benefits</button>
+      <button class="nav-btn" onclick="showSection('simulator')">Claim simulator</button>
+      <button class="nav-btn" onclick="showSection('growth')">SI growth</button>
+      <button class="nav-btn" onclick="showSection('waiting')">Waiting periods</button>
+    </nav>
+    <div class="nav-contact">📞 98509 77528</div>
+  </div>
+</header>
+
+<section class="sonis-hero">
+  <div class="hero-inner">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">Sonis Professional Insurance Services · Ichalkaranji</div>
+        <span class="hero-product-badge">HDFC ERGO · Health Insurance</span>
+        <div class="hero-title">my:Optima <span>Secure</span></div>
+        <div class="hero-tagline">A layered health plan with Secure Benefit, Plus Benefit and Auto Restore — your cover grows every year, even if you claim.</div>
+      </div>
+      <div class="hero-cards">
+        <div class="advisor-card">
+          <div class="av av-d">D</div>
+          <div>
+            <div class="adv-role">Senior Advisor</div>
+            <div class="adv-name">Dattatray Pujari</div>
+            <div class="adv-phone">📞 93253 77528</div>
+          </div>
+        </div>
+        <div class="advisor-card">
+          <div class="av av-a">A</div>
+          <div>
+            <div class="adv-role">Founder &amp; Advisor</div>
+            <div class="adv-name">Archana Soni</div>
+            <div class="adv-phone">📞 98509 77528</div>
+            <div class="adv-email">archanasonis@gmail.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-num">2×</div><div class="stat-lbl">Cover from Day 1</div></div>
+    <div class="stat-item"><div class="stat-num">50%</div><div class="stat-lbl">SI grows every year</div></div>
+    <div class="stat-item"><div class="stat-num">98%</div><div class="stat-lbl">Claims payout ratio</div></div>
+    <div class="stat-item"><div class="stat-num">16,000+</div><div class="stat-lbl">Network hospitals</div></div>
+    <div class="stat-item"><div class="stat-num">1.5 Cr</div><div class="stat-lbl">Lives insured</div></div>
+    <div class="stat-item"><div class="stat-num">24×7</div><div class="stat-lbl">Claims support</div></div>
+  </div>
+</div>
+
+<main class="main-wrap">
+
+<!-- ═══════════════════════════════════════════
+     SECTION 1 — FIND MY PLAN (QUIZ)
+═══════════════════════════════════════════ -->
+<div id="sec-quiz" class="section active">
+  <div class="sec-header">
+    <div class="sec-title">Find the right plan for you</div>
+    <div class="sec-sub">Answer 6 quick questions — we will recommend the best Optima Secure variant and explain why it suits your situation.</div>
+  </div>
+
+  <div class="card">
+    <div class="progress-bar"><div class="progress-fill" id="quiz-progress" style="width:0%"></div></div>
+
+    <div class="quiz-step active" id="qs-0">
+      <div class="q-text">1. What is your primary concern with health insurance?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(0,'maximum_cover')">Maximum coverage at any cost</button>
+        <button class="q-opt" onclick="pickQ(0,'value')">Best value for money</button>
+        <button class="q-opt" onclick="pickQ(0,'low_premium')">Lowest possible premium</button>
+        <button class="q-opt" onclick="pickQ(0,'global')">Coverage while travelling abroad</button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="qs-1">
+      <div class="q-text">2. Do you or any family member have a chronic condition — BP, Diabetes, Asthma, or Cholesterol?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(1,'yes_chronic')">Yes, already diagnosed</button>
+        <button class="q-opt" onclick="pickQ(1,'no_chronic')">No — all healthy</button>
+        <button class="q-opt" onclick="pickQ(1,'borderline')">Borderline / under control</button>
+        <button class="q-opt" onclick="pickQ(1,'not_sure')">Not sure / prefer not to say</button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="qs-2">
+      <div class="q-text">3. How many family members need coverage?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(2,'just_me')">Just me</button>
+        <button class="q-opt" onclick="pickQ(2,'couple')">Self + spouse</button>
+        <button class="q-opt" onclick="pickQ(2,'family')">Family with children</button>
+        <button class="q-opt" onclick="pickQ(2,'parents')">Including parents / in-laws</button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="qs-3">
+      <div class="q-text">4. What sum insured range are you considering?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(3,'low_si')">Up to ₹7.5 lakh</button>
+        <button class="q-opt" onclick="pickQ(3,'mid_si')">₹10 lakh – ₹25 lakh</button>
+        <button class="q-opt" onclick="pickQ(3,'high_si')">₹50 lakh and above</button>
+        <button class="q-opt" onclick="pickQ(3,'unsure_si')">Not decided yet</button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="qs-4">
+      <div class="q-text">5. Do you travel internationally more than once a year?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(4,'travel_yes')">Yes — frequently</button>
+        <button class="q-opt" onclick="pickQ(4,'travel_rare')">Occasionally (once a year)</button>
+        <button class="q-opt" onclick="pickQ(4,'travel_no')">Rarely or never</button>
+        <button class="q-opt" onclick="pickQ(4,'travel_plan')">Planning to start soon</button>
+      </div>
+    </div>
+
+    <div class="quiz-step" id="qs-5">
+      <div class="q-text">6. Are you comfortable self-funding smaller hospital bills in order to save on premium?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(5,'ded_yes')">Yes — I can fund ₹50,000+ myself</button>
+        <button class="q-opt" onclick="pickQ(5,'ded_no')">No — I want full first-rupee cover</button>
+        <button class="q-opt" onclick="pickQ(5,'ded_maybe')">Maybe ₹10,000–₹25,000 deductible</button>
+        <button class="q-opt" onclick="pickQ(5,'ded_corp')">I have corporate insurance as base</button>
+      </div>
+    </div>
+
+    <div id="quiz-result" style="display:none">
+      <div class="divider"></div>
+      <div class="result-box">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary);margin-bottom:8px">Recommended plan</div>
+        <div class="result-plan" id="rec-plan">Optima Secure</div>
+        <span class="badge" id="rec-badge">Best value</span>
+        <div class="result-why" id="rec-why"></div>
+        <div class="btn-row">
+          <button class="btn btn-info" onclick="showSection('benefits')">Explore benefits</button>
+          <button class="btn" onclick="showSection('simulator')">Simulate a claim</button>
+          <button class="btn" onclick="resetQuiz()">Retake quiz</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 2 — BENEFITS
+═══════════════════════════════════════════ -->
+<div id="sec-benefits" class="section">
+  <div class="sec-header">
+    <div class="sec-title">Key benefits — explained simply</div>
+    <div class="sec-sub">Click any card to expand the full explanation with real examples. Each benefit builds on the others to give you layered protection.</div>
+  </div>
+  <div class="sec-cat">Core inbuilt benefits</div>
+  <div id="ben-core"></div>
+  <div class="sec-cat" style="margin-top:.75rem">Coverage features — hospitalisation</div>
+  <div id="ben-coverage"></div>
+  <div class="sec-cat" style="margin-top:.75rem">Optional add-ons</div>
+  <div id="ben-addons"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 3 — CLAIM SIMULATOR
+═══════════════════════════════════════════ -->
+<div id="sec-simulator" class="section">
+  <div class="sec-header">
+    <div class="sec-title">Claim simulator — trace your money</div>
+    <div class="sec-sub">Select a real-life hospitalisation scenario to see exactly which layer of your policy pays how much — step by step.</div>
+  </div>
+  <div class="sc-grid" id="sc-grid"></div>
+  <div class="card" id="sim-output" style="min-height:200px"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 4 — SI GROWTH CHART
+═══════════════════════════════════════════ -->
+<div id="sec-growth" class="section">
+  <div class="sec-header">
+    <div class="sec-title">How your coverage grows over 5 years</div>
+    <div class="sec-sub">The compounding effect of Plus Benefit + Secure Benefit + Auto Restore makes your effective cover far larger than the base SI you pay premium on.</div>
+  </div>
+  <div class="card">
+    <div class="slider-row">
+      <span class="slider-lbl">Base sum insured</span>
+      <input type="range" min="5" max="50" step="5" value="10" id="g-si" oninput="renderGrowthChart()">
+      <span class="slider-val" id="g-si-out">₹10 L</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-lbl">Plan type</span>
+      <select id="g-plan" onchange="renderGrowthChart()">
+        <option value="secure">Optima Secure — Secure Benefit (100%) + Plus Benefit</option>
+        <option value="super">Optima Super Secure — Secure Benefit (200%) + Plus Benefit</option>
+        <option value="suraksha">Optima Suraksha — Cumulative Bonus 10% per year</option>
+      </select>
+      <span style="min-width:0"></span>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="growth-chart" role="img" aria-label="Stacked bar chart showing total coverage growing year by year across 5 policy years, broken into Base SI, Plus Benefit or Cumulative Bonus, Secure Benefit, and Auto Restore.">Coverage grows each year as Plus Benefit accumulates and Secure Benefit adds a permanent buffer.</canvas>
+    </div>
+    <div id="growth-legend" style="display:flex;flex-wrap:wrap;gap:16px;margin-top:1rem;font-size:13px;color:var(--text-secondary)"></div>
+    <div class="metric-grid" id="growth-metrics" style="margin-top:1.25rem"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 5 — WAITING PERIODS
+═══════════════════════════════════════════ -->
+<div id="sec-waiting" class="section">
+  <div class="sec-header">
+    <div class="sec-title">Waiting periods — know before you buy</div>
+    <div class="sec-sub">Every health policy has time periods during which certain conditions are not covered. Understanding these upfront prevents claim surprises later.</div>
+  </div>
+
+  <div class="card">
+    <div class="wait-grid">
+      <div class="wait-card wait-accent wa-amber">
+        <div class="wait-type">Initial waiting</div>
+        <div class="wait-period">30 days</div>
+        <div class="wait-note">No illness claims in the first 30 days from inception. Accidents are always exempt. Waived automatically if you have continuous prior coverage of 12+ months.</div>
+      </div>
+      <div class="wait-card wait-accent wa-coral">
+        <div class="wait-type">Pre-existing diseases (PED)</div>
+        <div class="wait-period">36 months</div>
+        <div class="wait-note">Any disease diagnosed before policy start is excluded for 3 years. Reducible to 24 months or 12 months via the optional PED Wait Period Modification add-on (channel-level only — ask your agent).</div>
+      </div>
+      <div class="wait-card wait-accent wa-blue">
+        <div class="wait-type">Specified diseases</div>
+        <div class="wait-period">24 months</div>
+        <div class="wait-note">40+ listed conditions including cataract, hernia, gallstones, kidney stones, joint replacement, varicose veins, hysterectomy, benign tumours and more are excluded for 2 years. Accidents are exempt.</div>
+      </div>
+      <div class="wait-card wait-accent wa-green">
+        <div class="wait-type">ABCD Chronic Care (add-on)</div>
+        <div class="wait-period">30 days only</div>
+        <div class="wait-note">With the ABCD Chronic Care paid add-on, hospitalisation due to Asthma, Blood Pressure, Cholesterol and Diabetes is covered after just 30 days — instead of the usual 2–3 year PED wait. The single biggest waiting-period advantage in this product.</div>
+      </div>
+      <div class="wait-card wait-accent wa-purple">
+        <div class="wait-type">Maternity (Parenthood add-on)</div>
+        <div class="wait-period">24 months</div>
+        <div class="wait-note">Maternity expenses, IVF treatments and embryo storage are covered after 24 months from when the Parenthood add-on is first purchased. Must be opted at inception — cannot be added mid-policy.</div>
+      </div>
+      <div class="wait-card wait-accent wa-teal">
+        <div class="wait-type">Moratorium period</div>
+        <div class="wait-period">60 months</div>
+        <div class="wait-note">After 5 continuous years of coverage (including portability credit), no claim can be contested by the insurer on grounds of non-disclosure or misrepresentation — except proven fraud. This is your strongest long-term legal protection.</div>
+      </div>
+      <div class="wait-card wait-accent wa-gray">
+        <div class="wait-type">Portability credit</div>
+        <div class="wait-period">Carry forward</div>
+        <div class="wait-note">Years served with your previous insurer count towards all waiting periods. Port at least 30 days before renewal. If you have served 2 years elsewhere, only 1 year of PED waiting remains here.</div>
+      </div>
+      <div class="wait-card wait-accent wa-blue">
+        <div class="wait-type">Global cover (planned treatment)</div>
+        <div class="wait-period">Restart on port</div>
+        <div class="wait-note">All waiting periods restart from scratch for planned overseas treatments if you port or migrate into the Global or Global Plus plan. Emergency overseas treatments are not subject to this restart.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="background:var(--bg-warning);border-color:var(--amber-50)">
+    <div style="font-size:14px;font-weight:700;color:var(--amber-800);margin-bottom:5px">Important: always disclose pre-existing conditions honestly</div>
+    <div style="font-size:13px;color:var(--amber-800);line-height:1.7">
+      Non-disclosure of pre-existing diseases can lead to policy cancellation or full claim rejection. However, under IRDAI guidelines, the insurer may instead offer to continue coverage by (a) permanently excluding the undisclosed condition, (b) adding an additional 3-year waiting period for that condition, or (c) levying an underwriting loading — all subject to your acceptance. After the 60-month moratorium, even undisclosed conditions are protected except for proven fraud.
+    </div>
+  </div>
+</div>
+
+</main>
+
+<footer class="agent-footer">
+  <div class="af-inner">
+    <div>
+      <div class="af-brand">Sonis Professional Insurance Services</div>
+      <div class="af-address">10/306/1, Sarvoday Nagar, Near Hirkani Hotel, "Gokul", Ichalkaranji — 416115<br>Your trusted health insurance partner across Ichalkaranji &amp; Kolhapur district</div>
+      <div class="af-copy">© 2026 Sonis Professional Insurance Services · All Rights Reserved</div>
+    </div>
+    <div class="af-contacts">
+      <div class="af-person">
+        <div class="af-role">Senior Advisor</div>
+        <div class="af-pname">Dattatray Pujari</div>
+        <div class="af-phone">📞 93253 77528</div>
+      </div>
+      <div class="af-person">
+        <div class="af-role">Founder &amp; Advisor</div>
+        <div class="af-pname">Archana Soni</div>
+        <div class="af-phone">📞 98509 77528</div>
+        <div class="af-email">archanasonis@gmail.com</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════ SECTION SWITCH ═══════════════════════
+var sections = ['quiz','benefits','simulator','growth','waiting'];
+function showSection(id) {
+  sections.forEach(function(s) { document.getElementById('sec-'+s).classList.remove('active'); });
+  document.querySelectorAll('.nav-btn').forEach(function(b,i) { b.classList.toggle('active', sections[i]===id); });
+  document.getElementById('sec-'+id).classList.add('active');
+  if (id==='growth')    setTimeout(renderGrowthChart, 80);
+  if (id==='benefits')  renderBenefits();
+  if (id==='simulator') initSimulator();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ═══════════════════════ QUIZ ═══════════════════════
+var quizAnswers = {}, currentQ = 0;
+function pickQ(qIdx, val) {
+  quizAnswers[qIdx] = val;
+  document.querySelectorAll('#qs-'+qIdx+' .q-opt').forEach(function(b) { b.classList.remove('selected'); });
+  event.currentTarget.classList.add('selected');
+  setTimeout(function() {
+    if (qIdx < 5) {
+      document.getElementById('qs-'+qIdx).classList.remove('active');
+      currentQ = qIdx + 1;
+      document.getElementById('qs-'+currentQ).classList.add('active');
+      document.getElementById('quiz-progress').style.width = Math.round(((qIdx+1)/6)*100) + '%';
+    } else {
+      document.getElementById('quiz-progress').style.width = '100%';
+      showQuizResult();
+    }
+  }, 240);
+}
+
+function showQuizResult() {
+  document.querySelectorAll('.quiz-step').forEach(function(s) { s.classList.remove('active'); });
+  var a = quizAnswers, plan, badge, why;
+
+  if (a[0]==='global' || a[4]==='travel_yes') {
+    plan = 'Optima Secure Global Plus'; badge = 'badge-purple';
+    why = 'Your frequent international travel makes the Global Plus plan essential. It covers both emergency and planned treatments abroad under a single policy — no separate travel insurance needed. A per-claim deductible of ₹10,000 applies for overseas claims, and treatment must begin within 45 days of departure. The Overseas Travel Secure add-on additionally covers economy-class airfare and hotel accommodation (up to ₹15,000/day, max 30 days) for an accompanying person during hospitalisation abroad.';
+  } else if (a[0]==='maximum_cover' || a[3]==='high_si') {
+    plan = 'Optima Super Secure'; badge = 'badge-blue';
+    why = 'You have prioritised maximum coverage — and Optima Super Secure delivers exactly that. The Secure Benefit alone adds 200% of your base SI as additional cover. So with a ₹10L base, your maximum single-claim limit in Year 3 is ₹30L (base ₹10L + Plus ₹10L + Secure ₹20L). After Auto Restore, the total annual limit rises to ₹40L. This plan is especially suited for cardiac conditions, cancer treatment and organ transplants where costs routinely exceed ₹20L.';
+  } else if (a[0]==='low_premium' || a[5]==='ded_yes' || a[5]==='ded_corp') {
+    plan = 'Optima Secure + Aggregate Deductible'; badge = 'badge-amber';
+    why = 'If you have corporate health insurance or can self-fund smaller bills, choosing an aggregate deductible of ₹1L–₹3L reduces your Optima Secure premium by 40–55%. The insurer pays everything above the deductible — and you still retain the full Secure Benefit and Plus Benefit once the deductible is crossed. After 5 continuous policy years with the deductible, you have a one-time option to waive it entirely (subject to age below 61 at that time).';
+  } else if (a[3]==='low_si' || (a[2]==='just_me' && a[0]==='value')) {
+    plan = 'Optima Lite'; badge = 'badge-gray';
+    why = 'For a solo policyholder prioritising value, Optima Lite at ₹5–7.5L SI with the Unlimited Restore add-on is highly cost-effective. Unlimited Auto Restore means every hospitalisation during the year is covered — even if you claim multiple times. The Cumulative Bonus grows at 10% per year. Room rent is capped at 1% of base SI per day and ICU at 2%, so choosing a higher SI (₹7.5L) is recommended to avoid proportionate deductions.';
+  } else if (a[1]==='yes_chronic' || a[1]==='borderline') {
+    plan = 'Optima Secure + ABCD Chronic Care Add-on'; badge = 'badge-teal';
+    why = 'Given the chronic condition, the ABCD Chronic Care add-on is the single most important feature for you. It covers hospitalisation due to Asthma, Blood Pressure, Cholesterol and Diabetes after just 30 days — instead of the standard 36-month PED waiting period. Without this add-on, those conditions would be excluded for 3 full years. The base Optima Secure plan ensures you also have Secure Benefit, Plus Benefit and Protect Benefit inbuilt.';
+  } else if (a[2]==='family' || a[2]==='parents') {
+    plan = 'Optima Secure — Family Floater'; badge = 'badge-green';
+    why = 'For a family, the floater option gives the eldest insured member full base SI, while every additional member gets a flat 55% discount on their individual premium — making it very efficient for 3–4 member families. With ₹10–15L base SI and Plus Benefit growing by 50% each year irrespective of claims, your family\'s cover keeps compounding. If parents are in a higher age bracket, consider individual policies for them and a separate floater for the nuclear family.';
+  } else {
+    plan = 'Optima Secure'; badge = 'badge-blue';
+    why = 'Optima Secure is the flagship plan and the most balanced choice for most policyholders. It bundles four powerful features inbuilt — Secure Benefit (100% extra SI from day 1), Plus Benefit (SI grows 50% per year regardless of claims), Auto Restore (SI refills after a claim), and Protect Benefit (consumables covered, eliminating partial claim deductions). At ₹10L base SI, your Year 3 maximum annual cover reaches ₹40L without any additional premium.';
+  }
+
+  document.getElementById('rec-plan').textContent = plan;
+  var b = document.getElementById('rec-badge');
+  b.className = 'badge ' + badge;
+  b.textContent = {
+    'badge-purple':'Global traveller pick',
+    'badge-blue':'Maximum coverage',
+    'badge-amber':'Premium saver pick',
+    'badge-gray':'Budget-conscious pick',
+    'badge-teal':'Chronic-condition pick',
+    'badge-green':'Family pick'
+  }[badge] || 'Recommended';
+  document.getElementById('rec-why').textContent = why;
+  document.getElementById('quiz-result').style.display = 'block';
+}
+
+function resetQuiz() {
+  quizAnswers = {}; currentQ = 0;
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-progress').style.width = '0%';
+  document.querySelectorAll('.quiz-step').forEach(function(s, i) {
+    s.classList.toggle('active', i === 0);
+    s.querySelectorAll('.q-opt').forEach(function(b) { b.classList.remove('selected'); });
+  });
+}
+
+// ═══════════════════════ BENEFITS ═══════════════════════
+var coreBenefits = [
+  { badge:'badge-blue', title:'Secure Benefit',
+    sub:'An invisible buffer — 100% or 200% extra SI from day 1',
+    detail:'When you take Optima Secure with ₹10L base SI, the Secure Benefit adds another ₹10L on top — inbuilt at no extra charge from day 1. Your maximum single-claim limit becomes ₹20L (base + secure). For Optima Super Secure, Secure Benefit is 200%, making the single-claim limit ₹30L from Year 1 itself.\n\nThe Secure Benefit activates only after the base SI (and Plus Benefit, if any) is fully exhausted. Any unused Secure Benefit does not carry forward to the next policy year. In a family floater, the Secure Benefit is shared across all members on a floater basis.',
+    chips:['Inbuilt — no extra charge','Optima Secure: +100% base SI','Super Secure: +200% base SI','Only after base SI exhausted','Not available in Suraksha / Select / Lite'] },
+  { badge:'badge-teal', title:'Plus Benefit',
+    sub:'Your SI multiplier — grows 50% every year, even after a claim',
+    detail:'Every renewal, 50% of your base SI is added as Plus Benefit — irrespective of whether you claimed during the year. It accumulates up to a maximum of 100% of the base SI (i.e., full Plus in 2 years). Example: ₹10L SI → Year 1: ₹10L base, Year 2: ₹15L effective (base ₹10L + Plus ₹5L), Year 3: ₹20L effective (base ₹10L + full Plus ₹10L).\n\nCombined with Secure Benefit, the Year 3 maximum single claim becomes ₹30L. This is a permanent replacement for the Cumulative Bonus in Optima Secure plans — once opted, CB does not accrue. Plus Benefit applies on floater basis for family policies.',
+    chips:['+50% of base SI per year','Accumulates up to 100% of base SI','Grows even after a claim — not a no-claim bonus','Replaces Cumulative Bonus','Floater basis for families'] },
+  { badge:'badge-amber', title:'Auto Restore Benefit',
+    sub:'Your SI refills automatically after a claim — same illness eligible',
+    detail:'If any admissible hospitalisation claim partially or fully exhausts the base SI, the Auto Restore Benefit instantly adds back 100% of the base SI. Uniquely, the restored SI can be used for the same illness that caused the earlier claim in the same year — not just a different illness.\n\nIn Optima Secure: 1 restore trigger per policy year. In Optima Select and Optima Lite: Unlimited restore triggers throughout the year. The restored SI cannot be applied to the same claim that triggered it — only to subsequent claims. Unused restored SI does not carry forward to the next year.',
+    chips:['Optima Secure: 1 restore per year','Select and Lite: unlimited restores','Same illness is eligible','Restores 100% of base SI only','Does not carry forward to next year'] },
+  { badge:'badge-coral', title:'Protect Benefit',
+    sub:'Covers consumables hospitals charge — no more partial deductions',
+    detail:'During hospitalisation, hospitals routinely charge for dozens of items that most standard health policies exclude — including gloves, syringes, IV tubing, diapers, ambulance collar, blood grouping charges, food trays (other than patient diet), laundry, ECG electrodes, nebulizer kits and 60+ other items listed in Annexure B of the policy.\n\nWithout Protect Benefit, these deductions are one of the most common sources of client frustration at claim settlement time. Protect Benefit covers all of these in full. It is inbuilt in Optima Secure and Optima Super Secure. It is an optional paid add-on in Optima Select and Optima Lite.',
+    chips:['68 non-medical item categories covered','Inbuilt in Optima Secure and Super Secure','Optional in Select and Lite','Eliminates partial claim deductions','Covers Annexure B items in full'] },
+];
+
+var coverageBenefits = [
+  { badge:'badge-blue', title:'Room Rent — at actuals',
+    sub:'No sub-limit, no proportionate deduction risk',
+    detail:'Room rent is covered at actuals in Optima Secure, Optima Super Secure and Optima Secure Global plans — meaning the policy pays whatever the hospital charges for the room, with no per-day cap.\n\nThis matters because: if your plan has a room rent sub-limit (e.g. 1% of SI) and you take a higher room, all other charges — surgeon fee, nursing, medicines, OT — are reduced proportionately. Optima Secure eliminates this risk by paying at actuals. Note: Optima Lite caps room rent at 1% of base SI per day, so choosing a higher SI under Lite is important.',
+    chips:['Secure, Super Secure, Global: at actuals','Optima Lite: 1% of base SI per day','No proportionate deduction in Secure plans','Any category room at network hospitals','Day care treatments also covered'] },
+  { badge:'badge-blue', title:'ICU / ICCU charges — at actuals',
+    sub:'Intensive care unit expenses paid in full',
+    detail:'ICU and ICCU (Intensive Cardiac Care Unit) charges are covered at actuals in all Optima Secure plan variants — except Optima Lite where ICU is capped at 2% of base SI per day.\n\nICU stays are typically the most expensive component of any hospitalisation — often ₹15,000–₹50,000 per day depending on the hospital. Having ICU at actuals ensures no bill surprise even during the most critical medical events.',
+    chips:['ICU at actuals in Secure plans','Optima Lite: 2% of base SI per day','ICCU also included','No cap in Secure, Super Secure, Global','Part of hospitalisation expense cover'] },
+  { badge:'badge-teal', title:'Air ambulance — up to ₹5 lakh',
+    sub:'Emergency air transport covered separately',
+    detail:'If you need emergency transportation by air — helicopter or fixed-wing aircraft — because ground ambulance is inadequate for the urgency of the medical situation, the policy pays up to ₹5,00,000 for air ambulance charges.\n\nConditions: Written advice from a medical practitioner is required. Medically necessary treatment must not be available at the location. Air ambulance provider must be a registered entity in India. A claim for the same hospitalisation must be admissible. The air ambulance benefit does not reduce your sum insured. Road ambulance is covered up to the sum insured.',
+    chips:['Air ambulance up to ₹5 lakh','Road ambulance up to sum insured','Written medical advice needed','Registered provider only','Does not reduce main sum insured'] },
+  { badge:'badge-teal', title:'Pre & post hospitalisation — 60 & 180 days',
+    sub:'Wider coverage window than most standard policies',
+    detail:'Medical expenses do not start and stop at hospitalisation. Tests, medicines and specialist visits before admission and recovery costs after discharge are significant — often 15–30% of the total treatment cost.\n\nOptima Secure covers 60 days pre-hospitalisation expenses and 180 days post-hospitalisation expenses. This is double the 30/90 day windows found in most standard plans. Both must be directly related to the same admissible hospitalisation claim.',
+    chips:['60 days pre-hospitalisation','180 days post-hospitalisation','Double the standard window','Must relate to same admission','Tests, medicines, doctor visits covered'] },
+  { badge:'badge-teal', title:'Preventive health check-up — annual benefit',
+    sub:'Every year, from Year 2, regardless of claim status',
+    detail:'After completing each policy year, you and every insured member are entitled to a preventive health check-up — irrespective of whether you made a claim during the year. Tests can be chosen freely within the per-person sub-limit.\n\nIndividual policy limits (per insured per year): ₹1,500 for ₹5–7.5L SI, ₹2,000 for ₹10L, ₹4,000 for ₹15L, ₹5,000 for ₹20–50L, ₹8,000 for ₹1Cr+. Family floater limits (per policy): ₹2,500 for ₹5–7.5L, ₹5,000 for ₹10L, ₹8,000 for ₹15L, ₹10,000 for ₹20–50L, ₹15,000 for ₹1Cr+.',
+    chips:['Every year from Year 2 onwards','No claim condition required','Free choice of tests','Individual: ₹1,500–₹8,000 per person','Floater: ₹2,500–₹15,000 per policy'] },
+  { badge:'badge-purple', title:'Home healthcare — cashless at home',
+    sub:'Treatment at home covered on a cashless basis',
+    detail:'If a treating doctor prescribes that treatment taken at home would ordinarily require inpatient hospitalisation, the policy covers all medical expenses — doctor visits, nursing charges, diagnostic tests and medicines — on a cashless, pre-authorised basis.\n\nConditions: Must be pre-authorised by HDFC ERGO before commencement. Daily treatment records must be signed by the treating doctor. Not available on reimbursement basis. Available in select cities only — confirm availability before relying on this benefit.',
+    chips:['Cashless — not reimbursement','Pre-authorisation required','Doctor prescription mandatory','Select cities only','Nursing, medicines, tests covered'] },
+  { badge:'badge-purple', title:'AYUSH treatment — inpatient',
+    sub:'Ayurveda, Yoga, Homeopathy and other systems covered',
+    detail:'Inpatient care under Ayurveda, Yoga and Naturopathy, Unani, Siddha and Homeopathy is covered up to the sum insured — as long as treatment is received at a recognised AYUSH hospital. This is an inbuilt feature, not an add-on.\n\nThis benefit is especially relevant for patients who prefer traditional medicine for chronic conditions, post-surgical recovery or conditions where allopathic options are limited.',
+    chips:['Inbuilt — no extra charge','All 5 AYUSH systems covered','Must be at recognised AYUSH hospital','Inpatient care only','Up to sum insured'] },
+  { badge:'badge-gray', title:'Daily cash for shared room — ₹800/day',
+    sub:'Out-of-pocket allowance when choosing shared accommodation',
+    detail:'If you are hospitalised in shared accommodation at a network hospital for more than 48 consecutive hours, the policy pays ₹800 per day as a daily cash allowance — up to ₹4,800 per hospitalisation. This covers peripheral costs like food, transport and other incidentals for the patient or caregiver.\n\nThis benefit is not available for ICU stays. It applies only at network hospitals. The amount does not reduce the sum insured and can be used freely.',
+    chips:['₹800 per day in shared room','Maximum ₹4,800 per hospitalisation','Network hospital only','Must exceed 48 consecutive hours','Does not reduce sum insured'] },
+  { badge:'badge-gray', title:'Organ donor expenses',
+    sub:'Donor surgery costs covered under your own policy',
+    detail:'If you are the recipient of an organ transplant, the hospitalisation expenses of the organ donor — specifically for the harvesting surgery — are covered under your own policy, up to the sum insured. The donor does not need to be separately insured.\n\nConditions: Must comply with the Transplantation of Human Organs Act 2011 and applicable rules. Your own claim as recipient must be admissible. The donor\'s pre/post-hospitalisation expenses, organ preservation costs and transportation costs are excluded.',
+    chips:['Donor surgery covered under recipient policy','Donor need not be insured separately','Organ Act compliance required','Up to sum insured','Donor pre/post and transport excluded'] },
+  { badge:'badge-purple', title:'Global Health Cover',
+    sub:'Emergency — and planned — treatment outside India',
+    detail:'Optima Secure Global covers emergency-only treatment outside India. Excluded under this plan: cancer, planned orthopaedic conditions, any treatment that was the primary reason for travel. Optima Secure Global Plus additionally covers planned treatments — making it the stronger choice for frequent travellers.\n\nKey conditions: A per-claim deductible of ₹10,000 applies for every overseas claim. Claims are settled in INR at the RBI exchange rate on the date of payment to the hospital. Treatment must begin within 45 days of departure from India.',
+    chips:['Global: emergency-only abroad','Global Plus: planned treatment too','₹10,000 per-claim deductible overseas','RBI rate used for INR conversion','Treatment must begin within 45 days'] },
+];
+
+var addonBenefits = [
+  { badge:'badge-green', title:'ABCD Chronic Care Add-on',
+    sub:'Only 30 days wait for BP, Diabetes, Asthma and Cholesterol',
+    detail:'Standard health policies impose a 36-month PED waiting period for pre-existing conditions — meaning Asthma, Blood Pressure, Cholesterol and Diabetes would be excluded for 3 full years. The ABCD Chronic Care add-on reduces this waiting period to just 30 days for hospitalisations arising from these four specific conditions.\n\nThis is a paid add-on that must be purchased at inception or renewal — it cannot be added mid-policy. It does not affect the PED waiting period for any other conditions. Strongly recommended for anyone with even borderline readings for these four lifestyle diseases.',
+    chips:['Asthma, BP, Cholesterol, Diabetes covered','Only 30-day waiting period','Paid add-on — all Optima Secure plans','Does not affect PED wait for other conditions','Must be opted at inception or renewal'] },
+  { badge:'badge-teal', title:'Parenthood Add-on',
+    sub:'Maternity, IVF and embryo storage — covered after 2 years',
+    detail:'The Parenthood add-on covers maternity expenses (normal delivery, caesarean, and complicated deliveries), IVF treatments, and embryo storage costs — all after a 24-month waiting period from the date the add-on is first purchased.\n\nThe add-on must be opted at inception. It cannot be added to an existing policy mid-term. Maternity benefits are excluded under the base policy. This add-on is the only route to maternity coverage within the Optima Secure product suite.',
+    chips:['Normal, caesarean and complicated deliveries','IVF treatments covered','Embryo storage costs covered','24-month waiting period','Must be opted at inception'] },
+  { badge:'badge-gray', title:'Limitless Add-on',
+    sub:'Infinite claim value per event — for catastrophic illness',
+    detail:'For conditions where treatment costs can far exceed any sum insured — such as complex cancer protocols, bone marrow transplants or prolonged ICU stays — the Limitless add-on guarantees a specified number of claims of infinite monetary value over the lifetime of the policy. There is no per-claim monetary ceiling.\n\nLimitless is valid for claims made within India only. The number of covered claims is specified in the policy schedule at the time of purchase.',
+    chips:['No monetary cap per claim','Specified claim count over lifetime','India-only claims','Best for catastrophic illness risk','Paid add-on — available with all plans'] },
+];
+
+var benefitsRendered = false;
+function renderBenefits() {
+  if (benefitsRendered) return;
+  benefitsRendered = true;
+  document.getElementById('ben-core').innerHTML = buildBenHTML(coreBenefits,'c');
+  document.getElementById('ben-coverage').innerHTML = buildBenHTML(coverageBenefits,'v');
+  document.getElementById('ben-addons').innerHTML = buildBenHTML(addonBenefits,'a');
+}
+
+function buildBenHTML(arr, prefix) {
+  var html = '';
+  arr.forEach(function(b, idx) {
+    var id = prefix + '-' + idx;
+    html += '<div class="ben-card" onclick="toggleBen(\'' + id + '\')" id="bc-' + id + '">';
+    html += '<div class="ben-header"><div class="ben-header-left">';
+    html += '<span class="badge ' + b.badge + '">' + b.title + '</span>';
+    html += '<div class="ben-name">' + b.title + '</div>';
+    html += '<div class="ben-sub">' + b.sub + '</div>';
+    html += '</div><span class="ben-arrow" id="arr-' + id + '">&#9662;</span></div>';
+    html += '<div class="ben-detail" id="bd-' + id + '">';
+    var paras = b.detail.split('\n\n');
+    paras.forEach(function(p) { if(p.trim()) html += '<p>' + p.trim() + '</p>'; });
+    html += '<div class="chips-row">';
+    b.chips.forEach(function(ch) { html += '<span class="badge badge-gray" style="font-size:11px">' + ch + '</span>'; });
+    html += '</div></div></div>';
+  });
+  return html;
+}
+
+function toggleBen(id) {
+  var card = document.getElementById('bc-' + id);
+  var detail = document.getElementById('bd-' + id);
+  var arrow = document.getElementById('arr-' + id);
+  var open = card.classList.contains('open');
+  document.querySelectorAll('.ben-card').forEach(function(c) { c.classList.remove('open'); });
+  document.querySelectorAll('.ben-detail').forEach(function(d) { d.style.display='none'; });
+  document.querySelectorAll('.ben-arrow').forEach(function(a) { a.style.transform=''; });
+  if (!open) {
+    card.classList.add('open');
+    detail.style.display = 'block';
+    arrow.style.transform = 'rotate(180deg)';
+  }
+}
+
+// ═══════════════════════ CLAIM SIMULATOR ═══════════════════════
+var scenarios = [
+  { title:'Cardiac surgery',
+    sub:'₹14L claim · Year 2 · ₹10L base SI (Optima Secure)',
+    paid:14, gap:0, restore_after:10,
+    steps:[
+      { cls:'fn-base', lbl:'Base SI', desc:'First ₹10L is paid from the Base SI — fully exhausted in this claim.', amt:10, bar:71, bc:'bar-blue' },
+      { cls:'fn-plus', lbl:'Plus Benefit (Year 2)', desc:'₹4L drawn from ₹5L Plus Benefit (50% of base SI in Year 2) to settle the balance. ₹1L Plus Benefit remains unused.', amt:4, bar:29, bc:'bar-teal' },
+      { cls:'fn-secure', lbl:'Secure Benefit', desc:'Not triggered — claim fully settled by Base SI + Plus Benefit.', amt:0, bar:0, bc:'bar-blue', skip:true },
+      { cls:'fn-restore', lbl:'Auto Restore triggers', desc:'₹10L Base SI instantly restored. Available for any future claim in the remaining policy year.', amt:10, bar:100, bc:'bar-amber' },
+    ]
+  },
+  { title:'Two hospitalisations — same year',
+    sub:'₹6L + ₹9L · Year 2 · ₹10L base SI (Optima Secure)',
+    paid:15, gap:0, restore_after:6,
+    steps:[
+      { cls:'fn-base', lbl:'First claim — ₹6L', desc:'₹6L paid from Base SI. ₹4L Base SI remains in the pool.', amt:6, bar:60, bc:'bar-blue' },
+      { cls:'fn-restore', lbl:'Auto Restore triggers after first claim', desc:'₹10L Base SI instantly restored. Total available pool is now ₹4L (remaining base) + ₹10L (restored) + ₹5L (Plus) = ₹19L.', amt:10, bar:100, bc:'bar-amber' },
+      { cls:'fn-base', lbl:'Second claim — ₹9L', desc:'₹4L remaining Base SI + ₹5L Plus Benefit (Year 2) = ₹9L. Fully covered without touching the restored SI.', amt:9, bar:90, bc:'bar-teal' },
+      { cls:'fn-secure', lbl:'Secure Benefit', desc:'Not required — both claims settled without exhausting Plus or Secure Benefit.', amt:0, bar:0, bc:'bar-blue', skip:true },
+    ]
+  },
+  { title:'Cancer treatment',
+    sub:'₹28L claim · Year 3 · ₹10L base SI (Optima Secure)',
+    paid:28, gap:0, restore_after:10,
+    steps:[
+      { cls:'fn-base', lbl:'Base SI', desc:'₹10L from Base SI — fully exhausted.', amt:10, bar:36, bc:'bar-blue' },
+      { cls:'fn-plus', lbl:'Plus Benefit (Year 3 — full)', desc:'Year 3 Plus Benefit = 100% of base = ₹10L. Fully applied to the claim.', amt:10, bar:36, bc:'bar-teal' },
+      { cls:'fn-secure', lbl:'Secure Benefit', desc:'₹8L drawn from ₹10L Secure Benefit. ₹2L Secure Benefit remains unused.', amt:8, bar:29, bc:'bar-purple' },
+      { cls:'fn-restore', lbl:'Auto Restore triggers', desc:'₹10L Base SI restored for any subsequent hospitalisation this year.', amt:10, bar:100, bc:'bar-amber' },
+    ]
+  },
+  { title:'Optima Lite stress test',
+    sub:'₹8L claim · ₹5L SI · Unlimited Restore plan',
+    paid:8, gap:0, restore_after:2,
+    steps:[
+      { cls:'fn-base', lbl:'Base SI (₹5L)', desc:'₹5L paid from Base SI — exhausted entirely.', amt:5, bar:63, bc:'bar-blue' },
+      { cls:'fn-restore', lbl:'Unlimited Auto Restore — trigger 1', desc:'₹5L instantly restored. Optima Lite has unlimited restore triggers with no restriction.', amt:5, bar:63, bc:'bar-amber' },
+      { cls:'fn-base', lbl:'Restored SI — balance of claim', desc:'₹3L drawn from the restored SI to settle the remaining ₹3L of the claim.', amt:3, bar:38, bc:'bar-blue' },
+      { cls:'fn-restore', lbl:'Remaining cover after claim', desc:'₹2L of restored SI remains available for any further claim during the policy year.', amt:2, bar:25, bc:'bar-amber' },
+    ]
+  },
+];
+
+var simInited = false;
+function initSimulator() {
+  if (!simInited) {
+    var g = document.getElementById('sc-grid');
+    var html = '';
+    scenarios.forEach(function(sc, i) {
+      html += '<div class="sc-card' + (i===0?' active':'') + '" id="sc-'+i+'" onclick="pickScenario('+i+')">';
+      html += '<div class="sc-title">' + sc.title + '</div>';
+      html += '<div class="sc-sub">' + sc.sub + '</div></div>';
+    });
+    g.innerHTML = html;
+    simInited = true;
+  }
+  pickScenario(0);
+}
+
+function pickScenario(idx) {
+  document.querySelectorAll('.sc-card').forEach(function(c, i) { c.classList.toggle('active', i===idx); });
+  var sc = scenarios[idx];
+  var html = '<div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:1.1rem">' + sc.title + '<span style="font-size:13px;font-weight:400;color:var(--text-secondary);margin-left:8px">— ' + sc.sub + '</span></div>';
+  // summary metrics
+  html += '<div class="metric-grid" style="margin-bottom:1.25rem">';
+  html += '<div class="metric"><div class="metric-lbl">Total claim</div><div class="metric-val">₹'+sc.paid+'L</div></div>';
+  html += '<div class="metric"><div class="metric-lbl">Insurer pays</div><div class="metric-val" style="color:#0f6e56">₹'+sc.paid+'L</div></div>';
+  html += '<div class="metric"><div class="metric-lbl">Out of your pocket</div><div class="metric-val" style="color:'+(sc.gap>0?'#a32d2d':'#0f6e56')+'">'+(sc.gap>0?'₹'+sc.gap+'L':'Zero')+'</div></div>';
+  html += '<div class="metric"><div class="metric-lbl">SI available after claim</div><div class="metric-val">₹'+sc.restore_after+'L</div><div class="metric-hint">via auto restore</div></div>';
+  html += '</div>';
+  html += '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-tertiary);margin-bottom:1rem">Payment flow — step by step</div>';
+  sc.steps.forEach(function(s, i) {
+    if (s.skip) return;
+    html += '<div class="flow-row">';
+    html += '<div class="flow-num ' + s.cls + '">' + (i+1) + '</div>';
+    html += '<div class="flow-body">';
+    html += '<div class="flow-lbl">' + s.lbl + '</div>';
+    html += '<div class="flow-desc">' + s.desc + '</div>';
+    if (s.amt > 0) {
+      html += '<div class="flow-amt amt-green">₹' + s.amt + 'L</div>';
+      html += '<div class="bar-wrap"><div class="bar-fill ' + s.bc + '" style="width:' + s.bar + '%"></div></div>';
+    }
+    html += '</div></div>';
+  });
+  document.getElementById('sim-output').innerHTML = html;
+}
+
+// ═══════════════════════ SI GROWTH CHART ═══════════════════════
+var growthChart = null;
+function renderGrowthChart() {
+  var si = parseInt(document.getElementById('g-si').value);
+  var plan = document.getElementById('g-plan').value;
+  document.getElementById('g-si-out').textContent = '₹' + si + ' L';
+
+  var baseData=[], plusData=[], secureData=[], restoreData=[];
+  [1,2,3,4,5].forEach(function(y) {
+    baseData.push(si);
+    if (plan==='secure') {
+      plusData.push(Math.min(si * 0.5 * (y-1), si));
+      secureData.push(si);
+    } else if (plan==='super') {
+      plusData.push(Math.min(si * 0.5 * (y-1), si));
+      secureData.push(si * 2);
+    } else {
+      plusData.push(Math.min(Math.round(si * 0.1 * y), si));
+      secureData.push(0);
+    }
+    restoreData.push(si);
+  });
+
+  var yr5plus = plusData[4], yr5sec = secureData[4];
+  var yr5single = si + yr5plus + yr5sec;
+  var yr5annual = yr5single + si;
+  var multiplier = (yr5annual / si).toFixed(1);
+  var plusLabel = (plan==='suraksha') ? 'Cumulative Bonus' : 'Plus Benefit';
+
+  document.getElementById('growth-metrics').innerHTML =
+    '<div class="metric"><div class="metric-lbl">Year 5 effective SI</div><div class="metric-val">₹'+(si+yr5plus)+'L</div><div class="metric-hint">base + '+plusLabel+'</div></div>'+
+    '<div class="metric"><div class="metric-lbl">Year 5 max single claim</div><div class="metric-val">₹'+yr5single+'L</div><div class="metric-hint">base + Plus + Secure</div></div>'+
+    '<div class="metric"><div class="metric-lbl">Year 5 max annual cover</div><div class="metric-val">₹'+yr5annual+'L</div><div class="metric-hint">incl. 1 auto restore</div></div>'+
+    '<div class="metric"><div class="metric-lbl">Coverage growth</div><div class="metric-val">'+multiplier+'×</div><div class="metric-hint">vs base SI at purchase</div></div>';
+
+  document.getElementById('growth-legend').innerHTML =
+    '<span style="display:flex;align-items:center;gap:6px"><span style="width:13px;height:13px;border-radius:3px;background:#378ADD;display:inline-block"></span>Base SI</span>'+
+    '<span style="display:flex;align-items:center;gap:6px"><span style="width:13px;height:13px;border-radius:3px;background:#1D9E75;display:inline-block"></span>'+plusLabel+'</span>'+
+    (plan!=='suraksha'?'<span style="display:flex;align-items:center;gap:6px"><span style="width:13px;height:13px;border-radius:3px;background:#7F77DD;display:inline-block"></span>Secure Benefit</span>':'')+
+    '<span style="display:flex;align-items:center;gap:6px"><span style="width:13px;height:13px;border-radius:3px;background:#EF9F27;display:inline-block"></span>Auto Restore</span>';
+
+  if (growthChart) growthChart.destroy();
+  growthChart = new Chart(document.getElementById('growth-chart').getContext('2d'), {
+    type: 'bar',
+    data: {
+      labels: ['Year 1','Year 2','Year 3','Year 4','Year 5'],
+      datasets: [
+        { label:'Base SI',    data:baseData,    backgroundColor:'#378ADD', borderWidth:0 },
+        { label:plusLabel,    data:plusData,    backgroundColor:'#1D9E75', borderWidth:0 },
+        { label:'Secure',     data:secureData,  backgroundColor:'#7F77DD', borderWidth:0 },
+        { label:'Auto Restore', data:restoreData, backgroundColor:'#EF9F27', borderWidth:0 },
+      ]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{ display:false },
+        tooltip:{ callbacks:{ label:function(c){ return c.dataset.label+': ₹'+c.raw+'L'; } } }
+      },
+      scales:{
+        x:{ stacked:true, grid:{ display:false }, ticks:{ font:{ size:13 } } },
+        y:{ stacked:true,
+          ticks:{ callback:function(v){ return '₹'+v+'L'; }, font:{ size:13 } },
+          grid:{ color:'rgba(128,128,128,0.1)' }
+        }
+      }
+    }
+  });
+}
+
+// ═══════════════════════ INIT ═══════════════════════
+renderBenefits();
+</script>
+</body>
+</html>

@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Care Heart — Sonis Professional Insurance Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{
+  --navy:#0D1B2A;--navy-mid:#1B2F45;
+  --gold:#C9963A;--gold-light:#E4B860;
+  --heart:#E53935;--heart-dark:#B71C1C;--heart-light:#EF5350;
+  --heart-soft:#FFEBEE;--heart-mid:#FFCDD2;
+  --care-blue:#005DA8;--care-blue-light:#1A7DC5;
+  --cream:#FAF7F2;--white:#fff;
+  --text:#1e293b;--muted:#64748b;--border:#e2e8f0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);line-height:1.6;}
+
+/* ── TOPNAV ── */
+.topnav{position:sticky;top:0;z-index:200;background:rgba(13,27,42,0.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:10px 32px;border-bottom:1px solid rgba(229,57,53,0.3);gap:12px;flex-wrap:wrap;}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--gold-light);white-space:nowrap;}
+.nav-tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+.nav-tabs::-webkit-scrollbar{display:none;}
+.nav-tab{flex-shrink:0;font-size:12px;font-weight:500;padding:5px 16px;border-radius:99px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:rgba(255,255,255,0.65);cursor:pointer;white-space:nowrap;transition:all .15s;font-family:'DM Sans',sans-serif;}
+.nav-tab:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.nav-tab.active{background:var(--heart);color:#fff;border-color:var(--heart);font-weight:700;}
+.nav-contact{font-size:12px;color:var(--gold-light);white-space:nowrap;font-weight:500;flex-shrink:0;}
+
+/* ── HERO ── */
+.hero{background:var(--navy);position:relative;overflow:hidden;padding:52px 32px 44px;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%,rgba(229,57,53,.18) 0%,transparent 55%),radial-gradient(ellipse at 10% 80%,rgba(0,93,168,.1) 0%,transparent 50%);}
+.hero::after{
+  content:'♥';position:absolute;right:5%;top:50%;transform:translateY(-50%);
+  font-size:18rem;color:rgba(229,57,53,.04);line-height:1;pointer-events:none;
+  font-family:'Cormorant Garamond',serif;
+}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+.hero-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
+@media(max-width:700px){.hero-grid{grid-template-columns:1fr;}.hero-cards{display:none!important;}}
+.hero-eyebrow{font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600;}
+.hero-badge-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+.hero-insurer{background:rgba(229,57,53,.15);border:1px solid rgba(229,57,53,.35);border-radius:8px;padding:5px 12px;font-size:.8rem;font-weight:700;color:var(--heart-light);letter-spacing:.5px;}
+.hero-award{font-size:.72rem;color:rgba(255,255,255,.45);}
+.hero-special-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(229,57,53,.1);border:1px solid rgba(229,57,53,.25);
+  border-radius:10px;padding:10px 16px;margin-bottom:14px;
+}
+.hero-special-icon{font-size:1.4rem;}
+.hero-special-txt{font-size:.8rem;color:rgba(255,255,255,.7);line-height:1.4;}
+.hero-special-txt strong{color:var(--heart-light);}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.6rem);font-weight:700;color:#fff;line-height:1.1;margin-bottom:12px;}
+.hero-title span{color:var(--heart-light);}
+.hero-tagline{font-size:.95rem;color:rgba(255,255,255,.62);margin-bottom:20px;max-width:500px;line-height:1.6;}
+.hero-chips{display:flex;gap:10px;flex-wrap:wrap;}
+.hchip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 12px;}
+.hchip-val{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--heart-light);}
+.hchip-txt{font-size:.72rem;color:rgba(255,255,255,.68);line-height:1.3;}
+.hero-cards{display:flex;flex-direction:column;gap:12px;}
+.advisor-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:12px;min-width:240px;transition:all .3s;}
+.advisor-card:hover{background:rgba(255,255,255,.1);border-color:rgba(201,150,58,.4);transform:translateX(4px);}
+.av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:#fff;flex-shrink:0;}
+.av-d{background:linear-gradient(135deg,#1565C0,#0D47A1);box-shadow:0 4px 14px rgba(21,101,192,.45);}
+.av-a{background:linear-gradient(135deg,#C9963A,#8B6320);box-shadow:0 4px 14px rgba(201,150,58,.45);}
+.adv-role{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);}
+.adv-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#fff;}
+.adv-phone{font-size:.82rem;color:#69F0AE;font-weight:600;}
+.adv-email{font-size:.78rem;color:var(--gold-light);}
+
+/* ── IMPORTANT BANNER ── */
+.important-banner{background:linear-gradient(135deg,var(--heart) 0%,var(--heart-dark) 100%);padding:14px 32px;}
+.ib-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.ib-icon{font-size:1.4rem;flex-shrink:0;}
+.ib-text{font-size:.85rem;color:#fff;line-height:1.5;}
+.ib-text strong{font-size:.95rem;}
+
+/* ── STATS BAR ── */
+.stats-bar{background:var(--heart-dark);padding:13px 32px;}
+.stats-inner{max-width:1100px;margin:0 auto;display:flex;gap:28px;flex-wrap:wrap;justify-content:center;}
+.stat-item{color:#fff;text-align:center;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;}
+.stat-lbl{font-size:.7rem;opacity:.82;letter-spacing:.4px;}
+
+/* ── MAIN ── */
+.main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 3rem;}
+.section{display:none;}.section.active{display:block;}
+.sec-head{margin-bottom:1.5rem;}
+.sec-eyebrow{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--heart);font-weight:600;margin-bottom:6px;}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--navy);border-bottom:3px solid var(--heart);padding-bottom:8px;margin-bottom:6px;}
+.sec-sub{font-size:.9rem;color:var(--muted);line-height:1.55;max-width:680px;}
+.sec-cat{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--heart);margin-bottom:.6rem;margin-top:.5rem;}
+.card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+
+/* ── ELIGIBILITY ALERT ── */
+.eligibility-alert{background:var(--heart-soft);border:1.5px solid var(--heart-mid);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;}
+.ea-title{font-size:.9rem;font-weight:700;color:var(--heart-dark);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.ea-body{font-size:.85rem;color:#7f1d1d;line-height:1.7;}
+.ea-points{margin-top:.6rem;display:flex;flex-direction:column;gap:5px;}
+.ea-point{font-size:.85rem;color:#7f1d1d;display:flex;align-items:flex-start;gap:8px;line-height:1.5;}
+.ea-dot{width:6px;height:6px;border-radius:50%;background:var(--heart);flex-shrink:0;margin-top:6px;}
+
+/* ── QUIZ ── */
+.progress-bar{height:4px;background:var(--border);border-radius:99px;margin-bottom:1.75rem;overflow:hidden;}
+.progress-fill{height:100%;background:var(--heart);border-radius:99px;transition:width .35s;}
+.quiz-step{display:none;}.quiz-step.active{display:block;}
+.q-text{font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:1rem;line-height:1.45;}
+.q-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:520px){.q-options{grid-template-columns:1fr;}}
+.q-opt{padding:.9rem 1.1rem;border:1px solid var(--border);border-radius:10px;font-size:.88rem;color:var(--text);cursor:pointer;text-align:left;background:#fff;transition:all .15s;font-family:'DM Sans',sans-serif;line-height:1.4;}
+.q-opt:hover{border-color:var(--heart);background:var(--heart-soft);}
+.q-opt.selected{border:2px solid var(--heart);background:var(--heart-soft);color:var(--heart-dark);}
+.result-box{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);border-radius:14px;padding:1.75rem;margin-top:1.25rem;}
+.result-eyebrow{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);margin-bottom:8px;}
+.result-plan{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#fff;margin-bottom:8px;}
+.rbadge{display:inline-block;font-size:.72rem;font-weight:700;padding:3px 12px;border-radius:99px;margin-bottom:10px;letter-spacing:.03em;}
+.rb-red{background:rgba(229,57,53,.2);color:#ff8a80;border:1px solid rgba(229,57,53,.35);}
+.rb-blue{background:rgba(0,93,168,.2);color:#6BBAFF;border:1px solid rgba(0,93,168,.35);}
+.rb-green{background:rgba(16,185,129,.15);color:#6ee7b7;border:1px solid rgba(16,185,129,.25);}
+.result-why{font-size:.88rem;color:rgba(255,255,255,.72);line-height:1.75;margin-top:8px;}
+.result-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:1.1rem;}
+.rbtn{font-size:.82rem;font-weight:600;padding:.6rem 1.2rem;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.rbtn:hover{background:rgba(255,255,255,.15);}
+.rbtn-p{background:var(--heart);color:#fff;border-color:var(--heart);}
+.rbtn-p:hover{background:var(--heart-dark);}
+
+/* ── BENEFITS ── */
+.ben-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:10px;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.ben-card:hover{border-color:var(--heart);box-shadow:0 4px 16px rgba(229,57,53,.08);}
+.ben-card.open{border-color:var(--heart);box-shadow:0 4px 16px rgba(229,57,53,.12);}
+.ben-hdr{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.ben-left{flex:1;}
+.bbadge{display:inline-block;font-size:.68rem;font-weight:700;padding:2px 10px;border-radius:99px;margin-bottom:5px;letter-spacing:.04em;}
+.bb-red{background:#fff0f0;color:var(--heart-dark);}
+.bb-blue{background:#e6f0fb;color:#005DA8;}
+.bb-green{background:#ecfdf5;color:#065F46;}
+.bb-teal{background:#e8f6f7;color:#0D5E64;}
+.bb-purple{background:#f0eeff;color:#5B21B6;}
+.bb-amber{background:#fff5e6;color:#92400E;}
+.bb-gray{background:#f8f7f5;color:#444;}
+.ben-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--navy);}
+.ben-sub{font-size:.82rem;color:var(--muted);margin-top:2px;}
+.ben-arrow{font-size:13px;color:var(--muted);transition:transform .2s;flex-shrink:0;}
+.ben-card.open .ben-arrow{transform:rotate(180deg);}
+.ben-detail{display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);}
+.ben-card.open .ben-detail{display:block;}
+.ben-detail p{font-size:.875rem;color:var(--muted);line-height:1.75;margin-bottom:.85rem;}
+.chips-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:.5rem;}
+.chip{font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--cream);color:var(--muted);border:1px solid var(--border);}
+
+/* ── CO-PAYMENT BOX ── */
+.copay-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:.75rem;}
+.copay-card{background:var(--heart-soft);border:1px solid var(--heart-mid);border-radius:10px;padding:1rem;}
+.copay-age{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--heart-dark);margin-bottom:4px;}
+.copay-pct{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--heart);}
+.copay-note{font-size:.75rem;color:#7f1d1d;margin-top:3px;line-height:1.4;}
+
+/* ── SI TABLE ── */
+.si-table{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:.75rem;}
+.si-table th{text-align:left;font-weight:700;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--border);background:var(--cream);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;}
+.si-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text);}
+.si-table tr:hover td{background:#fff9f9;}
+.si-table td:not(:first-child){text-align:center;}
+.si-table th:not(:first-child){text-align:center;}
+.hl-row td{font-weight:700;background:var(--heart-soft)!important;color:var(--heart-dark);}
+
+/* ── SIMULATOR ── */
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:1.25rem;}
+.sc-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1rem;cursor:pointer;transition:all .15s;}
+.sc-card:hover{border-color:var(--heart);}
+.sc-card.active{border:2px solid var(--heart);background:var(--heart-soft);}
+.sc-title{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.sc-card.active .sc-title{color:var(--heart-dark);}
+.sc-sub{font-size:.75rem;color:var(--muted);line-height:1.4;}
+.flow-row{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}
+.flow-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0;}
+.fn-base{background:#EFF6FF;color:#1D4ED8;}
+.fn-ncb{background:#FFF5E6;color:#92400E;}
+.fn-rech{background:#ECFDF5;color:#065F46;}
+.fn-cop{background:var(--heart-soft);color:var(--heart-dark);}
+.flow-body{flex:1;}
+.flow-lbl{font-size:.875rem;font-weight:700;color:var(--navy);}
+.flow-desc{font-size:.78rem;color:var(--muted);margin-top:3px;line-height:1.45;}
+.flow-amt{font-size:1.1rem;font-weight:700;margin-top:6px;color:#065F46;}
+.flow-amt.red{color:var(--heart-dark);}
+.bar-wrap{height:12px;background:var(--cream);border-radius:99px;overflow:hidden;margin-top:6px;}
+.bar-fill{height:100%;border-radius:99px;transition:width .55s ease;}
+.b-blue{background:#378ADD;}
+.b-red{background:var(--heart);}
+.b-green{background:#1D9E75;}
+.b-amber{background:#F59E0B;}
+
+/* ── METRICS ── */
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:1rem 0;}
+.metric{background:var(--cream);border-radius:10px;padding:.85rem 1rem;border:1px solid var(--border);}
+.metric-lbl{font-size:.72rem;color:var(--muted);margin-bottom:4px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;}
+.metric-val{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:var(--navy);}
+.metric-val.green{color:#065F46;}
+.metric-val.red{color:var(--heart-dark);}
+.metric-val.amber{color:#92400E;}
+.metric-hint{font-size:.72rem;color:var(--muted);margin-top:2px;}
+
+/* ── GROWTH ── */
+.slider-row{display:flex;align-items:center;gap:14px;margin-bottom:1.1rem;flex-wrap:wrap;}
+.slider-lbl{font-size:.875rem;color:var(--muted);min-width:130px;font-weight:500;}
+.slider-val{font-size:.9rem;font-weight:700;color:var(--navy);min-width:70px;text-align:right;}
+input[type=range]{flex:1;min-width:120px;height:4px;accent-color:var(--heart);cursor:pointer;}
+select{flex:1;min-width:200px;font-size:.875rem;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--text);cursor:pointer;font-family:'DM Sans',sans-serif;}
+.chart-wrap{position:relative;width:100%;height:280px;margin-top:1.25rem;}
+.legend-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:1rem;font-size:.82rem;color:var(--muted);}
+.leg-item{display:flex;align-items:center;gap:6px;}
+.leg-dot{width:12px;height:12px;border-radius:3px;display:inline-block;flex-shrink:0;}
+
+/* ── WAITING ── */
+.wait-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:1rem;}
+.wait-card{background:#fff;border-radius:10px;padding:1rem 1rem 1rem 1.1rem;border:1px solid var(--border);border-left:4px solid;}
+.wc-red{border-left-color:var(--heart);}
+.wc-amber{border-left-color:#F59E0B;}
+.wc-blue{border-left-color:var(--care-blue);}
+.wc-green{border-left-color:#059669;}
+.wc-teal{border-left-color:#0D9488;}
+.wc-gray{border-left-color:#94a3b8;}
+.wait-type{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:5px;}
+.wait-period{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--navy);}
+.wait-note{font-size:.78rem;color:var(--muted);margin-top:5px;line-height:1.45;}
+.warn-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #f59e0b;border-radius:12px;padding:1.25rem;margin-top:1rem;}
+.warn-title{font-size:.9rem;font-weight:700;color:#92400E;margin-bottom:5px;}
+.warn-body{font-size:.82rem;color:#92400E;line-height:1.7;}
+.heart-box{background:var(--heart-soft);border:1px solid var(--heart-mid);border-radius:12px;padding:1.25rem;margin-top:1rem;}
+.heart-title{font-size:.9rem;font-weight:700;color:var(--heart-dark);margin-bottom:5px;}
+.heart-body{font-size:.82rem;color:#7f1d1d;line-height:1.7;}
+
+/* ── ZONE ── */
+.zone-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:8px;margin-top:.75rem;}
+.zone-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;border-top:3px solid;}
+.zc-1{border-top-color:#DC2626;}.zc-2{border-top-color:var(--heart);}
+.zc-3{border-top-color:var(--care-blue);}.zc-4{border-top-color:#059669;}
+.zone-num{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:3px;}
+.zone-name{font-size:.82rem;font-weight:600;color:var(--navy);line-height:1.4;}
+
+/* ── AGENT FOOTER ── */
+.agent-footer{background:var(--navy);padding:28px 32px;border-top:2px solid rgba(229,57,53,.3);margin-top:2rem;}
+.af-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.af-brand{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--gold-light);}
+.af-address{font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.7;margin-top:3px;}
+.af-contacts{display:flex;gap:24px;flex-wrap:wrap;}
+.af-person{text-align:center;}
+.af-role{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.35);margin-bottom:2px;}
+.af-pname{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#fff;}
+.af-phone{font-size:.85rem;color:#69F0AE;font-weight:600;}
+.af-email{font-size:.75rem;color:var(--gold-light);}
+.af-copy{font-size:.68rem;color:rgba(255,255,255,.25);margin-top:6px;}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="nav-brand">Sonis Insurance</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('quiz')">Am I eligible?</button>
+    <button class="nav-tab" onclick="showTab('benefits')">Benefits</button>
+    <button class="nav-tab" onclick="showTab('simulator')">Claim simulator</button>
+    <button class="nav-tab" onclick="showTab('growth')">SI growth</button>
+    <button class="nav-tab" onclick="showTab('waiting')">Waiting periods</button>
+  </div>
+  <div class="nav-contact">📞 98509 77528</div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">Sonis Professional Insurance Services · Ichalkaranji</div>
+        <div class="hero-badge-row">
+          <span class="hero-insurer">Care Health Insurance</span>
+          <span class="hero-award">Best Claim Settlement Co. of the Year 2025</span>
+        </div>
+        <div class="hero-special-badge">
+          <span class="hero-special-icon">♥</span>
+          <span class="hero-special-txt"><strong>India's dedicated cardiac health plan</strong><br>Designed exclusively for those who have undergone heart surgery or cardiac procedures</span>
+        </div>
+        <div class="hero-title">Care <span>Heart</span></div>
+        <div class="hero-tagline">A heart surgery will not stop you from getting health insurance. Care Heart gives cardiac patients access to quality coverage — with only a 2-year PED wait, lifelong renewability and cardiac health check-ups included.</div>
+        <div class="hero-chips">
+          <div class="hchip"><div class="hchip-val">2 yr</div><div class="hchip-txt">PED wait<br>not 36 months</div></div>
+          <div class="hchip"><div class="hchip-val">∞</div><div class="hchip-txt">Lifelong<br>renewability</div></div>
+          <div class="hchip"><div class="hchip-val">10%</div><div class="hchip-txt">No Claim Bonus<br>per year</div></div>
+          <div class="hchip"><div class="hchip-val">♥</div><div class="hchip-txt">Annual cardiac<br>health check-up</div></div>
+        </div>
+      </div>
+      <div class="hero-cards">
+        <div class="advisor-card">
+          <div class="av av-d">D</div>
+          <div>
+            <div class="adv-role">Senior Advisor</div>
+            <div class="adv-name">Dattatray Pujari</div>
+            <div class="adv-phone">📞 93253 77528</div>
+          </div>
+        </div>
+        <div class="advisor-card">
+          <div class="av av-a">A</div>
+          <div>
+            <div class="adv-role">Founder &amp; Advisor</div>
+            <div class="adv-name">Archana Soni</div>
+            <div class="adv-phone">📞 98509 77528</div>
+            <div class="adv-email">archanasonis@gmail.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="important-banner">
+  <div class="ib-inner">
+    <span class="ib-icon">⚠️</span>
+    <div class="ib-text"><strong>Who this plan is for:</strong> Care Heart is designed exclusively for individuals who have been diagnosed with a cardiac ailment and have already undergone a cardiac surgery or procedure. At least one insured must meet this criterion to be eligible. This is NOT a general health plan.</div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-num">2 yr</div><div class="stat-lbl">PED waiting period</div></div>
+    <div class="stat-item"><div class="stat-num">∞</div><div class="stat-lbl">Lifelong renewability</div></div>
+    <div class="stat-item"><div class="stat-num">10%</div><div class="stat-lbl">No Claim Bonus/year</div></div>
+    <div class="stat-item"><div class="stat-num">50%</div><div class="stat-lbl">Max NCB cap</div></div>
+    <div class="stat-item"><div class="stat-num">100%</div><div class="stat-lbl">Recharge on SI exhaustion</div></div>
+    <div class="stat-item"><div class="stat-num">Zone 4</div><div class="stat-lbl">Ichalkaranji — lowest premium</div></div>
+  </div>
+</div>
+
+<main class="main">
+
+<!-- ═══ TAB 1: ELIGIBILITY + QUIZ ═══ -->
+<div id="tab-quiz" class="section active">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Care Heart · Eligibility &amp; Personalised Guide</div>
+    <div class="sec-title">Am I eligible? + find my best SI</div>
+    <div class="sec-sub">Care Heart has a specific eligibility criterion. Confirm eligibility first, then answer the questions to find the most suitable sum insured and configuration for your situation.</div>
+  </div>
+
+  <div class="eligibility-alert">
+    <div class="ea-title">♥ Eligibility criteria — who can buy Care Heart</div>
+    <div class="ea-body">At least one insured person in the policy must satisfy ALL of the following conditions:</div>
+    <div class="ea-points">
+      <div class="ea-point"><div class="ea-dot"></div>Diagnosed with a cardiac ailment or cardiac disorder in the past</div>
+      <div class="ea-point"><div class="ea-dot"></div>Has undergone a cardiac surgical intervention or procedure for the same (e.g. bypass surgery, angioplasty, valve replacement, pacemaker, stent etc.)</div>
+      <div class="ea-point"><div class="ea-dot"></div>Minimum entry age: 18 years. No maximum age. Lifelong renewability.</div>
+      <div class="ea-point"><div class="ea-dot"></div>Individual plan: up to 6 persons. Floater plan: 2 adults (self + spouse) — at least one must meet cardiac criteria.</div>
+    </div>
+    <div style="font-size:.82rem;color:#7f1d1d;margin-top:.75rem;padding:.6rem .75rem;background:rgba(229,57,53,.08);border-radius:8px;border-left:3px solid var(--heart)">
+      <strong>Important:</strong> If neither insured has undergone a cardiac procedure, this plan cannot be issued. For family members without cardiac history buying alongside a cardiac patient, they can be added as co-insured on the same policy.
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:1.25rem">Now let us find the best sum insured and options for you — answer 5 quick questions</div>
+    <div class="progress-bar"><div class="progress-fill" id="qprog" style="width:0%"></div></div>
+
+    <div class="quiz-step active" id="qs-0">
+      <div class="q-text">1. What type of cardiac procedure have you / your family member undergone?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(0,'bypass')">Bypass surgery (CABG)</button>
+        <button class="q-opt" onclick="pickQ(0,'angio')">Angioplasty / Stent</button>
+        <button class="q-opt" onclick="pickQ(0,'valve')">Valve replacement / repair</button>
+        <button class="q-opt" onclick="pickQ(0,'other')">Pacemaker / other cardiac procedure</button>
+      </div>
+    </div>
+    <div class="quiz-step" id="qs-1">
+      <div class="q-text">2. How long ago was the cardiac procedure performed?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(1,'recent')">Less than 1 year ago</button>
+        <button class="q-opt" onclick="pickQ(1,'one_two')">1–2 years ago</button>
+        <button class="q-opt" onclick="pickQ(1,'two_five')">2–5 years ago</button>
+        <button class="q-opt" onclick="pickQ(1,'old')">More than 5 years ago</button>
+      </div>
+    </div>
+    <div class="quiz-step" id="qs-2">
+      <div class="q-text">3. What is the age of the cardiac patient being insured?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(2,'u50')">Below 50 years</button>
+        <button class="q-opt" onclick="pickQ(2,'50_60')">50 to 60 years</button>
+        <button class="q-opt" onclick="pickQ(2,'60_70')">61 to 70 years</button>
+        <button class="q-opt" onclick="pickQ(2,'o70')">Above 70 years</button>
+      </div>
+    </div>
+    <div class="quiz-step" id="qs-3">
+      <div class="q-text">4. Is this policy for just the cardiac patient or for the whole family?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(3,'solo')">Just for me (individual)</button>
+        <button class="q-opt" onclick="pickQ(3,'floater')">Self + spouse (floater)</button>
+        <button class="q-opt" onclick="pickQ(3,'multi')">Multiple family members (individual basis)</button>
+        <button class="q-opt" onclick="pickQ(3,'plus_kids')">Me + spouse + others (individual in same policy)</button>
+      </div>
+    </div>
+    <div class="quiz-step" id="qs-4">
+      <div class="q-text">5. What sum insured are you considering?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(4,'3l')">₹3 lakh (minimum — starter)</button>
+        <button class="q-opt" onclick="pickQ(4,'5l')">₹5 lakh (standard)</button>
+        <button class="q-opt" onclick="pickQ(4,'7l')">₹7 lakh (recommended)</button>
+        <button class="q-opt" onclick="pickQ(4,'10l')">₹10 lakh (maximum)</button>
+      </div>
+    </div>
+
+    <div id="quiz-result" style="display:none">
+      <div style="height:1px;background:var(--border);margin:1.25rem 0;"></div>
+      <div class="result-box">
+        <div class="result-eyebrow">Our recommendation for you</div>
+        <div class="result-plan" id="rec-plan">Care Heart</div>
+        <span class="rbadge" id="rec-badge"></span>
+        <div class="result-why" id="rec-why"></div>
+        <div class="result-btns">
+          <button class="rbtn rbtn-p" onclick="showTab('benefits')">Explore all benefits</button>
+          <button class="rbtn" onclick="showTab('simulator')">Simulate a claim</button>
+          <button class="rbtn" onclick="resetQuiz()">Retake</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB 2: BENEFITS ═══ -->
+<div id="tab-benefits" class="section">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Care Heart · Complete Feature Guide</div>
+    <div class="sec-title">All benefits — explained simply</div>
+    <div class="sec-sub">Care Heart is a specialist cardiac plan. Every feature is tailored to the realities of managing cardiac health long-term. Click any card to expand.</div>
+  </div>
+
+  <div class="eligibility-alert" style="margin-bottom:1rem">
+    <div class="ea-title" style="margin-bottom:4px">♥ Co-payment applies to all claims</div>
+    <div class="ea-body">Care Heart is a specialised cardiac plan and carries a mandatory co-payment. This is the amount the insured pays from their own pocket per claim, with the insurer paying the balance.</div>
+    <div class="copay-grid" style="margin-top:.75rem">
+      <div class="copay-card">
+        <div class="copay-age">Entry age ≤ 70 years</div>
+        <div class="copay-pct">20%</div>
+        <div class="copay-note">You pay 20% of every admissible claim. Insurer pays 80%.</div>
+      </div>
+      <div class="copay-card">
+        <div class="copay-age">Entry age &gt; 70 years</div>
+        <div class="copay-pct">30%</div>
+        <div class="copay-note">You pay 30% of every admissible claim. Insurer pays 70%.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-cat">Core inbuilt benefits</div>
+  <div id="ben-core"></div>
+  <div class="sec-cat" style="margin-top:.75rem">Coverage features</div>
+  <div id="ben-coverage"></div>
+  <div class="sec-cat" style="margin-top:.75rem">Optional add-ons</div>
+  <div id="ben-addons"></div>
+
+  <div class="sec-cat" style="margin-top:.75rem">Sum insured options — key limits at a glance</div>
+  <div style="overflow-x:auto">
+    <table class="si-table">
+      <thead>
+        <tr>
+          <th>Benefit</th>
+          <th>₹3L SI</th>
+          <th>₹5L SI</th>
+          <th>₹7L SI</th>
+          <th>₹10L SI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>In-patient / ICU / Day care</td><td>Up to SI</td><td>Up to SI</td><td>Up to SI</td><td>Up to SI</td></tr>
+        <tr><td>Room rent</td><td>1% of SI/day</td><td>1% of SI/day</td><td colspan="2">Single private room</td></tr>
+        <tr><td>ICU charges</td><td>2% of SI/day</td><td>2% of SI/day</td><td colspan="2">No limit</td></tr>
+        <tr class="hl-row"><td>Ambulance per hospitalisation</td><td>₹2,000</td><td>₹2,000</td><td>₹3,000</td><td>₹3,000</td></tr>
+        <tr><td>Pre-hospitalisation</td><td colspan="4">30 days — max 5% of SI</td></tr>
+        <tr><td>Post-hospitalisation</td><td colspan="4">60 days — max 5% of SI</td></tr>
+        <tr><td>Cataract (per eye)</td><td>₹20,000</td><td>₹20,000</td><td>₹30,000</td><td>₹30,000</td></tr>
+        <tr class="hl-row"><td>Knee replacement (per knee)</td><td>₹80,000</td><td>₹1,00,000</td><td>₹1,20,000</td><td>₹1,20,000</td></tr>
+        <tr><td>Cancer / Cerebrovascular / Renal</td><td>₹2,00,000</td><td>₹2,50,000</td><td colspan="2">₹3,00,000</td></tr>
+        <tr><td>Hernia / Hysterectomy / BPH / Renal stones</td><td>₹50,000</td><td>₹65,000</td><td colspan="2">₹80,000</td></tr>
+        <tr><td>No Claim Bonus</td><td colspan="4">10%/year, max 50% (reduces 10% if claim in year)</td></tr>
+        <tr class="hl-row"><td>Automatic Recharge</td><td colspan="4">100% of original SI — once per year</td></tr>
+        <tr><td>Home Care (optional)</td><td>₹1,000/day, max 7 days/occ, 45 days/year</td><td>₹1,000/day</td><td>₹2,000/day</td><td>₹2,000/day</td></tr>
+        <tr><td>Co-payment (mandatory)</td><td colspan="4">20% (age ≤70) / 30% (age &gt;70)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="font-size:.75rem;color:var(--muted);margin-top:.6rem;line-height:1.6;">All co-payments are deducted from the admissible claim before the insurer's payment. Room rent sub-limits trigger proportionate deduction on all associated charges for ₹3L and ₹5L SI plans. Ichalkaranji = Zone 4 (lowest premium tier).</div>
+
+  <div class="sec-cat" style="margin-top:.75rem">Zone-based pricing</div>
+  <div class="zone-grid">
+    <div class="zone-card zc-1"><div class="zone-num">Zone 1 — highest premium</div><div class="zone-name">Delhi NCR, Surat, Mathura, Aligarh</div></div>
+    <div class="zone-card zc-2"><div class="zone-num">Zone 2</div><div class="zone-name">Telangana, Mumbai (MMR), Ahmedabad, Vadodara, Nashik</div></div>
+    <div class="zone-card zc-3"><div class="zone-num">Zone 3</div><div class="zone-name">Pune, Indore, Bengaluru Urban, Rest of Gujarat</div></div>
+    <div class="zone-card zc-4"><div class="zone-num">Zone 4 — lowest premium</div><div class="zone-name">Rest of India — incl. Ichalkaranji</div></div>
+  </div>
+</div>
+
+<!-- ═══ TAB 3: CLAIM SIMULATOR ═══ -->
+<div id="tab-simulator" class="section">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Care Heart · Real-Life Scenarios</div>
+    <div class="sec-title">Claim simulator — trace your money</div>
+    <div class="sec-sub">Care Heart carries a mandatory co-payment. Every scenario below shows exactly how claims are settled — including co-payment deduction — so there are no surprises at claim time.</div>
+  </div>
+  <div class="sc-grid" id="sc-grid"></div>
+  <div class="card" id="sim-output" style="min-height:220px"></div>
+</div>
+
+<!-- ═══ TAB 4: SI GROWTH ═══ -->
+<div id="tab-growth" class="section">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Care Heart · No Claim Bonus Growth</div>
+    <div class="sec-title">How your coverage grows with No Claim Bonus</div>
+    <div class="sec-sub">Care Heart's NCB adds 10% of base SI for every claim-free year — up to a maximum of 50%. If a claim is made in any year, the NCB accrued reduces by 10% but the base SI never falls below the original SI.</div>
+  </div>
+  <div class="card">
+    <div class="slider-row">
+      <span class="slider-lbl">Base sum insured</span>
+      <input type="range" min="3" max="10" step="1" value="5" id="g-si" oninput="renderChart()">
+      <span class="slider-val" id="g-si-out">₹5 L</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-lbl">Show years</span>
+      <input type="range" min="3" max="8" step="1" value="5" id="g-yr" oninput="renderChart()">
+      <span class="slider-val" id="g-yr-out">5 years</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-lbl">Claim pattern</span>
+      <select id="g-plan" onchange="renderChart()">
+        <option value="noclaim">No claims at all — maximum NCB growth</option>
+        <option value="oneclaim">One claim in Year 3 — see NCB reset</option>
+        <option value="alternate">Alternate claim years — realistic pattern</option>
+      </select>
+      <span style="min-width:0"></span>
+    </div>
+    <div class="chart-wrap"><canvas id="growth-chart" role="img" aria-label="Stacked bar chart showing Care Heart SI growth through No Claim Bonus over selected years."></canvas></div>
+    <div class="legend-row" id="growth-legend"></div>
+    <div class="metric-grid" id="growth-metrics" style="margin-top:1.25rem"></div>
+    <div style="font-size:.78rem;color:var(--muted);margin-top:.75rem;line-height:1.6;padding:.75rem;background:var(--cream);border-radius:8px;border:1px solid var(--border)">
+      <strong>NCB rules:</strong> +10% of base SI per claim-free year (max 50% of base SI accumulated). If a claim is paid in any year, the accumulated NCB reduces by 10% of base SI — but the total SI never falls below the original base SI. You can never lose the original SI you bought.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TAB 5: WAITING PERIODS ═══ -->
+<div id="tab-waiting" class="section">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Care Heart · What You Must Know Before Buying</div>
+    <div class="sec-title">Waiting periods — the heart patient's guide</div>
+    <div class="sec-sub">Care Heart's 2-year PED waiting period is dramatically shorter than the standard 36 months — its biggest advantage for cardiac patients. Here is every waiting period explained clearly.</div>
+  </div>
+
+  <div class="heart-box" style="margin-bottom:1rem">
+    <div class="heart-title">♥ The most important fact about Care Heart</div>
+    <div class="heart-body">Standard health plans impose a 36-month (3-year) waiting period for pre-existing diseases including cardiac conditions. This means if you have had a heart attack, bypass surgery or angioplasty, a normal health policy would not cover cardiac-related hospitalisations for 3 years after purchase.<br><br>Care Heart cuts this to just <strong>24 months (2 years)</strong> — the single biggest advantage of this specialist plan. If you have a cardiac event in Year 3 or later, it is fully covered (subject to co-payment and applicable sub-limits).</div>
+  </div>
+
+  <div class="card">
+    <div class="wait-grid">
+      <div class="wait-card wc-amber">
+        <div class="wait-type">Initial waiting period</div>
+        <div class="wait-period">30 days</div>
+        <div class="wait-note">No illness claims in the first 30 days. Accidents are always exempt. Waived if you have prior continuous coverage of 12+ months under another health policy.</div>
+      </div>
+      <div class="wait-card wc-red">
+        <div class="wait-type">Pre-existing diseases (PED)</div>
+        <div class="wait-period">24 months</div>
+        <div class="wait-note">All pre-existing conditions — including the cardiac condition — are excluded for only 2 years. This is the plan's defining advantage vs standard 36-month PED in other policies.</div>
+      </div>
+      <div class="wait-card wc-blue">
+        <div class="wait-type">Specific disease waiting period</div>
+        <div class="wait-period">24 months</div>
+        <div class="wait-note">Named ailments — cataract, hernia, gallstones, joint replacement, BPH and more — are excluded for 2 years. Same as PED period. Accidents are always exempt.</div>
+      </div>
+      <div class="wait-card wc-green">
+        <div class="wait-type">Cardiac health check-up</div>
+        <div class="wait-period">Available Year 1</div>
+        <div class="wait-note">Annual cardiac health check-up is available from Year 1 itself — once per insured per policy year on cashless basis at Care's network providers. No waiting period on this benefit.</div>
+      </div>
+      <div class="wait-card wc-teal">
+        <div class="wait-type">Moratorium period</div>
+        <div class="wait-period">60 months</div>
+        <div class="wait-note">After 5 continuous years of coverage, no claim can be contested by the insurer on grounds of non-disclosure — except proven fraud. Your strongest long-term legal protection.</div>
+      </div>
+      <div class="wait-card wc-gray">
+        <div class="wait-type">Portability credit</div>
+        <div class="wait-period">Carry forward</div>
+        <div class="wait-note">Waiting periods served under another health insurer can be credited here under IRDAI portability norms. Apply at least 30 days before your current policy renewal date.</div>
+      </div>
+      <div class="wait-card wc-red">
+        <div class="wait-type">Co-payment (not a waiting period)</div>
+        <div class="wait-period">From Day 1</div>
+        <div class="wait-note">20% co-payment (entry age ≤70) or 30% (entry age &gt;70) applies on every admissible claim from Day 1, forever. This is mandatory and cannot be waived.</div>
+      </div>
+      <div class="wait-card wc-amber">
+        <div class="wait-type">Home care (optional add-on)</div>
+        <div class="wait-period">No extra wait</div>
+        <div class="wait-note">If opted, Home Care add-on follows the same waiting periods as the base plan. The deductible of 1 day applies per occurrence — Days 2 to 7 per occurrence are covered at ₹1,000–₹2,000 per day.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="heart-box">
+    <div class="heart-title">♥ Comparison — Care Heart vs a standard health plan for a cardiac patient</div>
+    <div class="heart-body">
+      <strong>Standard health plan PED wait:</strong> 36 months (3 years) — cardiac events in Year 1, 2 and 3 are not covered.<br>
+      <strong>Care Heart PED wait:</strong> 24 months (2 years) — cardiac events in Year 3 onwards are covered (subject to co-pay).<br><br>
+      This 12-month difference is extremely significant for a cardiac patient. The probability of a cardiac-related hospitalisation in Year 3 after surgery is real — and Care Heart is the only plan that covers it at the 2-year mark instead of the 3-year mark.<br><br>
+      <strong>Trade-off:</strong> The mandatory co-payment (20%/30%) is the cost of this early coverage. For a ₹5L claim at 20% co-pay, you pay ₹1L and the insurer pays ₹4L — still far better than paying the entire ₹5L yourself.
+    </div>
+  </div>
+
+  <div class="warn-box" style="margin-top:1rem">
+    <div class="warn-title">Plan your co-payment budget</div>
+    <div class="warn-body">Unlike standard plans, Care Heart's co-payment is mandatory and permanent. We recommend budgeting for 20–30% of a likely claim amount as your own contribution. For cardiac surgeries averaging ₹3–8L, your share would be ₹60,000–₹2.4L depending on your age. Having a personal health corpus or top-up policy alongside Care Heart is a sound strategy. Your Sonis advisor can recommend the right combination.</div>
+  </div>
+</div>
+
+</main>
+
+<footer class="agent-footer">
+  <div class="af-inner">
+    <div>
+      <div class="af-brand">Sonis Professional Insurance Services</div>
+      <div class="af-address">10/306/1, Sarvoday Nagar, Near Hirkani Hotel, "Gokul", Ichalkaranji — 416115<br>Your trusted health insurance partner across Ichalkaranji &amp; Kolhapur district</div>
+      <div class="af-copy" style="margin-top:8px">© 2026 Sonis Professional Insurance Services · All Rights Reserved</div>
+    </div>
+    <div class="af-contacts">
+      <div class="af-person">
+        <div class="af-role">Senior Advisor</div>
+        <div class="af-pname">Dattatray Pujari</div>
+        <div class="af-phone">📞 93253 77528</div>
+      </div>
+      <div class="af-person">
+        <div class="af-role">Founder &amp; Advisor</div>
+        <div class="af-pname">Archana Soni</div>
+        <div class="af-phone">📞 98509 77528</div>
+        <div class="af-email">archanasonis@gmail.com</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+var tabs=['quiz','benefits','simulator','growth','waiting'];
+function showTab(id){
+  tabs.forEach(function(t){document.getElementById('tab-'+t).classList.remove('active');});
+  document.querySelectorAll('.nav-tab').forEach(function(b,i){b.classList.toggle('active',tabs[i]===id);});
+  document.getElementById('tab-'+id).classList.add('active');
+  if(id==='growth')setTimeout(renderChart,80);
+  if(id==='benefits')renderBenefits();
+  if(id==='simulator')initSim();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ── QUIZ ── */
+var qa={},cq=0;
+function pickQ(qi,val){
+  qa[qi]=val;
+  document.querySelectorAll('#qs-'+qi+' .q-opt').forEach(function(b){b.classList.remove('selected');});
+  event.currentTarget.classList.add('selected');
+  setTimeout(function(){
+    if(qi<4){document.getElementById('qs-'+qi).classList.remove('active');cq=qi+1;document.getElementById('qs-'+cq).classList.add('active');document.getElementById('qprog').style.width=Math.round(((qi+1)/5)*100)+'%';}
+    else{document.getElementById('qprog').style.width='100%';showResult();}
+  },230);
+}
+function showResult(){
+  document.querySelectorAll('.quiz-step').forEach(function(s){s.classList.remove('active');});
+  var a=qa,plan,badge,bclass,why;
+  var si=a[4]==='3l'?3:a[4]==='5l'?5:a[4]==='7l'?7:10;
+  var age=a[2];
+  var copay=age==='o70'?'30%':'20%';
+  var copayNote=age==='o70'?' (30% co-payment applies at your age)':', with a 20% co-payment per claim';
+
+  if(si>=7){
+    plan='Care Heart — ₹'+si+'L SI';badge='Best Coverage Pick';bclass='rb-red';
+    why='At ₹'+si+'L SI, you get single private room (no sub-limit), unlimited ICU cover, higher ambulance benefit of ₹3,000 and higher sub-limits for cataract (₹30,000/eye), knee replacement (₹1.2L/knee) and cancer/renal treatment (₹3L)'+copayNote+'. The NCB will grow your SI by 10%/year up to 50% in claim-free years. Automatic Recharge provides a second layer of ₹'+si+'L if the first is exhausted.';
+  } else if(a[2]==='o70'){
+    plan='Care Heart — ₹7L or ₹10L SI (higher SI recommended for 70+)';badge='Senior Cardiac Pick';bclass='rb-red';
+    why='For insured persons above 70, the co-payment is 30% of every claim. To keep the out-of-pocket amount manageable, we recommend the highest SI you can afford — ₹7L or ₹10L. With ₹10L SI: a ₹10L claim means you pay ₹3L and the insurer pays ₹7L. This is still far better than no cover. NCB adds 10% per year in claim-free years.';
+  } else if(a[1]==='recent'){
+    plan='Care Heart — ₹5L SI (check underwriting acceptance)';badge='Recent Surgery — Caution';bclass='rb-blue';
+    why='Since the cardiac procedure was less than 1 year ago, acceptance is subject to underwriting review. The 2-year PED waiting period means cardiac-related claims will not be covered until Year 3 — but the sooner you buy, the sooner the clock starts ticking. Starting now means you could have full cardiac coverage by Year 3, rather than starting the wait later.';
+  } else if(a[3]==='floater'){
+    plan='Care Heart — Floater, ₹'+si+'L SI (2 adults)';badge='Couple Plan';bclass='rb-green';
+    why='The floater plan covers self + spouse under one SI of ₹'+si+'L. If either partner needs hospitalisation, they draw from the shared pool. NCB grows for the floater as a whole. Note: the Automatic Recharge provides a full second ₹'+si+'L if the primary SI is exhausted. At least one partner must have a documented cardiac history and procedure. Co-payment: '+copay+' per claim.';
+  } else {
+    plan='Care Heart — ₹'+si+'L SI';badge='Standard Cardiac Pick';bclass='rb-red';
+    why='Care Heart at ₹'+si+'L SI is the most suitable configuration for your profile'+copayNote+'. The 2-year PED wait begins from policy inception — so cardiac-related claims are covered from Year 3. The NCB grows at 10%/year: in 5 claim-free years, effective SI becomes ₹'+(si+si*0.5)+'L. Automatic Recharge provides one full refill if SI is exhausted. Annual cardiac health check-up is included from Year 1.';
+  }
+  document.getElementById('rec-plan').textContent=plan;
+  var b=document.getElementById('rec-badge');b.className='rbadge '+bclass;b.textContent=badge;
+  document.getElementById('rec-why').textContent=why;
+  document.getElementById('quiz-result').style.display='block';
+}
+function resetQuiz(){
+  qa={};cq=0;document.getElementById('quiz-result').style.display='none';document.getElementById('qprog').style.width='0%';
+  document.querySelectorAll('.quiz-step').forEach(function(s,i){s.classList.toggle('active',i===0);s.querySelectorAll('.q-opt').forEach(function(b){b.classList.remove('selected');});});
+}
+
+/* ── BENEFITS ── */
+var coreBens=[
+  {badge:'bb-red',bname:'In-patient care — full hospitalisation coverage',sub:'Room, nursing, ICU, surgery, medicines — all covered up to SI',
+   detail:'Care Heart covers all in-patient hospitalisation expenses up to the sum insured — including room charges, nursing expenses, ICU charges, surgeon\'s fee, doctor\'s fee, anaesthesia, blood, oxygen, OT charges and all related medical expenses. Cashless or reimbursement facility available.\n\nRoom rent sub-limit applies for ₹3L and ₹5L SI: capped at 1% of SI per day. For ₹7L and ₹10L SI, room is covered at Single Private room category. ICU: capped at 2% of SI/day for ₹3L/₹5L; no limit for ₹7L/₹10L. If a higher room is taken than the allowed category, proportionate deduction applies on all associated charges.\n\nCo-payment of 20% (age ≤70) or 30% (age >70) applies on all admissible claims.',
+   chips:['Up to sum insured','Cashless or reimbursement','Room rent: 1%/day (₹3L/₹5L) or single private (₹7L/₹10L)','ICU: 2%/day or no limit','20%/30% co-payment mandatory']},
+  {badge:'bb-red',bname:'Day care treatment — all listed procedures covered',sub:'Less than 24-hour hospitalisations — no minimum stay needed',
+   detail:'All day care treatments that require hospitalisation for less than 24 hours — such as cataract surgery, chemotherapy, dialysis, angiography and many more — are covered up to the sum insured (subject to procedure-specific sub-limits where applicable).\n\nThese are covered on both cashless and reimbursement basis. No minimum hospitalisation period required for listed day care procedures.',
+   chips:['All listed day care procedures','Up to sum insured','No 24-hour requirement','Cashless or reimbursement','Sub-limits apply for specific procedures']},
+  {badge:'bb-amber',bname:'No Claim Bonus — +10% per claim-free year',sub:'SI grows 10% every year you do not claim — max 50%',
+   detail:'If no claim is made in a policy year, Care Heart adds 10% of the base sum insured as No Claim Bonus (NCB) at renewal. This accumulates up to a maximum of 50% of the base SI.\n\nExample with ₹5L base SI: Year 1 no claim → SI becomes ₹5.5L. Year 2 no claim → ₹6L. Year 3 no claim → ₹6.5L. Year 4 no claim → ₹7L. Year 5 no claim → ₹7.5L (maximum NCB reached — 50% added).\n\nIf a claim is made in any year: NCB reduces by 10% of base SI (i.e., the accrued NCB decreases). But the total SI never falls below the original base SI you purchased. You cannot lose the base SI.',
+   chips:['+10% base SI per claim-free year','Max 50% of base SI (5 years no-claim)','Reduces by 10% if claim made','Base SI never reduces below original','NCB shown at renewal clearly']},
+  {badge:'bb-green',bname:'Automatic Recharge — full SI refill once per year',sub:'If you exhaust your SI, it is refilled 100% — one time per year',
+   detail:'If hospitalisation claims exhaust your entire sum insured in a policy year, Care Heart automatically reinstates 100% of the original sum insured — immediately, once per policy year. This is the safety net ensuring you are never left completely without cover during the year.\n\nImportant restriction: The recharged amount can only be used for a different illness or injury than the one for which the original SI was exhausted. In a floater policy, the recharged SI is available for use by insured persons who have not yet claimed. In an individual policy, it is available for the same insured for a different condition.',
+   chips:['100% of original SI reinstated','Once per policy year','Must be for a different illness','Floater: unreached members can use it','Immediate — no waiting for recharge']},
+  {badge:'bb-red',bname:'♥ Annual cardiac health check-up — cashless',sub:'One cardiac check-up per insured per year — included from Year 1',
+   detail:'Care Heart includes an annual cardiac-specific health check-up arranged on a cashless basis at Care Health\'s network diagnostic providers — available once per policy year for each insured covered under the policy. This is unique to Care Heart and not available in standard health plans.\n\nThe check-up includes a set of cardiac-relevant medical tests specified in the policy schedule, arranged by Care Health at its empanelled network. The insured does not need to pay anything out of pocket for this check-up.\n\nThis benefit is available from Year 1 — no waiting period. It is designed to help cardiac patients track their heart health proactively and catch complications early.',
+   chips:['Cashless cardiac check-up','Once per insured per year','Available from Year 1 — no wait','At Care Health empanelled centres','Cardiac-specific test panel']},
+];
+
+var coverageBens=[
+  {badge:'bb-blue',bname:'Pre & post hospitalisation — 30 & 60 days',sub:'Medical expenses before and after admission — up to 5% of SI',
+   detail:'Care Heart covers 30 days of pre-hospitalisation medical expenses and 60 days of post-hospitalisation medical expenses — both capped at a maximum of 5% of the sum insured.\n\nFor ₹5L SI: pre and post coverage is up to ₹25,000 each. For ₹10L SI: up to ₹50,000 each. This covers tests, specialist consultations, medicines and follow-up visits before admission and after discharge.\n\nNote: The 5% cap means pre/post coverage is more restricted here than in Care Supreme (which covers 60/180 days with no 5% cap). For cardiac patients, post-hospitalisation recovery expenses can be significant — plan accordingly.',
+   chips:['30 days pre-hospitalisation','60 days post-hospitalisation','Maximum 5% of SI each','Covers tests, medicines, consultations','Must relate to same admissible claim']},
+  {badge:'bb-blue',bname:'Ambulance cover — per hospitalisation',sub:'Emergency ambulance expenses reimbursed per admission',
+   detail:'Care Heart covers road ambulance expenses per hospitalisation — up to ₹2,000 per hospitalisation for ₹3L and ₹5L sum insured, and up to ₹3,000 per hospitalisation for ₹7L and ₹10L sum insured.\n\nThis is reimbursed after hospitalisation as part of the claim settlement. Emergency use only. Available for hospital-run ambulance or any registered ambulance service provider.',
+   chips:['₹3L/₹5L SI: ₹2,000 per hospitalisation','₹7L/₹10L SI: ₹3,000 per hospitalisation','Emergency use only','Any registered ambulance provider','Reimbursed as part of claim']},
+  {badge:'bb-teal',bname:'AYUSH treatment — up to sum insured',sub:'Ayurveda, Yoga, Homeopathy and other systems covered',
+   detail:'AYUSH inpatient treatment is covered up to the sum insured — Ayurveda, Yoga and Naturopathy, Unani, Siddha and Homeopathy. Treatment must be at a recognised AYUSH hospital. This can be particularly useful for cardiac patients seeking complementary recovery treatment.\n\nCo-payment applies to AYUSH claims as well — 20% or 30% depending on entry age.',
+   chips:['Up to sum insured','All 5 AYUSH systems','Recognised AYUSH hospital required','Inpatient care only','Co-payment applies']},
+  {badge:'bb-teal',bname:'Domiciliary hospitalisation — up to sum insured',sub:'Home treatment when hospital admission is impossible',
+   detail:'When the insured cannot be moved to a hospital due to their condition, or when no hospital bed is available, Care Heart covers domiciliary hospitalisation expenses up to the sum insured. The home treatment must be for a period exceeding 3 consecutive days.\n\nPre and post-hospitalisation expenses are also payable for domiciliary claims, on the same 30/60 day basis as regular hospitalisation. A treating doctor\'s written prescription for domiciliary treatment is required.',
+   chips:['Up to sum insured','Treatment must exceed 3 consecutive days','When patient cannot be moved to hospital','Or when no hospital bed available','Pre/post expenses also payable']},
+  {badge:'bb-gray',bname:'Specific procedure sub-limits — know them before claiming',sub:'Cataract, knee replacement, cancer, hernia etc. have caps',
+   detail:'Care Heart imposes sub-limits on certain common procedures. These are important to understand upfront to avoid claim surprises.\n\nCataract (per eye): ₹20,000 for ₹3L/₹5L SI; ₹30,000 for ₹7L/₹10L SI.\nKnee replacement (per knee): ₹80,000 for ₹3L; ₹1,00,000 for ₹5L; ₹1,20,000 for ₹7L/₹10L.\nCancer, Cerebrovascular disorders, Renal complications, Bone fractures: ₹2,00,000 for ₹3L; ₹2,50,000 for ₹5L; ₹3,00,000 for ₹7L/₹10L.\nHernia, Hysterectomy, BPH, Renal stones: ₹50,000 for ₹3L; ₹65,000 for ₹5L; ₹80,000 for ₹7L/₹10L.\n\nAll sub-limits are before co-payment deduction — the actual payment to you is the sub-limit minus your co-payment share.',
+   chips:['Cataract: ₹20K–₹30K per eye','Knee replacement: ₹80K–₹1.2L per knee','Cancer/Cerebrovascular: ₹2L–₹3L','Hernia/BPH/Renal stones: ₹50K–₹80K','Co-payment deducted from sub-limit amount']},
+];
+
+var addonBens=[
+  {badge:'bb-green',bname:'Home Care add-on — daily cash for home treatment',sub:'₹1,000–₹2,000 per day for medically supervised home care',
+   detail:'The optional Home Care add-on provides a daily cash benefit for home-based medical treatment when the treating doctor recommends it but hospitalisation is not feasible. The benefit comes with a 1-day deductible per occurrence — so coverage starts from Day 2.\n\nFor ₹3L and ₹5L SI: ₹1,000 per day, maximum 7 days per occurrence, maximum 45 days per policy year per insured. For ₹7L and ₹10L SI: ₹2,000 per day on the same limits. This is especially useful for cardiac patients who require extended home-based nursing or IV medication post-discharge.',
+   chips:['₹3L/₹5L SI: ₹1,000/day','₹7L/₹10L SI: ₹2,000/day','Max 7 days per occurrence','Max 45 days per year per insured','1-day deductible per occurrence']},
+  {badge:'bb-purple',bname:'OPD Care add-on — outpatient consultations',sub:'Physical consultations with GP and specialists covered',
+   detail:'The optional OPD Care add-on covers physical outpatient consultations — useful for cardiac patients who need regular specialist follow-ups without hospitalisation.\n\nCovers up to 4 physical consultations per year with a general physician and up to 4 consultations per year with 14 specified specialist categories. This means a total of up to 8 covered OPD visits per year per insured. Co-payment also applies to OPD claims.',
+   chips:['4 GP consultations/year covered','4 specialist consultations/year covered','14 specialist categories included','Paid add-on — additional premium','Co-payment applies to OPD too']},
+  {badge:'bb-blue',bname:'International Second Opinion — cardiac expertise abroad',sub:'Get a second medical opinion from international specialists',
+   detail:'The optional International 2nd Opinion add-on allows the insured to seek a second medical opinion on their cardiac condition from international medical specialists. This is particularly valuable for complex cardiac cases where the treatment plan has implications for long-term health.\n\nAvailable through Care Health\'s empanelled international network. Electronic / remote opinion format. The insured is free to follow or disregard the advice received.',
+   chips:['International cardiac specialists','Remote / electronic opinion','Through empanelled network','Optional paid add-on','Useful for complex cardiac decisions']},
+];
+
+var benRendered=false;
+function renderBenefits(){
+  if(benRendered)return;benRendered=true;
+  document.getElementById('ben-core').innerHTML=buildBenHTML(coreBens,'c');
+  document.getElementById('ben-coverage').innerHTML=buildBenHTML(coverageBens,'v');
+  document.getElementById('ben-addons').innerHTML=buildBenHTML(addonBens,'a');
+}
+function buildBenHTML(arr,prefix){
+  var h='';
+  arr.forEach(function(b,i){
+    var id=prefix+'-'+i;
+    h+='<div class="ben-card" onclick="toggleBen(\''+id+'\')" id="bc-'+id+'">';
+    h+='<div class="ben-hdr"><div class="ben-left"><span class="bbadge '+b.badge+'">'+b.bname+'</span>';
+    h+='<div class="ben-name">'+b.bname+'</div><div class="ben-sub">'+b.sub+'</div>';
+    h+='</div><span class="ben-arrow" id="arr-'+id+'">&#9662;</span></div>';
+    h+='<div class="ben-detail" id="bd-'+id+'">';
+    b.detail.split('\n\n').forEach(function(p){if(p.trim())h+='<p>'+p.trim()+'</p>';});
+    h+='<div class="chips-row">';b.chips.forEach(function(ch){h+='<span class="chip">'+ch+'</span>';});
+    h+='</div></div></div>';
+  });
+  return h;
+}
+function toggleBen(id){
+  var c=document.getElementById('bc-'+id),d=document.getElementById('bd-'+id),a=document.getElementById('arr-'+id);
+  var open=c.classList.contains('open');
+  document.querySelectorAll('.ben-card').forEach(function(x){x.classList.remove('open');});
+  document.querySelectorAll('.ben-detail').forEach(function(x){x.style.display='none';});
+  document.querySelectorAll('.ben-arrow').forEach(function(x){x.style.transform='';});
+  if(!open){c.classList.add('open');d.style.display='block';a.style.transform='rotate(180deg)';}
+}
+
+/* ── SIMULATOR ── */
+var scenarios=[
+  {title:'Cardiac hospitalisation — Year 3',sub:'₹5L SI · Age 62 · 20% co-payment',paid:4.5,gap:0,restore:5,selfpay:1.125,
+   note:'Total bill: ₹4.5L. Co-payment 20% = ₹90,000 (you pay). Insurer pays ₹3,60,000. Recharge intact.',
+   steps:[
+    {cls:'fn-cop',lbl:'Your co-payment (mandatory)',desc:'20% of ₹4.5L = ₹90,000 — you pay this first from your pocket.',amt:0,bar:0,bc:'b-red',cop:true,copamt:'₹90,000'},
+    {cls:'fn-base',lbl:'Insurer pays balance (80%)',desc:'₹3,60,000 paid by Care Heart to hospital/reimbursed to you.',amt:3.6,bar:72,bc:'b-blue'},
+    {cls:'fn-rech',lbl:'SI remaining + Recharge intact',desc:'₹40,000 base SI remaining. Automatic Recharge of ₹5L is untouched and available for a different condition this year.',amt:0,bar:0,bc:'b-green',note:true},
+   ]},
+  {title:'Two hospitalisations — same year',sub:'₹5L SI · Year 2 · 20% co-payment',paid:5,gap:0,restore:4,selfpay:1,
+   note:'First claim exhausts full ₹5L SI. Automatic Recharge refills ₹5L for second claim — but only for a different condition.',
+   steps:[
+    {cls:'fn-cop',lbl:'Co-payment on first claim (₹5L)',desc:'20% of ₹5L = ₹1L — you pay first. Insurer pays ₹4L. SI fully exhausted.',amt:0,bar:0,bc:'b-red',cop:true,copamt:'₹1,00,000'},
+    {cls:'fn-base',lbl:'Insurer pays ₹4L from base SI',desc:'₹4L paid by Care Heart. Base SI now exhausted.',amt:4,bar:80,bc:'b-blue'},
+    {cls:'fn-rech',lbl:'Automatic Recharge triggered',desc:'₹5L base SI reinstated immediately. Available for a DIFFERENT condition only — not the same cardiac episode.',amt:5,bar:100,bc:'b-green'},
+    {cls:'fn-cop',lbl:'Co-payment on second claim',desc:'20% of second claim also applies — this is always mandatory on every claim.',amt:0,bar:0,bc:'b-red',cop:true,copamt:'20% of claim 2'},
+   ]},
+  {title:'NCB growth — 3 claim-free years',sub:'₹5L base SI · No claims Year 1, 2, 3',paid:0,gap:0,restore:5,selfpay:0,
+   note:'No claims in 3 years → NCB grows to ₹1.5L → effective SI reaches ₹6.5L at no extra premium.',
+   steps:[
+    {cls:'fn-ncb',lbl:'End of Year 1 — no claim',desc:'NCB: +10% of ₹5L = ₹50,000 added. Effective SI: ₹5.5L.',amt:0.5,bar:10,bc:'b-amber'},
+    {cls:'fn-ncb',lbl:'End of Year 2 — no claim',desc:'NCB: another +10% = ₹50,000. Total NCB: ₹1L. Effective SI: ₹6L.',amt:0.5,bar:10,bc:'b-amber'},
+    {cls:'fn-ncb',lbl:'End of Year 3 — no claim',desc:'NCB: another +10% = ₹50,000. Total NCB: ₹1.5L. Effective SI: ₹6.5L.',amt:0.5,bar:10,bc:'b-amber'},
+    {cls:'fn-rech',lbl:'Automatic Recharge — always available',desc:'Full ₹5L base SI recharge available for any different illness — throughout all 3 years.',amt:5,bar:100,bc:'b-green'},
+   ]},
+  {title:'Claim in Year 4 after 3 clean years',sub:'₹5L SI · Claim after ₹1.5L NCB accumulated · Age 65',paid:4,gap:0,restore:5,selfpay:0.8,
+   note:'NCB reduces by ₹50K after claim. Effective SI goes from ₹6.5L back to ₹6L. Base SI always remains ₹5L.',
+   steps:[
+    {cls:'fn-cop',lbl:'Co-payment on Year 4 claim',desc:'₹4L claim × 20% = ₹80,000 you pay. Insurer pays ₹3.2L.',amt:0,bar:0,bc:'b-red',cop:true,copamt:'₹80,000'},
+    {cls:'fn-base',lbl:'Insurer pays ₹3.2L',desc:'₹3.2L paid from the ₹6.5L available (base ₹5L + NCB ₹1.5L).',amt:3.2,bar:64,bc:'b-blue'},
+    {cls:'fn-ncb',lbl:'NCB reduces by 10% at next renewal',desc:'Accumulated NCB drops from ₹1.5L to ₹1L. Effective SI at next renewal: ₹6L (still higher than original ₹5L).',amt:0,bar:0,bc:'b-amber',note:true},
+    {cls:'fn-rech',lbl:'Automatic Recharge intact',desc:'₹5L recharge available for different conditions this year — untouched.',amt:5,bar:100,bc:'b-green'},
+   ]},
+];
+
+var simInit=false;
+function initSim(){
+  if(!simInit){
+    var g=document.getElementById('sc-grid'),h='';
+    scenarios.forEach(function(sc,i){h+='<div class="sc-card'+(i===0?' active':'')+'" id="sc'+i+'" onclick="pickSc('+i+')"><div class="sc-title">'+sc.title+'</div><div class="sc-sub">'+sc.sub+'</div></div>';});
+    g.innerHTML=h;simInit=true;
+  }
+  pickSc(0);
+}
+function pickSc(idx){
+  document.querySelectorAll('.sc-card').forEach(function(c,i){c.classList.toggle('active',i===idx);});
+  var sc=scenarios[idx];
+  var h='<div style="font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:.5rem">'+sc.title+'</div>';
+  h+='<div style="font-size:.78rem;color:var(--muted);margin-bottom:1.1rem;padding:.6rem .75rem;background:var(--heart-soft);border-radius:8px;border-left:3px solid var(--heart)">♥ '+sc.note+'</div>';
+  if(sc.paid>0){
+    h+='<div class="metric-grid" style="margin-bottom:1.25rem">';
+    h+='<div class="metric"><div class="metric-lbl">Total claim</div><div class="metric-val">₹'+sc.paid+'L</div></div>';
+    h+='<div class="metric"><div class="metric-lbl">You pay (co-pay)</div><div class="metric-val red">₹'+(sc.paid*0.2).toFixed(2).replace('.00','')+'L</div></div>';
+    h+='<div class="metric"><div class="metric-lbl">Insurer pays</div><div class="metric-val green">₹'+(sc.paid*0.8).toFixed(2).replace('.00','')+'L</div></div>';
+    h+='<div class="metric"><div class="metric-lbl">Recharge available</div><div class="metric-val">₹'+sc.restore+'L</div><div class="metric-hint">different illness</div></div>';
+    h+='</div>';
+  }
+  h+='<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.85rem">Step-by-step flow</div>';
+  sc.steps.forEach(function(s,i){
+    if(s.note){h+='<div class="flow-row"><div class="flow-num fn-ncb">'+(i+1)+'</div><div class="flow-body"><div class="flow-lbl">'+s.lbl+'</div><div class="flow-desc">'+s.desc+'</div></div></div>';return;}
+    h+='<div class="flow-row"><div class="flow-num '+s.cls+'">'+(i+1)+'</div><div class="flow-body">';
+    h+='<div class="flow-lbl">'+s.lbl+'</div><div class="flow-desc">'+s.desc+'</div>';
+    if(s.cop){h+='<div class="flow-amt red">'+s.copamt+' (you pay)</div><div style="font-size:.75rem;color:var(--heart-dark);margin-top:3px;padding:5px 8px;background:var(--heart-soft);border-radius:6px">Mandatory co-payment — applies to every claim, every year</div>';}
+    else if(s.amt>0){h+='<div class="flow-amt">₹'+s.amt+'L</div><div class="bar-wrap"><div class="bar-fill '+s.bc+'" style="width:'+s.bar+'%"></div></div>';}
+    h+='</div></div>';
+  });
+  document.getElementById('sim-output').innerHTML=h;
+}
+
+/* ── GROWTH CHART ── */
+var gChart=null;
+function renderChart(){
+  var si=parseInt(document.getElementById('g-si').value);
+  var yrs=parseInt(document.getElementById('g-yr').value);
+  var plan=document.getElementById('g-plan').value;
+  document.getElementById('g-si-out').textContent='₹'+si+' L';
+  document.getElementById('g-yr-out').textContent=yrs+' years';
+  var labels=[],base=[],ncb=[],recharge=[];
+  var accNCB=0;
+  for(var y=1;y<=yrs;y++){
+    labels.push('Year '+y);base.push(si);recharge.push(si);
+    var claimed=false;
+    if(plan==='oneclaim'&&y===3)claimed=true;
+    if(plan==='alternate'&&y%2===0)claimed=true;
+    if(claimed){accNCB=Math.max(0,accNCB-si*0.1);}
+    else{accNCB=Math.min(accNCB+si*0.1,si*0.5);}
+    ncb.push(Math.round(accNCB*10)/10);
+  }
+  var lastNCB=ncb[yrs-1];
+  var effSI=si+lastNCB;
+  var maxAnnual=effSI+si;
+  var mult=(maxAnnual/si).toFixed(1);
+  document.getElementById('growth-metrics').innerHTML=
+    '<div class="metric"><div class="metric-lbl">Year '+yrs+' NCB accumulated</div><div class="metric-val amber">₹'+lastNCB+'L</div><div class="metric-hint">based on claim pattern</div></div>'+
+    '<div class="metric"><div class="metric-lbl">Year '+yrs+' effective SI</div><div class="metric-val">₹'+effSI+'L</div><div class="metric-hint">base + NCB</div></div>'+
+    '<div class="metric"><div class="metric-lbl">Year '+yrs+' max annual cover</div><div class="metric-val green">₹'+maxAnnual+'L</div><div class="metric-hint">incl. recharge</div></div>'+
+    '<div class="metric"><div class="metric-lbl">Coverage multiplier</div><div class="metric-val amber">'+mult+'×</div><div class="metric-hint">base premium unchanged</div></div>';
+  document.getElementById('growth-legend').innerHTML=
+    '<div class="leg-item"><div class="leg-dot" style="background:#378ADD"></div>Base SI</div>'+
+    '<div class="leg-item"><div class="leg-dot" style="background:#F59E0B"></div>No Claim Bonus</div>'+
+    '<div class="leg-item"><div class="leg-dot" style="background:#1D9E75"></div>Automatic Recharge</div>';
+  if(gChart)gChart.destroy();
+  gChart=new Chart(document.getElementById('growth-chart').getContext('2d'),{
+    type:'bar',
+    data:{labels:labels,datasets:[
+      {label:'Base SI',data:base,backgroundColor:'#378ADD',borderWidth:0},
+      {label:'No Claim Bonus',data:ncb,backgroundColor:'#F59E0B',borderWidth:0},
+      {label:'Automatic Recharge',data:recharge,backgroundColor:'#1D9E75',borderWidth:0},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.dataset.label+': ₹'+c.raw+'L';}}}},
+      scales:{
+        x:{stacked:true,grid:{display:false},ticks:{font:{size:12}}},
+        y:{stacked:true,ticks:{callback:function(v){return'₹'+v+'L';},font:{size:12}},grid:{color:'rgba(0,0,0,0.05)'}}
+      }}
+  });
+}
+
+renderBenefits();
+</script>
+</body>
+</html>
