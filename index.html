@@ -347,6 +347,98 @@
     pointer-events: none;
   }
 
+
+  /* TREE DIAGRAM */
+  .chandavali-card { cursor: default !important; }
+  .chandavali-card:hover { transform: none !important; }
+  .tree-root { margin-top: 4px; }
+  .tree-root-label {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 0.88rem; font-weight: 700;
+    color: var(--maroon);
+    background: linear-gradient(90deg, rgba(255,107,0,0.08), rgba(212,160,23,0.08));
+    border: 1px solid rgba(212,160,23,0.3);
+    border-radius: 8px;
+    padding: 7px 12px;
+    text-align: center;
+    margin-bottom: 0;
+  }
+  .tree-branches {
+    padding-left: 16px;
+    border-left: 2px solid rgba(212,160,23,0.35);
+    margin-left: 24px;
+    margin-top: 2px;
+  }
+  .tree-branch {
+    position: relative;
+    padding-top: 10px;
+  }
+  .tree-line-h {
+    position: absolute;
+    left: -16px;
+    top: 50%;
+    width: 16px;
+    height: 2px;
+    background: rgba(212,160,23,0.45);
+  }
+  .tree-node {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    border: 1.5px solid rgba(212,160,23,0.25);
+    border-radius: 10px;
+    padding: 10px 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(107,15,26,0.06);
+    margin-bottom: 8px;
+  }
+  .tree-node:hover {
+    border-color: var(--saffron);
+    background: linear-gradient(90deg, rgba(255,107,0,0.04), rgba(212,160,23,0.04));
+    transform: translateX(4px);
+    box-shadow: 0 4px 16px rgba(255,107,0,0.15);
+  }
+  .tree-node-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .tree-node-text { flex: 1; }
+  .tree-node-text strong {
+    display: block;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--maroon);
+    line-height: 1.4;
+  }
+  .tree-node-text span {
+    display: block;
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 0.72rem;
+    color: #666;
+    margin-top: 1px;
+    line-height: 1.4;
+  }
+  .tree-node-text em {
+    display: block;
+    font-size: 0.68rem;
+    color: var(--saffron);
+    font-style: normal;
+    font-weight: 600;
+    margin-top: 1px;
+    letter-spacing: 0.03em;
+  }
+  .tree-node-arrow {
+    font-size: 1rem;
+    color: var(--saffron);
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .tree-node:hover .tree-node-arrow { transform: translateX(4px); }
+  .tree-node-location { border-left: 3px solid var(--gold); }
+  .tree-node-complete { border-left: 3px solid var(--saffron); }
+
   /* FADE IN */
   .fade-in{opacity:0;transform:translateY(26px);transition:opacity 0.6s ease,transform 0.6s ease;}
   .fade-in.visible{opacity:1;transform:translateY(0);}
@@ -411,14 +503,14 @@
   <div style="max-width:1100px;margin:0 auto;">
     <div class="section-title fade-in">
       <h2>🔍 खोज उपकरण — Search Tools</h2>
-      <div class="subtitle">Interactive HTML tools to search Prandhan &amp; Bhajan Mala</div>
+      <div class="subtitle">Interactive HTML tools to search Pranadhan &amp; Bhajan Mala</div>
     </div>
     <div class="tools-grid">
       <a href="/Shree_Vaishnav_Prandhan.html" target="_blank" class="tool-card fade-in">
         <span class="tool-icon-big">🔎</span>
-        <h3>श्रीवैष्णव प्रन्धन खोज</h3>
-        <p>Interactive search tool for Shree Vaishnav Prandhan — find any verse or stotra within the complete Prandhan database.</p>
-        <div class="tool-link">Prandhan Search खोलें →</div>
+        <h3>श्रीवैष्णव प्राणधन खोज</h3>
+        <p>Interactive search tool for Shree Vaishnav Pranadhan — find any verse or stotra within the complete Prandhan database.</p>
+        <div class="tool-link">Pranadhan Search खोलें →</div>
       </a>
       <a href="/Shree_Vaishnav_Bhajan_Mala.html" target="_blank" class="tool-card fade-in">
         <span class="tool-icon-big">🎶</span>
@@ -451,8 +543,8 @@
       <div class="special-action">खोलें — Open →</div>
     </a>
 
-    <!-- Box 2: Chandavali -->
-    <a href="/chandavali.html" target="_blank" class="special-card fade-in">
+    <!-- Box 2: Chandavali — with tree diagram -->
+    <div class="special-card fade-in chandavali-card" style="cursor:default;">
       <div class="special-glow"></div>
       <span class="special-badge">✨ छन्दावली · Chandavali</span>
       <span class="special-icon">📜</span>
@@ -464,8 +556,43 @@
         परम पूज्य स्वामीजी महाराज द्वारा गाये गये भावपूर्ण छन्दों का दिव्य संग्रह।
         Divine collection of devotional Chands sung by Anant Shri Vibhushit Swamiji Maharaj.
       </p>
-      <div class="special-action">खोलें — Open →</div>
-    </a>
+
+      <!-- Tree Diagram -->
+      <div class="tree-root">
+        <div class="tree-root-label">📜 श्री सिय-पिय-मिलन छन्दावली</div>
+        <div class="tree-branches">
+          <!-- Branch 1 -->
+          <div class="tree-branch">
+            <div class="tree-line-v"></div>
+            <div class="tree-line-h"></div>
+            <a href="/chandavali.html" target="_blank" class="tree-node tree-node-location">
+              <div class="tree-node-icon">🗺️</div>
+              <div class="tree-node-text">
+                <strong>स्थान-विशिष्ट छन्दावली</strong>
+                <span>अयोध्या के ७६ पवित्र स्थानों के अनुसार</span>
+                <em>Location-wise · 76 Sacred Places</em>
+              </div>
+              <div class="tree-node-arrow">→</div>
+            </a>
+          </div>
+          <!-- Branch 2 -->
+          <div class="tree-branch">
+            <div class="tree-line-v tree-line-last"></div>
+            <div class="tree-line-h"></div>
+            <a href="/chandavali_1_800.html" target="_blank" class="tree-node tree-node-complete">
+              <div class="tree-node-icon">📖</div>
+              <div class="tree-node-text">
+                <strong>सम्पूर्ण छन्दावली (१–८००)</strong>
+                <span>आलवार · तिरुप्पावै · छन्द १ से ८०० तक</span>
+                <em>Complete · All 800 Chands</em>
+              </div>
+              <div class="tree-node-arrow">→</div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
 
   </div>
 </div>
@@ -643,7 +770,7 @@
 
   <div class="footer-links">
     <a href="https://drive.google.com/drive/folders/1HhPcJhpPFGl1Ikz2lCKO4HDMkRTwRil6?usp=sharing" target="_blank">मन्दिर Drive</a>
-    <a href="/Shree_Vaishnav_Prandhan.html" target="_blank">Prandhan Search</a>
+    <a href="/Shree_Vaishnav_Prandhan.html" target="_blank">Pranadhan Search</a>
     <a href="/Shree_Vaishnav_Bhajan_Mala.html" target="_blank">Bhajan Mala</a>
     <a href="https://drive.google.com/drive/folders/1XlzJ1GJNp8LWipbmxARf278skjW2rM2Y" target="_blank">Divyaprabandham</a>
     <a href="https://docs.google.com/document/d/1oCds28MUz1ZP6D8b_vLXWAlV7SHwDM4Q/edit?usp=sharing" target="_blank">FAQ</a>
