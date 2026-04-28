@@ -74,6 +74,24 @@ body {
 }
 .nav-cta:hover { background: var(--gold-light) !important; }
 
+/* ── DUAL COMPARE BUTTONS IN NAV ── */
+.nav-compare-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+.nav-cta-hdfc {
+  background: var(--gold) !important;
+  color: var(--navy) !important;
+}
+.nav-cta-hdfc:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+.nav-cta-care {
+  background: linear-gradient(135deg,#E53935,#7C3AED) !important;
+  color: #fff !important;
+}
+.nav-cta-care:hover { opacity: 0.88; transform: translateY(-1px); }
+
 /* ── HERO ── */
 .hero {
   background: var(--navy);
@@ -452,6 +470,8 @@ footer {
 @media(max-width:900px) {
   .topnav { padding: 12px 24px; }
   .nav-links { gap: 16px; }
+  .nav-compare-group { gap: 6px; }
+  .nav-cta { font-size: 0.78rem; padding: 6px 12px; }
   .hero { padding: 48px 24px 40px; }
   .hero-grid { grid-template-columns: 1fr; gap: 32px; }
   .compare-banner { padding: 24px; }
@@ -637,6 +657,24 @@ footer {
 .pf-btn-gold:hover { background: var(--gold-light); }
 .pf-btn-outline { background: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.2); }
 .pf-btn-outline:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.4); }
+
+/* Care Supreme Shine card */
+.pc-shine::before { background: linear-gradient(90deg,#1A8C4E,#0F5C32); }
+.pc-shine .plan-card-eyebrow { color: #6ee7b7; }
+.pc-shine .plan-hl::before { color: #6ee7b7; }
+.pc-shine .plan-explore-btn { border-color: rgba(26,140,78,0.3); }
+.pc-shine .plan-explore-btn:hover { background: rgba(26,140,78,0.18); border-color: rgba(26,140,78,0.5); }
+
+/* Care Plans Compare card */
+.pc-compare::before { background: linear-gradient(90deg,#E53935,#7C3AED,#1A8C4E); }
+.pc-compare .plan-card-eyebrow { color: var(--gold-light); }
+.pc-compare .plan-explore-btn {
+  border-color: rgba(201,150,58,0.4);
+  background: rgba(201,150,58,0.08);
+  color: var(--gold-light);
+}
+.pc-compare .plan-explore-btn:hover { background: rgba(201,150,58,0.18); border-color: var(--gold); color: #fff; }
+.pfb-gold { background: rgba(201,150,58,0.12); color: var(--gold-light); border-color: rgba(201,150,58,0.3); }
 </style>
 </head>
 <body>
@@ -649,7 +687,10 @@ footer {
       <a href="#policies">Policies</a>
     <a href="#services">Services</a>
     <a href="#resources">Resources</a>
-    <a href="https://shriramanuj.github.io/Prandhan/girdhar_gopal_plan_comparison.html" target="_blank" class="nav-cta">🔍 Compare Plans</a>
+    <div class="nav-compare-group">
+      <a href="https://shriramanuj.github.io/Prandhan/girdhar_gopal_plan_comparison.html" target="_blank" class="nav-cta nav-cta-hdfc">🔍 HDFC vs Care</a>
+      <a href="https://shriramanuj.github.io/Prandhan/care_comparison_heart_senior_shine.html" target="_blank" class="nav-cta nav-cta-care">🫀 Heart · Senior · Shine</a>
+    </div>
   </div>
 </nav>
 
@@ -837,8 +878,47 @@ footer {
           <div class="plan-hl">NCB: +10%/year up to 50% of SI</div>
           <div class="plan-hl">Co-payment: 50% (≤70 yrs) / 60% (&gt;70 yrs) — plan accordingly</div>
         </div>
-        <a href="https://shriramanuj.github.io/Prandhan/senior_health_advantage_sonis.html" target="_blank" class="plan-explore-btn">
+        <a href="https://shriramanuj.github.io/Prandhan/Care_senior_sonis.html" target="_blank" class="plan-explore-btn">
           Explore this plan <span class="peb-arrow">›</span>
+        </a>
+      </div>
+
+      <!-- Care Supreme Shine -->
+      <div class="plan-card pc-shine" data-tags="all young family">
+        <div class="plan-card-eyebrow">Care Health Insurance · Affordable Plan</div>
+        <div class="plan-card-name">Care Supreme Shine</div>
+        <div class="plan-card-insurer">Entry plan · SI ₹5L to ₹1 Cr</div>
+        <div class="plan-for-badge pfb-green">✨ Best entry-level Care plan with co-pay</div>
+        <p class="plan-card-desc">The affordable gateway to Care Health's ecosystem. All the core hospitalisation benefits of Care Supreme — AYUSH, domiciliary, 60/180-day pre/post cover, modern treatments — at a lower premium with a 20% co-payment. Earn up to 30% renewal discount with a daily step-tracking challenge.</p>
+        <div class="plan-highlights">
+          <div class="plan-hl">20% co-payment — lowest among all Care specialist plans</div>
+          <div class="plan-hl">Wellness Discount: 30% off renewal for 10,000 steps/day</div>
+          <div class="plan-hl">Pre/post hospitalisation: 60 days / 180 days</div>
+          <div class="plan-hl">AYUSH treatments &amp; domiciliary hospitalisation covered</div>
+          <div class="plan-hl">Easy upgrade path to full Care Supreme when ready</div>
+        </div>
+        <a href="https://shriramanuj.github.io/Prandhan/care_supreme_shine.html" target="_blank" class="plan-explore-btn">
+          Explore this plan <span class="peb-arrow">›</span>
+        </a>
+      </div>
+
+      <!-- Care Plans Comparison -->
+      <div class="plan-card pc-compare featured" data-tags="all cardiac senior">
+        <div class="featured-ribbon">Compare</div>
+        <div class="plan-card-eyebrow">Care Health Insurance · Side-by-Side Guide</div>
+        <div class="plan-card-name">Care Heart vs Senior vs Shine</div>
+        <div class="plan-card-insurer">3 specialist plans compared — one guide</div>
+        <div class="plan-for-badge pfb-gold">📊 Not sure which Care plan fits you?</div>
+        <p class="plan-card-desc">All three Care specialist plans — Care Heart, Senior Health Advantage, and Care Supreme Shine — compared feature-by-feature. Co-pay calculator, SI growth chart, real claim scenarios, and a built-in recommendation engine to tell you exactly which plan suits your situation.</p>
+        <div class="plan-highlights">
+          <div class="plan-hl">Interactive co-payment calculator — see your out-of-pocket cost</div>
+          <div class="plan-hl">SI growth projection chart across all 3 plans</div>
+          <div class="plan-hl">Real hospitalisation scenarios with insurer vs you split</div>
+          <div class="plan-hl">Quick recommendation engine — 4 questions, instant answer</div>
+          <div class="plan-hl">Covers cardiac, senior &amp; affordable wellness seeker profiles</div>
+        </div>
+        <a href="https://shriramanuj.github.io/Prandhan/care_comparison_heart_senior_shine.html" target="_blank" class="plan-explore-btn">
+          Open Comparison Guide <span class="peb-arrow">›</span>
         </a>
       </div>
 
@@ -1048,8 +1128,11 @@ footer {
         <a href="https://drive.google.com/drive/folders/1HyzQnA_jWJcNGPN1nm9I4yiHGskSnzAM?usp=drive_link" class="link-btn" target="_blank">Access Google Drive Folder</a>
       </div>
       <div style="text-align:right;">
-        <h4 style="color:var(--teal);margin-bottom:10px;font-size:1rem;">🔍 Plan Comparison Tool</h4>
-        <a href="https://shriramanuj.github.io/Prandhan/girdhar_gopal_plan_comparison.html" class="link-btn" target="_blank" style="background:linear-gradient(135deg,var(--teal),#0D4F55);">Compare Plans — HDFC vs Care</a>
+        <h4 style="color:var(--teal);margin-bottom:10px;font-size:1rem;">🔍 Plan Comparison Tools</h4>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;">
+          <a href="https://shriramanuj.github.io/Prandhan/girdhar_gopal_plan_comparison.html" class="link-btn" target="_blank" style="background:linear-gradient(135deg,var(--teal),#0D4F55);">Compare Plans — HDFC vs Care</a>
+          <a href="https://shriramanuj.github.io/Prandhan/care_comparison_heart_senior_shine.html" class="link-btn" target="_blank" style="background:linear-gradient(135deg,#E53935,#7C3AED);">Compare — Heart vs Senior vs Shine</a>
+        </div>
       </div>
     </div>
   </section>
@@ -1069,8 +1152,9 @@ footer {
       <div class="footer-contact">📞 Dattatray Pujari &nbsp;— <span>93253 77528</span></div>
       <div class="footer-contact">📞 Archana Soni &nbsp;— <span>98509 77528</span></div>
     </div>
-    <div style="margin-bottom:16px;">
-      <a href="https://shriramanuj.github.io/Prandhan/girdhar_gopal_plan_comparison.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);text-decoration:none;padding:9px 22px;border-radius:7px;font-weight:700;font-size:0.88rem;">🔍 Compare Health Plans</a>
+    <div style="margin-bottom:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://shriramanuj.github.io/Prandhan/girdhar_gopal_plan_comparison.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);text-decoration:none;padding:9px 22px;border-radius:7px;font-weight:700;font-size:0.88rem;">🔍 Compare HDFC vs Care</a>
+      <a href="https://shriramanuj.github.io/Prandhan/care_comparison_heart_senior_shine.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#E53935,#7C3AED);color:#fff;text-decoration:none;padding:9px 22px;border-radius:7px;font-weight:700;font-size:0.88rem;">🫀 Heart vs Senior vs Shine</a>
     </div>
     <div class="footer-divider"></div>
     <div class="footer-copy">© 2026 Sonis Professional Insurance Services · All Rights Reserved · Ichalkaranji</div>
