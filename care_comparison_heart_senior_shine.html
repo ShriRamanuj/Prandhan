@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Care Health Plan Comparison — Heart vs Senior vs Shine · Sonis Insurance</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{
+  --navy:#0D1B2A;--navy-mid:#1B2F45;
+  --gold:#C9963A;--gold-light:#E4B860;
+  --heart:#E53935;--heart-dark:#B71C1C;--heart-soft:#FFEBEE;
+  --senior:#7C3AED;--senior-dark:#5B21B6;--senior-soft:#F5F3FF;
+  --shine:#1A8C4E;--shine-dark:#0F5C32;--shine-soft:#EDFBF3;
+  --cream:#FAF7F2;--white:#fff;
+  --text:#1e293b;--muted:#64748b;--border:#e2e8f0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);line-height:1.6;}
+
+/* ── TOPNAV ── */
+.topnav{position:sticky;top:0;z-index:200;background:rgba(13,27,42,0.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:10px 32px;border-bottom:1px solid rgba(201,150,58,0.25);gap:12px;flex-wrap:wrap;}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--gold-light);white-space:nowrap;}
+.nav-links{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;}
+.nav-links::-webkit-scrollbar{display:none;}
+.nav-link{flex-shrink:0;font-size:12px;font-weight:500;padding:5px 14px;border-radius:99px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:rgba(255,255,255,0.65);cursor:pointer;white-space:nowrap;transition:all .15s;text-decoration:none;}
+.nav-link:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.nav-contact{font-size:12px;color:var(--gold-light);white-space:nowrap;font-weight:500;flex-shrink:0;}
+
+/* ── HERO ── */
+.hero{background:var(--navy);position:relative;overflow:hidden;padding:56px 32px 48px;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(229,57,53,.1) 0%,transparent 40%),radial-gradient(ellipse at 50% 80%,rgba(124,58,237,.08) 0%,transparent 40%),radial-gradient(ellipse at 80% 20%,rgba(26,140,78,.1) 0%,transparent 40%);}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;text-align:center;}
+.hero-eyebrow{font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.6rem);font-weight:700;color:#fff;line-height:1.1;margin-bottom:14px;}
+.hero-plan-pills{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;}
+.hero-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 16px;border-radius:99px;font-size:.82rem;font-weight:700;border:1px solid;}
+.pill-heart{background:rgba(229,57,53,.12);color:#ff8a80;border-color:rgba(229,57,53,.3);}
+.pill-senior{background:rgba(124,58,237,.12);color:#c4b5fd;border-color:rgba(124,58,237,.3);}
+.pill-shine{background:rgba(26,140,78,.12);color:#6ee7b7;border-color:rgba(26,140,78,.3);}
+.hero-sub{font-size:.95rem;color:rgba(255,255,255,.55);max-width:580px;margin:0 auto 28px;line-height:1.7;}
+.advisor-strip{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.adv-pill{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:12px 18px;}
+.av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#fff;flex-shrink:0;}
+.av-d{background:linear-gradient(135deg,#1565C0,#0D47A1);}
+.av-a{background:linear-gradient(135deg,#C9963A,#8B6320);}
+.adv-name{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:700;color:#fff;}
+.adv-phone{font-size:.78rem;color:#69F0AE;font-weight:600;}
+
+/* ── QUICK VERDICT CARDS ── */
+.verdict-section{background:#fff;padding:48px 32px;border-bottom:1px solid var(--border);}
+.vs-inner{max-width:1100px;margin:0 auto;}
+.vs-head{text-align:center;margin-bottom:36px;}
+.vs-eyebrow{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:8px;}
+.vs-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--navy);}
+.verdict-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(max-width:720px){.verdict-grid{grid-template-columns:1fr;}}
+.verdict-card{border-radius:16px;padding:28px 24px;border:1px solid;position:relative;overflow:hidden;}
+.vc-heart{background:var(--heart-soft);border-color:rgba(229,57,53,.25);}
+.vc-senior{background:var(--senior-soft);border-color:rgba(124,58,237,.2);}
+.vc-shine{background:var(--shine-soft);border-color:rgba(26,140,78,.2);}
+.vc-dot{width:10px;height:10px;border-radius:50%;margin-bottom:12px;}
+.vcd-heart{background:var(--heart);}
+.vcd-senior{background:var(--senior);}
+.vcd-shine{background:var(--shine);}
+.vc-plan{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.vc-insurer{font-size:.72rem;color:var(--muted);margin-bottom:14px;}
+.vc-for-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:5px;}
+.vc-for{font-size:.88rem;font-weight:600;line-height:1.5;margin-bottom:16px;}
+.vhf{color:var(--heart-dark);}
+.vsf{color:var(--senior-dark);}
+.vshf{color:var(--shine-dark);}
+.vc-key-facts{display:flex;flex-direction:column;gap:7px;margin-bottom:20px;}
+.vc-fact{display:flex;justify-content:space-between;align-items:flex-start;font-size:.8rem;gap:8px;}
+.vf-label{color:var(--muted);flex:1;}
+.vf-val{font-weight:700;text-align:right;flex-shrink:0;}
+.vf-heart{color:var(--heart-dark);}
+.vf-senior{color:var(--senior-dark);}
+.vf-shine{color:var(--shine-dark);}
+.vf-red{color:#DC2626;}
+.vf-green{color:#065F46;}
+.vc-cta{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:9px;text-decoration:none;font-size:.82rem;font-weight:700;transition:all .2s;}
+.cta-heart{background:var(--heart);color:#fff;}
+.cta-heart:hover{background:var(--heart-dark);}
+.cta-senior{background:var(--senior);color:#fff;}
+.cta-senior:hover{background:var(--senior-dark);}
+.cta-shine{background:var(--shine);color:#fff;}
+.cta-shine:hover{background:var(--shine-dark);}
+
+/* ── SECTION TABS ── */
+.section-nav{background:var(--navy);padding:0 32px;border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:58px;z-index:150;}
+.snav-inner{max-width:1100px;margin:0 auto;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
+.snav-inner::-webkit-scrollbar{display:none;}
+.snav-tab{font-size:.85rem;font-weight:500;padding:14px 20px;color:rgba(255,255,255,.5);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;font-family:'DM Sans',sans-serif;background:transparent;border-top:none;border-left:none;border-right:none;}
+.snav-tab:hover{color:rgba(255,255,255,.8);}
+.snav-tab.active{color:var(--gold-light);border-bottom-color:var(--gold);}
+
+/* ── MAIN CONTENT ── */
+.cmp-main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 3rem;}
+.cmp-section{display:none;}.cmp-section.active{display:block;}
+.cmp-head{margin-bottom:1.75rem;}
+.cmp-eyebrow{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:6px;}
+.cmp-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.1rem);font-weight:700;color:var(--navy);margin-bottom:6px;}
+.cmp-sub{font-size:.9rem;color:var(--muted);line-height:1.55;max-width:660px;}
+
+/* ── COMPARISON TABLE ── */
+.cmp-table-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--border);box-shadow:0 4px 16px rgba(0,0,0,.06);}
+.cmp-table{width:100%;border-collapse:collapse;background:#fff;}
+.cmp-table th{padding:14px 16px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border);background:var(--navy);color:rgba(255,255,255,.7);white-space:nowrap;}
+.cmp-table th.col-heart{color:#ff8a80;background:#1a0505;}
+.cmp-table th.col-senior{color:#c4b5fd;background:#0e0020;}
+.cmp-table th.col-shine{color:#6ee7b7;background:#001a0c;}
+.cmp-table td{padding:12px 16px;border-bottom:1px solid var(--border);font-size:.84rem;vertical-align:top;}
+.cmp-table td:first-child{font-weight:600;color:var(--navy);background:var(--cream);white-space:nowrap;}
+.cmp-table tr:last-child td{border-bottom:none;}
+.cmp-table tr:hover td{filter:brightness(.97);}
+.c-heart{color:var(--heart-dark);font-weight:700;}
+.c-senior{color:var(--senior-dark);font-weight:700;}
+.c-shine{color:var(--shine-dark);font-weight:700;}
+.c-red{color:#DC2626;font-weight:700;}
+.c-green{color:#065F46;font-weight:700;}
+.c-gray{color:var(--muted);}
+.tag{display:inline-block;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap;margin-top:2px;}
+.tag-yes{background:#DCFCE7;color:#166534;}
+.tag-no{background:#FEE2E2;color:#991B1B;}
+.tag-partial{background:#FEF3C7;color:#92400E;}
+.section-header-row td{background:var(--navy)!important;color:var(--gold-light)!important;font-family:'Cormorant Garamond',serif!important;font-size:1rem!important;font-weight:700!important;padding:10px 16px!important;border-bottom:1px solid rgba(255,255,255,.1)!important;}
+
+/* ── WHO IS IT FOR SECTION ── */
+.who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(max-width:720px){.who-grid{grid-template-columns:1fr;}}
+.who-card{background:#fff;border-radius:14px;padding:24px;border:1px solid var(--border);border-top:4px solid;}
+.who-heart{border-top-color:var(--heart);}
+.who-senior{border-top-color:var(--senior);}
+.who-shine{border-top-color:var(--shine);}
+.who-plan{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.who-tag{display:inline-block;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:99px;margin-bottom:14px;}
+.wt-heart{background:var(--heart-soft);color:var(--heart-dark);}
+.wt-senior{background:var(--senior-soft);color:var(--senior-dark);}
+.wt-shine{background:var(--shine-soft);color:var(--shine-dark);}
+.who-ideal{font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.who-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:16px;}
+.who-list li{display:flex;align-items:flex-start;gap:8px;font-size:.8rem;color:var(--muted);line-height:1.45;}
+.who-list li::before{content:'✓';font-weight:700;flex-shrink:0;font-size:.85rem;}
+.who-list.heart li::before{color:var(--heart);}
+.who-list.senior li::before{color:var(--senior);}
+.who-list.shine li::before{color:var(--shine);}
+.who-avoid{font-size:.78rem;font-weight:700;color:#92400E;margin-bottom:6px;}
+.who-avoid-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.who-avoid-list li{display:flex;align-items:flex-start;gap:8px;font-size:.78rem;color:#92400E;line-height:1.45;}
+.who-avoid-list li::before{content:'✗';font-weight:700;flex-shrink:0;}
+.who-cta{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:9px;text-decoration:none;font-size:.82rem;font-weight:700;transition:all .2s;margin-top:16px;}
+.who-cta-heart{background:var(--heart);color:#fff;}
+.who-cta-senior{background:var(--senior);color:#fff;}
+.who-cta-shine{background:var(--shine);color:#fff;}
+
+/* ── COPAY CALCULATOR ── */
+.calc-section{background:#fff;border-radius:14px;padding:1.75rem;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.04);margin-bottom:1.25rem;}
+.calc-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.calc-sub{font-size:.85rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.5;}
+.calc-input-row{display:flex;align-items:center;gap:14px;margin-bottom:1.25rem;flex-wrap:wrap;}
+.calc-lbl{font-size:.875rem;color:var(--muted);min-width:140px;font-weight:500;}
+.calc-val{font-size:.9rem;font-weight:700;color:var(--navy);min-width:80px;text-align:right;}
+input[type=range]{flex:1;min-width:150px;height:4px;accent-color:var(--navy);cursor:pointer;}
+.copay-results{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+@media(max-width:600px){.copay-results{grid-template-columns:1fr;}}
+.copay-box{border-radius:10px;padding:1rem;border:1px solid;text-align:center;}
+.cb-heart{background:var(--heart-soft);border-color:rgba(229,57,53,.25);}
+.cb-senior{background:var(--senior-soft);border-color:rgba(124,58,237,.2);}
+.cb-shine{background:var(--shine-soft);border-color:rgba(26,140,78,.2);}
+.copay-box-plan{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;}
+.cbh{color:var(--heart-dark);}
+.cbs{color:var(--senior-dark);}
+.cbsh{color:var(--shine-dark);}
+.copay-pct{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;margin-bottom:3px;}
+.copay-you{font-size:.8rem;font-weight:700;margin-bottom:1px;}
+.copay-ins{font-size:.8rem;}
+
+/* ── GROWTH CHART ── */
+.chart-wrap{position:relative;width:100%;height:300px;margin-top:1.25rem;}
+.legend-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:1rem;font-size:.82rem;color:var(--muted);}
+.leg-item{display:flex;align-items:center;gap:6px;}
+.leg-dot{width:12px;height:12px;border-radius:3px;display:inline-block;flex-shrink:0;}
+.slider-row{display:flex;align-items:center;gap:14px;margin-bottom:1.1rem;flex-wrap:wrap;}
+.slider-lbl{font-size:.875rem;color:var(--muted);min-width:130px;font-weight:500;}
+.slider-val{font-size:.9rem;font-weight:700;color:var(--navy);min-width:70px;text-align:right;}
+
+/* ── SCENARIO CARDS ── */
+.scenario-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:1.25rem;}
+.sc-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1rem;cursor:pointer;transition:all .15s;}
+.sc-card:hover{border-color:var(--navy);}
+.sc-card.active{border:2px solid var(--navy);background:var(--cream);}
+.sc-card-title{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.sc-card-sub{font-size:.75rem;color:var(--muted);line-height:1.4;}
+.scenario-output{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem;min-height:220px;}
+.plan-result-row{display:flex;align-items:stretch;gap:12px;margin-bottom:10px;flex-wrap:wrap;}
+.prr-card{flex:1;min-width:200px;border-radius:10px;padding:1rem;border:1px solid;}
+.prr-heart{background:var(--heart-soft);border-color:rgba(229,57,53,.2);}
+.prr-senior{background:var(--senior-soft);border-color:rgba(124,58,237,.15);}
+.prr-shine{background:var(--shine-soft);border-color:rgba(26,140,78,.15);}
+.prr-plan{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;}
+.prrh{color:var(--heart-dark);}
+.prrs{color:var(--senior-dark);}
+.prrsh{color:var(--shine-dark);}
+.prr-pay{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;margin-bottom:2px;}
+.prr-label{font-size:.75rem;margin-bottom:4px;}
+.prr-you{font-size:.78rem;font-weight:700;}
+.metric-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:1.25rem;}
+.metric-box{background:var(--cream);border-radius:10px;padding:.85rem 1rem;border:1px solid var(--border);}
+.mb-lbl{font-size:.68rem;color:var(--muted);margin-bottom:3px;font-weight:600;text-transform:uppercase;letter-spacing:.03em;}
+.mb-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--navy);}
+
+/* ── RECOMMENDATION ENGINE ── */
+.rec-engine{background:var(--navy);border-radius:16px;padding:2rem;margin-top:2rem;}
+.re-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:6px;}
+.re-sub{font-size:.86rem;color:rgba(255,255,255,.55);margin-bottom:1.5rem;line-height:1.6;}
+.re-q-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;}
+@media(max-width:520px){.re-q-grid{grid-template-columns:1fr;}}
+.re-q{font-size:.85rem;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:.5rem;}
+.re-opts{display:flex;flex-direction:column;gap:6px;}
+.re-opt{display:flex;align-items:center;gap:8px;font-size:.82rem;color:rgba(255,255,255,.6);cursor:pointer;}
+.re-opt input[type=radio]{accent-color:var(--gold);cursor:pointer;}
+.re-opt:hover{color:#fff;}
+.re-btn{background:var(--gold);color:var(--navy);border:none;padding:12px 28px;border-radius:8px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;margin-top:.5rem;}
+.re-btn:hover{background:var(--gold-light);}
+.re-result{display:none;margin-top:1.25rem;padding:1.25rem;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);}
+.re-result-plan{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:6px;}
+.re-result-badge{display:inline-block;font-size:.72rem;font-weight:700;padding:3px 12px;border-radius:99px;margin-bottom:8px;}
+.re-result-why{font-size:.85rem;color:rgba(255,255,255,.68);line-height:1.75;}
+.re-result-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:1rem;}
+.re-rbtn{font-size:.82rem;font-weight:700;padding:9px 18px;border-radius:8px;text-decoration:none;transition:all .2s;}
+
+/* ── AGENT FOOTER ── */
+.agent-footer{background:var(--navy);padding:28px 32px;border-top:2px solid rgba(201,150,58,.25);margin-top:2rem;}
+.af-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.af-brand{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--gold-light);}
+.af-address{font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.7;margin-top:3px;}
+.af-contacts{display:flex;gap:24px;flex-wrap:wrap;}
+.af-person{text-align:center;}
+.af-role{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.35);margin-bottom:2px;}
+.af-pname{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#fff;}
+.af-phone{font-size:.85rem;color:#69F0AE;font-weight:600;}
+.af-email{font-size:.75rem;color:var(--gold-light);}
+</style>
+</head>
+<body>
+
+<!-- ── TOPNAV ── -->
+<nav class="topnav">
+  <div class="nav-brand">Sonis Insurance · Plan Comparison</div>
+  <div class="nav-links">
+    <a href="#sec-who" class="nav-link" onclick="switchSec('who')">Who is it for?</a>
+    <a href="#sec-features" class="nav-link" onclick="switchSec('features')">Feature compare</a>
+    <a href="#sec-copay" class="nav-link" onclick="switchSec('copay')">Co-pay calculator</a>
+    <a href="#sec-growth" class="nav-link" onclick="switchSec('growth')">SI growth</a>
+    <a href="#sec-scenarios" class="nav-link" onclick="switchSec('scenarios')">Scenarios</a>
+    <a href="#sec-decide" class="nav-link" onclick="switchSec('decide')">Help me decide</a>
+  </div>
+  <div class="nav-contact">📞 98509 77528</div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Sonis Professional Insurance Services · Ichalkaranji</div>
+    <h1 class="hero-title">Care Health Plans — Compared</h1>
+    <div class="hero-plan-pills">
+      <span class="hero-pill pill-heart">🫀 Care Heart</span>
+      <span style="color:rgba(255,255,255,.3);font-size:1.2rem;">vs</span>
+      <span class="hero-pill pill-senior">🧓 Senior Health Advantage</span>
+      <span style="color:rgba(255,255,255,.3);font-size:1.2rem;">vs</span>
+      <span class="hero-pill pill-shine">✨ Care Supreme Shine</span>
+    </div>
+    <p class="hero-sub">Three Care Health plans — each designed for a different life situation. This guide helps you understand exactly who each plan is for, what it costs you at claim time, and which one fits your family best.</p>
+    <div class="advisor-strip">
+      <div class="adv-pill">
+        <div class="av av-d">D</div>
+        <div><div class="adv-name">Dattatray Pujari</div><div class="adv-phone">📞 93253 77528</div></div>
+      </div>
+      <div class="adv-pill">
+        <div class="av av-a">A</div>
+        <div><div class="adv-name">Archana Soni</div><div class="adv-phone">📞 98509 77528</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── QUICK VERDICT ── -->
+<section class="verdict-section">
+  <div class="vs-inner">
+    <div class="vs-head">
+      <div class="vs-eyebrow">Quick Verdict</div>
+      <div class="vs-title">One plan for each life situation</div>
+    </div>
+    <div class="verdict-grid">
+
+      <div class="verdict-card vc-heart">
+        <div class="vc-dot vcd-heart"></div>
+        <div class="vc-plan">Care Heart</div>
+        <div class="vc-insurer">Care Health Insurance · IRDAI Reg 148</div>
+        <div class="vc-for-label">Designed for</div>
+        <div class="vc-for vhf">Cardiac patients who have already undergone surgery/procedure</div>
+        <div class="vc-key-facts">
+          <div class="vc-fact"><span class="vf-label">PED waiting period</span><span class="vf-val vf-heart">24 months ✓</span></div>
+          <div class="vc-fact"><span class="vf-label">Co-payment</span><span class="vf-val vf-red">20% (≤70) / 30% (&gt;70)</span></div>
+          <div class="vc-fact"><span class="vf-label">SI options</span><span class="vf-val">₹3L – ₹10L</span></div>
+          <div class="vc-fact"><span class="vf-label">Cardiac checkup</span><span class="vf-val vf-green">Year 1 cashless ✓</span></div>
+          <div class="vc-fact"><span class="vf-label">No Claim Bonus</span><span class="vf-val vf-green">+10%/yr up to 50%</span></div>
+          <div class="vc-fact"><span class="vf-label">Auto Recharge</span><span class="vf-val">Once/year</span></div>
+          <div class="vc-fact"><span class="vf-label">Eligibility</span><span class="vf-val vf-red">Cardiac procedure mandatory</span></div>
+        </div>
+        <a href="https://shriramanuj.github.io/Prandhan/care_heart_sonis.html" class="vc-cta cta-heart">Full guide &nbsp;›</a>
+      </div>
+
+      <div class="verdict-card vc-senior">
+        <div class="vc-dot vcd-senior"></div>
+        <div class="vc-plan">Senior Health Advantage</div>
+        <div class="vc-insurer">Care Health Insurance · IRDAI Reg 148</div>
+        <div class="vc-for-label">Designed for</div>
+        <div class="vc-for vsf">Seniors aged 60+ — no upper age limit, lifelong renewable</div>
+        <div class="vc-key-facts">
+          <div class="vc-fact"><span class="vf-label">PED waiting period</span><span class="vf-val" style="color:var(--senior-dark)">24 months (optional)*</span></div>
+          <div class="vc-fact"><span class="vf-label">Co-payment</span><span class="vf-val vf-red">50% (≤70) / 60% (&gt;70)</span></div>
+          <div class="vc-fact"><span class="vf-label">SI options</span><span class="vf-val">₹5L / ₹10L</span></div>
+          <div class="vc-fact"><span class="vf-label">Health checkup</span><span class="vf-val vf-green">Day 1, 7 tests cashless</span></div>
+          <div class="vc-fact"><span class="vf-label">No Claim Bonus</span><span class="vf-val">+10%/yr up to 50%*</span></div>
+          <div class="vc-fact"><span class="vf-label">Room rent</span><span class="vf-val" style="color:#92400E">Twin sharing room*</span></div>
+          <div class="vc-fact"><span class="vf-label">Eligibility</span><span class="vf-val vf-green">Age 60+ — open</span></div>
+        </div>
+        <a href="https://shriramanuj.github.io/Prandhan/Care_senior_sonis.html" class="vc-cta cta-senior">Full guide &nbsp;›</a>
+      </div>
+
+      <div class="verdict-card vc-shine">
+        <div class="vc-dot vcd-shine"></div>
+        <div class="vc-plan">Care Supreme Shine</div>
+        <div class="vc-insurer">Care Health Insurance · IRDAI Reg 148</div>
+        <div class="vc-for-label">Designed for</div>
+        <div class="vc-for vshf">Anyone seeking affordable comprehensive cover — all ages</div>
+        <div class="vc-key-facts">
+          <div class="vc-fact"><span class="vf-label">PED waiting period</span><span class="vf-val vf-red">36 months (std)</span></div>
+          <div class="vc-fact"><span class="vf-label">Co-payment</span><span class="vf-val" style="color:var(--shine-dark)">20% — lowest of three</span></div>
+          <div class="vc-fact"><span class="vf-label">SI options</span><span class="vf-val vf-green">Per underwriter ✓</span></div>
+          <div class="vc-fact"><span class="vf-label">Wellness discount</span><span class="vf-val vf-green">Up to 30% renewal</span></div>
+          <div class="vc-fact"><span class="vf-label">No Claim Bonus</span><span class="vf-val vf-red">Not available ✗</span></div>
+          <div class="vc-fact"><span class="vf-label">Auto Recharge</span><span class="vf-val vf-red">Not available ✗</span></div>
+          <div class="vc-fact"><span class="vf-label">Eligibility</span><span class="vf-val vf-green">No restriction — all ages</span></div>
+        </div>
+        <a href="https://shriramanuj.github.io/Prandhan/care_supreme_shine.html" class="vc-cta cta-shine">Full guide &nbsp;›</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION NAV ── -->
+<div class="section-nav">
+  <div class="snav-inner">
+    <button class="snav-tab active" onclick="switchSec('who')" id="snt-who">Who is it for?</button>
+    <button class="snav-tab" onclick="switchSec('features')" id="snt-features">Feature comparison</button>
+    <button class="snav-tab" onclick="switchSec('copay')" id="snt-copay">Co-payment calculator</button>
+    <button class="snav-tab" onclick="switchSec('growth')" id="snt-growth">SI growth chart</button>
+    <button class="snav-tab" onclick="switchSec('scenarios')" id="snt-scenarios">Claim scenarios</button>
+    <button class="snav-tab" onclick="switchSec('decide')" id="snt-decide">Help me decide</button>
+  </div>
+</div>
+
+<div class="cmp-main">
+
+<!-- ═══ WHO IS IT FOR ═══ -->
+<div class="cmp-section active" id="sec-who">
+  <div class="cmp-head">
+    <div class="cmp-eyebrow">Plan Comparison · Eligibility Guide</div>
+    <div class="cmp-title">Who is each plan designed for?</div>
+    <div class="cmp-sub">Each plan has a very specific target profile. Choosing the wrong plan can mean claim rejections, excess co-payment or gaps in coverage. Read this section carefully.</div>
+  </div>
+  <div class="who-grid">
+    <div class="who-card who-heart">
+      <div class="who-plan">Care Heart</div>
+      <span class="who-tag wt-heart">🫀 Cardiac patients only</span>
+      <div class="who-ideal">Ideal if you:</div>
+      <ul class="who-list heart">
+        <li>Have already undergone cardiac surgery — bypass (CABG), angioplasty, stent, valve replacement, pacemaker etc.</li>
+        <li>Were diagnosed with a cardiac ailment and had a surgical intervention for it</li>
+        <li>Want cardiac coverage to begin in just 2 years — not the standard 36 months</li>
+        <li>Want an annual cardiac health check-up cashless from Year 1</li>
+        <li>Can budget for 20% (age ≤70) or 30% (age &gt;70) co-payment per claim</li>
+      </ul>
+      <div class="who-avoid">Do NOT buy if:</div>
+      <ul class="who-avoid-list">
+        <li>You have NOT had a cardiac procedure — you will not be eligible</li>
+        <li>You cannot manage mandatory co-payment from personal funds</li>
+        <li>You need higher SI (max is ₹10L) for very expensive treatments</li>
+      </ul>
+      <a href="https://shriramanuj.github.io/Prandhan/care_heart_sonis.html" class="who-cta who-cta-heart">Full Care Heart guide &nbsp;›</a>
+    </div>
+
+    <div class="who-card who-senior">
+      <div class="who-plan">Senior Health Advantage</div>
+      <span class="who-tag wt-senior">🧓 Seniors aged 60+ only</span>
+      <div class="who-ideal">Ideal if you:</div>
+      <ul class="who-list senior">
+        <li>Are aged 60 or above — this is mandatory</li>
+        <li>Have multiple pre-existing conditions and most other insurers have refused coverage</li>
+        <li>Want no upper age limit and lifelong renewability</li>
+        <li>Need an annual health check-up (7 tests) from Day 1 — no waiting period</li>
+        <li>Have family support to fund the 50–60% co-payment when claims arise</li>
+      </ul>
+      <div class="who-avoid">Do NOT buy if:</div>
+      <ul class="who-avoid-list">
+        <li>You are under 60 — not eligible</li>
+        <li>The 50–60% co-payment is not financially manageable — that is a very large self-fund requirement</li>
+        <li>You want SI to grow — NCB is optional and Room is restricted</li>
+      </ul>
+      <a href="https://shriramanuj.github.io/Prandhan/Care_senior_sonis.html" class="who-cta who-cta-senior">Full Senior guide &nbsp;›</a>
+    </div>
+
+    <div class="who-card who-shine">
+      <div class="who-plan">Care Supreme Shine</div>
+      <span class="who-tag wt-shine">✨ All ages — no restriction</span>
+      <div class="who-ideal">Ideal if you:</div>
+      <ul class="who-list shine">
+        <li>Want genuine hospitalisation coverage at an affordable premium</li>
+        <li>Are comfortable with 20% co-payment — the lowest of the three</li>
+        <li>Are young and healthy and want a starting plan</li>
+        <li>Have corporate cover and want additional top-up protection</li>
+        <li>Walk regularly and want to earn up to 30% renewal discount</li>
+        <li>Plan to upgrade to full Care Supreme in 1–2 years</li>
+      </ul>
+      <div class="who-avoid">Do NOT buy if:</div>
+      <ul class="who-avoid-list">
+        <li>You want zero co-payment — upgrade to Care Supreme instead</li>
+        <li>You want coverage to grow each year — no CB in Shine</li>
+        <li>Multiple hospitalisations in one year are likely — no auto recharge</li>
+      </ul>
+      <a href="https://shriramanuj.github.io/Prandhan/care_supreme_shine.html" class="who-cta who-cta-shine">Full Shine guide &nbsp;›</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FEATURE COMPARISON ═══ -->
+<div class="cmp-section" id="sec-features">
+  <div class="cmp-head">
+    <div class="cmp-eyebrow">Plan Comparison · Feature-by-Feature</div>
+    <div class="cmp-title">Complete feature comparison — all three plans</div>
+    <div class="cmp-sub">Every feature across all three plans, side by side. Green ticks, red crosses, and honest notes where the difference is meaningful.</div>
+  </div>
+  <div class="cmp-table-wrap">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="col-heart">🫀 Care Heart</th>
+          <th class="col-senior">🧓 Senior Advantage</th>
+          <th class="col-shine">✨ Care Supreme Shine</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="section-header-row"><td colspan="4">Eligibility &amp; basics</td></tr>
+        <tr><td>Minimum entry age</td><td>18 years</td><td class="c-senior">60 years</td><td>18 years</td></tr>
+        <tr><td>Maximum entry age</td><td class="c-green">No limit</td><td class="c-green">No limit</td><td class="c-green">No limit</td></tr>
+        <tr><td>Special eligibility</td><td class="c-red">Cardiac procedure mandatory</td><td class="c-senior">Age 60+ only</td><td class="c-green">None — open to all</td></tr>
+        <tr><td>SI options</td><td>₹3L / ₹5L / ₹7L / ₹10L</td><td>₹5L / ₹10L</td><td>As per underwriter</td></tr>
+        <tr><td>Cover type</td><td>Individual (max 6) / Floater 2A</td><td>Individual (max 6 ≥60) / Floater 2A</td><td>Individual (max 6) / Floater 2A2C</td></tr>
+        <tr><td>Tenure</td><td>1 / 2 / 3 years</td><td>1 / 2 / 3 years</td><td>1 / 2 / 3 years</td></tr>
+        <tr><td>Lifelong renewability</td><td><span class="tag tag-yes">✓ Yes</span></td><td><span class="tag tag-yes">✓ Yes</span></td><td><span class="tag tag-yes">✓ Yes</span></td></tr>
+
+        <tr class="section-header-row"><td colspan="4">Co-payment &amp; waiting periods</td></tr>
+        <tr><td>Co-payment</td><td class="c-red">20% (age ≤70) / 30% (age &gt;70) — mandatory</td><td class="c-red">50% (age ≤70) / 60% (age &gt;70) — optional cover</td><td class="c-shine">20% — mandatory (lowest of three)</td></tr>
+        <tr><td>Initial waiting</td><td>30 days</td><td>30 days</td><td>30 days</td></tr>
+        <tr><td>PED waiting period</td><td class="c-green">24 months ✓ (only 2 years!)</td><td>24 months (optional cover)</td><td class="c-red">36 months (standard)</td></tr>
+        <tr><td>Named ailment wait</td><td>24 months</td><td>24 months</td><td>24 months</td></tr>
+        <tr><td>Instant Cover add-on</td><td><span class="tag tag-no">✗ Not applicable</span></td><td><span class="tag tag-no">✗ Not applicable</span></td><td><span class="tag tag-yes">✓ 30-day wait for BP/DM/Asthma</span></td></tr>
+        <tr><td>Moratorium (60 months)</td><td><span class="tag tag-yes">✓ Yes</span></td><td><span class="tag tag-yes">✓ Yes</span></td><td><span class="tag tag-yes">✓ Yes</span></td></tr>
+
+        <tr class="section-header-row"><td colspan="4">Hospitalisation benefits</td></tr>
+        <tr><td>In-patient care</td><td class="c-green">Up to SI</td><td class="c-green">Up to SI</td><td class="c-green">Up to SI</td></tr>
+        <tr><td>Room rent</td><td>1% SI/day (₹3L/₹5L) or Single Pvt (₹7L/₹10L)</td><td class="c-red">Twin sharing room (optional*)</td><td class="c-red">Most Economical Single Pvt Room</td></tr>
+        <tr><td>ICU charges</td><td>2% SI/day (₹3L/₹5L) or No limit (₹7L/₹10L)</td><td>2% of SI/day (optional*)</td><td class="c-green">No limit ✓</td></tr>
+        <tr><td>Day care treatments</td><td><span class="tag tag-yes">✓ All procedures</span></td><td><span class="tag tag-yes">✓ All procedures</span></td><td><span class="tag tag-yes">✓ All procedures</span></td></tr>
+        <tr><td>Pre-hospitalisation</td><td>30 days (5% of SI max)</td><td>30 days (optional*)</td><td class="c-green">60 days (up to SI)</td></tr>
+        <tr><td>Post-hospitalisation</td><td>60 days (5% of SI max)</td><td>60 days (optional*)</td><td class="c-green">180 days (up to SI)</td></tr>
+        <tr><td>Sub-limits on treatments</td><td><span class="tag tag-partial">⚠ Yes — cataract, knee, cancer etc.</span></td><td><span class="tag tag-partial">⚠ Yes — similar to Heart</span></td><td><span class="tag tag-partial">⚠ Yes — Extra Care add-on</span></td></tr>
+        <tr><td>Advance technology methods</td><td><span class="tag tag-yes">✓ Up to SI</span></td><td><span class="tag tag-partial">⚠ Optional cover</span></td><td><span class="tag tag-yes">✓ Up to SI</span></td></tr>
+        <tr><td>AYUSH treatment</td><td><span class="tag tag-yes">✓ Up to SI</span></td><td><span class="tag tag-yes">✓ Up to SI</span></td><td><span class="tag tag-yes">✓ Up to SI</span></td></tr>
+        <tr><td>Domiciliary hospitalisation</td><td><span class="tag tag-yes">✓ Up to SI</span></td><td><span class="tag tag-yes">✓ Up to SI</span></td><td><span class="tag tag-yes">✓ Up to SI</span></td></tr>
+        <tr><td>Organ donor cover</td><td><span class="tag tag-yes">✓ Up to SI</span></td><td><span class="tag tag-yes">✓ Up to SI</span></td><td><span class="tag tag-yes">✓ Up to SI</span></td></tr>
+
+        <tr class="section-header-row"><td colspan="4">SI growth &amp; bonuses</td></tr>
+        <tr><td>No Claim Bonus</td><td>+10%/yr, max 50% (reduces if claim)</td><td>+10%/yr, max 50% (optional*)</td><td class="c-red">Not available ✗</td></tr>
+        <tr><td>Auto Recharge</td><td>Once/year — different illness only</td><td class="c-red">Not mentioned</td><td class="c-red">Not available ✗</td></tr>
+        <tr><td>Cumulative Bonus</td><td class="c-red">Not applicable</td><td class="c-red">Not applicable</td><td class="c-red">Removed (mandate rider)</td></tr>
+        <tr><td>Unlimited Recharge</td><td class="c-red">Not applicable</td><td class="c-red">Not applicable</td><td class="c-red">Removed (mandate rider)</td></tr>
+
+        <tr class="section-header-row"><td colspan="4">Wellness &amp; health services</td></tr>
+        <tr><td>Annual health check-up</td><td class="c-green">Cardiac check-up — Year 1 cashless ✓</td><td class="c-green">7 tests cashless — Day 1 ✓</td><td class="c-gray">Optional add-on</td></tr>
+        <tr><td>Wellness Benefit (steps)</td><td class="c-red">Not available ✗</td><td class="c-red">Not available ✗</td><td class="c-shine">Up to 30% renewal discount ✓</td></tr>
+        <tr><td>Unlimited e-consultations</td><td class="c-green">✓ General physicians</td><td class="c-green">✓ General physicians</td><td class="c-green">✓ General physicians</td></tr>
+        <tr><td>Air ambulance</td><td class="c-gray">Not specified</td><td class="c-gray">Not specified</td><td>Up to ₹5L/year (add-on)</td></tr>
+        <tr><td>Road ambulance</td><td>₹2,000–₹3,000 per hospitalisation</td><td>1% of SI or ₹5,000 (lower)</td><td>₹10,000/yr (SI&lt;15L) or Up to SI</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="font-size:.75rem;color:var(--muted);margin-top:.6rem;line-height:1.6">* Optional cover in Senior Health Advantage — must be specifically opted and paid for. Confirm which optional covers are included in the premium quoted.</div>
+</div>
+
+<!-- ═══ CO-PAYMENT CALCULATOR ═══ -->
+<div class="cmp-section" id="sec-copay">
+  <div class="cmp-head">
+    <div class="cmp-eyebrow">Plan Comparison · Co-payment Calculator</div>
+    <div class="cmp-title">What you actually pay — per claim</div>
+    <div class="cmp-sub">Co-payment is the most critical variable across these three plans. Use the sliders below to see exactly what you pay and what the insurer pays at different claim amounts and ages.</div>
+  </div>
+  <div class="calc-section">
+    <div class="calc-title">Co-payment calculator</div>
+    <div class="calc-sub">Adjust the claim amount and age to see the exact split across all three plans.</div>
+    <div class="calc-input-row">
+      <span class="calc-lbl">Claim amount</span>
+      <input type="range" min="50000" max="1000000" step="50000" value="300000" id="cp-claim" oninput="updateCalc()">
+      <span class="calc-val" id="cp-claim-out">₹3,00,000</span>
+    </div>
+    <div class="calc-input-row">
+      <span class="calc-lbl">Age of insured</span>
+      <input type="range" min="20" max="85" step="1" value="60" id="cp-age" oninput="updateCalc()">
+      <span class="calc-val" id="cp-age-out">60 years</span>
+    </div>
+    <div class="copay-results" id="copay-results"></div>
+  </div>
+
+  <div class="calc-section" style="margin-top:0">
+    <div class="calc-title" style="margin-bottom:.5rem">Co-payment comparison — across claim sizes</div>
+    <div class="calc-sub">For a fixed age, see how much you pay out-of-pocket across different claim amounts.</div>
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:.75rem">Age assumed: 65 years (≤70 bracket for all three plans)</div>
+    <div style="overflow-x:auto">
+      <table class="cmp-table" style="font-size:.82rem">
+        <thead>
+          <tr>
+            <th>Claim amount</th>
+            <th class="col-heart">🫀 Heart — your share</th>
+            <th class="col-senior">🧓 Senior — your share</th>
+            <th class="col-shine">✨ Shine — your share</th>
+          </tr>
+        </thead>
+        <tbody id="copay-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SI GROWTH ═══ -->
+<div class="cmp-section" id="sec-growth">
+  <div class="cmp-head">
+    <div class="cmp-eyebrow">Plan Comparison · Long-term Coverage Growth</div>
+    <div class="cmp-title">How each plan's coverage changes over the years</div>
+    <div class="cmp-sub">The three plans behave very differently over time. Care Heart and Senior both grow through NCB. Shine stays flat. See the comparison below.</div>
+  </div>
+  <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,.04)">
+    <div class="slider-row">
+      <span class="slider-lbl">Base SI (all plans)</span>
+      <input type="range" min="3" max="10" step="1" value="5" id="g-si" oninput="renderGrowthChart()">
+      <span class="slider-val" id="g-si-out">₹5 L</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-lbl">Show years</span>
+      <input type="range" min="3" max="8" step="1" value="5" id="g-yr" oninput="renderGrowthChart()">
+      <span class="slider-val" id="g-yr-out">5 years</span>
+    </div>
+    <div class="chart-wrap"><canvas id="growth-chart" role="img" aria-label="Grouped bar chart comparing SI growth across Care Heart, Senior Health Advantage and Care Supreme Shine over years."></canvas></div>
+    <div class="legend-row" id="growth-legend"></div>
+    <div id="growth-metrics" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:1.25rem;"></div>
+    <div style="font-size:.78rem;color:var(--muted);margin-top:.75rem;line-height:1.6;padding:.75rem;background:var(--cream);border-radius:8px;border:1px solid var(--border)">
+      <strong>Key insight:</strong> Care Heart and Senior Health Advantage both grow through NCB (+10%/year, up to 50% — assuming no claims). Care Supreme Shine stays at base SI — no NCB, no CB. The NCB in Heart and Senior can reduce if claims are made (−10%/year), but the original base SI is always protected.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCENARIOS ═══ -->
+<div class="cmp-section" id="sec-scenarios">
+  <div class="cmp-head">
+    <div class="cmp-eyebrow">Plan Comparison · Real-Life Claim Scenarios</div>
+    <div class="cmp-title">Same claim — three different outcomes</div>
+    <div class="cmp-sub">Select a scenario to see exactly what each plan pays and what you pay out-of-pocket — side by side.</div>
+  </div>
+  <div class="scenario-grid" id="scenario-grid"></div>
+  <div class="scenario-output" id="scenario-output"></div>
+</div>
+
+<!-- ═══ HELP ME DECIDE ═══ -->
+<div class="cmp-section" id="sec-decide">
+  <div class="cmp-head">
+    <div class="cmp-eyebrow">Plan Comparison · Smart Recommendation</div>
+    <div class="cmp-title">Answer 4 questions — get your recommendation</div>
+    <div class="cmp-sub">Tell us about your situation. We will recommend the most suitable plan from the three — with a clear explanation of why.</div>
+  </div>
+  <div class="rec-engine">
+    <div class="re-title">Find the right plan for you</div>
+    <div class="re-sub">These four questions are enough to narrow down the right plan. Answer honestly for the most accurate recommendation.</div>
+    <div class="re-q-grid">
+      <div>
+        <div class="re-q">1. Have you undergone a cardiac surgery or procedure?</div>
+        <div class="re-opts">
+          <label class="re-opt"><input type="radio" name="q1" value="yes"> Yes — bypass, stent, angioplasty, valve replacement etc.</label>
+          <label class="re-opt"><input type="radio" name="q1" value="no"> No — no cardiac history</label>
+          <label class="re-opt"><input type="radio" name="q1" value="family"> Buying for a family member who has had one</label>
+        </div>
+      </div>
+      <div>
+        <div class="re-q">2. What is the age of the person to be insured?</div>
+        <div class="re-opts">
+          <label class="re-opt"><input type="radio" name="q2" value="u60"> Below 60 years</label>
+          <label class="re-opt"><input type="radio" name="q2" value="60_70"> 60 to 70 years</label>
+          <label class="re-opt"><input type="radio" name="q2" value="o70"> Above 70 years</label>
+        </div>
+      </div>
+      <div>
+        <div class="re-q">3. How comfortable are you with co-payment?</div>
+        <div class="re-opts">
+          <label class="re-opt"><input type="radio" name="q3" value="ok20"> Okay with 20% co-payment — have savings</label>
+          <label class="re-opt"><input type="radio" name="q3" value="ok50"> Can manage 50% co-payment if needed</label>
+          <label class="re-opt"><input type="radio" name="q3" value="none"> Prefer zero co-payment</label>
+        </div>
+      </div>
+      <div>
+        <div class="re-q">4. What is your primary goal?</div>
+        <div class="re-opts">
+          <label class="re-opt"><input type="radio" name="q4" value="cardiac"> Cardiac coverage specifically</label>
+          <label class="re-opt"><input type="radio" name="q4" value="senior_cover"> Coverage for elderly parent(s) 60+</label>
+          <label class="re-opt"><input type="radio" name="q4" value="affordable"> Affordable general health coverage</label>
+          <label class="re-opt"><input type="radio" name="q4" value="wellness"> Coverage + wellness rewards</label>
+        </div>
+      </div>
+    </div>
+    <button class="re-btn" onclick="getRecommendation()">Get my recommendation →</button>
+    <div class="re-result" id="re-result">
+      <div class="re-result-plan" id="re-plan"></div>
+      <span class="re-result-badge" id="re-badge"></span>
+      <div class="re-result-why" id="re-why"></div>
+      <div class="re-result-btns" id="re-btns"></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /cmp-main -->
+
+<!-- ── AGENT FOOTER ── -->
+<footer class="agent-footer">
+  <div class="af-inner">
+    <div>
+      <div class="af-brand">Sonis Professional Insurance Services</div>
+      <div class="af-address">10/306/1, Sarvoday Nagar, Near Hirkani Hotel, "Gokul", Ichalkaranji — 416115<br>Your trusted health insurance partner across Ichalkaranji &amp; Kolhapur district</div>
+      <div style="font-size:.68rem;color:rgba(255,255,255,.25);margin-top:6px">© 2026 Sonis Professional Insurance Services · All Rights Reserved</div>
+    </div>
+    <div class="af-contacts">
+      <div class="af-person">
+        <div class="af-role">Senior Advisor</div>
+        <div class="af-pname">Dattatray Pujari</div>
+        <div class="af-phone">📞 93253 77528</div>
+      </div>
+      <div class="af-person">
+        <div class="af-role">Founder &amp; Advisor</div>
+        <div class="af-pname">Archana Soni</div>
+        <div class="af-phone">📞 98509 77528</div>
+        <div class="af-email">archanasonis@gmail.com</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ══ SECTION NAV ══
+var secs=['who','features','copay','growth','scenarios','decide'];
+function switchSec(id){
+  secs.forEach(function(s){
+    document.getElementById('sec-'+s).classList.remove('active');
+    document.getElementById('snt-'+s).classList.remove('active');
+  });
+  document.getElementById('sec-'+id).classList.add('active');
+  document.getElementById('snt-'+id).classList.add('active');
+  if(id==='copay'){buildCopayTable();updateCalc();}
+  if(id==='growth')setTimeout(renderGrowthChart,80);
+  if(id==='scenarios')initScenarios();
+  window.scrollTo({top:document.querySelector('.section-nav').offsetTop-10,behavior:'smooth'});
+}
+
+// ══ CO-PAYMENT CALCULATOR ══
+function fmtINR(n){
+  var s=Math.round(n).toString();
+  if(s.length<=3)return'₹'+s;
+  var last3=s.slice(-3),rest=s.slice(0,-3);
+  rest=rest.replace(/\B(?=(\d{2})+(?!\d))/g,',');
+  return'₹'+rest+','+last3;
+}
+function updateCalc(){
+  var claim=parseInt(document.getElementById('cp-claim').value);
+  var age=parseInt(document.getElementById('cp-age').value);
+  document.getElementById('cp-claim-out').textContent=fmtINR(claim);
+  document.getElementById('cp-age-out').textContent=age+' years';
+  var heartCop=age>70?0.30:0.20;
+  var seniorCop=age>70?0.60:0.50;
+  var shineCop=0.20;
+  var results=[
+    {plan:'Care Heart',cls:'cb-heart',pcls:'cbh',cop:heartCop,icon:'🫀'},
+    {plan:'Senior Advantage',cls:'cb-senior',pcls:'cbs',cop:seniorCop,icon:'🧓'},
+    {plan:'Care Shine',cls:'cb-shine',pcls:'cbsh',cop:shineCop,icon:'✨'},
+  ];
+  var h='';
+  results.forEach(function(r){
+    var you=claim*r.cop;var ins=claim*(1-r.cop);
+    h+='<div class="copay-box '+r.cls+'">';
+    h+='<div class="copay-box-plan '+r.pcls+'">'+r.icon+' '+r.plan+'</div>';
+    h+='<div class="copay-pct '+r.pcls+'">'+(r.cop*100).toFixed(0)+'% co-pay</div>';
+    h+='<div class="copay-you" style="color:#991B1B">You pay: '+fmtINR(you)+'</div>';
+    h+='<div class="copay-ins" style="color:#065F46">Insurer: '+fmtINR(ins)+'</div>';
+    h+='</div>';
+  });
+  document.getElementById('copay-results').innerHTML=h;
+}
+function buildCopayTable(){
+  var amounts=[100000,300000,500000,700000,1000000];
+  var h='';
+  amounts.forEach(function(a){
+    h+='<tr><td>'+fmtINR(a)+'</td>';
+    h+='<td class="c-red">'+fmtINR(a*0.2)+' (20%)</td>';
+    h+='<td class="c-red">'+fmtINR(a*0.5)+' (50%)</td>';
+    h+='<td class="c-shine">'+fmtINR(a*0.2)+' (20%)</td>';
+    h+='</tr>';
+  });
+  document.getElementById('copay-table-body').innerHTML=h;
+}
+
+// ══ GROWTH CHART ══
+var gChart=null;
+function renderGrowthChart(){
+  var si=parseInt(document.getElementById('g-si').value);
+  var yrs=parseInt(document.getElementById('g-yr').value);
+  document.getElementById('g-si-out').textContent='₹'+si+' L';
+  document.getElementById('g-yr-out').textContent=yrs+' years';
+  var labels=[],heartData=[],seniorData=[],shineData=[];
+  for(var y=1;y<=yrs;y++){
+    labels.push('Year '+y);
+    var ncb=Math.min(si*0.1*(y-1),si*0.5);
+    heartData.push(si+ncb);
+    seniorData.push(si+ncb);
+    shineData.push(si); // no CB
+  }
+  var lastNCB=Math.min(si*0.1*(yrs-1),si*0.5);
+  var heartFinal=si+lastNCB;var shineFinal=si;
+  var gap=heartFinal-shineFinal;
+  document.getElementById('growth-metrics').innerHTML=
+    '<div style="background:var(--cream);border-radius:10px;padding:.85rem 1rem;border:1px solid var(--border)"><div style="font-size:.7rem;color:var(--muted);margin-bottom:3px;font-weight:600;text-transform:uppercase">Heart/Senior — Year '+yrs+'</div><div style="font-family:Cormorant Garamond,serif;font-size:1.5rem;font-weight:700;color:var(--navy)">₹'+heartFinal+'L</div><div style="font-size:.72rem;color:var(--muted)">with max NCB (no claims)</div></div>'+
+    '<div style="background:var(--cream);border-radius:10px;padding:.85rem 1rem;border:1px solid var(--border)"><div style="font-size:.7rem;color:var(--muted);margin-bottom:3px;font-weight:600;text-transform:uppercase">Shine — Year '+yrs+'</div><div style="font-family:Cormorant Garamond,serif;font-size:1.5rem;font-weight:700;color:var(--shine-dark)">₹'+shineFinal+'L</div><div style="font-size:.72rem;color:var(--muted)">flat — no NCB in Shine</div></div>'+
+    '<div style="background:var(--cream);border-radius:10px;padding:.85rem 1rem;border:1px solid var(--border)"><div style="font-size:.7rem;color:var(--muted);margin-bottom:3px;font-weight:600;text-transform:uppercase">NCB added (Heart/Senior)</div><div style="font-family:Cormorant Garamond,serif;font-size:1.5rem;font-weight:700;color:#065F46">₹'+lastNCB+'L</div><div style="font-size:.72rem;color:var(--muted)">at zero extra premium</div></div>'+
+    '<div style="background:var(--cream);border-radius:10px;padding:.85rem 1rem;border:1px solid var(--border)"><div style="font-size:.7rem;color:var(--muted);margin-bottom:3px;font-weight:600;text-transform:uppercase">Coverage gap (Heart vs Shine)</div><div style="font-family:Cormorant Garamond,serif;font-size:1.5rem;font-weight:700;color:#DC2626">₹'+gap+'L</div><div style="font-size:.72rem;color:var(--muted)">Shine lacks this extra SI</div></div>';
+  document.getElementById('growth-legend').innerHTML=
+    '<div class="leg-item"><div class="leg-dot" style="background:var(--heart)"></div>Care Heart (NCB growth)</div>'+
+    '<div class="leg-item"><div class="leg-dot" style="background:var(--senior)"></div>Senior Health Advantage (same NCB)</div>'+
+    '<div class="leg-item"><div class="leg-dot" style="background:var(--shine)"></div>Care Supreme Shine (flat — no NCB)</div>';
+  if(gChart)gChart.destroy();
+  gChart=new Chart(document.getElementById('growth-chart').getContext('2d'),{
+    type:'bar',
+    data:{labels:labels,datasets:[
+      {label:'Care Heart',data:heartData,backgroundColor:'rgba(229,57,53,0.75)',borderWidth:0,borderRadius:4},
+      {label:'Senior Advantage',data:seniorData,backgroundColor:'rgba(124,58,237,0.65)',borderWidth:0,borderRadius:4},
+      {label:'Shine (flat)',data:shineData,backgroundColor:'rgba(26,140,78,0.75)',borderWidth:0,borderRadius:4},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.dataset.label+': ₹'+c.raw+'L';}}}},
+      scales:{
+        x:{grid:{display:false},ticks:{font:{size:12}}},
+        y:{ticks:{callback:function(v){return'₹'+v+'L';},font:{size:12}},grid:{color:'rgba(0,0,0,0.05)'}}
+      }}
+  });
+}
+
+// ══ SCENARIOS ══
+var scenarios=[
+  {title:'Cardiac hospitalisation',sub:'₹3L bill · Age 65',
+   note:'Direct comparison: how each plan handles the same cardiac event.',
+   si:3,age:65,
+   heart:{cop:0.20,admits:true,note:'Cardiac covered from Year 3 (after 2-yr PED wait). 20% co-pay.'},
+   senior:{cop:0.50,admits:true,note:'General hospitalisation covered. 50% co-pay for age 65.'},
+   shine:{cop:0.20,admits:true,note:'Hospitalisation covered. 20% co-pay. Sub-limits may apply.'}},
+  {title:'Cancer chemotherapy',sub:'₹5L annual cost · Age 68',
+   note:'Cancer sub-limits apply differently across plans. See the impact.',
+   si:5,age:68,
+   heart:{cop:0.20,limit:2,admits:true,note:'Cancer sub-limit ₹2L (₹5L SI). Admissible: ₹2L. 20% co-pay.'},
+   senior:{cop:0.50,limit:2,admits:true,note:'Cancer sub-limit ₹2L (₹5L SI). 50% co-pay on ₹2L.'},
+   shine:{cop:0.20,limit:3,admits:true,note:'Cancer sub-limit ₹3L (SI<10L). 20% co-pay. Better sub-limit.'}},
+  {title:'Annual health checkup',sub:'Free preventive check — who provides?',
+   note:'Only two of three plans include a health checkup benefit.',
+   si:5,age:65,
+   heart:{cop:0,admits:true,note:'Annual cardiac check-up — cashless from Year 1. No co-pay on this benefit. ✓'},
+   senior:{cop:0,admits:true,note:'7 comprehensive tests cashless from Day 1. Blood, sugar, lipids, KFT, ECG. ✓'},
+   shine:{cop:0,admits:false,note:'No inbuilt health check-up. Available as optional add-on only. ✗'}},
+  {title:'Wellness discount at renewal',sub:'Active lifestyle — who rewards?',
+   note:'Only Care Supreme Shine offers a step-tracking wellness discount.',
+   si:5,age:65,
+   heart:{cop:0,admits:false,note:'Wellness Benefit / step-tracking discount — not available. ✗'},
+   senior:{cop:0,admits:false,note:'Wellness Benefit / step-tracking discount — not available. ✗'},
+   shine:{cop:0,admits:true,note:'270 healthy days (10,000 steps/day) → 30% off renewal premium. Best-in-class. ✓'}},
+];
+
+var scInit=false;
+function initScenarios(){
+  if(!scInit){
+    var g=document.getElementById('scenario-grid'),h='';
+    scenarios.forEach(function(sc,i){h+='<div class="sc-card'+(i===0?' active':'')+'" id="sc'+i+'" onclick="pickScenario('+i+')"><div class="sc-card-title">'+sc.title+'</div><div class="sc-card-sub">'+sc.sub+'</div></div>';});
+    g.innerHTML=h;scInit=true;
+  }
+  pickScenario(0);
+}
+function pickScenario(idx){
+  document.querySelectorAll('.sc-card').forEach(function(c,i){c.classList.toggle('active',i===idx);});
+  var sc=scenarios[idx];
+  var h='<div style="font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:.5rem">'+sc.title+'</div>';
+  h+='<div style="font-size:.78rem;color:var(--muted);margin-bottom:1.1rem;padding:.6rem .75rem;background:var(--cream);border-radius:8px;border-left:3px solid var(--navy)">'+sc.note+'</div>';
+  // metric row
+  if(sc.si&&sc.age&&(sc.heart.cop>0||sc.senior.cop>0||sc.shine.cop>0)){
+    h+='<div class="metric-row">';
+    h+='<div class="metric-box"><div class="mb-lbl">Claim amount</div><div class="mb-val">'+fmtINR(sc.si*100000)+'</div></div>';
+    h+='<div class="metric-box"><div class="mb-lbl">Age of insured</div><div class="mb-val">'+sc.age+' yrs</div></div>';
+    h+='</div>';
+  }
+  h+='<div class="plan-result-row">';
+  var plans=[
+    {key:'heart',cls:'prr-heart',pcls:'prrh',icon:'🫀',name:'Care Heart'},
+    {key:'senior',cls:'prr-senior',pcls:'prrs',icon:'🧓',name:'Senior Advantage'},
+    {key:'shine',cls:'prr-shine',pcls:'prrsh',icon:'✨',name:'Care Supreme Shine'},
+  ];
+  plans.forEach(function(p){
+    var pd=sc[p.key];
+    h+='<div class="prr-card '+p.cls+'">';
+    h+='<div class="prr-plan '+p.pcls+'">'+p.icon+' '+p.name+'</div>';
+    if(!pd.admits&&pd.note&&pd.cop===0){
+      h+='<div class="prr-label" style="color:var(--muted);font-size:.82rem;line-height:1.6">'+pd.note+'</div>';
+    } else if(pd.cop>0&&sc.si){
+      var claim=sc.si*100000;
+      var limit=pd.limit?pd.limit*100000:claim;
+      var admissible=Math.min(claim,limit);
+      var you=admissible*pd.cop;var ins=admissible*(1-pd.cop);
+      var excess=claim-admissible;
+      h+='<div class="prr-pay" style="color:#065F46">'+fmtINR(ins)+'</div>';
+      h+='<div class="prr-label" style="color:#065F46">Insurer pays</div>';
+      h+='<div class="prr-you" style="color:#DC2626">You pay: '+fmtINR(you+(excess||0))+'</div>';
+      if(limit<claim)h+='<div style="font-size:.72rem;color:#92400E;margin-top:3px">⚠ Sub-limit ₹'+pd.limit+'L applied</div>';
+      h+='<div style="font-size:.72rem;color:var(--muted);margin-top:5px;line-height:1.4">'+pd.note+'</div>';
+    } else {
+      h+='<div class="prr-label" style="color:var(--muted);font-size:.82rem;line-height:1.6">'+pd.note+'</div>';
+    }
+    h+='</div>';
+  });
+  h+='</div>';
+  document.getElementById('scenario-output').innerHTML=h;
+}
+
+// ══ RECOMMENDATION ENGINE ══
+function getRecommendation(){
+  var q1=document.querySelector('input[name="q1"]:checked');
+  var q2=document.querySelector('input[name="q2"]:checked');
+  var q3=document.querySelector('input[name="q3"]:checked');
+  var q4=document.querySelector('input[name="q4"]:checked');
+  if(!q1||!q2||!q3||!q4){alert('Please answer all 4 questions.');return;}
+  var a1=q1.value,a2=q2.value,a3=q3.value,a4=q4.value;
+  var plan,badge,bcolor,why,link,linkTxt;
+  if(a1==='yes'||a1==='family'||a4==='cardiac'){
+    plan='Care Heart';badge='Cardiac Specialist Pick';bcolor='background:var(--heart);color:#fff;';link='care_heart_sonis.html';linkTxt='Explore Care Heart';
+    why='Care Heart is the only plan in India designed for people who have already undergone a cardiac procedure. Its most powerful feature — the 2-year PED waiting period instead of the standard 36 months — means cardiac hospitalisation is covered from Year 3, not Year 4. Annual cardiac health check-up cashless from Year 1. NCB grows your SI 10% every claim-free year. Co-payment applies (20% or 30% based on age) — budget accordingly.';
+  } else if(a2==='60_70'||a2==='o70'||a4==='senior_cover'){
+    plan='Senior Health Advantage';badge='Senior Care Pick';bcolor='background:var(--senior);color:#fff;';link='senior_health_advantage_sonis.html';linkTxt='Explore Senior Health Advantage';
+    if(a3==='ok20'||a3==='none'){
+      plan='Care Supreme Shine (not Senior Advantage)';badge='Better fit for your age';bcolor='background:var(--shine);color:#fff;';link='care_supreme_shine_sonis.html';linkTxt='Explore Care Supreme Shine';
+      why='Your age qualifies for Senior Health Advantage but your co-payment preference points to Shine instead. Senior Advantage carries a 50–60% co-payment which is much higher than Shine\'s 20%. If the senior is in relatively good health and the high co-payment of Senior Advantage is a concern, Care Supreme Shine at 20% co-payment — with better pre/post hospitalisation (60/180 days vs 30/60 days) and wellness discounts — may be a more practical choice. Compare both in detail with your Sonis advisor.';
+    } else {
+      why='Senior Health Advantage is designed for seniors aged 60+ with multiple pre-existing conditions and no upper age limit. Despite the 50–60% co-payment, it is often the only plan that will accept seniors above 70–75 with complex health histories. The annual health check-up from Day 1 (7 tests cashless) is a standalone value. NCB grows the SI 10%/year in claim-free years. Ensure you opt the PED Wait Period optional cover at inception.';
+    }
+  } else if(a4==='affordable'||a4==='wellness'||a3==='ok20'){
+    plan='Care Supreme Shine';badge='Best Affordable Pick';bcolor='background:var(--shine);color:#fff;';link='care_supreme_shine_sonis.html';linkTxt='Explore Care Supreme Shine';
+    why='Care Supreme Shine is the right starting point for general healthcare coverage. It covers all hospitalisation needs — in-patient care, AYUSH, domiciliary, 60/180-day pre/post expenses, advance technology methods — at an affordable premium. The 20% co-payment is the lowest of the three plans. If wellness tracking is your thing, up to 30% renewal discount is available by recording 10,000 steps per day. Plan to upgrade to full Care Supreme once income allows — the upgrade path is smooth.';
+  } else {
+    plan='Care Supreme Shine — as a starting point';badge='Budget Conscious Pick';bcolor='background:var(--shine);color:#fff;';link='care_supreme_shine_sonis.html';linkTxt='Explore Care Supreme Shine';
+    why='Based on your answers, Care Supreme Shine is the most accessible option. Zero cardiac history means Care Heart is not applicable. If age is below 60, Senior Health Advantage is also not applicable. Shine gives you comprehensive hospitalisation coverage at the lowest co-payment (20%) among the three plans. Call your Sonis advisor to discuss whether the premium difference to full Care Supreme (no co-pay, CB growth, unlimited recharge) makes sense for your budget.';
+  }
+  document.getElementById('re-plan').textContent=plan;
+  var b=document.getElementById('re-badge');b.setAttribute('style',bcolor+'display:inline-block;font-size:.72rem;font-weight:700;padding:3px 12px;border-radius:99px;margin-bottom:8px;');b.textContent=badge;
+  document.getElementById('re-why').textContent=why;
+  document.getElementById('re-btns').innerHTML=
+    '<a href="'+link+'" style="'+bcolor+'padding:10px 20px;border-radius:8px;font-size:.85rem;font-weight:700;text-decoration:none;">'+linkTxt+' ›</a>'+
+    '<a href="#" onclick="switchSec(\'features\');return false;" style="background:transparent;color:rgba(255,255,255,.75);padding:10px 20px;border-radius:8px;font-size:.85rem;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.2);">Compare features ›</a>';
+  var r=document.getElementById('re-result');r.style.display='block';r.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ══ INIT ══
+updateCalc();
+buildCopayTable();
+</script>
+</body>
+</html>
