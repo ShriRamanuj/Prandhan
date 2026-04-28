@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Care Supreme Shine — Sonis Professional Insurance Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{
+  --navy:#0D1B2A;--navy-mid:#1B2F45;
+  --gold:#C9963A;--gold-light:#E4B860;
+  --shine:#1A8C4E;--shine-dark:#0F5C32;--shine-light:#22B565;
+  --shine-soft:#EDFBF3;--shine-mid:#A7F3C9;
+  --care-blue:#005DA8;--care-yellow:#F5C400;
+  --cream:#FAF7F2;--white:#fff;
+  --text:#1e293b;--muted:#64748b;--border:#e2e8f0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);line-height:1.6;}
+
+/* ── TOPNAV ── */
+.topnav{position:sticky;top:0;z-index:200;background:rgba(13,27,42,0.97);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:space-between;padding:10px 32px;border-bottom:1px solid rgba(26,140,78,0.35);gap:12px;flex-wrap:wrap;}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--gold-light);white-space:nowrap;}
+.nav-tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+.nav-tabs::-webkit-scrollbar{display:none;}
+.nav-tab{flex-shrink:0;font-size:12px;font-weight:500;padding:5px 16px;border-radius:99px;border:1px solid rgba(255,255,255,0.12);background:transparent;color:rgba(255,255,255,0.65);cursor:pointer;white-space:nowrap;transition:all .15s;font-family:'DM Sans',sans-serif;}
+.nav-tab:hover{background:rgba(255,255,255,0.08);color:#fff;}
+.nav-tab.active{background:var(--shine);color:#fff;border-color:var(--shine);font-weight:700;}
+.nav-contact{font-size:12px;color:var(--gold-light);white-space:nowrap;font-weight:500;flex-shrink:0;}
+
+/* ── HERO ── */
+.hero{background:var(--navy);position:relative;overflow:hidden;padding:52px 32px 44px;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%,rgba(26,140,78,.14) 0%,transparent 55%),radial-gradient(ellipse at 10% 80%,rgba(245,196,0,.07) 0%,transparent 50%);}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+.hero-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
+@media(max-width:700px){.hero-grid{grid-template-columns:1fr;}.hero-cards{display:none!important;}}
+.hero-eyebrow{font-size:.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:600;}
+.hero-badge-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+.hero-insurer{background:rgba(26,140,78,.15);border:1px solid rgba(26,140,78,.35);border-radius:8px;padding:5px 12px;font-size:.8rem;font-weight:700;color:var(--shine-light);letter-spacing:.5px;}
+.hero-award{font-size:.72rem;color:rgba(255,255,255,.45);}
+.hero-special-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(26,140,78,.1);border:1px solid rgba(26,140,78,.25);border-radius:10px;padding:10px 16px;margin-bottom:14px;}
+.hero-special-icon{font-size:1.4rem;}
+.hero-special-txt{font-size:.8rem;color:rgba(255,255,255,.7);line-height:1.4;}
+.hero-special-txt strong{color:var(--shine-light);}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4vw,3.6rem);font-weight:700;color:#fff;line-height:1.1;margin-bottom:12px;}
+.hero-title span{color:var(--shine-light);}
+.hero-title em{color:var(--care-yellow);font-style:normal;}
+.hero-tagline{font-size:.95rem;color:rgba(255,255,255,.62);margin-bottom:20px;max-width:500px;line-height:1.6;}
+.hero-chips{display:flex;gap:10px;flex-wrap:wrap;}
+.hchip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 12px;}
+.hchip-val{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--shine-light);}
+.hchip-val.amber{color:var(--care-yellow);}
+.hchip-txt{font-size:.72rem;color:rgba(255,255,255,.68);line-height:1.3;}
+.hero-cards{display:flex;flex-direction:column;gap:12px;}
+.advisor-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:12px;min-width:240px;transition:all .3s;}
+.advisor-card:hover{background:rgba(255,255,255,.1);border-color:rgba(201,150,58,.4);transform:translateX(4px);}
+.av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:#fff;flex-shrink:0;}
+.av-d{background:linear-gradient(135deg,#1565C0,#0D47A1);box-shadow:0 4px 14px rgba(21,101,192,.45);}
+.av-a{background:linear-gradient(135deg,#C9963A,#8B6320);box-shadow:0 4px 14px rgba(201,150,58,.45);}
+.adv-role{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);}
+.adv-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#fff;}
+.adv-phone{font-size:.82rem;color:#69F0AE;font-weight:600;}
+.adv-email{font-size:.78rem;color:var(--gold-light);}
+
+/* ── SHINE vs SUPREME BANNER ── */
+.shine-banner{background:linear-gradient(135deg,var(--shine-dark) 0%,#0D5C34 100%);padding:13px 32px;}
+.sb-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.sb-icon{font-size:1.3rem;flex-shrink:0;}
+.sb-text{font-size:.85rem;color:#fff;line-height:1.5;}
+
+/* ── STATS BAR ── */
+.stats-bar{background:var(--care-blue);padding:13px 32px;}
+.stats-inner{max-width:1100px;margin:0 auto;display:flex;gap:28px;flex-wrap:wrap;justify-content:center;}
+.stat-item{color:#fff;text-align:center;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;}
+.stat-lbl{font-size:.7rem;opacity:.82;letter-spacing:.4px;}
+
+/* ── MAIN ── */
+.main{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 3rem;}
+.section{display:none;}.section.active{display:block;}
+.sec-head{margin-bottom:1.5rem;}
+.sec-eyebrow{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--shine);font-weight:600;margin-bottom:6px;}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:var(--navy);border-bottom:3px solid var(--shine);padding-bottom:8px;margin-bottom:6px;}
+.sec-sub{font-size:.9rem;color:var(--muted);line-height:1.55;max-width:680px;}
+.sec-cat{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--shine);margin-bottom:.6rem;margin-top:.5rem;}
+.card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+
+/* ── COPAY ALERT ── */
+.copay-alert{background:var(--shine-soft);border:1.5px solid var(--shine-mid);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;}
+.ca-title{font-size:.9rem;font-weight:700;color:var(--shine-dark);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.copay-card-single{background:#fff;border:1px solid var(--shine-mid);border-radius:10px;padding:1rem 1.25rem;display:flex;align-items:center;gap:20px;margin-top:.6rem;}
+.copay-pct{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;color:var(--shine-dark);flex-shrink:0;}
+.copay-desc{font-size:.83rem;color:#0F5C32;line-height:1.6;}
+
+/* ── QUIZ ── */
+.progress-bar{height:4px;background:var(--border);border-radius:99px;margin-bottom:1.75rem;overflow:hidden;}
+.progress-fill{height:100%;background:var(--shine);border-radius:99px;transition:width .35s;}
+.quiz-step{display:none;}.quiz-step.active{display:block;}
+.q-text{font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:1rem;line-height:1.45;}
+.q-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:520px){.q-options{grid-template-columns:1fr;}}
+.q-opt{padding:.9rem 1.1rem;border:1px solid var(--border);border-radius:10px;font-size:.88rem;color:var(--text);cursor:pointer;text-align:left;background:#fff;transition:all .15s;font-family:'DM Sans',sans-serif;line-height:1.4;}
+.q-opt:hover{border-color:var(--shine);background:var(--shine-soft);}
+.q-opt.selected{border:2px solid var(--shine);background:var(--shine-soft);color:var(--shine-dark);}
+.result-box{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);border-radius:14px;padding:1.75rem;margin-top:1.25rem;}
+.result-eyebrow{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45);margin-bottom:8px;}
+.result-plan{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#fff;margin-bottom:8px;}
+.rbadge{display:inline-block;font-size:.72rem;font-weight:700;padding:3px 12px;border-radius:99px;margin-bottom:10px;letter-spacing:.03em;}
+.rb-shine{background:rgba(26,140,78,.2);color:#6ee7b7;border:1px solid rgba(26,140,78,.35);}
+.rb-blue{background:rgba(0,93,168,.2);color:#6BBAFF;border:1px solid rgba(0,93,168,.35);}
+.rb-amber{background:rgba(245,196,0,.15);color:#FCD34D;border:1px solid rgba(245,196,0,.3);}
+.result-why{font-size:.88rem;color:rgba(255,255,255,.72);line-height:1.75;margin-top:8px;}
+.result-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:1.1rem;}
+.rbtn{font-size:.82rem;font-weight:600;padding:.6rem 1.2rem;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.rbtn:hover{background:rgba(255,255,255,.15);}
+.rbtn-p{background:var(--shine);color:#fff;border-color:var(--shine);}
+.rbtn-p:hover{background:var(--shine-dark);}
+
+/* ── BENEFITS ── */
+.ben-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:10px;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.04);}
+.ben-card:hover{border-color:var(--shine);box-shadow:0 4px 16px rgba(26,140,78,.08);}
+.ben-card.open{border-color:var(--shine);}
+.ben-hdr{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.ben-left{flex:1;}
+.bbadge{display:inline-block;font-size:.68rem;font-weight:700;padding:2px 10px;border-radius:99px;margin-bottom:5px;letter-spacing:.04em;}
+.bb-shine{background:#edfbf3;color:var(--shine-dark);}
+.bb-blue{background:#e6f0fb;color:#005DA8;}
+.bb-amber{background:#fffde6;color:#92400E;}
+.bb-red{background:#fff0f0;color:#991B1B;}
+.bb-teal{background:#e8f6f7;color:#0D5E64;}
+.bb-purple{background:#f0eeff;color:#5B21B6;}
+.bb-gray{background:#f8f7f5;color:#444;}
+.ben-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--navy);}
+.ben-sub{font-size:.82rem;color:var(--muted);margin-top:2px;}
+.ben-arrow{font-size:13px;color:var(--muted);transition:transform .2s;flex-shrink:0;}
+.ben-card.open .ben-arrow{transform:rotate(180deg);}
+.ben-detail{display:none;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);}
+.ben-card.open .ben-detail{display:block;}
+.ben-detail p{font-size:.875rem;color:var(--muted);line-height:1.75;margin-bottom:.85rem;}
+.chips-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:.5rem;}
+.chip{font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--cream);color:var(--muted);border:1px solid var(--border);}
+
+/* ── SHINE vs SUPREME COMPARISON TABLE ── */
+.compare-table{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:.75rem;}
+.compare-table th{padding:10px 12px;border-bottom:1px solid var(--border);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;font-weight:700;color:var(--muted);background:var(--cream);}
+.compare-table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;}
+.compare-table th:first-child{text-align:left;}
+.compare-table td:first-child{font-weight:600;color:var(--navy);}
+.compare-table td:not(:first-child){text-align:center;}
+.compare-table th:not(:first-child){text-align:center;}
+.ct-shine{color:var(--shine-dark);font-weight:700;}
+.ct-supreme{color:var(--care-blue);font-weight:700;}
+.ct-miss{color:#991B1B;font-weight:700;}
+.ct-hl td{background:var(--shine-soft)!important;}
+.ct-warn td{background:#fff9f0!important;}
+
+/* ── SUB-LIMIT TABLE ── */
+.si-table{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:.75rem;}
+.si-table th{text-align:left;font-weight:700;color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--border);background:var(--cream);font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;}
+.si-table td{padding:8px 10px;border-bottom:1px solid var(--border);color:var(--text);}
+.si-table tr:hover td{background:#f0faf5;}
+.si-table td:not(:first-child){text-align:center;}
+.si-table th:not(:first-child){text-align:center;}
+.hl-row td{font-weight:700;background:var(--shine-soft)!important;color:var(--shine-dark);}
+
+/* ── SIMULATOR ── */
+.sc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:1.25rem;}
+.sc-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1rem;cursor:pointer;transition:all .15s;}
+.sc-card:hover{border-color:var(--shine);}
+.sc-card.active{border:2px solid var(--shine);background:var(--shine-soft);}
+.sc-title{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.sc-card.active .sc-title{color:var(--shine-dark);}
+.sc-sub{font-size:.75rem;color:var(--muted);line-height:1.4;}
+.flow-row{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;}
+.flow-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0;}
+.fn-base{background:#EFF6FF;color:#1D4ED8;}
+.fn-cop{background:var(--shine-soft);color:var(--shine-dark);}
+.fn-sub{background:#f0eeff;color:#5B21B6;}
+.fn-note{background:#FFF5E6;color:#92400E;}
+.flow-body{flex:1;}
+.flow-lbl{font-size:.875rem;font-weight:700;color:var(--navy);}
+.flow-desc{font-size:.78rem;color:var(--muted);margin-top:3px;line-height:1.45;}
+.flow-amt{font-size:1.1rem;font-weight:700;margin-top:6px;color:#065F46;}
+.flow-amt.red{color:#991B1B;}
+.bar-wrap{height:12px;background:var(--cream);border-radius:99px;overflow:hidden;margin-top:6px;}
+.bar-fill{height:100%;border-radius:99px;transition:width .55s ease;}
+.b-blue{background:#378ADD;}
+.b-shine{background:var(--shine);}
+.b-amber{background:#F59E0B;}
+.b-red{background:#E24B4A;}
+
+/* ── METRICS ── */
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:1rem 0;}
+.metric{background:var(--cream);border-radius:10px;padding:.85rem 1rem;border:1px solid var(--border);}
+.metric-lbl{font-size:.72rem;color:var(--muted);margin-bottom:4px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;}
+.metric-val{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:700;color:var(--navy);}
+.metric-val.green{color:#065F46;}
+.metric-val.amber{color:#92400E;}
+.metric-val.red{color:#991B1B;}
+.metric-hint{font-size:.72rem;color:var(--muted);margin-top:2px;}
+
+/* ── GROWTH ── */
+.slider-row{display:flex;align-items:center;gap:14px;margin-bottom:1.1rem;flex-wrap:wrap;}
+.slider-lbl{font-size:.875rem;color:var(--muted);min-width:130px;font-weight:500;}
+.slider-val{font-size:.9rem;font-weight:700;color:var(--navy);min-width:70px;text-align:right;}
+input[type=range]{flex:1;min-width:120px;height:4px;accent-color:var(--shine);cursor:pointer;}
+select{flex:1;min-width:200px;font-size:.875rem;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--text);cursor:pointer;font-family:'DM Sans',sans-serif;}
+.chart-wrap{position:relative;width:100%;height:280px;margin-top:1.25rem;}
+.legend-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:1rem;font-size:.82rem;color:var(--muted);}
+.leg-item{display:flex;align-items:center;gap:6px;}
+.leg-dot{width:12px;height:12px;border-radius:3px;display:inline-block;flex-shrink:0;}
+
+/* ── WAITING ── */
+.wait-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:1rem;}
+.wait-card{background:#fff;border-radius:10px;padding:1rem 1rem 1rem 1.1rem;border:1px solid var(--border);border-left:4px solid;}
+.wc-shine{border-left-color:var(--shine);}
+.wc-red{border-left-color:#DC2626;}
+.wc-blue{border-left-color:var(--care-blue);}
+.wc-green{border-left-color:#059669;}
+.wc-amber{border-left-color:#F59E0B;}
+.wc-teal{border-left-color:#0D9488;}
+.wc-gray{border-left-color:#94a3b8;}
+.wait-type{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:5px;}
+.wait-period{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--navy);}
+.wait-note{font-size:.78rem;color:var(--muted);margin-top:5px;line-height:1.45;}
+.warn-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #f59e0b;border-radius:12px;padding:1.25rem;margin-top:1rem;}
+.warn-title{font-size:.9rem;font-weight:700;color:#92400E;margin-bottom:5px;}
+.warn-body{font-size:.82rem;color:#92400E;line-height:1.7;}
+.shine-box{background:var(--shine-soft);border:1px solid var(--shine-mid);border-radius:12px;padding:1.25rem;margin-top:1rem;}
+.shine-title{font-size:.9rem;font-weight:700;color:var(--shine-dark);margin-bottom:5px;}
+.shine-body{font-size:.82rem;color:#0F5C32;line-height:1.7;}
+
+/* ── AGENT FOOTER ── */
+.agent-footer{background:var(--navy);padding:28px 32px;border-top:2px solid rgba(26,140,78,.3);margin-top:2rem;}
+.af-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.af-brand{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--gold-light);}
+.af-address{font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.7;margin-top:3px;}
+.af-contacts{display:flex;gap:24px;flex-wrap:wrap;}
+.af-person{text-align:center;}
+.af-role{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.35);margin-bottom:2px;}
+.af-pname{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#fff;}
+.af-phone{font-size:.85rem;color:#69F0AE;font-weight:600;}
+.af-email{font-size:.75rem;color:var(--gold-light);}
+.af-copy{font-size:.68rem;color:rgba(255,255,255,.25);margin-top:6px;}
+</style>
+</head>
+<body>
+
+<!-- ── TOPNAV ── -->
+<nav class="topnav">
+  <div class="nav-brand">Sonis Insurance</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('quiz')">Find my plan</button>
+    <button class="nav-tab" onclick="showTab('benefits')">Benefits</button>
+    <button class="nav-tab" onclick="showTab('simulator')">Claim simulator</button>
+    <button class="nav-tab" onclick="showTab('growth')">SI growth</button>
+    <button class="nav-tab" onclick="showTab('waiting')">Waiting periods</button>
+  </div>
+  <div class="nav-contact">📞 98509 77528</div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-eyebrow">Sonis Professional Insurance Services · Ichalkaranji</div>
+        <div class="hero-badge-row">
+          <span class="hero-insurer">Care Health Insurance</span>
+          <span class="hero-award">Best Claims Service Leader of the Year 2024</span>
+        </div>
+        <div class="hero-special-badge">
+          <span class="hero-special-icon">✨</span>
+          <span class="hero-special-txt"><strong>Care Supreme — affordable variant</strong><br>All core hospitalisation benefits of Care Supreme, at a more accessible premium</span>
+        </div>
+        <div class="hero-title">Care Supreme <em>Shine</em></div>
+        <div class="hero-tagline">The smart entry point into Care Supreme's world — covering everything you need for hospitalisation, at a premium that makes health insurance accessible to more families.</div>
+        <div class="hero-chips">
+          <div class="hchip"><div class="hchip-val">∞</div><div class="hchip-txt">E-consultations<br>unlimited</div></div>
+          <div class="hchip"><div class="hchip-val">30%</div><div class="hchip-txt">Renewal discount<br>for wellness</div></div>
+          <div class="hchip"><div class="hchip-val">100%</div><div class="hchip-txt">AYUSH &amp;<br>domiciliary cover</div></div>
+          <div class="hchip"><div class="hchip-val amber">20%</div><div class="hchip-txt">Co-payment<br>on all claims</div></div>
+        </div>
+      </div>
+      <div class="hero-cards">
+        <div class="advisor-card">
+          <div class="av av-d">D</div>
+          <div>
+            <div class="adv-role">Senior Advisor</div>
+            <div class="adv-name">Dattatray Pujari</div>
+            <div class="adv-phone">📞 93253 77528</div>
+          </div>
+        </div>
+        <div class="advisor-card">
+          <div class="av av-a">A</div>
+          <div>
+            <div class="adv-role">Founder &amp; Advisor</div>
+            <div class="adv-name">Archana Soni</div>
+            <div class="adv-phone">📞 98509 77528</div>
+            <div class="adv-email">archanasonis@gmail.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SHINE BANNER ── -->
+<div class="shine-banner">
+  <div class="sb-inner">
+    <span class="sb-icon">⚠️</span>
+    <div class="sb-text"><strong>Key difference from Care Supreme:</strong> Shine does NOT include Cumulative Bonus or Unlimited Auto Recharge. A 20% co-payment applies on all claims. Room rent is restricted to Most Economical Single Private Room. Sub-limits apply on specific treatments. Understand these before buying.</div>
+  </div>
+</div>
+
+<!-- ── STATS BAR ── -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-num">✨</div><div class="stat-lbl">Shine variant</div></div>
+    <div class="stat-item"><div class="stat-num">20%</div><div class="stat-lbl">Co-payment — all claims</div></div>
+    <div class="stat-item"><div class="stat-num">No CB</div><div class="stat-lbl">No cumulative bonus</div></div>
+    <div class="stat-item"><div class="stat-num">No UR</div><div class="stat-lbl">No unlimited recharge</div></div>
+    <div class="stat-item"><div class="stat-num">30%</div><div class="stat-lbl">Max wellness discount</div></div>
+    <div class="stat-item"><div class="stat-num">₹5L air</div><div class="stat-lbl">Air ambulance/year</div></div>
+  </div>
+</div>
+
+<main class="main">
+
+<!-- ═══════ TAB 1: FIND MY PLAN ═══════ -->
+<div id="tab-quiz" class="section active">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Care Supreme Shine · Personalised Recommendation</div>
+    <div class="sec-title">Find the right plan for you</div>
+    <div class="sec-sub">Care Supreme Shine is the affordable variant of Care Supreme. Answer these 5 questions to find out if Shine is the right choice — or if standard Care Supreme would serve you better.</div>
+  </div>
+
+  <div class="copay-alert">
+    <div class="ca-title">⚠️ Understand co-payment before you proceed</div>
+    <div class="copay-card-single">
+      <div class="copay-pct">20%</div>
+      <div class="copay-desc">
+        <strong>20% co-payment applies on every admissible claim — always, from Day 1, throughout the policy.</strong><br>
+        Example: ₹5 lakh hospitalisation → You pay ₹1 lakh. Insurer pays ₹4 lakh.<br>
+        Example: ₹2 lakh claim → You pay ₹40,000. Insurer pays ₹1,60,000.<br>
+        The co-payment is the mechanism that makes Shine's premium lower than standard Care Supreme. Budget for this amount in your personal health corpus.
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="progress-bar"><div class="progress-fill" id="qprog" style="width:0%"></div></div>
+
+    <div class="quiz-step active" id="qs-0">
+      <div class="q-text">1. What is your primary reason for choosing Care Supreme Shine over standard Care Supreme?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(0,'budget')">Lower premium is my priority right now</button>
+        <button class="q-opt" onclick="pickQ(0,'young')">I am young and healthy — CB growth less important</button>
+        <button class="q-opt" onclick="pickQ(0,'corp')">I have corporate cover — this is additional top-up</button>
+        <button class="q-opt" onclick="pickQ(0,'unsure')">Not sure — advise me</button>
+      </div>
+    </div>
+    <div class="quiz-step" id="qs-1">
+      <div class="q-text">2. Are you comfortable paying 20% of every claim from your own funds?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(1,'yes')">Yes — I have a health corpus / savings for this</button>
+        <button class="q-opt" onclick="pickQ(1,'maybe')">Possibly — for small claims yes, for large ones unsure</button>
+        <button class="q-opt" onclick="pickQ(1,'no')">No — I want first-rupee full cover, no co-payment</button>
+        <button class="q-opt" onclick="pickQ(1,'senior')">I am a senior — co-payment may be difficult</button>
+      </div>
+    </div>
+    <div class="quiz-step" id="qs-2">
+      <div class="q-text">3. Do you or any family member have a chronic condition — BP, Diabetes, Asthma, Cholesterol or COPD?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(2,'yes')">Yes, one or more diagnosed conditions</button>
+        <button class="q-opt" onclick="pickQ(2,'no')">No — all healthy</button>
+        <button class="q-opt" onclick="pickQ(2,'border')">Borderline / under control</button>
+        <button class="q-opt" onclick="pickQ(2,'unsure')">Not confirmed</button>
+      </div>
+    </div>
+    <div class="quiz-step" id="qs-3">
+      <div class="q-text">4. What sum insured are you considering?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(3,'low')">Below ₹10L</button>
+        <button class="q-opt" onclick="pickQ(3,'mid')">₹10L – ₹20L</button>
+        <button class="q-opt" onclick="pickQ(3,'high')">Above ₹20L</button>
+        <button class="q-opt" onclick="pickQ(3,'unsure')">Not decided yet</button>
+      </div>
+    </div>
+    <div class="quiz-step" id="qs-4">
+      <div class="q-text">5. Are you interested in earning renewal discounts by tracking 10,000 steps per day?</div>
+      <div class="q-options">
+        <button class="q-opt" onclick="pickQ(4,'yes')">Yes — active lifestyle, want to save on renewals</button>
+        <button class="q-opt" onclick="pickQ(4,'maybe')">Maybe — I could try</button>
+        <button class="q-opt" onclick="pickQ(4,'no')">No — not interested in step tracking</button>
+        <button class="q-opt" onclick="pickQ(4,'senior2')">Prefer simpler renewal process</button>
+      </div>
+    </div>
+
+    <div id="quiz-result" style="display:none">
+      <div style="height:1px;background:var(--border);margin:1.25rem 0;"></div>
+      <div class="result-box">
+        <div class="result-eyebrow">Our recommendation for you</div>
+        <div class="result-plan" id="rec-plan">Care Supreme Shine</div>
+        <span class="rbadge" id="rec-badge"></span>
+        <div class="result-why" id="rec-why"></div>
+        <div class="result-btns">
+          <button class="rbtn rbtn-p" onclick="showTab('benefits')">Explore all benefits</button>
+          <button class="rbtn" onclick="showTab('simulator')">Simulate a claim</button>
+          <button class="rbtn" onclick="resetQuiz()">Retake quiz</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ TAB 2: BENEFITS ═══════ -->
+<div id="tab-benefits" class="section">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Care Supreme Shine · Complete Feature Guide</div>
+    <div class="sec-title">All benefits — explained simply</div>
+    <div class="sec-sub">Care Supreme Shine covers all core hospitalisation needs. The key trade-offs vs standard Care Supreme are clearly marked. Co-payment applies to every benefit below.</div>
+  </div>
+
+  <div class="copay-alert" style="margin-bottom:1rem">
+    <div class="ca-title" style="margin-bottom:4px">⚠️ Co-payment reminder — 20% on every benefit claim</div>
+    <div style="font-size:.82rem;color:#0F5C32;line-height:1.6;">All benefit amounts below are before 20% co-payment deduction. Your actual receipt from the insurer will be 80% of the admissible claim. Sub-limit amounts shown are also before co-payment.</div>
+  </div>
+
+  <div class="sec-cat">Core hospitalisation benefits</div>
+  <div id="ben-core"></div>
+
+  <div class="sec-cat" style="margin-top:.75rem">Coverage features</div>
+  <div id="ben-coverage"></div>
+
+  <div class="sec-cat" style="margin-top:.75rem">Optional add-ons available with Shine</div>
+  <div id="ben-addons"></div>
+
+  <div class="sec-cat" style="margin-top:.75rem">Shine vs Care Supreme — what you gain and lose</div>
+  <div style="overflow-x:auto">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="ct-shine">✨ Shine</th>
+          <th class="ct-supreme">🌟 Care Supreme</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="ct-hl"><td>Premium</td><td class="ct-shine">✅ Lower</td><td>Higher</td></tr>
+        <tr><td>In-patient cover</td><td class="ct-shine">✅ Up to SI</td><td class="ct-supreme">✅ Up to SI</td></tr>
+        <tr><td>Room rent</td><td class="ct-miss">⚠️ Most Economical Single Pvt Room</td><td class="ct-supreme">✅ Up to SI (no limit)</td></tr>
+        <tr><td>ICU charges</td><td class="ct-shine">✅ No limit</td><td class="ct-supreme">✅ No limit</td></tr>
+        <tr><td>Pre/Post hospitalisation</td><td class="ct-shine">✅ 60/180 days</td><td class="ct-supreme">✅ 60/180 days</td></tr>
+        <tr><td>AYUSH treatment</td><td class="ct-shine">✅ Up to SI</td><td class="ct-supreme">✅ Up to SI</td></tr>
+        <tr><td>Cumulative Bonus</td><td class="ct-miss">❌ Not available</td><td class="ct-supreme">✅ 50%/yr, never reduces</td></tr>
+        <tr class="ct-hl"><td>Unlimited Auto Recharge</td><td class="ct-miss">❌ Not available</td><td class="ct-supreme">✅ Unlimited — same illness</td></tr>
+        <tr><td>Co-payment</td><td class="ct-miss">⚠️ 20% on all claims</td><td class="ct-supreme">✅ None</td></tr>
+        <tr><td>Sub-limits on treatments</td><td class="ct-miss">⚠️ Applicable</td><td class="ct-supreme">✅ None (no sub-limits)</td></tr>
+        <tr class="ct-hl"><td>Wellness Benefit (add-on)</td><td class="ct-shine">✅ Up to 30% discount</td><td class="ct-supreme">✅ Up to 30% discount</td></tr>
+        <tr><td>Air ambulance (add-on)</td><td class="ct-shine">✅ Up to ₹5L/year</td><td class="ct-supreme">✅ Up to ₹5L/year</td></tr>
+        <tr><td>Unlimited e-consultations</td><td class="ct-shine">✅ Inbuilt</td><td class="ct-supreme">✅ Inbuilt</td></tr>
+        <tr><td>Instant Cover (chronic)</td><td class="ct-shine">✅ 30-day wait</td><td class="ct-supreme">✅ 30-day wait</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sec-cat" style="margin-top:.75rem">Sub-limits on specified treatments</div>
+  <div style="overflow-x:auto">
+    <table class="si-table">
+      <thead>
+        <tr><th>Treatment</th><th>SI &lt; ₹10L</th><th>SI ₹10L–₹20L</th><th>SI &gt; ₹20L</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Cataract (per eye)</td><td>₹30,000</td><td>₹40,000</td><td>₹50,000</td></tr>
+        <tr class="hl-row"><td>Knee replacement (per knee)</td><td>₹1,25,000</td><td>₹1,50,000</td><td>₹2,00,000</td></tr>
+        <tr><td>Cerebrovascular + Cardiovascular diseases</td><td>₹3,00,000</td><td>₹4,00,000</td><td>₹5,00,000</td></tr>
+        <tr><td>Cancer (incl. chemo/radiotherapy)</td><td>₹3,00,000</td><td>₹4,00,000</td><td>₹5,00,000</td></tr>
+        <tr><td>Medical renal diseases (incl. dialysis)</td><td>₹3,00,000</td><td>₹4,00,000</td><td>₹5,00,000</td></tr>
+        <tr><td>Breakage of long bones</td><td>₹3,00,000</td><td>₹4,00,000</td><td>₹5,00,000</td></tr>
+        <tr class="hl-row"><td>Hernia / Hysterectomy / BPH / Renal stones</td><td>₹1,00,000</td><td>₹1,50,000</td><td>₹2,00,000</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="font-size:.75rem;color:var(--muted);margin-top:.6rem;line-height:1.6">All sub-limit amounts are before 20% co-payment deduction. Actual insurer payment = sub-limit × 80%. Sub-limits under Extra Care add-on policy. CB Remover and UR Remover under Special Care add-on policy.</div>
+</div>
+
+<!-- ═══════ TAB 3: CLAIM SIMULATOR ═══════ -->
+<div id="tab-simulator" class="section">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Care Supreme Shine · Real-Life Scenarios</div>
+    <div class="sec-title">Claim simulator — every rupee traced</div>
+    <div class="sec-sub">Every scenario shows the full picture — co-payment, sub-limit, and what the insurer actually pays. No surprises at claim time.</div>
+  </div>
+  <div class="sc-grid" id="sc-grid"></div>
+  <div class="card" id="sim-output" style="min-height:220px"></div>
+</div>
+
+<!-- ═══════ TAB 4: SI GROWTH ═══════ -->
+<div id="tab-growth" class="section">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Care Supreme Shine · Coverage Over Time</div>
+    <div class="sec-title">How Shine's coverage compares over time</div>
+    <div class="sec-sub">Since Shine has no Cumulative Bonus and no Unlimited Recharge, your SI stays flat year-on-year unless you upgrade. This chart shows Shine vs Care Supreme side by side so you can see the long-term difference clearly.</div>
+  </div>
+  <div class="card">
+    <div class="slider-row">
+      <span class="slider-lbl">Base sum insured</span>
+      <input type="range" min="5" max="50" step="5" value="10" id="g-si" oninput="renderChart()">
+      <span class="slider-val" id="g-si-out">₹10 L</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-lbl">Show years</span>
+      <input type="range" min="3" max="8" step="1" value="5" id="g-yr" oninput="renderChart()">
+      <span class="slider-val" id="g-yr-out">5 years</span>
+    </div>
+    <div class="chart-wrap"><canvas id="growth-chart" role="img" aria-label="Bar chart comparing Shine vs Care Supreme coverage over years."></canvas></div>
+    <div class="legend-row" id="growth-legend"></div>
+    <div class="metric-grid" id="growth-metrics" style="margin-top:1.25rem"></div>
+    <div style="font-size:.78rem;color:var(--muted);margin-top:.75rem;line-height:1.6;padding:.75rem;background:var(--cream);border-radius:8px;border:1px solid var(--border)">
+      <strong>Key takeaway:</strong> Shine's SI stays flat (equal to base SI) every year since there is no CB. Care Supreme grows 50% every year through CB. The gap widens significantly over time. If long-term coverage growth matters to you, standard Care Supreme with CB is the stronger choice — the premium difference is the cost of that growth.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ TAB 5: WAITING PERIODS ═══════ -->
+<div id="tab-waiting" class="section">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Care Supreme Shine · What You Must Know</div>
+    <div class="sec-title">Waiting periods — complete guide</div>
+    <div class="sec-sub">Shine's waiting periods are identical to Care Supreme. The co-payment, sub-limits and room rent restriction are the operational differences — not the waiting period structure.</div>
+  </div>
+  <div class="card">
+    <div class="wait-grid">
+      <div class="wait-card wc-amber">
+        <div class="wait-type">Initial waiting period</div>
+        <div class="wait-period">30 days</div>
+        <div class="wait-note">No illness claims in the first 30 days. Accidents are always exempt. Waived if you have prior continuous coverage of 12+ months.</div>
+      </div>
+      <div class="wait-card wc-blue">
+        <div class="wait-type">Named ailments / specific diseases</div>
+        <div class="wait-period">24 months</div>
+        <div class="wait-note">Listed conditions — cataract, hernia, gallstones, joint replacement, BPH and more — excluded for 2 years. Portability credit reduces this. Accidents always exempt.</div>
+      </div>
+      <div class="wait-card wc-red">
+        <div class="wait-type">Pre-existing diseases (PED)</div>
+        <div class="wait-period">36 months</div>
+        <div class="wait-note">All pre-existing conditions excluded for 3 years. Reducible to 1 or 2 years via optional PED Wait Period Modification add-on. Portability credit also applies independently.</div>
+      </div>
+      <div class="wait-card wc-green">
+        <div class="wait-type">Instant Cover add-on</div>
+        <div class="wait-period">30 days only</div>
+        <div class="wait-note">Optional add-on: BP, Diabetes, Hyperlipidemia and Asthma covered after just 30 days. Under Care Advanced: additionally covers COPD, Obesity and CAD post-PTCA.</div>
+      </div>
+      <div class="wait-card wc-shine">
+        <div class="wait-type">Co-payment (not a waiting period)</div>
+        <div class="wait-period">20% forever</div>
+        <div class="wait-note">20% co-payment on every admissible claim — mandatory, permanent, from Day 1. Cannot be waived. The key structural difference from standard Care Supreme.</div>
+      </div>
+      <div class="wait-card wc-teal">
+        <div class="wait-type">Moratorium period</div>
+        <div class="wait-period">60 months</div>
+        <div class="wait-note">After 5 continuous years of coverage, no claim can be contested on grounds of non-disclosure — except proven fraud. Strongest long-term protection.</div>
+      </div>
+      <div class="wait-card wc-gray">
+        <div class="wait-type">Portability credit</div>
+        <div class="wait-period">Carry forward</div>
+        <div class="wait-note">Waiting periods served with your previous insurer are credited here under IRDAI portability rules. Apply at least 30 days before your current policy renewal date.</div>
+      </div>
+      <div class="wait-card wc-blue">
+        <div class="wait-type">Room rent restriction</div>
+        <div class="wait-period">Always applies</div>
+        <div class="wait-note">Most Economical Single Private Room only. If a higher room is taken, proportionate deduction applies on all associated charges — surgeon, nursing, OT etc. Plan your hospitalisation accordingly.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shine-box">
+    <div class="shine-title">✨ When is Care Supreme Shine the right choice?</div>
+    <div class="shine-body">
+      Shine works best as a <strong>starting point</strong> — when the premium of standard Care Supreme is beyond the current budget, but the family wants genuine hospitalisation coverage rather than no cover at all.<br><br>
+      <strong>Ideal profiles for Shine:</strong> Young earners buying their first policy, families supplementing corporate cover, individuals with a personal health corpus who can self-fund the 20% co-payment, and those who plan to upgrade to full Care Supreme in 1–2 years as income grows.<br><br>
+      <strong>When to choose standard Care Supreme instead:</strong> If you can afford the premium difference, the CB growth (50%/year, never reduces), unlimited auto recharge for the same illness, zero co-payment and no sub-limits make Care Supreme significantly more powerful over a 3–5 year horizon.
+    </div>
+  </div>
+
+  <div class="warn-box" style="margin-top:1rem">
+    <div class="warn-title">Room rent sub-limit — plan your hospitalisation</div>
+    <div class="warn-body">The Most Economical Single Private Room restriction is the most practically impactful feature of Shine. In a good private hospital, the economical single room may be significantly lower than the preferred room. If your actual room charges exceed the allowed category, ALL associated charges — surgeon, anaesthetist, nursing, OT, medicines — are proportionately reduced. When admitted to a network hospital, always confirm which room category falls within the Shine entitlement before checking in.</div>
+  </div>
+</div>
+
+</main>
+
+<!-- ── AGENT FOOTER ── -->
+<footer class="agent-footer">
+  <div class="af-inner">
+    <div>
+      <div class="af-brand">Sonis Professional Insurance Services</div>
+      <div class="af-address">10/306/1, Sarvoday Nagar, Near Hirkani Hotel, "Gokul", Ichalkaranji — 416115<br>Your trusted health insurance partner across Ichalkaranji &amp; Kolhapur district</div>
+      <div class="af-copy" style="margin-top:8px">© 2026 Sonis Professional Insurance Services · All Rights Reserved</div>
+    </div>
+    <div class="af-contacts">
+      <div class="af-person">
+        <div class="af-role">Senior Advisor</div>
+        <div class="af-pname">Dattatray Pujari</div>
+        <div class="af-phone">📞 93253 77528</div>
+      </div>
+      <div class="af-person">
+        <div class="af-role">Founder &amp; Advisor</div>
+        <div class="af-pname">Archana Soni</div>
+        <div class="af-phone">📞 98509 77528</div>
+        <div class="af-email">archanasonis@gmail.com</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ══ NAV ══
+var tabs=['quiz','benefits','simulator','growth','waiting'];
+function showTab(id){
+  tabs.forEach(function(t){document.getElementById('tab-'+t).classList.remove('active');});
+  document.querySelectorAll('.nav-tab').forEach(function(b,i){b.classList.toggle('active',tabs[i]===id);});
+  document.getElementById('tab-'+id).classList.add('active');
+  if(id==='growth')setTimeout(renderChart,80);
+  if(id==='benefits')renderBenefits();
+  if(id==='simulator')initSim();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ══ QUIZ ══
+var qa={},cq=0;
+function pickQ(qi,val){
+  qa[qi]=val;
+  document.querySelectorAll('#qs-'+qi+' .q-opt').forEach(function(b){b.classList.remove('selected');});
+  event.currentTarget.classList.add('selected');
+  setTimeout(function(){
+    if(qi<4){document.getElementById('qs-'+qi).classList.remove('active');cq=qi+1;document.getElementById('qs-'+cq).classList.add('active');document.getElementById('qprog').style.width=Math.round(((qi+1)/5)*100)+'%';}
+    else{document.getElementById('qprog').style.width='100%';showResult();}
+  },230);
+}
+function showResult(){
+  document.querySelectorAll('.quiz-step').forEach(function(s){s.classList.remove('active');});
+  var a=qa,plan,badge,bclass,why;
+  if(a[1]==='no'||a[1]==='senior'){
+    plan='Standard Care Supreme (not Shine)';badge='Consider upgrading';bclass='rb-amber';
+    why='You are not comfortable with co-payment — and that is an important signal. Shine\'s mandatory 20% co-payment on every claim means you bear a portion of every hospitalisation bill, always. If first-rupee full cover is your priority, standard Care Supreme — with zero co-payment, unlimited auto recharge and CB that never reduces — is the right choice. The premium difference is the cost of that complete protection.';
+  } else if(a[0]==='corp'||a[0]==='young'){
+    plan='Care Supreme Shine — excellent fit';badge='Perfect match';bclass='rb-shine';
+    why='Shine is an excellent fit for your profile. Whether you have corporate cover as a base or are a young buyer starting out, Shine gives you genuine hospitalisation coverage — in-patient care, AYUSH, domiciliary, pre/post expenses, air ambulance (add-on) — at a lower premium. The 20% co-payment is manageable when you have a health corpus or corporate cover as a buffer. Wellness Benefit can further cut your renewal premium by up to 30%.';
+  } else if(a[2]==='yes'||a[2]==='border'){
+    plan='Care Supreme Shine + Instant Cover add-on';badge='Chronic condition fit';bclass='rb-shine';
+    why='With chronic conditions, the Instant Cover add-on is critical — it reduces the PED wait for BP, Diabetes, Hyperlipidemia and Asthma from 36 months to just 30 days. Add this to your Shine policy at inception. The 20% co-payment applies on chronic condition claims too, so maintain a ₹50,000–₹1L corpus for your co-payment share. The insurer covers 80% of every admissible claim.';
+  } else if(a[3]==='high'){
+    plan='Care Supreme Shine — ₹20L+ SI';badge='Higher SI pick';bclass='rb-shine';
+    why='At higher SI (above ₹20L), Shine\'s sub-limits are also higher — cataract ₹50K/eye, knee ₹2L/knee, cancer/renal/cardiovascular ₹5L. This makes Shine meaningfully useful even at the sub-limited conditions. The 20% co-payment at ₹20L+ SI means on a ₹20L claim you pay ₹4L and the insurer pays ₹16L — still a very significant relief. Wellness Benefit can cut renewal premium by up to 30%.';
+  } else if(a[4]==='yes'){
+    plan='Care Supreme Shine + Wellness Benefit add-on';badge='Active lifestyle pick';bclass='rb-shine';
+    why='For active people, the Wellness Benefit add-on is a powerful tool. Track 10,000 steps per day — 270 healthy days earns 30% off your renewal premium. For a floater policy, the average healthy days of both adults is counted. Digital fitness coaching, AI coaching and nutritionist access are also included. Combined with Shine\'s lower base premium, this can make healthcare genuinely affordable.';
+  } else {
+    plan='Care Supreme Shine — good starting point';badge='Budget-conscious pick';bclass='rb-shine';
+    why='Care Supreme Shine is a well-structured entry plan for healthcare coverage. It covers all core hospitalisation needs — room, ICU, surgery, AYUSH, domiciliary, pre/post hospitalisation — at an affordable premium. The 20% co-payment and absence of Cumulative Bonus are the known trade-offs. As your income grows, plan to upgrade to full Care Supreme for CB, unlimited recharge and zero co-payment. Your Sonis advisor can help you plan that upgrade.';
+  }
+  document.getElementById('rec-plan').textContent=plan;
+  var b=document.getElementById('rec-badge');b.className='rbadge '+bclass;b.textContent=badge;
+  document.getElementById('rec-why').textContent=why;
+  document.getElementById('quiz-result').style.display='block';
+}
+function resetQuiz(){
+  qa={};cq=0;document.getElementById('quiz-result').style.display='none';document.getElementById('qprog').style.width='0%';
+  document.querySelectorAll('.quiz-step').forEach(function(s,i){s.classList.toggle('active',i===0);s.querySelectorAll('.q-opt').forEach(function(b){b.classList.remove('selected');});});
+}
+
+// ══ BENEFITS ══
+var coreBens=[
+  {badge:'bb-shine',bname:'In-patient care — hospitalisation up to SI',sub:'Room, nursing, ICU, surgery, medicines covered up to SI',
+   detail:'Care Supreme Shine covers all in-patient hospitalisation expenses up to the sum insured — including room charges, nursing, ICU, surgeon fees, doctor fees, anaesthesia, blood, oxygen and OT charges.\n\nRoom rent restriction: Most Economical Single Private Room only. This is the critical operational restriction in Shine. If you choose a higher room category, ALL associated charges — surgeon, anaesthetist, OT, nursing, medicines — are proportionately reduced based on the ratio of allowed rent to actual room rent. Always confirm the eligible room category at the time of admission.\n\nICU: No limit — covered up to SI. Co-payment: 20% on every admissible claim.',
+   chips:['Up to SI','Room: Most Economical Single Pvt Room','ICU: No limit','20% co-payment on every claim','Cashless or reimbursement']},
+  {badge:'bb-shine',bname:'Day care treatment — all procedures',sub:'All listed day care procedures covered up to SI',
+   detail:'All day care treatments requiring hospitalisation for less than 24 hours are covered up to the sum insured. This includes cataract surgery, chemotherapy, dialysis, angiography, lithotripsy and many more.\n\nSub-limits apply on specific conditions even for day care claims (e.g. cataract ₹30K/₹40K/₹50K per eye depending on SI). Co-payment of 20% applies on all day care claim settlements.',
+   chips:['All day care procedures covered','Up to SI (before sub-limits)','Sub-limits apply on specified conditions','20% co-payment applies','Cashless or reimbursement']},
+  {badge:'bb-blue',bname:'Advance technology methods — up to SI',sub:'Modern medical procedures covered in full up to SI',
+   detail:'Advance Technology Methods — robotic surgery, laser treatments, balloon sinuplasty, deep brain stimulation, intra-vitreal injections and similar modern procedures — are covered up to the sum insured.\n\nThis is a strong feature of Shine — unlike some basic plans, modern treatment methods are covered without a separate sub-limit specific to technology. Co-payment of 20% applies.',
+   chips:['All advance technology methods','Up to SI — no separate tech sub-limit','Robotic surgery, laser, etc. covered','20% co-payment applies','Major advantage vs basic plans']},
+  {badge:'bb-blue',bname:'Room rent — Most Economical Single Private Room',sub:'Single private room covered — at the most economical rate',
+   detail:'This is the most practically impactful restriction in Shine. You are entitled to the Most Economical Single Private Room at the hospital. The actual coverage is not a per-day monetary cap but a room category restriction.\n\nPractically: when you are admitted to a Care Health network hospital, ask the admission desk which rooms fall under the "Most Economical Single Private Room" category for your policy. Choose that room.\n\nIf a more expensive room is chosen: all associated charges (surgeon fee, OT, nursing, anaesthesia, medicines) are reduced proportionately. The formula is: Admissible charge = Actual charge × (Eligible room rent ÷ Actual room rent). This can create a significant gap between total bill and what the insurer pays.',
+   chips:['Single private room — most economical','NOT a per-day monetary cap','Confirm category at hospital admission','Higher room → proportionate deduction on all charges','ICU: no limit, applies separately']},
+];
+
+var coverageBens=[
+  {badge:'bb-shine',bname:'Pre & post hospitalisation — 60 & 180 days',sub:'Up to SI — wider than most standard plans',
+   detail:'Care Supreme Shine covers 60 days of pre-hospitalisation expenses and 180 days of post-hospitalisation expenses — both up to the sum insured. This covers tests, specialist consultations and medicines before admission, and physiotherapy, follow-up visits and medicines after discharge.\n\nThis is one of the strongest features of Shine — matching standard Care Supreme on this parameter. No 5% cap here (unlike some other plans). Co-payment of 20% applies on pre/post claims as well.',
+   chips:['60 days pre-hospitalisation','180 days post-hospitalisation','Up to SI — no 5% cap','Tests, medicines, consultations','20% co-payment applies']},
+  {badge:'bb-shine',bname:'Ambulance cover — up to ₹10,000 or SI',sub:'Road ambulance per year; air ambulance add-on',
+   detail:'Road ambulance: Up to ₹10,000 per year for SI below ₹15 lakh. For SI ₹15 lakh and above, road ambulance is covered up to the sum insured.\n\nAir Ambulance (optional add-on): Up to ₹5 lakh per year for emergency air transport where ground ambulance is inadequate. Must be medically necessary. Written advice required.\n\nCo-payment may apply on ambulance claims — confirm at the time of claim submission.',
+   chips:['Road ambulance: ₹10,000/year (SI<15L)','Road ambulance: up to SI (SI≥15L)','Air ambulance: ₹5L/year (add-on)','Emergency only for air ambulance','Per year limit — not per hospitalisation']},
+  {badge:'bb-teal',bname:'AYUSH treatment — up to 100% of SI',sub:'Ayurveda, Yoga, Homeopathy and all 5 systems',
+   detail:'AYUSH inpatient treatment is covered up to 100% of the sum insured — all 5 AYUSH systems (Ayurveda, Yoga and Naturopathy, Unani, Siddha and Homeopathy). Must be at a recognised AYUSH hospital.\n\nThis is an inbuilt feature matching standard Care Supreme. Co-payment of 20% applies on AYUSH claims.',
+   chips:['100% of SI for AYUSH','All 5 AYUSH systems','Recognised AYUSH hospital required','Inpatient care only','20% co-payment applies']},
+  {badge:'bb-teal',bname:'Domiciliary hospitalisation — up to SI',sub:'Home treatment when hospital admission is impossible',
+   detail:'When the patient cannot be moved to a hospital or no hospital bed is available, Shine covers domiciliary hospitalisation up to the sum insured. Home treatment must be for a condition that would ordinarily require inpatient hospitalisation.\n\nDoctor\'s written prescription required. Pre/post-hospitalisation expenses are also payable for domiciliary claims. Co-payment of 20% applies.',
+   chips:['Up to SI','When hospital admission not possible','Doctor prescription required','Pre/post also covered','20% co-payment applies']},
+  {badge:'bb-blue',bname:'Unlimited e-consultations — general physicians',sub:'Free unlimited teleconsultations — inbuilt',
+   detail:'Unlimited e-consultations with empanelled general physicians are available inbuilt at no extra cost, through the Care Health mobile app and portal. Available 24/7.\n\nHealth Services also included: Doctor on chat, Discount Connect (discounts on consultations, diagnostics, maternity and allied services at network partners), and discount vouchers via the mobile app. These are inbuilt — no co-payment on e-consultation benefit.',
+   chips:['Unlimited — inbuilt, no extra cost','General physicians via app','No co-payment on e-consultations','Discount Connect for network savings','Doctor on chat 24/7']},
+  {badge:'bb-teal',bname:'Organ donor cover — up to SI',sub:'Donor surgery costs covered under your own policy',
+   detail:'If you are the recipient of an organ transplant, the hospitalisation expenses of the donor for the harvesting procedure are covered under your Shine policy up to the sum insured. The donor does not need to be separately insured.\n\nTransplant must comply with applicable law. Your own claim as recipient must be admissible. Co-payment applies on the donor component.',
+   chips:['Donor surgery under recipient policy','Up to SI','Transplant law compliance required','Donor pre/post excluded','20% co-payment applies']},
+];
+
+var addonBens=[
+  {badge:'bb-shine',bname:'Wellness Benefit — earn up to 30% renewal discount',sub:'10,000 steps/day → discount on renewal premium',
+   detail:'Track 10,000+ steps per day via a fitness app or device. More healthy days = bigger renewal discount — up to 30% for 270+ healthy days.\n\nDiscount table: 270+ days → 30%, 240 days → 20%, 180 days → 15%, 120 days → 10%, below 120 → 0%.\n\nFor Floater Policy (2A2C): average of healthy days of all adult members is calculated. In the example from the brochure: Member 1 (270 days) + Member 2 (200 days) = average 235 days → 15% discount. Children under 18 are not counted in the average. Digital fitness coaching, AI coaching and nutritionist access also included (ages 12+).',
+   chips:['Up to 30% renewal discount','270+ days = 30% off','Floater: average of adult members','Digital + AI fitness coaching','Nutritionist access (age 12+)']},
+  {badge:'bb-shine',bname:'Air ambulance — up to ₹5 lakh per year',sub:'Emergency air transport when ground ambulance insufficient',
+   detail:'The Air Ambulance optional add-on provides coverage for emergency air transport (helicopter or fixed-wing aircraft) up to ₹5 lakh per policy year. This is where ground ambulance is medically inadequate due to urgency.\n\nConditions: Written medical advice required. Registered provider only. The air ambulance benefit is per year — not per hospitalisation.',
+   chips:['Up to ₹5L per policy year','Emergency only','Written medical advice required','Registered provider required','Optional — additional premium']},
+  {badge:'bb-blue',bname:'Instant Cover — 30-day wait for chronic conditions',sub:'BP, Diabetes, Asthma, Hyperlipidemia covered fast',
+   detail:'The Instant Cover optional add-on reduces the PED waiting period for BP, Diabetes, Hyperlipidemia and Asthma from 36 months to just 30 days. Under Care Advanced it additionally covers COPD, Obesity and CAD (with PTCA done ≥1 year ago) after 30 days.\n\nCannot be combined with PED Wait Period Modification add-on — choose one or the other. Must be opted at inception.',
+   chips:['4 conditions: 30-day wait (base add-on)','7 conditions: 30-day wait (Care Advanced)','Cannot combine with PED modification','Must be opted at inception','Additional premium required']},
+  {badge:'bb-amber',bname:'Special Care add-on — CB Remover &amp; UR Remover',sub:'Remove the Cumulative Bonus and Unlimited Recharge restrictions',
+   detail:'Shine comes with Cumulative Bonus Remover and Unlimited Recharge Remover as Mandate Riders — meaning CB and UR are not available by default in Shine.\n\nThese are provided under the "Special Care" add-on policy. If both of these are added back via Special Care, your Shine policy effectively regains CB and Unlimited Recharge — essentially becoming closer to standard Care Supreme. However, the co-payment and sub-limits (from Extra Care) remain. Ask your Sonis advisor whether this combination makes sense for your budget vs simply upgrading to Care Supreme.',
+   chips:['CB Remover is a mandate in Shine','UR Remover is a mandate in Shine','Can be removed via Special Care add-on','Even with removal, co-payment remains','Ask advisor — may be better to upgrade to Supreme']},
+  {badge:'bb-purple',bname:'Extra Care add-on — sub-limits',sub:'Sub-limits are applied via the Extra Care add-on policy',
+   detail:'The sub-limits on specified treatments (cataract, knee replacement, cancer, hernia etc.) in Shine are applied through the "Extra Care" add-on policy. These are Mandate Riders — meaning they are enforced in Shine by default.\n\nThe sub-limit structure under Extra Care varies with SI (three bands: SI &lt;10L, SI 10–20L, SI &gt;20L). All sub-limit amounts are before co-payment deduction. See the sub-limits table in the Benefits tab for full details.',
+   chips:['Sub-limits via Extra Care add-on','Mandatory in Shine — cannot be waived','3 SI bands: <10L, 10-20L, >20L','All amounts before 20% co-pay','See Benefits tab for full table']},
+];
+
+var benRendered=false;
+function renderBenefits(){
+  if(benRendered)return;benRendered=true;
+  document.getElementById('ben-core').innerHTML=buildBenHTML(coreBens,'c');
+  document.getElementById('ben-coverage').innerHTML=buildBenHTML(coverageBens,'v');
+  document.getElementById('ben-addons').innerHTML=buildBenHTML(addonBens,'a');
+}
+function buildBenHTML(arr,prefix){
+  var h='';
+  arr.forEach(function(b,i){
+    var id=prefix+'-'+i;
+    h+='<div class="ben-card" onclick="toggleBen(\''+id+'\')" id="bc-'+id+'">';
+    h+='<div class="ben-hdr"><div class="ben-left"><span class="bbadge '+b.badge+'">'+b.bname+'</span>';
+    h+='<div class="ben-name">'+b.bname+'</div><div class="ben-sub">'+b.sub+'</div>';
+    h+='</div><span class="ben-arrow" id="arr-'+id+'">&#9662;</span></div>';
+    h+='<div class="ben-detail" id="bd-'+id+'">';
+    b.detail.split('\n\n').forEach(function(p){if(p.trim())h+='<p>'+p.trim()+'</p>';});
+    h+='<div class="chips-row">';b.chips.forEach(function(ch){h+='<span class="chip">'+ch+'</span>';});
+    h+='</div></div></div>';
+  });
+  return h;
+}
+function toggleBen(id){
+  var c=document.getElementById('bc-'+id),d=document.getElementById('bd-'+id),a=document.getElementById('arr-'+id);
+  var open=c.classList.contains('open');
+  document.querySelectorAll('.ben-card').forEach(function(x){x.classList.remove('open');});
+  document.querySelectorAll('.ben-detail').forEach(function(x){x.style.display='none';});
+  document.querySelectorAll('.ben-arrow').forEach(function(x){x.style.transform='';});
+  if(!open){c.classList.add('open');d.style.display='block';a.style.transform='rotate(180deg)';}
+}
+
+// ══ SIMULATOR ══
+var scenarios=[
+  {title:'General surgery — ₹5L claim',sub:'₹10L SI · 20% co-pay · No sub-limit applies',
+   note:'Standard hospitalisation. Sub-limit does not apply here. 20% co-pay on full claim.',
+   steps:[
+    {cls:'fn-cop',lbl:'Co-payment first (20%)',desc:'20% of ₹5L = ₹1,00,000 — you pay this from your own funds.',cop:true,copamt:'₹1,00,000',amt:0,bar:0,bc:''},
+    {cls:'fn-base',lbl:'Insurer pays 80%',desc:'₹4,00,000 paid by Care Health. Cashless settlement at network hospital.',amt:4,bar:80,bc:'b-blue'},
+    {cls:'fn-note',lbl:'No recharge available',desc:'Unlike Care Supreme, Shine has no Unlimited Auto Recharge. If SI is exhausted, it is not refilled.',amt:0,bar:0,bc:'',note:true},
+   ]},
+  {title:'Cancer chemotherapy — sub-limit applies',sub:'₹10L SI · Annual chemo ₹5L · 20% co-pay',
+   note:'Cancer sub-limit for ₹10L SI = ₹4L. Admissible: ₹4L. You pay 20% = ₹80K. Insurer pays ₹3.2L. ₹1L beyond sub-limit borne by insured.',
+   steps:[
+    {cls:'fn-sub',lbl:'Sub-limit applied first',desc:'Total chemo cost ₹5L. Cancer sub-limit for SI ₹10L = ₹4,00,000. ₹1L balance is excluded — you pay this directly.',amt:0,bar:0,bc:'',note:true},
+    {cls:'fn-cop',lbl:'Co-payment on sub-limited amount',desc:'20% of ₹4L = ₹80,000 — you pay this too. Total your share: ₹80K + ₹1L = ₹1,80,000.',cop:true,copamt:'₹80,000 co-pay + ₹1,00,000 excess = ₹1,80,000 total',amt:0,bar:0,bc:''},
+    {cls:'fn-base',lbl:'Insurer pays ₹3.2L',desc:'80% of sub-limited ₹4L = ₹3,20,000 paid by insurer. On a ₹5L bill, family bears ₹1.8L.',amt:3.2,bar:64,bc:'b-blue'},
+   ]},
+  {title:'Knee replacement — room rent impact',sub:'₹10L SI · ₹4L bill · Took costlier room',
+   note:'Room rent restriction creates proportionate deduction. Sub-limit: ₹1.5L. Always choose eligible room category.',
+   steps:[
+    {cls:'fn-sub',lbl:'Room rent proportionate deduction',desc:'Eligible room: ₹5,000/day. Actual room taken: ₹10,000/day. All charges halved. Effective admissible claim: ₹2L (50% of ₹4L bill).',amt:0,bar:0,bc:'',note:true},
+    {cls:'fn-sub',lbl:'Knee sub-limit check',desc:'Knee sub-limit for ₹10L SI = ₹1.5L. Admissible ₹2L > ₹1.5L sub-limit, so ₹1.5L is the cap.',amt:0,bar:0,bc:'',note:true},
+    {cls:'fn-cop',lbl:'Co-payment on sub-limited amount',desc:'20% of ₹1.5L = ₹30,000 — you pay. Total your share: ₹2.5L (room excess) + ₹30K co-pay = ₹2.8L.',cop:true,copamt:'₹30,000 co-pay',amt:0,bar:0,bc:''},
+    {cls:'fn-base',lbl:'Insurer pays ₹1.2L only',desc:'On a ₹4L bill, insurer pays just ₹1.2L due to room rent deduction + sub-limit + co-pay. Choose your room carefully.',amt:1.2,bar:30,bc:'b-blue'},
+   ]},
+  {title:'Wellness saver — active policyholder',sub:'₹8L claim + 270 healthy days → 30% renewal discount',
+   note:'Claim settled normally. Wellness Benefit earns 30% off next year\'s premium. No CB growth since Shine has no Cumulative Bonus.',
+   steps:[
+    {cls:'fn-cop',lbl:'Co-payment on ₹8L claim',desc:'20% of ₹8L = ₹1,60,000 — you pay. Insurer pays ₹6,40,000.',cop:true,copamt:'₹1,60,000 (you pay)',amt:0,bar:0,bc:''},
+    {cls:'fn-base',lbl:'Insurer pays ₹6.4L',desc:'₹6,40,000 settled by Care Health.',amt:6.4,bar:80,bc:'b-blue'},
+    {cls:'fn-note',lbl:'Wellness discount at renewal',desc:'270 healthy days → 30% off renewal premium. Shine\'s lower base premium × 70% = significant annual saving.',amt:0,bar:0,bc:'b-shine',saving:true},
+    {cls:'fn-note',lbl:'No CB growth — SI stays same',desc:'Unlike Care Supreme, Shine has no Cumulative Bonus. Your SI next year = same base SI. Plan to upgrade to Supreme for CB growth.',amt:0,bar:0,bc:'',note:true},
+   ]},
+];
+
+var simInit=false;
+function initSim(){
+  if(!simInit){
+    var g=document.getElementById('sc-grid'),h='';
+    scenarios.forEach(function(sc,i){h+='<div class="sc-card'+(i===0?' active':'')+'" id="sc'+i+'" onclick="pickSc('+i+')"><div class="sc-title">'+sc.title+'</div><div class="sc-sub">'+sc.sub+'</div></div>';});
+    g.innerHTML=h;simInit=true;
+  }
+  pickSc(0);
+}
+function pickSc(idx){
+  document.querySelectorAll('.sc-card').forEach(function(c,i){c.classList.toggle('active',i===idx);});
+  var sc=scenarios[idx];
+  var h='<div style="font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:.5rem">'+sc.title+'</div>';
+  h+='<div style="font-size:.78rem;color:var(--muted);margin-bottom:1.1rem;padding:.6rem .75rem;background:var(--shine-soft);border-radius:8px;border-left:3px solid var(--shine)">'+sc.note+'</div>';
+  h+='<div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.85rem">Step-by-step flow</div>';
+  sc.steps.forEach(function(s,i){
+    if(s.note){h+='<div class="flow-row"><div class="flow-num fn-sub">'+(i+1)+'</div><div class="flow-body"><div class="flow-lbl">'+s.lbl+'</div><div class="flow-desc">'+s.desc+'</div></div></div>';return;}
+    if(s.saving){h+='<div class="flow-row"><div class="flow-num fn-note">'+(i+1)+'</div><div class="flow-body"><div class="flow-lbl" style="color:var(--shine-dark)">'+s.lbl+'</div><div class="flow-desc">'+s.desc+'</div></div></div>';return;}
+    h+='<div class="flow-row"><div class="flow-num '+s.cls+'">'+(i+1)+'</div><div class="flow-body">';
+    h+='<div class="flow-lbl">'+s.lbl+'</div><div class="flow-desc">'+s.desc+'</div>';
+    if(s.cop){h+='<div class="flow-amt red">'+s.copamt+' (you pay)</div><div style="font-size:.75rem;color:var(--shine-dark);margin-top:3px;padding:5px 8px;background:var(--shine-soft);border-radius:6px">20% co-payment — mandatory on every Shine claim</div>';}
+    else if(s.amt>0){h+='<div class="flow-amt">₹'+s.amt+'L</div><div class="bar-wrap"><div class="bar-fill '+s.bc+'" style="width:'+s.bar+'%"></div></div>';}
+    h+='</div></div>';
+  });
+  document.getElementById('sim-output').innerHTML=h;
+}
+
+// ══ GROWTH CHART — SHINE vs SUPREME ══
+var gChart=null;
+function renderChart(){
+  var si=parseInt(document.getElementById('g-si').value);
+  var yrs=parseInt(document.getElementById('g-yr').value);
+  document.getElementById('g-si-out').textContent='₹'+si+' L';
+  document.getElementById('g-yr-out').textContent=yrs+' years';
+  var labels=[],shine=[],supreme=[],supremeCB=[];
+  for(var y=1;y<=yrs;y++){
+    labels.push('Year '+y);
+    shine.push(si); // Shine stays flat — no CB
+    supreme.push(si);
+    supremeCB.push(Math.min(si*0.5*(y-1),si)); // Supreme CB: 50%/yr max 100%
+  }
+  var lastSupremeCB=supremeCB[yrs-1];
+  var supremeTotal=si+lastSupremeCB;
+  var shineTotalAnnual=si;
+  var supremeTotalAnnual=supremeTotal+si; // with unlimited recharge
+  document.getElementById('growth-metrics').innerHTML=
+    '<div class="metric"><div class="metric-lbl">Shine — Year '+yrs+' effective SI</div><div class="metric-val">₹'+si+'L</div><div class="metric-hint">same as Day 1 — no CB</div></div>'+
+    '<div class="metric"><div class="metric-lbl">Supreme — Year '+yrs+' effective SI</div><div class="metric-val" style="color:var(--care-blue)">₹'+supremeTotal+'L</div><div class="metric-hint">base + CB growth</div></div>'+
+    '<div class="metric"><div class="metric-lbl">Coverage gap (Year '+yrs+')</div><div class="metric-val red">₹'+lastSupremeCB+'L</div><div class="metric-hint">what CB adds in Supreme</div></div>'+
+    '<div class="metric"><div class="metric-lbl">Shine — annual max cover</div><div class="metric-val">₹'+shineTotalAnnual+'L</div><div class="metric-hint">no recharge available</div></div>';
+  document.getElementById('growth-legend').innerHTML=
+    '<div class="leg-item"><div class="leg-dot" style="background:var(--shine)"></div>Shine — Base SI (no CB growth)</div>'+
+    '<div class="leg-item"><div class="leg-dot" style="background:var(--care-blue)"></div>Care Supreme — Base SI</div>'+
+    '<div class="leg-item"><div class="leg-dot" style="background:#F5A623"></div>Care Supreme — CB growth (50%/yr)</div>';
+  if(gChart)gChart.destroy();
+  gChart=new Chart(document.getElementById('growth-chart').getContext('2d'),{
+    type:'bar',
+    data:{labels:labels,datasets:[
+      {label:'Shine (flat)',data:shine,backgroundColor:'var(--shine)',borderWidth:0},
+      {label:'Supreme Base',data:supreme,backgroundColor:'var(--care-blue)',borderWidth:0,stack:'sup'},
+      {label:'Supreme CB',data:supremeCB,backgroundColor:'#F5A623',borderWidth:0,stack:'sup'},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.dataset.label+': ₹'+c.raw+'L';}}}},
+      scales:{
+        x:{stacked:true,grid:{display:false},ticks:{font:{size:12}}},
+        y:{stacked:true,ticks:{callback:function(v){return'₹'+v+'L';},font:{size:12}},grid:{color:'rgba(0,0,0,0.05)'}}
+      }}
+  });
+}
+
+renderBenefits();
+</script>
+</body>
+</html>
