@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Salary Calculator — Pawan Soni & Associates</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0f1f3d; --navy2:#1a3260; --navy3:#2a4a8a;
+  --gold:#c9a84c; --gold2:#e2c47a; --gold3:#a07830;
+  --cream:#fdf8ef; --paper:#fff; --rule:#e4ddd0; --rule2:#c8bfa8;
+  --g:#1e6b3a; --gbg:#eaf5ee;
+  --r:#8b1a1a; --rbg:#fdeaea;
+  --o:#8b4a00; --obg:#fff8e8;
+  --b:#1a3a8b; --bbg:#e8f0fb;
+  --txt:#1a1a2e; --txt2:#3d3d55; --txt3:#7a7a9a;
+  --fh:'Playfair Display',Georgia,serif;
+  --fb:'Source Sans 3','Segoe UI',sans-serif;
+  --lw:500px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--fb);background:var(--navy);color:var(--txt);min-height:100vh}
+/* TOP BAR */
+.topbar{background:linear-gradient(135deg,var(--navy),var(--navy2));border-bottom:2px solid var(--gold);
+  height:62px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(0,0,0,.45)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-logo{width:36px;height:36px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.brand-name{font-family:var(--fh);color:#fff;font-size:15px;font-weight:700;line-height:1.2}
+.brand-sub{font-size:10px;color:var(--gold2);letter-spacing:1.5px;text-transform:uppercase}
+.topbtns{display:flex;gap:6px;flex-wrap:wrap}
+.tbtn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border:none;border-radius:6px;
+  cursor:pointer;font-family:var(--fb);font-size:12px;font-weight:600;transition:all .2s;white-space:nowrap}
+.tbtn-ghost{background:rgba(255,255,255,.1);color:rgba(255,255,255,.85);border:1px solid rgba(255,255,255,.2)}
+.tbtn-ghost:hover{border-color:var(--gold);color:var(--gold2)}
+.tbtn-gold{background:var(--gold);color:var(--navy);font-weight:700}
+.tbtn-gold:hover{background:var(--gold2)}
+.tbtn-blue{background:var(--navy3);color:#fff;border:1px solid rgba(201,168,76,.25)}
+.tbtn-blue:hover{background:#3a5aa0}
+.tbtn-green{background:#1e6b3a;color:#fff}
+.tbtn-green:hover{background:#27834a}
+.tbtn-purple{background:#6a2f90;color:#fff}
+.tbtn-purple:hover{background:#8040b0}
+/* MAIN GRID */
+.main{display:grid;grid-template-columns:var(--lw) 1fr;min-height:calc(100vh - 62px)}
+/* LEFT PANEL */
+.lpanel{background:var(--cream);border-right:2px solid var(--rule2);
+  height:calc(100vh - 62px);overflow-y:auto;position:sticky;top:62px}
+.lpanel::-webkit-scrollbar{width:5px}
+.lpanel::-webkit-scrollbar-thumb{background:var(--rule2);border-radius:3px}
+.lstrip{background:linear-gradient(90deg,var(--navy2),var(--navy3));padding:11px 20px;
+  font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold2)}
+/* CARDS */
+.lcard{margin:12px;background:var(--paper);border-radius:8px;border:1px solid var(--rule);overflow:hidden;
+  box-shadow:0 2px 8px rgba(15,31,61,.06)}
+.ch{padding:10px 16px;display:flex;align-items:center;gap:8px}
+.ch.def{background:linear-gradient(90deg,var(--navy),var(--navy2))}
+.ch.grn{background:linear-gradient(90deg,#1e5c33,#27834a)}
+.ch.red{background:linear-gradient(90deg,#7a1818,#9e2020)}
+.ch.blu{background:linear-gradient(90deg,#163a7a,#1f50a8)}
+.ch.org{background:linear-gradient(90deg,#7a3800,#a04c00)}
+.chi{font-size:15px}
+.cht{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold2);flex:1}
+.cb{padding:14px 16px;display:grid;gap:10px}
+.g2{grid-template-columns:1fr 1fr}
+.g1{grid-template-columns:1fr}
+.fld{display:flex;flex-direction:column;gap:4px}
+.fld.s2{grid-column:1/-1}
+.fld label{font-size:10.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--txt2)}
+.fld .hint{font-size:10px;color:var(--txt3);font-style:italic;line-height:1.4}
+.fld input,.fld select{padding:9px 12px;border:1.5px solid var(--rule);border-radius:6px;
+  font-family:var(--fb);font-size:14px;color:var(--txt);background:#fafaf8;outline:none;width:100%;
+  transition:border-color .2s,box-shadow .2s}
+.fld input:focus,.fld select:focus{border-color:var(--navy3);box-shadow:0 0 0 3px rgba(42,74,138,.1);background:#fff}
+.fld input[type=number]{text-align:right}
+.fld input[readonly]{background:#f0f4fb;color:var(--navy);font-weight:700;cursor:default}
+/* TABS */
+.emp-tabs{display:flex;overflow-x:auto;padding:12px 12px 0;gap:5px}
+.emp-tabs::-webkit-scrollbar{height:3px}
+.etab{padding:7px 13px;border-radius:6px 6px 0 0;cursor:pointer;font-size:12px;font-weight:600;
+  white-space:nowrap;border:1.5px solid var(--rule);border-bottom:none;background:var(--rule);color:var(--txt2);transition:all .2s}
+.etab.active{background:var(--navy);color:var(--gold2);border-color:var(--navy)}
+.etab .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;background:var(--rule2)}
+.etab.active .dot{background:var(--gold)}
+/* SUMMARY */
+.sumstrip{margin:0 12px 12px;background:linear-gradient(135deg,var(--navy),var(--navy2));
+  border-radius:8px;padding:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sitem{text-align:center}
+.sval{font-family:var(--fh);font-size:24px;font-weight:700;color:var(--gold2);line-height:1}
+.slbl{font-size:9.5px;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:3px}
+/* ACTION BAR */
+.actbar{margin:0 12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.actbar .tbtn{justify-content:center;font-size:12px;padding:10px 8px}
+/* RIGHT PANEL */
+.rpanel{background:#bbb8af;padding:24px;overflow-y:auto;display:flex;flex-direction:column;align-items:center}
+.rpanel::-webkit-scrollbar{width:7px}
+.rpanel::-webkit-scrollbar-thumb{background:#9a9690;border-radius:4px}
+/* SLIP */
+#slip{width:100%;max-width:960px;background:#fff;box-shadow:0 8px 40px rgba(0,0,0,.28);font-family:'Times New Roman',Times,serif}
+#slip::before{content:'';display:block;height:5px;background:linear-gradient(90deg,var(--navy) 0%,var(--gold) 50%,var(--navy) 100%)}
+.slip-inner{padding:30px 38px 34px}
+.slip-hdr{display:flex;align-items:flex-start;justify-content:space-between;padding-bottom:14px;
+  border-bottom:2.5px solid var(--navy);margin-bottom:16px;gap:16px}
+.org-name{font-family:var(--fh);font-size:21px;font-weight:700;color:var(--navy);margin-bottom:3px}
+.org-sub{font-size:12px;color:var(--txt2);margin-bottom:2px}
+.org-addr{font-size:11px;color:var(--txt3)}
+.slip-title{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--navy);border:2px solid var(--navy);padding:6px 12px;display:inline-block;margin-bottom:5px}
+.slip-period{font-size:13px;font-weight:600;color:var(--gold3);text-align:right}
+.month-row{background:linear-gradient(90deg,#f0f3fa,#f8f6f0);border:1px solid var(--rule);border-radius:6px;
+  padding:9px 16px;margin-bottom:16px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.mr-item{font-size:12px;color:var(--txt2)}
+.mr-item strong{color:var(--navy);font-weight:700}
+.mr-sep{color:var(--rule2);font-size:16px}
+/* TABLE */
+.stbl{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:8px}
+.stbl th{background:var(--navy);color:var(--gold2);padding:9px 10px;text-align:center;
+  font-size:11px;font-weight:700;letter-spacing:.5px;border:1px solid #2a4a8a}
+.stbl th.lh{text-align:left;min-width:200px;background:#111d33}
+.stbl th.eh{min-width:110px}
+.stbl td{padding:7px 10px;border:1px solid #e2dcd4;vertical-align:middle;text-align:right}
+.stbl td.lc{text-align:left;background:#f7f5f0;font-weight:600;font-size:12px;color:var(--txt2);padding-left:14px}
+.stbl td.sec{background:var(--navy);color:var(--gold2);font-weight:700;font-size:11.5px;
+  letter-spacing:.8px;text-transform:uppercase;text-align:center;padding:9px 10px}
+.stbl td.sub{text-align:left;background:#f7f5f0;font-weight:400;font-size:12px;color:var(--txt3);padding-left:26px}
+.tr-base td{background:#f4f7fc}
+.tr-base td.lc{background:#eef2fa}
+.tr-add td{background:var(--gbg)}
+.tr-add td.lc{color:var(--g);font-weight:700}
+.tr-ded td{background:var(--rbg)}
+.tr-ded td.lc{color:var(--r);font-weight:700}
+.tr-eff td{background:var(--obg)}
+.tr-eff td.lc{color:var(--o);font-weight:700}
+.tr-sal td{background:var(--bbg);font-weight:700;font-size:13px;color:var(--b)}
+.tr-sal td.lc{color:var(--b)}
+.tr-net td{background:var(--navy);color:var(--gold2);font-weight:700;font-size:14px}
+.tr-net td.lc{color:#fff}
+.v0{color:#bbb!important}
+.vpos{color:var(--g);font-weight:600}
+.vneg{color:var(--r);font-weight:600}
+/* SIGNATURES */
+.sig-block{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:60px;
+  padding-top:18px;border-top:1px dashed #ccc}
+.sig-item{text-align:center}
+.sig-line{border-top:1px solid #333;margin-top:38px;margin-bottom:5px}
+.sig-lbl{font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--txt3)}
+.sig-name{font-size:12px;margin-top:4px;color:var(--txt2)}
+.slip-footer{margin-top:14px;font-size:10.5px;color:var(--txt3);text-align:center;
+  border-top:1px solid var(--rule);padding-top:10px;line-height:1.6}
+/* MODALS */
+.moverlay{position:fixed;inset:0;background:rgba(8,16,32,.78);z-index:500;
+  display:none;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
+.moverlay.open{display:flex}
+.modal{background:var(--paper);border-radius:10px;width:460px;max-width:96vw;
+  box-shadow:0 16px 60px rgba(0,0,0,.45);overflow:hidden}
+.modal.wide{width:540px}
+.mhead{padding:15px 20px;display:flex;align-items:center;justify-content:space-between}
+.mhead.def{background:linear-gradient(90deg,var(--navy),var(--navy2))}
+.mhead.pur{background:linear-gradient(90deg,#4a1a6a,#6a2f90)}
+.mhead-title{font-family:var(--fh);color:#fff;font-size:15px;font-weight:700}
+.mclose{background:none;border:none;color:rgba(255,255,255,.7);font-size:20px;cursor:pointer;line-height:1;padding:2px 6px}
+.mclose:hover{color:#fff}
+.mbody{padding:18px;display:grid;gap:12px}
+.mbody.g2{grid-template-columns:1fr 1fr}
+.mfoot{padding:13px 18px;background:var(--cream);display:flex;gap:8px;justify-content:flex-end;border-top:1px solid var(--rule)}
+.mta{padding:9px 12px;border:1.5px solid var(--rule);border-radius:6px;font-family:var(--fb);
+  font-size:13px;width:100%;resize:vertical;outline:none;transition:border-color .2s}
+.mta:focus{border-color:var(--navy3)}
+.info-box{background:#fff8e8;border:1px solid var(--gold);border-radius:6px;padding:10px 14px;
+  font-size:12px;color:#7a5800;line-height:1.5}
+.alert-box{background:#fff3cd;border:1.5px solid #e2a800;border-radius:6px;padding:10px 14px;
+  font-size:12px;color:#7a4f00;line-height:1.6;display:none}
+/* TOAST */
+.toast{position:fixed;bottom:22px;right:22px;background:var(--navy);color:#fff;padding:11px 18px;
+  border-radius:7px;font-size:13px;box-shadow:0 4px 20px rgba(0,0,0,.4);z-index:9999;
+  opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none;border-left:3px solid var(--gold)}
+.toast.show{opacity:1;transform:translateY(0)}
+@media print{.topbar,.lpanel{display:none!important}.rpanel{background:#fff;padding:0}#slip{box-shadow:none}}
+@media(max-width:860px){.main{grid-template-columns:1fr}.lpanel{height:auto;position:static}}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-logo">⚖️</div>
+    <div>
+      <div class="brand-name">Pawan Soni and Associates</div>
+      <div class="brand-sub">Staff Salary Calculator</div>
+    </div>
+  </div>
+  <div class="topbtns">
+    <button class="tbtn tbtn-ghost"  onclick="openAddEmp()">➕ Add Staff</button>
+    <button class="tbtn tbtn-green"  onclick="downloadExcel()">📊 Excel</button>
+    <button class="tbtn tbtn-purple" onclick="openEmailModal()">📧 Email</button>
+    <button class="tbtn tbtn-gold"   onclick="downloadPDF()">⬇️ PDF</button>
+    <button class="tbtn tbtn-ghost"  onclick="window.print()">🖨️ Print</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LEFT PANEL -->
+  <div class="lpanel">
+    <div class="lstrip">📊 Attendance &amp; Salary Inputs</div>
+
+    <!-- Period -->
+    <div class="lcard">
+      <div class="ch def"><span class="chi">📅</span><span class="cht">Period Selection</span></div>
+      <div class="cb g2">
+        <div class="fld">
+          <label>Month</label>
+          <select id="sel-month" onchange="onMonthChange()">
+            <option value="1">January</option><option value="2">February</option>
+            <option value="3">March</option><option value="4">April</option>
+            <option value="5">May</option><option value="6">June</option>
+            <option value="7">July</option><option value="8">August</option>
+            <option value="9">September</option><option value="10">October</option>
+            <option value="11">November</option><option value="12">December</option>
+          </select>
+        </div>
+        <div class="fld">
+          <label>Year</label>
+          <input type="number" id="sel-year" value="2026" min="2020" max="2040" oninput="onMonthChange()">
+        </div>
+        <div class="fld">
+          <label>Total Days in Month</label>
+          <input type="number" id="g-totaldays" readonly>
+        </div>
+        <div class="fld">
+          <label>No. of Sundays</label>
+          <input type="number" id="g-sundays" readonly>
+        </div>
+        <div class="fld">
+          <label>Festival Holidays (count)</label>
+          <input type="number" id="g-festivals" value="0" min="0" max="10" oninput="onFestivalChange()">
+          <span class="hint">Paid holidays — reduce working days but added to effective days</span>
+        </div>
+        <div class="fld">
+          <label>Rest Working Days</label>
+          <input type="number" id="g-workdays" readonly>
+          <span class="hint">Total − Sundays − Festivals</span>
+        </div>
+        <div class="fld s2">
+          <label>Festival Holiday Names (for slip)</label>
+          <input type="text" id="g-festival-names" placeholder="e.g. Holi, Gudi Padwa" oninput="recalcAll()">
+        </div>
+      </div>
+    </div>
+
+    <!-- Employee Tabs -->
+    <div class="emp-tabs" id="empTabs"></div>
+
+    <!-- Per-Employee Inputs -->
+    <div id="empInputArea"></div>
+
+    <!-- Summary -->
+    <div class="sumstrip">
+      <div class="sitem"><div class="sval" id="sum-eff">—</div><div class="slbl">Effective Days</div></div>
+      <div class="sitem"><div class="sval" id="sum-sal">—</div><div class="slbl">Gross Salary ₹</div></div>
+      <div class="sitem"><div class="sval" id="sum-net">—</div><div class="slbl">Net Payable ₹</div></div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actbar">
+      <button class="tbtn tbtn-blue"   onclick="recalcAll()">🔄 Recalculate</button>
+      <button class="tbtn tbtn-green"  onclick="downloadExcel()">📊 Excel</button>
+      <button class="tbtn tbtn-purple" onclick="openEmailModal()">📧 Email</button>
+      <button class="tbtn tbtn-gold"   onclick="downloadPDF()">⬇️ PDF</button>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="rpanel">
+    <div id="slip">
+      <div class="slip-inner" id="slipInner"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ADD EMPLOYEE MODAL -->
+<div class="moverlay" id="empModal">
+  <div class="modal">
+    <div class="mhead def">
+      <span class="mhead-title">➕ Add Employee</span>
+      <button class="mclose" onclick="closeEmpModal()">✕</button>
+    </div>
+    <div class="mbody g2">
+      <div class="fld s2"><label>Employee Name *</label><input type="text" id="new-name" placeholder="Full Name"></div>
+      <div class="fld"><label>Designation</label><input type="text" id="new-desig" placeholder="e.g. Article Clerk"></div>
+      <div class="fld"><label>Monthly Salary (₹)</label><input type="number" id="new-salary" placeholder="17000"></div>
+    </div>
+    <div class="mfoot">
+      <button class="tbtn tbtn-ghost" onclick="closeEmpModal()">Cancel</button>
+      <button class="tbtn tbtn-gold"  onclick="addEmployee()">Add</button>
+    </div>
+  </div>
+</div>
+
+<!-- EMAIL MODAL -->
+<div class="moverlay" id="emailModal">
+  <div class="modal wide">
+    <div class="mhead pur">
+      <span class="mhead-title">📧 Email Salary Statement</span>
+      <button class="mclose" onclick="closeEmailModal()">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="fld"><label>To *</label><input type="text" id="email-to" placeholder="staff@pawansoni.in">
+        <span class="hint">Multiple: separate with comma</span></div>
+      <div class="fld"><label>CC</label><input type="text" id="email-cc" placeholder="pawansoni@ca.in"></div>
+      <div class="fld"><label>Subject</label><input type="text" id="email-subject"></div>
+      <div class="fld"><label>Message</label><textarea class="mta" id="email-body" rows="5"></textarea></div>
+      <div class="info-box">ℹ️ Opens your default email client (Outlook/Gmail) with pre-filled content. Download PDF separately to attach.</div>
+    </div>
+    <div class="mfoot">
+      <button class="tbtn tbtn-ghost"  onclick="closeEmailModal()">Cancel</button>
+      <button class="tbtn tbtn-blue"   onclick="copyEmailBody()">📋 Copy</button>
+      <button class="tbtn tbtn-purple" onclick="sendEmail()">📧 Open Email</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+
+/* ── STATE ─────────────────────────────────────────── */
+var employees = [
+  {id:1, name:"Ankita Bang",            desig:"Accountant",    salary:17000},
+  {id:2, name:"Dattatray Pujari",        desig:"Staff",         salary:22000},
+  {id:3, name:"Article Diksha Bhandari", desig:"Article Clerk", salary:3000},
+  {id:4, name:"Article Ravina Jain",     desig:"Article Clerk", salary:3000},
+  {id:5, name:"Devesh Mandhania",        desig:"Article Clerk", salary:4000}
+];
+var att = {};
+var activeId = 1;
+var nxtId = 6;
+
+/* ── INIT ──────────────────────────────────────────── */
+window.addEventListener('DOMContentLoaded', function() {
+  var now = new Date();
+  document.getElementById('sel-month').value = now.getMonth() + 1;
+  document.getElementById('sel-year').value  = now.getFullYear();
+  employees.forEach(function(e){ initAtt(e.id); });
+  onMonthChange();
+});
+
+function initAtt(id) {
+  if (!att[id]) {
+    att[id] = {
+      present:0, sunP:0, festP:0,
+      halfDays:0, halfDates:'',
+      shortDaysCnt:0, shortInDays:0,
+      excessMin:0, shortMin:0,
+      remarks:''
+    };
+  }
+}
+
+/* ── GLOBAL ────────────────────────────────────────── */
+function getG() {
+  var m    = parseInt(document.getElementById('sel-month').value);
+  var y    = parseInt(document.getElementById('sel-year').value);
+  var tot  = parseInt(document.getElementById('g-totaldays').value) || 28;
+  var sun  = parseInt(document.getElementById('g-sundays').value)   || 0;
+  var fest = parseInt(document.getElementById('g-festivals').value) || 0;
+  var work = tot - sun - fest;
+  var festNames = document.getElementById('g-festival-names').value.trim();
+  var MONTHS = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+  return {m:m, y:y, tot:tot, sun:sun, fest:fest, work:work, festNames:festNames, mn:MONTHS[m-1]};
+}
+
+function saveF(id, field, val) {
+  if (!att[id]) initAtt(id);
+  att[id][field] = val;
+}
+
+/* ── MONTH / FESTIVAL CHANGE ───────────────────────── */
+function onMonthChange() {
+  var m   = parseInt(document.getElementById('sel-month').value);
+  var y   = parseInt(document.getElementById('sel-year').value);
+  var tot = new Date(y, m, 0).getDate();
+  document.getElementById('g-totaldays').value = tot;
+  var sun = 0;
+  for (var d = 1; d <= tot; d++) {
+    if (new Date(y, m-1, d).getDay() === 0) sun++;
+  }
+  document.getElementById('g-sundays').value = sun;
+  updateWorkdays();
+  renderTabs();
+  renderEmpInput();
+  recalcAll();
+}
+
+function onFestivalChange() {
+  updateWorkdays();
+  recalcAll();
+}
+
+function updateWorkdays() {
+  var tot  = parseInt(document.getElementById('g-totaldays').value) || 0;
+  var sun  = parseInt(document.getElementById('g-sundays').value)   || 0;
+  var fest = parseInt(document.getElementById('g-festivals').value) || 0;
+  document.getElementById('g-workdays').value = tot - sun - fest;
+}
+
+/* ── TABS ──────────────────────────────────────────── */
+function renderTabs() {
+  var c = document.getElementById('empTabs');
+  c.innerHTML = '';
+  employees.forEach(function(e) {
+    var r   = calcSal(e.id);
+    var tab = document.createElement('div');
+    tab.className = 'etab' + (e.id === activeId ? ' active' : '');
+    tab.innerHTML = '<span class="dot"></span>' + e.name.split(' ')[0];
+    tab.title = e.name + ' — ₹' + r.net.toLocaleString('en-IN');
+    tab.onclick = (function(eid){ return function(){ activeId = eid; renderTabs(); renderEmpInput(); updateSummary(); }; })(e.id);
+    c.appendChild(tab);
+  });
+}
+
+/* ── EMP INPUT ─────────────────────────────────────── */
+function renderEmpInput() {
+  var c   = document.getElementById('empInputArea');
+  var emp = employees.find(function(e){ return e.id === activeId; });
+  if (!emp) return;
+  var d = att[emp.id];
+  var g = getG();
+
+  var overPresent = d.present > g.work;
+  var alertStyle  = overPresent ? 'display:block' : 'display:none';
+
+  c.innerHTML =
+  '<div class="lcard">' +
+    '<div class="ch grn">' +
+      '<span class="chi">👤</span>' +
+      '<span class="cht">' + emp.name + '</span>' +
+      (employees.length > 1 ? '<button onclick="removeEmp(' + emp.id + ')" style="margin-left:auto;background:rgba(200,0,0,.3);border:none;border-radius:4px;padding:3px 9px;color:#fff;cursor:pointer;font-size:11px">🗑️</button>' : '') +
+    '</div>' +
+    '<div class="cb g2">' +
+      '<div class="fld"><label>Designation</label><input type="text" value="' + emp.desig + '" onchange="employees.find(function(e){return e.id===' + emp.id + ';}).desig=this.value;recalcAll()"></div>' +
+      '<div class="fld"><label>Monthly Salary (₹)</label><input type="number" value="' + emp.salary + '" onchange="employees.find(function(e){return e.id===' + emp.id + ';}).salary=+this.value;recalcAll()"></div>' +
+    '</div>' +
+  '</div>' +
+
+  '<div class="lcard">' +
+    '<div class="ch blu"><span class="chi">📆</span><span class="cht">Attendance — Base</span></div>' +
+    '<div class="cb g2">' +
+      '<div class="fld"><label>Present Days ●</label>' +
+        '<input type="number" id="ei-pres-' + emp.id + '" value="' + d.present + '" min="0" max="' + g.tot + '"' +
+        ' oninput="saveF(' + emp.id + ',\'present\',+this.value);checkAlert(' + emp.id + ');recalcAll()">' +
+        '<span class="hint">Total days marked present (incl. any Sunday/festival)</span>' +
+      '</div>' +
+      '<div class="fld"><label>Half Days</label>' +
+        '<input type="number" value="' + d.halfDays + '" min="0" step="1"' +
+        ' oninput="saveF(' + emp.id + ',\'halfDays\',+this.value);recalcAll()">' +
+        '<span class="hint">Each = 0.5 day deduction</span>' +
+      '</div>' +
+      '<div class="fld s2"><label>Dates of Half Days</label>' +
+        '<input type="text" value="' + d.halfDates + '" placeholder="e.g. 18-Feb, 25-Feb"' +
+        ' oninput="saveF(' + emp.id + ',\'halfDates\',this.value)">' +
+      '</div>' +
+      '<div class="fld s2 alert-box" id="ei-alert-' + emp.id + '" style="' + alertStyle + '">' +
+        '<div>⚠️ <strong>Present Days (' + d.present + ') &gt; Rest Working Days (' + g.work + ').</strong><br>' +
+        'Employee may have attended on Sunday or Festival Holiday.<br>' +
+        'Please enter days in <strong>Sundays Present</strong> or <strong>Festival Present</strong> below — they will auto-adjust.</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>' +
+
+  '<div class="lcard">' +
+    '<div class="ch grn"><span class="chi">➕</span><span class="cht">Additions to Effective Days</span></div>' +
+    '<div class="cb g2">' +
+      '<div class="fld"><label>Sundays Present</label>' +
+        '<input type="number" value="' + d.sunP + '" min="0" max="' + g.sun + '"' +
+        ' oninput="saveF(' + emp.id + ',\'sunP\',+this.value);checkAlert(' + emp.id + ');recalcAll()">' +
+        '<span class="hint">✂️ Auto-deducted from Present Days. Max: ' + g.sun + '</span>' +
+      '</div>' +
+      '<div class="fld"><label>Present on Festival Holiday</label>' +
+        '<input type="number" value="' + d.festP + '" min="0" max="' + g.fest + '"' +
+        ' oninput="saveF(' + emp.id + ',\'festP\',+this.value);checkAlert(' + emp.id + ');recalcAll()">' +
+        '<span class="hint">✂️ Auto-deducted from Present Days. Max: ' + g.fest + '</span>' +
+      '</div>' +
+      '<div class="fld s2" style="background:#eaf5ee;border:1px solid #a8d5b5;border-radius:6px;padding:10px 12px">' +
+        '<span style="font-size:11.5px;color:#1e6b3a;line-height:1.6">ℹ️ <strong>' + g.fest + ' Festival holiday(s) are Paid</strong> — automatically added to Effective Days for all staff. Sundays (' + g.sun + ') also auto-added.</span>' +
+      '</div>' +
+    '</div>' +
+  '</div>' +
+
+  '<div class="lcard">' +
+    '<div class="ch red"><span class="chi">⏱️</span><span class="cht">Short Stay Deductions</span></div>' +
+    '<div class="cb g2">' +
+      '<div class="fld"><label>Short Stay Days (count)</label>' +
+        '<input type="number" id="ei-sdc-' + emp.id + '" value="' + d.shortDaysCnt + '" min="0"' +
+        ' oninput="saveF(' + emp.id + ',\'shortDaysCnt\',+this.value);calcShortDed(' + emp.id + ')">' +
+        '<span class="hint">Days stayed below minimum prescribed time</span>' +
+      '</div>' +
+      '<div class="fld"><label>Deduction (auto) in Days</label>' +
+        '<input type="number" id="ei-sdd-' + emp.id + '" value="' + d.shortInDays + '" readonly' +
+        ' style="background:#fdeaea;color:#8b1a1a;font-weight:700">' +
+        '<span class="hint">Every 3 short days = 0.5 day deducted</span>' +
+      '</div>' +
+      '<div class="fld"><label>Excess Stay Minutes (+)</label>' +
+        '<input type="number" id="ei-exm-' + emp.id + '" value="' + d.excessMin + '" min="0"' +
+        ' oninput="saveF(' + emp.id + ',\'excessMin\',+this.value);calcShortDed(' + emp.id + ')">' +
+        '<span class="hint">Total extra minutes beyond prescribed</span>' +
+      '</div>' +
+      '<div class="fld"><label>Short Stay Minutes (−)</label>' +
+        '<input type="number" id="ei-shm-' + emp.id + '" value="' + d.shortMin + '" min="0"' +
+        ' oninput="saveF(' + emp.id + ',\'shortMin\',+this.value);calcShortDed(' + emp.id + ')">' +
+        '<span class="hint">Total minutes short of prescribed</span>' +
+      '</div>' +
+      '<div class="fld s2"><label>Net Minutes (Excess − Short)</label>' +
+        '<input type="number" id="ei-netm-' + emp.id + '" value="' + (d.excessMin - d.shortMin) + '" readonly' +
+        ' style="font-weight:700">' +
+        '<span class="hint" id="ei-netmh-' + emp.id + '"></span>' +
+      '</div>' +
+      '<div class="fld s2"><label>Remarks</label>' +
+        '<input type="text" value="' + d.remarks + '" placeholder="Optional note..."' +
+        ' oninput="saveF(' + emp.id + ',\'remarks\',this.value)">' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+
+  updateSummary();
+  // Re-run hint display
+  calcShortDed(emp.id);
+}
+
+/* ── SHORT DEDUCTION LOGIC ─────────────────────────── */
+/*
+  Rule 1: floor(shortDaysCnt / 3) * 0.5 = raw deduction
+  Rule 2: If (excessMin - shortMin) >= 0 → deduction = 0
+*/
+function calcShortDed(id) {
+  var d       = att[id];
+  var cnt     = d.shortDaysCnt || 0;
+  var exMin   = d.excessMin    || 0;
+  var shMin   = d.shortMin     || 0;
+  var rawDed  = Math.floor(cnt / 3) * 0.5;
+  var netMin  = exMin - shMin;
+  var finalDed = (netMin >= 0) ? 0 : rawDed;
+
+  d.shortInDays = finalDed;
+
+  var dedEl  = document.getElementById('ei-sdd-'  + id);
+  var netEl  = document.getElementById('ei-netm-' + id);
+  var hintEl = document.getElementById('ei-netmh-'+ id);
+
+  if (dedEl) {
+    dedEl.value = finalDed;
+    dedEl.style.background = finalDed > 0 ? '#fdeaea' : '#eaf5ee';
+    dedEl.style.color      = finalDed > 0 ? '#8b1a1a' : '#1e6b3a';
+  }
+  if (netEl) {
+    netEl.value = netMin;
+    netEl.style.background = netMin >= 0 ? '#eaf5ee' : '#fdeaea';
+    netEl.style.color      = netMin >= 0 ? '#1e6b3a' : '#8b1a1a';
+    netEl.style.fontWeight = '700';
+  }
+  if (hintEl) {
+    if (netMin >= 0) {
+      hintEl.textContent = '✅ Excess covers short stay — deduction is ZERO';
+      hintEl.style.color = '#1e6b3a';
+    } else {
+      hintEl.textContent = '⚠️ Net short ' + Math.abs(netMin) + ' min — deduction ' + rawDed + ' day(s) applies';
+      hintEl.style.color = '#8b1a1a';
+    }
+  }
+  recalcAll();
+}
+
+/* ── OVER-PRESENT ALERT ────────────────────────────── */
+function checkAlert(id) {
+  var d    = att[id] || {};
+  var g    = getG();
+  var box  = document.getElementById('ei-alert-' + id);
+  if (!box) return;
+
+  var present = d.present || 0;
+  var sunP    = d.sunP    || 0;
+  var festP   = d.festP   || 0;
+  var excess  = present - g.work;
+
+  if (present > g.work) {
+    box.style.display = 'block';
+    var accounted    = sunP + festP;
+    var unaccounted  = excess - accounted;
+    var inner = box.querySelector('div');
+    if (inner) {
+      var msg = '⚠️ <strong>Present Days (' + present + ') &gt; Rest Working Days (' + g.work + ').</strong><br>';
+      if (accounted > 0) {
+        msg += 'Entered: ' + sunP + ' Sunday(s) + ' + festP + ' Festival day(s) = <strong>' + accounted + ' accounted.</strong> ';
+        if (unaccounted > 0) {
+          msg += '<span style="color:#8b1a1a">Still <strong>' + unaccounted + '</strong> day(s) unaccounted — please verify.</span>';
+        } else {
+          msg += '<span style="color:#1e6b3a">✅ Fully accounted for.</span>';
+        }
+      } else {
+        msg += 'Employee likely attended on Sunday or Festival Holiday.<br>Fill <strong>Sundays Present</strong> or <strong>Festival Present</strong> above — those days will auto-adjust.';
+      }
+      inner.innerHTML = msg;
+    }
+  } else {
+    box.style.display = 'none';
+  }
+}
+
+/* ── CORE SALARY CALCULATION ───────────────────────── */
+/*
+  FORMULA:
+  adjustedPresent = present - sunP - festP   (remove separately-counted days)
+  effDays = adjustedPresent
+            - halfDays*0.5
+            - shortInDays
+            + sun         (paid)
+            + fest        (paid ✅ NEW)
+            + sunP        (bonus: worked on Sunday)
+            + festP       (bonus: worked on festival)
+  Salary  = (monthlySalary / totalDays) * effDays
+*/
+function calcSal(id) {
+  var emp  = employees.find(function(e){ return e.id === id; });
+  var d    = att[id] || {};
+  var g    = getG();
+
+  var present = d.present    || 0;
+  var half    = d.halfDays   || 0;
+  var shortD  = d.shortInDays|| 0;
+  var sunP    = d.sunP       || 0;
+  var festP   = d.festP      || 0;
+  var sal     = emp.salary   || 0;
+  var sCnt    = d.shortDaysCnt || 0;
+  var exMin   = d.excessMin  || 0;
+  var shMin   = d.shortMin   || 0;
+  var netMin  = exMin - shMin;
+
+  var adjPresent = Math.max(0, present - sunP - festP);
+  var halfDed    = half * 0.5;
+  var eff        = adjPresent - halfDed - shortD + g.sun + g.fest + sunP + festP;
+  var effR       = Math.round(eff * 100) / 100;
+  var gross      = g.tot > 0 ? Math.round((sal / g.tot) * eff) : 0;
+
+  return {
+    present:present, adjPresent:adjPresent,
+    half:half, halfDed:halfDed,
+    shortD:shortD, sCnt:sCnt,
+    exMin:exMin, shMin:shMin, netMin:netMin,
+    sunP:sunP, festP:festP,
+    effDays:effR, gross:gross, net:gross,
+    overPresent:(present > g.work)
+  };
+}
+
+/* ── RECALC ALL ────────────────────────────────────── */
+function recalcAll() {
+  updateWorkdays();
+  renderTabs();
+  renderSlip();
+  updateSummary();
+}
+
+function updateSummary() {
+  var r = calcSal(activeId);
+  document.getElementById('sum-eff').textContent = r.effDays;
+  document.getElementById('sum-sal').textContent = '₹' + r.gross.toLocaleString('en-IN');
+  document.getElementById('sum-net').textContent = '₹' + r.net.toLocaleString('en-IN');
+}
+
+/* ── RENDER SLIP ───────────────────────────────────── */
+function renderSlip() {
+  var g = getG();
+  var C = employees.map(function(e){ return calcSal(e.id); });
+
+  var empHdrs = employees.map(function(e) {
+    return '<th class="eh">' + e.name +
+      '<br><span style="font-weight:400;font-size:10px;opacity:.8">' + e.desig + '</span>' +
+      '<br><span style="font-size:11px;font-weight:600;color:var(--gold2)">₹' + e.salary.toLocaleString('en-IN') + '</span></th>';
+  }).join('');
+
+  var festNote = g.fest > 0
+    ? '<span class="mr-sep">|</span><span class="mr-item">🎉 Festivals: <strong>' + (g.festNames || g.fest) + '</strong> (' + g.fest + ' day' + (g.fest>1?'s':'') + ' — Paid)</span>'
+    : '';
+
+  document.getElementById('slipInner').innerHTML =
+  '<div class="slip-hdr">' +
+    '<div>' +
+      '<div class="org-name">Pawan Soni and Associates</div>' +
+      '<div class="org-sub">Chartered Accountants | CA Pawankumar Soni (MNo. 116591)</div>' +
+      '<div class="org-addr">Ichalkaranji, Maharashtra</div>' +
+    '</div>' +
+    '<div>' +
+      '<div class="slip-title">Salary Statement</div>' +
+      '<div class="slip-period">' + g.mn + ' ' + g.y + '</div>' +
+    '</div>' +
+  '</div>' +
+  '<div class="month-row">' +
+    '<span class="mr-item">📅 <strong>' + g.mn + ' ' + g.y + '</strong></span>' +
+    '<span class="mr-sep">|</span><span class="mr-item">Total Days: <strong>' + g.tot + '</strong></span>' +
+    '<span class="mr-sep">|</span><span class="mr-item">Sundays: <strong>' + g.sun + '</strong></span>' +
+    '<span class="mr-sep">|</span><span class="mr-item">Working Days: <strong>' + g.work + '</strong></span>' +
+    festNote +
+  '</div>' +
+  '<table class="stbl">' +
+    '<thead><tr><th class="lh">Particulars</th>' + empHdrs + '</tr></thead>' +
+    '<tbody>' + buildRows(g, C) + '</tbody>' +
+  '</table>' +
+  '<div class="sig-block">' +
+    '<div class="sig-item"><div class="sig-line"></div><div class="sig-lbl">Prepared by</div><div class="sig-name">Pawan Soni &amp; Associates</div></div>' +
+    '<div class="sig-item"><div class="sig-line"></div><div class="sig-lbl">Authorised Signatory</div><div class="sig-name">CA Pawankumar Soni</div></div>' +
+  '</div>' +
+  '<div class="slip-footer">Computer-generated salary statement for ' + g.mn + ' ' + g.y +
+    ' &nbsp;|&nbsp; Pawan Soni and Associates, Ichalkaranji &nbsp;|&nbsp; Generated: ' +
+    new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'}) + '</div>';
+}
+
+/* ── BUILD TABLE ROWS ──────────────────────────────── */
+function buildRows(g, C) {
+  var nc  = employees.length + 1;
+
+  function sec(txt) {
+    return '<tr><td class="sec" colspan="' + nc + '">' + txt + '</td></tr>';
+  }
+
+  function row(lbl, vals, cls, sub) {
+    cls = cls || '';
+    var cells = vals.map(function(v) {
+      var xc = '';
+      if (v === 0 || v === '—') xc = 'v0';
+      else if (cls === 'tr-add' && typeof v === 'number' && v > 0) xc = 'vpos';
+      else if (cls === 'tr-ded' && typeof v === 'number' && v > 0) xc = 'vneg';
+      return '<td class="' + xc + '">' + (v === 0 ? '—' : v) + '</td>';
+    }).join('');
+    var lc = sub ? 'sub' : 'lc';
+    return '<tr class="' + cls + '"><td class="' + lc + '">' + lbl + '</td>' + cells + '</tr>';
+  }
+
+  var html = '';
+
+  // SECTION A
+  html += sec('A — Month &amp; Attendance Summary');
+  html += row('No. of Days in Month',  C.map(function(){ return g.tot; }), 'tr-base');
+  html += row('No. of Sundays',         C.map(function(){ return g.sun; }), 'tr-base');
+  html += row('Festival Holidays',      C.map(function(){ return g.fest > 0 ? g.fest : '—'; }), 'tr-base');
+  html += row('Rest Working Days',      C.map(function(){ return g.work; }), 'tr-base');
+
+  // SECTION B
+  html += sec('B — Employee Attendance');
+  html += row('Present Days (gross)',         C.map(function(c){ return c.present; }),    'tr-base');
+  html += row('Less: Sundays Present',        C.map(function(c){ return c.sunP  > 0 ? '− '+c.sunP  : '—'; }), 'tr-ded', true);
+  html += row('Less: Festival Present days',  C.map(function(c){ return c.festP > 0 ? '− '+c.festP : '—'; }), 'tr-ded', true);
+  html += row('Adjusted Present Days',        C.map(function(c){ return c.adjPresent; }), 'tr-base');
+  html += row('Sunday Present (bonus ➕)',     C.map(function(c){ return c.sunP; }),        'tr-add');
+  html += row('Festival Present (bonus ➕)',  C.map(function(c){ return c.festP; }),       'tr-add');
+
+  // SECTION B2 — Paid Holidays
+  html += sec('B2 — Paid Holidays (auto-added for all staff)');
+  html += row('Sundays (paid ✅)',           C.map(function(){ return g.sun; }),                        'tr-add');
+  html += row('Festival Holidays (paid ✅)', C.map(function(){ return g.fest > 0 ? g.fest : '—'; }),   'tr-add');
+
+  // SECTION C
+  html += sec('C — Short Stay Deductions');
+  html += row('Short Stay Days (count)',       C.map(function(c){ return c.sCnt > 0 ? c.sCnt : '—'; }), 'tr-ded');
+  html += row('Gross Deduction (÷3 × 0.5)',   C.map(function(c){ var r=Math.floor(c.sCnt/3)*0.5; return r>0?r+' day(s)':'—'; }), 'tr-ded', true);
+  html += row('Excess Stay Minutes (+)',       C.map(function(c){ return c.exMin > 0 ? '+'+c.exMin+' min' : '—'; }), 'tr-add');
+  html += row('Short Stay Minutes (−)',        C.map(function(c){ return c.shMin > 0 ? '−'+c.shMin+' min' : '—'; }), 'tr-ded');
+  html += row('Net Minutes (Excess − Short)', C.map(function(c){
+    if (c.exMin===0 && c.shMin===0) return '—';
+    return (c.netMin >= 0 ? '✅ +' : '⚠️ ') + c.netMin + ' min';
+  }), 'tr-eff');
+  html += row('Final Deduction in Days',      C.map(function(c){ return c.shortD > 0 ? '− '+c.shortD+' day(s)' : (c.sCnt>0?'✅ Nil':'—'); }), 'tr-ded');
+
+  // SECTION D
+  html += sec('D — Half Days');
+  html += row('Half Days (occurrences)',    C.map(function(c){ return c.half; }), 'tr-ded');
+  html += row('Half Day Deduction (×0.5)', C.map(function(c){ return c.halfDed > 0 ? '− '+c.halfDed : '—'; }), 'tr-ded', true);
+
+  // SECTION E
+  html += sec('E — Effective Days &amp; Salary');
+  html += row('Effective Days',   C.map(function(c){ return c.effDays; }), 'tr-eff');
+  html += row('Gross Salary (₹)', C.map(function(c){ return '₹\u202f'+c.gross.toLocaleString('en-IN'); }), 'tr-sal');
+  html += row('Net Payable (₹)',  C.map(function(c){ return '₹\u202f'+c.net.toLocaleString('en-IN'); }),   'tr-net');
+
+  return html;
+}
+
+/* ── EMPLOYEE MANAGEMENT ───────────────────────────── */
+function openAddEmp() {
+  ['new-name','new-desig','new-salary'].forEach(function(i){ document.getElementById(i).value=''; });
+  document.getElementById('empModal').classList.add('open');
+}
+function closeEmpModal() { document.getElementById('empModal').classList.remove('open'); }
+function addEmployee() {
+  var name  = document.getElementById('new-name').value.trim();
+  var desig = document.getElementById('new-desig').value.trim() || 'Staff';
+  var sal   = +document.getElementById('new-salary').value || 0;
+  if (!name) { showToast('⚠️ Please enter employee name.'); return; }
+  var id = nxtId++;
+  employees.push({id:id, name:name, desig:desig, salary:sal});
+  initAtt(id);
+  activeId = id;
+  closeEmpModal();
+  renderTabs(); renderEmpInput(); recalcAll();
+  showToast('✅ ' + name + ' added!');
+}
+function removeEmp(id) {
+  if (!confirm('Remove this employee?')) return;
+  employees = employees.filter(function(e){ return e.id !== id; });
+  delete att[id];
+  if (activeId === id) activeId = employees[0].id;
+  renderTabs(); renderEmpInput(); recalcAll();
+}
+
+/* ── PDF ───────────────────────────────────────────── */
+function downloadPDF() {
+  var g = getG();
+  showToast('⏳ Generating PDF...');
+  var opt = {
+    margin:[8,6,8,6],
+    filename:'SalaryStatement_'+g.mn+'_'+g.y+'.pdf',
+    image:{type:'jpeg',quality:.98},
+    html2canvas:{scale:2,useCORS:true},
+    jsPDF:{unit:'mm',format:'a4',orientation:'landscape'}
+  };
+  html2pdf().set(opt).from(document.getElementById('slip')).save()
+    .then(function(){ showToast('✅ PDF downloaded!'); });
+}
+
+/* ── EXCEL ─────────────────────────────────────────── */
+function downloadExcel() {
+  if (typeof XLSX === 'undefined') { showToast('⚠️ Excel library not ready.'); return; }
+  var g = getG();
+  var C = employees.map(function(e){ return calcSal(e.id); });
+  showToast('⏳ Generating Excel...');
+
+  var CLR = {
+    navy:'0F1F3D', navy2:'1A3260', gold:'C9A84C', gold2:'E2C47A',
+    white:'FFFFFF', blueL:'EEF2FA', greenB:'EAF5EE', redB:'FDEAEA',
+    amberB:'FFF8E8', salB:'E8F0FB', netBg:'1A3260', netTxt:'E2C47A',
+    gTxt:'1E6B3A', rTxt:'8B1A1A', oTxt:'8B4A00', bTxt:'1A3A8B',
+    dTxt:'1A1A2E', mTxt:'3D3D55', lTxt:'7A7A9A', bdr:'C8BFA8', bdr2:'2A4A8A'
+  };
+
+  function bdr(c) { c=c||CLR.bdr; return {top:{style:'thin',color:{rgb:c}},bottom:{style:'thin',color:{rgb:c}},left:{style:'thin',color:{rgb:c}},right:{style:'thin',color:{rgb:c}}}; }
+  function st(font,fill,align,border) { return {font:font,fill:{fgColor:{rgb:fill}},alignment:align||{horizontal:'center',vertical:'center'},border:border||bdr()}; }
+
+  var S = {
+    title: st({name:'Calibri',sz:14,bold:true,color:{rgb:CLR.gold2}}, CLR.navy,   {horizontal:'left',vertical:'center',wrapText:true}, bdr(CLR.bdr2)),
+    sub:   st({name:'Calibri',sz:10,color:{rgb:'AABBDD'}},             CLR.navy,   {horizontal:'left',vertical:'center'},               bdr(CLR.bdr2)),
+    colH:  st({name:'Calibri',sz:10,bold:true,color:{rgb:CLR.gold2}},  '111D33',   {horizontal:'left',vertical:'center'},               bdr(CLR.bdr2)),
+    empH:  st({name:'Calibri',sz:11,bold:true,color:{rgb:CLR.gold2}},  CLR.navy,   {horizontal:'center',vertical:'center'},             bdr(CLR.bdr2)),
+    salH:  st({name:'Calibri',sz:11,bold:true,color:{rgb:CLR.gold}},   CLR.navy2,  {horizontal:'center',vertical:'center'},             bdr(CLR.bdr2)),
+    sec:   st({name:'Calibri',sz:10,bold:true,color:{rgb:CLR.gold2}},  CLR.navy2,  {horizontal:'center',vertical:'center'},             bdr(CLR.bdr2)),
+  };
+  function lbl(bg,c,b){ return st({name:'Calibri',sz:10,bold:b||false,color:{rgb:c||CLR.mTxt}},bg||CLR.blueL,{horizontal:'left',vertical:'center',indent:1}); }
+  function cel(bg,c,b){ return st({name:'Calibri',sz:10,bold:b||false,color:{rgb:c||CLR.dTxt}},bg||CLR.blueL,{horizontal:'center',vertical:'center'}); }
+  function mon(bg,c,b){ var s=st({name:'Calibri',sz:10,bold:b||false,color:{rgb:c||CLR.dTxt}},bg||CLR.blueL,{horizontal:'right',vertical:'center'}); s.numFmt='₹#,##0'; return s; }
+
+  var THEMES = {
+    base:[CLR.blueL,CLR.mTxt,false,CLR.blueL,CLR.dTxt,false],
+    add: [CLR.greenB,CLR.gTxt,true, CLR.greenB,CLR.gTxt,false],
+    ded: [CLR.redB,  CLR.rTxt,true, CLR.redB,  CLR.rTxt,false],
+    eff: [CLR.amberB,CLR.oTxt,true, CLR.amberB,CLR.oTxt,false],
+    sal: [CLR.salB,  CLR.bTxt,true, CLR.salB,  CLR.bTxt,true],
+    net: [CLR.netBg, CLR.white,true,CLR.netBg, CLR.netTxt,true],
+    sub: [CLR.redB,  CLR.rTxt,false,CLR.redB,  CLR.rTxt,false]
+  };
+
+  var wsData=[]; var merges=[]; var R=0;
+  var nc=1+employees.length;
+  function cv(v,s,t){ return {v:v,s:s,t:t||(typeof v==='number'?'n':'s')}; }
+  function pushRow(cells){ wsData.push(cells); R++; }
+  function mergeRow(s,e){ merges.push({s:{r:R-1,c:s||0},e:{r:R-1,c:e||nc-1}}); }
+
+  // Title rows
+  var r1=[cv('Pawan Soni and Associates — Salary Statement',S.title)];
+  for(var i=1;i<nc;i++) r1.push(cv('',S.title)); pushRow(r1); mergeRow();
+  var r2=[cv('CA Pawankumar Soni (MNo.116591) | Chartered Accountants, Ichalkaranji | '+g.mn+' '+g.y,S.sub)];
+  for(var i=1;i<nc;i++) r2.push(cv('',S.sub)); pushRow(r2); mergeRow();
+  pushRow(Array(nc).fill(cv('',{})));
+
+  // Emp headers
+  var rh=[cv('Particulars',S.colH)]; employees.forEach(function(e){ rh.push(cv(e.name,S.empH)); }); pushRow(rh);
+  var rd=[cv('Designation',S.colH)]; employees.forEach(function(e){ rd.push(cv(e.desig,S.sub)); }); pushRow(rd);
+  var rs=[cv('Monthly Salary (₹)',S.salH)]; employees.forEach(function(e){ rs.push(cv(e.salary,mon(CLR.navy2,CLR.gold,true))); }); pushRow(rs);
+  pushRow(Array(nc).fill(cv('',{})));
+
+  function pushSec(txt){
+    var r=[]; for(var i=0;i<nc;i++) r.push(cv(txt,S.sec)); pushRow(r); mergeRow();
+  }
+  function pushData(lbl_txt, vals, th, isMoney){
+    var T=THEMES[th||'base'];
+    var row_=[cv(lbl_txt, lbl(T[0],T[1],T[2]))];
+    vals.forEach(function(v){ row_.push(isMoney ? cv(v,mon(T[3],T[4],T[5])) : cv(v,cel(T[3],T[4],T[5]))); });
+    pushRow(row_);
+  }
+
+  pushSec('A — Month & Attendance Summary');
+  pushData('No. of Days in Month',    C.map(function(){ return g.tot; }),  'base');
+  pushData('No. of Sundays',           C.map(function(){ return g.sun; }),  'base');
+  pushData('Festival Holidays',        C.map(function(){ return g.fest; }), 'base');
+  pushData('Rest Working Days',        C.map(function(){ return g.work; }), 'base');
+  pushRow(Array(nc).fill(cv('',{})));
+
+  pushSec('B — Employee Attendance');
+  pushData('Present Days (gross)',       C.map(function(c){ return c.present; }),    'base');
+  pushData('Less: Sundays Present',      C.map(function(c){ return -c.sunP; }),      'ded');
+  pushData('Less: Festival Present',     C.map(function(c){ return -c.festP; }),     'ded');
+  pushData('Adjusted Present Days',      C.map(function(c){ return c.adjPresent; }), 'base');
+  pushData('Sunday Present (bonus)',     C.map(function(c){ return c.sunP; }),        'add');
+  pushData('Festival Present (bonus)',   C.map(function(c){ return c.festP; }),       'add');
+  pushRow(Array(nc).fill(cv('',{})));
+
+  pushSec('B2 — Paid Holidays');
+  pushData('Sundays (paid)',             C.map(function(){ return g.sun; }),  'add');
+  pushData('Festival Holidays (paid)',   C.map(function(){ return g.fest; }), 'add');
+  pushRow(Array(nc).fill(cv('',{})));
+
+  pushSec('C — Short Stay Deductions');
+  pushData('Short Stay Days (count)',    C.map(function(c){ return c.sCnt; }), 'ded');
+  pushData('Gross Deduction (÷3×0.5)',   C.map(function(c){ return Math.floor(c.sCnt/3)*0.5; }), 'sub');
+  pushData('Excess Stay Minutes (+)',    C.map(function(c){ return c.exMin; }), 'add');
+  pushData('Short Stay Minutes (−)',     C.map(function(c){ return c.shMin; }), 'ded');
+  pushData('Net Minutes',                C.map(function(c){ return c.netMin; }),'eff');
+  pushData('Final Deduction (days)',     C.map(function(c){ return c.shortD; }),'ded');
+  pushRow(Array(nc).fill(cv('',{})));
+
+  pushSec('D — Half Days');
+  pushData('Half Days (occurrences)',    C.map(function(c){ return c.half; }),    'ded');
+  pushData('Half Day Deduction (×0.5)', C.map(function(c){ return -c.halfDed; }),'sub');
+  pushRow(Array(nc).fill(cv('',{})));
+
+  pushSec('E — Effective Days & Salary');
+  pushData('Effective Days',             C.map(function(c){ return c.effDays; }), 'eff');
+  pushData('Gross Salary (₹)',           C.map(function(c){ return c.gross; }),   'sal', true);
+  pushData('Net Payable (₹)',            C.map(function(c){ return c.net; }),     'net', true);
+  pushRow(Array(nc).fill(cv('',{})));
+
+  // Footer
+  var rf=[cv('Generated by Pawan Soni & Associates | '+new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'}),{font:{name:'Calibri',sz:9,italic:true,color:{rgb:CLR.lTxt}},alignment:{horizontal:'left'}})];
+  for(var i=1;i<nc;i++) rf.push(cv('',{})); pushRow(rf); mergeRow();
+
+  // Build worksheet
+  var ws = XLSX.utils.aoa_to_sheet(wsData.map(function(row){ return row.map(function(c){ return c.v; }); }));
+  var enc = XLSX.utils.encode_cell;
+  wsData.forEach(function(row,ri){
+    row.forEach(function(cell,ci){
+      var addr=enc({r:ri,c:ci});
+      if(!ws[addr]) ws[addr]={};
+      ws[addr].v=cell.v; ws[addr].t=cell.t;
+      if(cell.s) ws[addr].s=cell.s;
+      if(cell.s&&cell.s.numFmt) ws[addr].z=cell.s.numFmt;
+    });
+  });
+  ws['!merges']=merges;
+  ws['!cols']=[{wch:34}].concat(employees.map(function(){ return {wch:18}; }));
+  ws['!rows']=wsData.map(function(_,i){ return i===0?{hpt:26}:{hpt:18}; });
+
+  var wb=XLSX.utils.book_new();
+  wb.Props={Title:'Salary Statement '+g.mn+' '+g.y,Author:'CA Pawankumar Soni'};
+  XLSX.utils.book_append_sheet(wb, ws, g.mn+' '+g.y);
+  XLSX.writeFile(wb, 'SalaryStatement_'+g.mn+'_'+g.y+'.xlsx');
+  showToast('✅ Excel downloaded!');
+}
+
+/* ── EMAIL ─────────────────────────────────────────── */
+function openEmailModal() {
+  var g = getG();
+  var C = employees.map(function(e){ return calcSal(e.id); });
+  document.getElementById('email-subject').value = 'Salary Statement — '+g.mn+' '+g.y+' | Pawan Soni and Associates';
+  document.getElementById('email-body').value =
+    'Dear Team,\n\nPlease find the Salary Statement for '+g.mn+' '+g.y+'.\n\n' +
+    'Month Details:\n- Total Days: '+g.tot+'\n- Sundays: '+g.sun+'\n- Working Days: '+g.work+
+    (g.fest>0?'\n- Festival Holidays (Paid): '+(g.festNames||g.fest):'')+
+    '\n\nEmployee Summary:\n' +
+    employees.map(function(e,i){
+      return '  '+e.name.padEnd(26)+' | Eff Days: '+String(C[i].effDays).padEnd(5)+' | Net: ₹'+C[i].net.toLocaleString('en-IN');
+    }).join('\n') +
+    '\n\nRegards,\nCA Pawankumar Soni\nPawan Soni and Associates, Ichalkaranji';
+  document.getElementById('email-to').value='';
+  document.getElementById('email-cc').value='';
+  document.getElementById('emailModal').classList.add('open');
+}
+function closeEmailModal() { document.getElementById('emailModal').classList.remove('open'); }
+function sendEmail() {
+  var to  = document.getElementById('email-to').value.trim();
+  var cc  = document.getElementById('email-cc').value.trim();
+  var sub = encodeURIComponent(document.getElementById('email-subject').value);
+  var bdy = encodeURIComponent(document.getElementById('email-body').value);
+  if (!to) { showToast('⚠️ Please enter recipient email.'); return; }
+  var link = 'mailto:'+to+'?subject='+sub+'&body='+bdy;
+  if (cc) link += '&cc='+encodeURIComponent(cc);
+  window.location.href = link;
+  showToast('📧 Opening email client...');
+}
+function copyEmailBody() {
+  navigator.clipboard.writeText(document.getElementById('email-body').value)
+    .then(function(){ showToast('✅ Copied!'); })
+    .catch(function(){ showToast('❌ Copy failed — copy manually.'); });
+}
+
+/* ── TOAST ─────────────────────────────────────────── */
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 3200);
+}
+</script>
+</body>
+</html>
