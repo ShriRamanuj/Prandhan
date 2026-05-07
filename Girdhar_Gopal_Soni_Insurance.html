@@ -475,6 +475,170 @@ footer {
 .compare-banner { animation: fadeUp 0.7s 0.1s ease both; }
 .main { animation: fadeUp 0.7s 0.15s ease both; }
 
+/* ── FINANCIAL ADVISOR BLINKING BADGE ── */
+@keyframes badgeBlink {
+  0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(16,185,129,0.6); }
+  50% { opacity:0.88; box-shadow: 0 0 0 8px rgba(16,185,129,0); }
+}
+.fa-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: linear-gradient(135deg, #065f46, #10b981);
+  color: #fff; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.5px; padding: 6px 14px;
+  border-radius: 20px; border: 1.5px solid rgba(110,231,183,0.5);
+  animation: badgeBlink 2s ease-in-out infinite;
+  white-space: nowrap; flex-shrink: 0; cursor: default;
+}
+.fa-badge::before { content: '●'; font-size: 0.6rem; color: #6ee7b7; }
+
+/* ── UNCERTAINTY PILLARS SECTION ── */
+.uncertainty-section {
+  background: linear-gradient(135deg, #0D1B2A 0%, #1B2F45 100%);
+  padding: 56px 48px 48px;
+  position: relative; overflow: hidden;
+}
+.uncertainty-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(201,150,58,0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(16,185,129,0.06) 0%, transparent 50%);
+  pointer-events: none;
+}
+.uncertainty-inner { max-width: 1300px; margin: 0 auto; position: relative; z-index: 1; }
+.uncertainty-eyebrow {
+  text-align: center; font-size: 0.72rem; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+}
+.uncertainty-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: #fff;
+  text-align: center; margin-bottom: 8px; line-height: 1.2;
+}
+.uncertainty-title span { color: var(--gold-light); }
+.uncertainty-sub {
+  text-align: center; color: rgba(255,255,255,0.5); font-size: 0.92rem;
+  max-width: 600px; margin: 0 auto 40px;
+}
+.uncertainty-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+.pillar-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  padding: 30px 24px 26px;
+  display: flex; flex-direction: column; align-items: flex-start;
+  transition: all 0.3s; position: relative; overflow: hidden;
+}
+.pillar-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  border-radius: 18px 18px 0 0;
+}
+.pillar-card:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.35);
+}
+.pillar-hospital::before { background: linear-gradient(90deg,#10b981,#059669); }
+.pillar-life::before    { background: linear-gradient(90deg,#3b82f6,#1d4ed8); }
+.pillar-accident::before { background: linear-gradient(90deg,#f59e0b,#d97706); }
+.pillar-goal::before    { background: linear-gradient(90deg,#a855f7,#7c3aed); }
+
+.pillar-icon { font-size: 2.2rem; margin-bottom: 14px; }
+.pillar-label {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; margin-bottom: 6px;
+}
+.pillar-hospital .pillar-label { color: #6ee7b7; }
+.pillar-life .pillar-label     { color: #93c5fd; }
+.pillar-accident .pillar-label { color: #fcd34d; }
+.pillar-goal .pillar-label     { color: #d8b4fe; }
+
+.pillar-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 700; color: #fff;
+  margin-bottom: 10px; line-height: 1.2;
+}
+.pillar-solution {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.75rem; font-weight: 700; padding: 5px 13px;
+  border-radius: 99px; margin-bottom: 14px; border: 1px solid;
+  letter-spacing: 0.3px;
+}
+.pillar-hospital .pillar-solution { background:rgba(16,185,129,0.12); color:#6ee7b7; border-color:rgba(16,185,129,0.3); }
+.pillar-life .pillar-solution     { background:rgba(59,130,246,0.12); color:#93c5fd; border-color:rgba(59,130,246,0.3); }
+.pillar-accident .pillar-solution { background:rgba(245,158,11,0.12); color:#fcd34d; border-color:rgba(245,158,11,0.3); }
+.pillar-goal .pillar-solution     { background:rgba(168,85,247,0.12); color:#d8b4fe; border-color:rgba(168,85,247,0.3); }
+
+.pillar-points { list-style: none; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+.pillar-points li { font-size: 0.8rem; color: rgba(255,255,255,0.55); display: flex; gap: 7px; align-items: flex-start; }
+.pillar-points li::before { content: '›'; flex-shrink: 0; line-height: 1.4; font-size: 0.9rem; }
+.pillar-hospital .pillar-points li::before { color: #6ee7b7; }
+.pillar-life .pillar-points li::before     { color: #93c5fd; }
+.pillar-accident .pillar-points li::before { color: #fcd34d; }
+.pillar-goal .pillar-points li::before     { color: #d8b4fe; }
+
+/* ── ACCIDENT INCOME CTA BUTTON ── */
+@keyframes ctaPulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.55); }
+  60%      { box-shadow: 0 0 0 14px rgba(245,158,11,0); }
+}
+.accident-cta-wrap {
+  margin-top: 40px; text-align: center;
+}
+.accident-cta-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: linear-gradient(135deg,#b45309,#f59e0b);
+  color: #fff; text-decoration: none;
+  padding: 16px 36px; border-radius: 99px;
+  font-weight: 700; font-size: 1rem;
+  animation: ctaPulse 2s ease-in-out infinite;
+  transition: transform 0.2s;
+  border: 2px solid rgba(253,230,138,0.4);
+}
+.accident-cta-btn:hover { transform: scale(1.04); }
+.accident-cta-icon { font-size: 1.4rem; }
+.accident-cta-text { display: flex; flex-direction: column; align-items: flex-start; }
+.accident-cta-text strong { font-size: 1rem; line-height: 1.2; }
+.accident-cta-text small { font-size: 0.75rem; opacity: 0.85; font-weight: 400; }
+
+/* ── GREEN THEME FOR OPTIMA SECURE+ ── */
+.pc-plus-green::before { background: linear-gradient(90deg,#059669,#10b981) !important; }
+.pc-plus-green .plan-card-eyebrow { color: #6ee7b7 !important; }
+.pc-plus-green .plan-for-badge { background:rgba(16,185,129,0.12) !important; color:#6ee7b7 !important; border-color:rgba(16,185,129,0.3) !important; }
+.pc-plus-green .plan-hl::before { color: #6ee7b7 !important; }
+.pc-plus-green .plan-explore-btn { border-color: rgba(16,185,129,0.35) !important; }
+.pc-plus-green .plan-explore-btn:hover { background: rgba(16,185,129,0.18) !important; border-color: rgba(16,185,129,0.55) !important; }
+.pc-plus-green.featured { border-color: rgba(16,185,129,0.4) !important; background: rgba(16,185,129,0.05) !important; }
+.pc-plus-green .featured-ribbon { background: linear-gradient(135deg,#059669,#10b981) !important; color: #fff !important; }
+
+/* ── FA TRUST STRIP ── */
+.fa-trust-strip {
+  display: flex; align-items: flex-start; gap: 18px;
+  background: linear-gradient(135deg, rgba(201,150,58,0.1), rgba(201,150,58,0.04));
+  border: 1.5px solid rgba(201,150,58,0.35);
+  border-radius: 16px;
+  padding: 24px 28px;
+  margin-top: 36px;
+}
+.fa-trust-icon { font-size: 2rem; flex-shrink: 0; margin-top: 2px; }
+.fa-trust-text {
+  font-size: 0.9rem; color: rgba(255,255,255,0.65); line-height: 1.8;
+}
+.fa-trust-text strong { color: var(--gold-light); font-size: 1rem; display: block; margin-bottom: 4px; }
+.fa-trust-text span { color: var(--gold-light); font-weight: 700; }
+
+@media(max-width:768px) {
+  .uncertainty-section { padding: 40px 16px 36px; }
+  .uncertainty-grid { grid-template-columns: 1fr; }
+  .accident-cta-btn { padding: 14px 24px; font-size: 0.9rem; }
+  .fa-trust-strip { flex-direction: column; gap: 10px; }
+}
+
 /* ── RESPONSIVE ── */
 @media(max-width:900px) {
   .topnav { padding: 12px 24px; }
@@ -728,9 +892,10 @@ footer {
   <div class="nav-links">
     <a href="#home-hero" id="nav-home-btn" style="background:rgba(201,150,58,0.15);border:1px solid rgba(201,150,58,0.4);padding:5px 14px;border-radius:6px;color:var(--gold-light) !important;font-weight:600 !important;">🏠 Home</a>
     <a href="#plan-finder">Find My Plan</a>
-      <a href="#policies">Policies</a>
+    <a href="#policies">Policies</a>
     <a href="#services">Services</a>
     <a href="#resources">Resources</a>
+    <span class="fa-badge" title="We are POSP-registered Financial Advisors, not insurance agents">🎓 Financial Advisor — Not an Insurance Agent</span>
     <div class="nav-compare-group">
       <a href="https://shriramanuj.github.io/Prandhan/girdhar_gopal_plan_comparison.html" target="_blank" class="nav-cta nav-cta-hdfc">🔍 HDFC vs Care</a>
       <a href="https://shriramanuj.github.io/Prandhan/care_comparison_heart_senior_shine.html" target="_blank" class="nav-cta nav-cta-care">🫀 Heart · Senior · Shine</a>
@@ -777,6 +942,99 @@ footer {
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FINANCIAL ADVISORY — 4 UNCERTAINTY PILLARS
+══════════════════════════════════════ -->
+<section class="uncertainty-section">
+  <div class="uncertainty-inner">
+    <div class="uncertainty-eyebrow">Shri Ramanuj Professional · Financial Advisory</div>
+    <h2 class="uncertainty-title">Life has <span>uncertain events.</span><br>We help you handle each — financially.</h2>
+    <p class="uncertainty-sub">Every family faces these four financial risks. We guide you to the right solution for each — not just insurance, but complete financial protection.</p>
+
+    <div class="uncertainty-grid">
+
+      <!-- Pillar 1: Hospitalisation -->
+      <div class="pillar-card pillar-hospital">
+        <div class="pillar-icon">🏥</div>
+        <div class="pillar-label">Health Risk</div>
+        <div class="pillar-title">Hospitalisation Expenses</div>
+        <div class="pillar-solution">✓ Mediclaim Policy</div>
+        <ul class="pillar-points">
+          <li>HDFC Ergo — Optima Secure &amp; Optima Secure+</li>
+          <li>Care Health — Care Supreme</li>
+          <li>Cashless across 10,000+ network hospitals</li>
+          <li>Sum Insured grows every year — no cap</li>
+        </ul>
+      </div>
+
+      <!-- Pillar 2: Life Risk -->
+      <div class="pillar-card pillar-life">
+        <div class="pillar-icon">🛡️</div>
+        <div class="pillar-label">Life Risk</div>
+        <div class="pillar-title">Life &amp; Death Protection</div>
+        <div class="pillar-solution">✓ Term Insurance</div>
+        <ul class="pillar-points">
+          <li>We recommend Term Insurance with <strong style="color:#93c5fd;">ICICI Prudential Life Insurance</strong></li>
+          <li>Highest sum assured at lowest premium</li>
+          <li>Family's financial security — income replaced</li>
+          <li>Critical illness &amp; disability riders available</li>
+        </ul>
+      </div>
+
+      <!-- Pillar 3: Accident + Income Loss -->
+      <div class="pillar-card pillar-accident">
+        <div class="pillar-icon">🚑</div>
+        <div class="pillar-label">Accident Risk · Income Loss</div>
+        <div class="pillar-title">Accidents &amp; Income Loss</div>
+        <div class="pillar-solution">✓ Accident Income Plan</div>
+        <ul class="pillar-points">
+          <li><strong style="color:#fcd34d;">Get ₹1 Lac per week as TTD benefit</strong> for a ₹1 Crore policy</li>
+          <li>Income flows even while you are on bed rest</li>
+          <li>Available from HDFC Ergo &amp; Care Insurance</li>
+          <li>Permanent disability &amp; accidental death covered</li>
+        </ul>
+      </div>
+
+      <!-- Pillar 4: Financial Goals -->
+      <div class="pillar-card pillar-goal">
+        <div class="pillar-icon">🎯</div>
+        <div class="pillar-label">Financial Goals</div>
+        <div class="pillar-title">Future Goals Planning</div>
+        <div class="pillar-solution">✓ Mutual Fund Planning</div>
+        <ul class="pillar-points">
+          <li>We do complete Mutual Fund Planning for your family</li>
+          <li>Child's education, marriage &amp; house corpus via SIP</li>
+          <li>Retirement planning — wealth creation</li>
+          <li>Tax-saving ELSS — Section 80C benefit</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- "All 4 served by us" Trust Strip -->
+    <div class="fa-trust-strip">
+      <div class="fa-trust-icon">🏅</div>
+      <div class="fa-trust-text">
+        <strong>All Four — handled by us, under one roof.</strong>
+        We are <span>POSP-registered Financial Advisors</span> — not insurance agents. With <span>10+ years of experience</span>, we guide you to select the best plan across Health Insurance, Term Insurance, Accident Cover &amp; Mutual Funds.
+      </div>
+    </div>
+
+    <!-- Accident Income CTA -->
+    <div class="accident-cta-wrap">
+      <a href="https://shriramanuj.github.io/Prandhan/IPA.html" target="_blank" class="accident-cta-btn">
+        <span class="accident-cta-icon">🚑</span>
+        <span class="accident-cta-text">
+          <strong>Click Here — Accident Income Plan</strong>
+          <small>Get ₹1 Lac per week as TTD benefit for a ₹1 Crore policy — see how it works</small>
+        </span>
+        <span style="font-size:1.3rem;">›</span>
+      </a>
+    </div>
+
   </div>
 </section>
 
@@ -851,12 +1109,12 @@ footer {
       </div>
 
       <!-- Optima Secure+ -->
-      <div class="plan-card pc-plus featured" data-tags="all young family chronic">
+      <div class="plan-card pc-plus pc-plus-green featured" data-tags="all young family chronic">
         <div class="featured-ribbon">Most Powerful</div>
         <div class="plan-card-eyebrow">HDFC ERGO · Newest Launch</div>
         <div class="plan-card-name">Optima Secure+</div>
         <div class="plan-card-insurer">Premium plan · SI ₹10L to ₹2 Cr</div>
-        <div class="plan-for-badge pfb-red">🔥 For those who want unlimited growth</div>
+        <div class="plan-for-badge pfb-green">🌿 For those who want unlimited growth</div>
         <p class="plan-card-desc">The only health plan in India where your sum insured grows by 100% every single year — forever, with no cap, irrespective of claims. Combine this with Secure Benefit (doubles from Day 1), unlimited Auto Restore, and Protect Benefit — this is the ultimate health plan.</p>
         <div class="plan-highlights">
           <div class="plan-hl">Infinite Benefit: +100% base SI added every year — no ceiling</div>
