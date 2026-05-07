@@ -491,96 +491,182 @@ footer {
 }
 .fa-badge::before { content: '●'; font-size: 0.6rem; color: #6ee7b7; }
 
-/* ── UNCERTAINTY PILLARS SECTION ── */
+/* ══════════════════════════════════
+   FLIP CARD FINANCIAL ADVISORY SECTION
+══════════════════════════════════ */
 .uncertainty-section {
-  background: linear-gradient(135deg, #0D1B2A 0%, #1B2F45 100%);
-  padding: 56px 48px 48px;
+  background: linear-gradient(160deg, #080f1a 0%, #0d1b2a 50%, #0a1628 100%);
+  padding: 72px 48px 64px;
   position: relative; overflow: hidden;
 }
 .uncertainty-section::before {
   content: '';
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(201,150,58,0.07) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(16,185,129,0.06) 0%, transparent 50%);
+    radial-gradient(ellipse at 15% 60%, rgba(201,150,58,0.08) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 20%, rgba(16,185,129,0.07) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 90%, rgba(99,102,241,0.05) 0%, transparent 45%);
   pointer-events: none;
 }
 .uncertainty-inner { max-width: 1300px; margin: 0 auto; position: relative; z-index: 1; }
+
 .uncertainty-eyebrow {
   text-align: center; font-size: 0.72rem; letter-spacing: 4px;
-  text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 10px;
+  text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 12px;
 }
 .uncertainty-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; color: #fff;
-  text-align: center; margin-bottom: 8px; line-height: 1.2;
+  font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; color: #fff;
+  text-align: center; margin-bottom: 10px; line-height: 1.15;
 }
 .uncertainty-title span { color: var(--gold-light); }
 .uncertainty-sub {
-  text-align: center; color: rgba(255,255,255,0.5); font-size: 0.92rem;
-  max-width: 600px; margin: 0 auto 40px;
+  text-align: center; color: rgba(255,255,255,0.45); font-size: 0.95rem;
+  max-width: 580px; margin: 0 auto 16px; line-height: 1.7;
 }
-.uncertainty-grid {
+/* Tap hint */
+.flip-hint {
+  text-align: center; margin-bottom: 44px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.flip-hint-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 99px; padding: 7px 18px;
+  font-size: 0.8rem; color: rgba(255,255,255,0.5); letter-spacing: 0.3px;
+}
+.flip-hint-pill span { font-size: 1rem; }
+
+/* ── FLIP GRID ── */
+.flip-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  perspective: 1200px;
 }
-.pillar-card {
+
+/* ── FLIP CARD WRAPPER ── */
+.fc-wrap {
+  perspective: 1000px;
+  height: 320px;
+  cursor: pointer;
+}
+.fc-wrap:focus { outline: none; }
+
+.fc-inner {
+  position: relative;
+  width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+  border-radius: 50% 50% 50% 50% / 48% 48% 52% 52%;
+}
+.fc-wrap.flipped .fc-inner {
+  transform: rotateY(180deg);
+}
+
+/* Both faces */
+.fc-front, .fc-back {
+  position: absolute; inset: 0;
+  border-radius: 50% 50% 50% 50% / 48% 48% 52% 52%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 28px 22px;
+  overflow: hidden;
+}
+
+/* ── FRONT FACE ── */
+.fc-front {
   background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 18px;
-  padding: 30px 24px 26px;
-  display: flex; flex-direction: column; align-items: flex-start;
-  transition: all 0.3s; position: relative; overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.1);
 }
-.pillar-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  border-radius: 18px 18px 0 0;
+/* Glow ring on hover */
+.fc-wrap:hover .fc-front,
+.fc-wrap.flipped .fc-back {
+  border-color: var(--fc-color, rgba(255,255,255,0.3));
 }
-.pillar-card:hover {
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.2);
-  transform: translateY(-5px);
-  box-shadow: 0 20px 48px rgba(0,0,0,0.35);
+.fc-wrap:hover .fc-front {
+  box-shadow: 0 0 40px var(--fc-glow, rgba(255,255,255,0.08)), 0 0 0 1px var(--fc-color);
 }
-.pillar-hospital::before { background: linear-gradient(90deg,#10b981,#059669); }
-.pillar-life::before    { background: linear-gradient(90deg,#3b82f6,#1d4ed8); }
-.pillar-accident::before { background: linear-gradient(90deg,#f59e0b,#d97706); }
-.pillar-goal::before    { background: linear-gradient(90deg,#a855f7,#7c3aed); }
 
-.pillar-icon { font-size: 2.2rem; margin-bottom: 14px; }
-.pillar-label {
-  font-size: 0.65rem; font-weight: 700; letter-spacing: 2.5px;
-  text-transform: uppercase; margin-bottom: 6px;
-}
-.pillar-hospital .pillar-label { color: #6ee7b7; }
-.pillar-life .pillar-label     { color: #93c5fd; }
-.pillar-accident .pillar-label { color: #fcd34d; }
-.pillar-goal .pillar-label     { color: #d8b4fe; }
-
-.pillar-title {
+.fc-front-number {
+  position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem; font-weight: 700; color: #fff;
-  margin-bottom: 10px; line-height: 1.2;
+  font-size: 4.5rem; font-weight: 700; line-height: 1;
+  color: var(--fc-color, rgba(255,255,255,0.06));
+  opacity: 0.12; pointer-events: none; user-select: none;
 }
-.pillar-solution {
+.fc-emoji { font-size: 3.2rem; margin-bottom: 16px; position: relative; z-index: 1; }
+.fc-question {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem; font-weight: 700; color: #fff;
+  line-height: 1.3; margin-bottom: 12px; position: relative; z-index: 1;
+}
+.fc-fear {
+  font-size: 0.78rem; color: rgba(255,255,255,0.42);
+  line-height: 1.5; position: relative; z-index: 1; margin-bottom: 18px;
+}
+.fc-tap-hint {
   display: inline-flex; align-items: center; gap: 6px;
-  font-size: 0.75rem; font-weight: 700; padding: 5px 13px;
-  border-radius: 99px; margin-bottom: 14px; border: 1px solid;
-  letter-spacing: 0.3px;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; padding: 5px 14px; border-radius: 99px;
+  border: 1px solid var(--fc-color, rgba(255,255,255,0.2));
+  color: var(--fc-color, rgba(255,255,255,0.5));
+  background: rgba(255,255,255,0.04);
+  position: relative; z-index: 1;
+  animation: tapPulse 2.2s ease-in-out infinite;
 }
-.pillar-hospital .pillar-solution { background:rgba(16,185,129,0.12); color:#6ee7b7; border-color:rgba(16,185,129,0.3); }
-.pillar-life .pillar-solution     { background:rgba(59,130,246,0.12); color:#93c5fd; border-color:rgba(59,130,246,0.3); }
-.pillar-accident .pillar-solution { background:rgba(245,158,11,0.12); color:#fcd34d; border-color:rgba(245,158,11,0.3); }
-.pillar-goal .pillar-solution     { background:rgba(168,85,247,0.12); color:#d8b4fe; border-color:rgba(168,85,247,0.3); }
+@keyframes tapPulse {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
 
-.pillar-points { list-style: none; display: flex; flex-direction: column; gap: 7px; flex: 1; }
-.pillar-points li { font-size: 0.8rem; color: rgba(255,255,255,0.55); display: flex; gap: 7px; align-items: flex-start; }
-.pillar-points li::before { content: '›'; flex-shrink: 0; line-height: 1.4; font-size: 0.9rem; }
-.pillar-hospital .pillar-points li::before { color: #6ee7b7; }
-.pillar-life .pillar-points li::before     { color: #93c5fd; }
-.pillar-accident .pillar-points li::before { color: #fcd34d; }
-.pillar-goal .pillar-points li::before     { color: #d8b4fe; }
+/* ── BACK FACE ── */
+.fc-back {
+  transform: rotateY(180deg);
+  background: var(--fc-bg, rgba(255,255,255,0.06));
+  border: 2px solid var(--fc-color, rgba(255,255,255,0.2));
+  box-shadow: 0 0 60px var(--fc-glow, rgba(255,255,255,0.05));
+  justify-content: flex-start;
+  padding: 26px 22px 22px;
+}
+.fc-back-label {
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--fc-color); margin-bottom: 4px;
+  align-self: center;
+}
+.fc-back-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 700; color: #fff;
+  line-height: 1.25; margin-bottom: 14px; text-align: center;
+  align-self: center;
+}
+.fc-back-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.73rem; font-weight: 700; padding: 5px 14px;
+  border-radius: 99px; border: 1px solid var(--fc-color);
+  color: var(--fc-color); background: var(--fc-bg);
+  margin-bottom: 16px; align-self: center;
+}
+.fc-points { list-style: none; width: 100%; display: flex; flex-direction: column; gap: 8px; }
+.fc-points li {
+  font-size: 0.79rem; color: rgba(255,255,255,0.7);
+  display: flex; gap: 8px; align-items: flex-start;
+  text-align: left; line-height: 1.45;
+}
+.fc-points li::before {
+  content: '✓'; flex-shrink: 0; font-size: 0.7rem;
+  color: var(--fc-color); font-weight: 700; margin-top: 1px;
+}
+.fc-points li strong { color: #fff; }
+
+/* ── PER-CARD COLOURS ── */
+.fc-health  { --fc-color:#6ee7b7; --fc-glow:rgba(16,185,129,0.18); --fc-bg:rgba(16,185,129,0.07); }
+.fc-life    { --fc-color:#93c5fd; --fc-glow:rgba(59,130,246,0.18);  --fc-bg:rgba(59,130,246,0.07); }
+.fc-accident{ --fc-color:#fcd34d; --fc-glow:rgba(245,158,11,0.18);  --fc-bg:rgba(245,158,11,0.07); }
+.fc-goal    { --fc-color:#d8b4fe; --fc-glow:rgba(168,85,247,0.18);  --fc-bg:rgba(168,85,247,0.07); }
 
 /* ── ACCIDENT INCOME CTA BUTTON ── */
 @keyframes ctaPulse {
@@ -623,7 +709,7 @@ footer {
   border: 1.5px solid rgba(201,150,58,0.35);
   border-radius: 16px;
   padding: 24px 28px;
-  margin-top: 36px;
+  margin-top: 40px;
 }
 .fa-trust-icon { font-size: 2rem; flex-shrink: 0; margin-top: 2px; }
 .fa-trust-text {
@@ -632,10 +718,18 @@ footer {
 .fa-trust-text strong { color: var(--gold-light); font-size: 1rem; display: block; margin-bottom: 4px; }
 .fa-trust-text span { color: var(--gold-light); font-weight: 700; }
 
-@media(max-width:768px) {
-  .uncertainty-section { padding: 40px 16px 36px; }
-  .uncertainty-grid { grid-template-columns: 1fr; }
-  .accident-cta-btn { padding: 14px 24px; font-size: 0.9rem; }
+@media(max-width:1024px) {
+  .flip-grid { grid-template-columns: repeat(2,1fr); }
+  .fc-wrap { height: 300px; }
+}
+@media(max-width:640px) {
+  .uncertainty-section { padding: 44px 16px 40px; }
+  .flip-grid { grid-template-columns: repeat(2,1fr); gap: 14px; }
+  .fc-wrap { height: 260px; }
+  .fc-emoji { font-size: 2.4rem; }
+  .fc-question { font-size: 1.05rem; }
+  .accident-cta-btn { flex-direction: column; text-align: center; padding: 16px 24px; }
+  .accident-cta-text { align-items: center; }
   .fa-trust-strip { flex-direction: column; gap: 10px; }
 }
 
@@ -950,76 +1044,131 @@ footer {
 ══════════════════════════════════════ -->
 <section class="uncertainty-section">
   <div class="uncertainty-inner">
+
     <div class="uncertainty-eyebrow">Shri Ramanuj Professional · Financial Advisory</div>
-    <h2 class="uncertainty-title">Life has <span>uncertain events.</span><br>We help you handle each — financially.</h2>
-    <p class="uncertainty-sub">Every family faces these four financial risks. We guide you to the right solution for each — not just insurance, but complete financial protection.</p>
+    <h2 class="uncertainty-title">Life has <span>4 financial risks.</span><br>We have a solution for each.</h2>
+    <p class="uncertainty-sub">Every family faces these uncertainties. We are your <strong style="color:var(--gold-light);">Financial Advisors</strong> — not insurance agents — guiding you to the right answer for each.</p>
 
-    <div class="uncertainty-grid">
-
-      <!-- Pillar 1: Hospitalisation -->
-      <div class="pillar-card pillar-hospital">
-        <div class="pillar-icon">🏥</div>
-        <div class="pillar-label">Health Risk</div>
-        <div class="pillar-title">Hospitalisation Expenses</div>
-        <div class="pillar-solution">✓ Mediclaim Policy</div>
-        <ul class="pillar-points">
-          <li>HDFC Ergo — Optima Secure &amp; Optima Secure+</li>
-          <li>Care Health — Care Supreme</li>
-          <li>Cashless across 10,000+ network hospitals</li>
-          <li>Sum Insured grows every year — no cap</li>
-        </ul>
+    <div class="flip-hint">
+      <div class="flip-hint-pill">
+        <span>👆</span> Tap any card to see the solution
       </div>
-
-      <!-- Pillar 2: Life Risk -->
-      <div class="pillar-card pillar-life">
-        <div class="pillar-icon">🛡️</div>
-        <div class="pillar-label">Life Risk</div>
-        <div class="pillar-title">Life &amp; Death Protection</div>
-        <div class="pillar-solution">✓ Term Insurance</div>
-        <ul class="pillar-points">
-          <li>We recommend Term Insurance with <strong style="color:#93c5fd;">ICICI Prudential Life Insurance</strong></li>
-          <li>Highest sum assured at lowest premium</li>
-          <li>Family's financial security — income replaced</li>
-          <li>Critical illness &amp; disability riders available</li>
-        </ul>
-      </div>
-
-      <!-- Pillar 3: Accident + Income Loss -->
-      <div class="pillar-card pillar-accident">
-        <div class="pillar-icon">🚑</div>
-        <div class="pillar-label">Accident Risk · Income Loss</div>
-        <div class="pillar-title">Accidents &amp; Income Loss</div>
-        <div class="pillar-solution">✓ Accident Income Plan</div>
-        <ul class="pillar-points">
-          <li><strong style="color:#fcd34d;">Get ₹1 Lac per week as TTD benefit</strong> for a ₹1 Crore policy</li>
-          <li>Income flows even while you are on bed rest</li>
-          <li>Available from HDFC Ergo &amp; Care Insurance</li>
-          <li>Permanent disability &amp; accidental death covered</li>
-        </ul>
-      </div>
-
-      <!-- Pillar 4: Financial Goals -->
-      <div class="pillar-card pillar-goal">
-        <div class="pillar-icon">🎯</div>
-        <div class="pillar-label">Financial Goals</div>
-        <div class="pillar-title">Future Goals Planning</div>
-        <div class="pillar-solution">✓ Mutual Fund Planning</div>
-        <ul class="pillar-points">
-          <li>We do complete Mutual Fund Planning for your family</li>
-          <li>Child's education, marriage &amp; house corpus via SIP</li>
-          <li>Retirement planning — wealth creation</li>
-          <li>Tax-saving ELSS — Section 80C benefit</li>
-        </ul>
-      </div>
-
     </div>
 
-    <!-- "All 4 served by us" Trust Strip -->
+    <div class="flip-grid">
+
+      <!-- CARD 1: Health -->
+      <div class="fc-wrap fc-health" tabindex="0" onclick="this.classList.toggle('flipped')" onkeypress="if(event.key==='Enter')this.classList.toggle('flipped')">
+        <div class="fc-inner">
+          <!-- FRONT -->
+          <div class="fc-front">
+            <div class="fc-front-number">1</div>
+            <div class="fc-emoji">🏥</div>
+            <div class="fc-question">What if I am hospitalised tomorrow?</div>
+            <div class="fc-fear">Medical bills can wipe out years of savings in a single day</div>
+            <div class="fc-tap-hint"><span>👆</span> See Solution</div>
+          </div>
+          <!-- BACK -->
+          <div class="fc-back">
+            <div class="fc-back-label">Health Risk · Solution</div>
+            <div class="fc-back-title">Mediclaim Policy</div>
+            <div class="fc-back-badge">✓ We handle this for you</div>
+            <ul class="fc-points">
+              <li><strong>HDFC Ergo</strong> — Optima Secure &amp; Optima Secure+</li>
+              <li><strong>Care Health</strong> — Care Supreme</li>
+              <li>Cashless at 10,000+ network hospitals</li>
+              <li>Sum insured grows every year — no cap</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: Life -->
+      <div class="fc-wrap fc-life" tabindex="0" onclick="this.classList.toggle('flipped')" onkeypress="if(event.key==='Enter')this.classList.toggle('flipped')">
+        <div class="fc-inner">
+          <!-- FRONT -->
+          <div class="fc-front">
+            <div class="fc-front-number">2</div>
+            <div class="fc-emoji">🛡️</div>
+            <div class="fc-question">What if something happens to me?</div>
+            <div class="fc-fear">Who will protect my family's income if I am not there?</div>
+            <div class="fc-tap-hint"><span>👆</span> See Solution</div>
+          </div>
+          <!-- BACK -->
+          <div class="fc-back">
+            <div class="fc-back-label">Life Risk · Solution</div>
+            <div class="fc-back-title">Term Insurance</div>
+            <div class="fc-back-badge">✓ We handle this for you</div>
+            <ul class="fc-points">
+              <li>We recommend <strong>ICICI Prudential Life Insurance</strong></li>
+              <li>Highest sum assured at lowest premium</li>
+              <li>Family's income fully protected</li>
+              <li>Critical illness &amp; disability riders available</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3: Accident -->
+      <div class="fc-wrap fc-accident" tabindex="0" onclick="this.classList.toggle('flipped')" onkeypress="if(event.key==='Enter')this.classList.toggle('flipped')">
+        <div class="fc-inner">
+          <!-- FRONT -->
+          <div class="fc-front">
+            <div class="fc-front-number">3</div>
+            <div class="fc-emoji">🚑</div>
+            <div class="fc-question">What if I meet with an accident?</div>
+            <div class="fc-fear">Months on bed rest — no income, bills still coming in</div>
+            <div class="fc-tap-hint"><span>👆</span> See Solution</div>
+          </div>
+          <!-- BACK -->
+          <div class="fc-back">
+            <div class="fc-back-label">Accident Risk · Solution</div>
+            <div class="fc-back-title">Accident Income Plan</div>
+            <div class="fc-back-badge">✓ We handle this for you</div>
+            <ul class="fc-points">
+              <li><strong>₹1 Lac per week</strong> as TTD benefit for ₹1 Cr policy</li>
+              <li>Income flows even while on bed rest</li>
+              <li>From <strong>HDFC Ergo &amp; Care Insurance</strong></li>
+              <li>Permanent disability &amp; death also covered</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4: Goals -->
+      <div class="fc-wrap fc-goal" tabindex="0" onclick="this.classList.toggle('flipped')" onkeypress="if(event.key==='Enter')this.classList.toggle('flipped')">
+        <div class="fc-inner">
+          <!-- FRONT -->
+          <div class="fc-front">
+            <div class="fc-front-number">4</div>
+            <div class="fc-emoji">🎯</div>
+            <div class="fc-question">How will I achieve my life goals?</div>
+            <div class="fc-fear">Education, marriage, house, retirement — where does the money come from?</div>
+            <div class="fc-tap-hint"><span>👆</span> See Solution</div>
+          </div>
+          <!-- BACK -->
+          <div class="fc-back">
+            <div class="fc-back-label">Financial Goals · Solution</div>
+            <div class="fc-back-title">Mutual Fund Planning</div>
+            <div class="fc-back-badge">✓ We handle this for you</div>
+            <ul class="fc-points">
+              <li>We do complete <strong>Mutual Fund Planning</strong> for you</li>
+              <li>Education, marriage &amp; house corpus via SIP</li>
+              <li>Retirement wealth creation</li>
+              <li>Tax-saving ELSS — Section 80C benefit</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /flip-grid -->
+
+    <!-- Trust Strip -->
     <div class="fa-trust-strip">
       <div class="fa-trust-icon">🏅</div>
       <div class="fa-trust-text">
         <strong>All Four — handled by us, under one roof.</strong>
-        We are <span>POSP-registered Financial Advisors</span> — not insurance agents. With <span>10+ years of experience</span>, we guide you to select the best plan across Health Insurance, Term Insurance, Accident Cover &amp; Mutual Funds.
+        We are <span>POSP-registered Financial Advisors</span> — not insurance agents. With <span>more than 10 years of experience</span>, we guide you to select the best plan across Health Insurance, Term Insurance, Accident Income Cover &amp; Mutual Fund Planning.
       </div>
     </div>
 
