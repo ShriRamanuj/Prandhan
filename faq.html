@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>मेडिकल पॉलिसी – सही निर्णय, सही समय | Shri Ramanuj Professional</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Hind:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #112240;
+    --navy-light: #1a3358;
+    --gold: #c9a84c;
+    --gold-light: #e8c96d;
+    --gold-pale: #f5e6b8;
+    --white: #f8f6f0;
+    --text-light: #cdd6e8;
+    --accent-green: #2ecc71;
+    --accent-red: #e74c3c;
+    --accent-amber: #f39c12;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Hind', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #0d1f3c 100%);
+    border-bottom: 2px solid var(--gold);
+    padding: 28px 40px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  }
+  .brand { display: flex; flex-direction: column; }
+  .brand-main {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--gold-light);
+    letter-spacing: 1px;
+  }
+  .brand-sub {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .header-badge {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--navy);
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(160deg, var(--navy-mid) 0%, var(--navy) 100%);
+    padding: 70px 40px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 5px 18px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    animation: fadeInDown 0.8s ease both;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    color: var(--gold-light);
+    line-height: 1.25;
+    margin-bottom: 18px;
+    animation: fadeInDown 0.9s ease 0.1s both;
+  }
+  .hero h1 span { color: var(--white); }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    max-width: 680px;
+    margin: 0 auto 30px;
+    animation: fadeInDown 1s ease 0.2s both;
+  }
+  .hero-divider {
+    width: 80px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto;
+    animation: fadeInDown 1s ease 0.3s both;
+  }
+
+  /* ── MAIN WRAPPER ── */
+  .main { max-width: 900px; margin: 0 auto; padding: 50px 24px 80px; }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 18px;
+  }
+  .section-title::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 6px;
+    width: 4px; height: 60%;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+  .section-desc {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin-bottom: 32px;
+    padding-left: 18px;
+  }
+
+  /* ── MYTH BUST CARD ── */
+  .myth-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(201,168,76,0.3);
+    margin-bottom: 40px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+  }
+  .myth-side {
+    padding: 30px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .myth-side.wrong { background: rgba(231,76,60,0.08); border-right: 1px solid rgba(201,168,76,0.15); }
+  .myth-side.right { background: rgba(46,204,113,0.07); }
+  .myth-label {
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .myth-label.wrong-lbl { color: var(--accent-red); }
+  .myth-label.right-lbl { color: var(--accent-green); }
+  .myth-label::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%;
+    background: currentColor;
+  }
+  .myth-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--white);
+    line-height: 1.4;
+  }
+  .myth-body { font-size: 0.92rem; color: var(--text-light); line-height: 1.6; }
+
+  /* ── COMPARISON CARDS (1yr vs 5yr) ── */
+  .plan-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .plan-card {
+    border-radius: 16px;
+    padding: 28px 24px;
+    border: 1px solid rgba(201,168,76,0.2);
+    background: var(--navy-mid);
+    position: relative;
+    overflow: hidden;
+  }
+  .plan-card.recommended {
+    border-color: var(--gold);
+    background: linear-gradient(160deg, var(--navy-mid) 0%, rgba(201,168,76,0.06) 100%);
+  }
+  .plan-card.recommended::before {
+    content: '⭐ सबसे अच्छा विकल्प';
+    position: absolute;
+    top: 16px; right: -24px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--navy);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 5px 36px;
+    transform: rotate(35deg);
+  }
+  .plan-term {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--gold-light);
+    margin-bottom: 6px;
+  }
+  .plan-subtitle { font-size: 0.82rem; color: var(--text-light); margin-bottom: 20px; }
+  .plan-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.88rem;
+    gap: 12px;
+  }
+  .plan-row:last-child { border-bottom: none; }
+  .plan-row-label { color: var(--text-light); flex: 1; }
+  .plan-row-val { color: var(--white); font-weight: 600; text-align: right; }
+  .plan-row-val.gold { color: var(--gold-light); }
+  .plan-row-val.green { color: var(--accent-green); }
+  .plan-row-val.red { color: var(--accent-red); }
+
+  /* ── DISCOUNT TABLE ── */
+  .discount-table-wrap {
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(201,168,76,0.25);
+    margin-bottom: 40px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+  }
+  .discount-table-head {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    color: var(--navy);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.5px;
+    padding: 0;
+  }
+  .discount-table-head div,
+  .discount-table-row div {
+    padding: 14px 12px;
+    text-align: center;
+    border-right: 1px solid rgba(0,0,0,0.1);
+  }
+  .discount-table-head div:last-child,
+  .discount-table-row div:last-child { border-right: none; }
+  .discount-table-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.88rem;
+  }
+  .discount-table-row:last-child { border-bottom: none; }
+  .discount-table-row:nth-child(odd) { background: rgba(255,255,255,0.03); }
+  .discount-table-row div { border-right: 1px solid rgba(255,255,255,0.05); }
+  .discount-table-row.highlight { background: rgba(201,168,76,0.08); }
+  .yr-label { font-weight: 600; color: var(--gold-light); }
+  .green-val { color: var(--accent-green); font-weight: 600; }
+  .red-val { color: var(--accent-red); }
+
+  /* ── SUMMARY BOX ── */
+  .summary-box {
+    background: linear-gradient(135deg, rgba(201,168,76,0.12) 0%, rgba(201,168,76,0.04) 100%);
+    border: 1px solid var(--gold);
+    border-radius: 14px;
+    padding: 26px 28px;
+    margin-bottom: 40px;
+  }
+  .summary-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--gold-light);
+    margin-bottom: 14px;
+  }
+  .summary-points { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .summary-points li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.92rem; color: var(--text-light);
+  }
+  .summary-points li::before {
+    content: '✦';
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .summary-points li strong { color: var(--white); }
+
+  /* ── FAQ ── */
+  .faq-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 50px; }
+  .faq-item {
+    border-radius: 12px;
+    border: 1px solid rgba(201,168,76,0.18);
+    overflow: hidden;
+    background: var(--navy-mid);
+    transition: border-color 0.3s;
+  }
+  .faq-item:hover { border-color: rgba(201,168,76,0.45); }
+  .faq-q {
+    padding: 18px 22px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    user-select: none;
+  }
+  .faq-q-text {
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: var(--gold-pale);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .faq-q-text .q-icon {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--navy);
+    font-size: 0.72rem;
+    font-weight: 800;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .faq-arrow {
+    color: var(--gold);
+    font-size: 1.1rem;
+    transition: transform 0.35s ease;
+    flex-shrink: 0;
+  }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+    padding: 0 22px;
+  }
+  .faq-item.open .faq-a { max-height: 600px; padding: 0 22px 20px; }
+  .faq-a-inner {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.75;
+    border-top: 1px solid rgba(201,168,76,0.12);
+    padding-top: 16px;
+  }
+  .faq-a-inner strong { color: var(--white); }
+  .faq-a-inner .highlight-line {
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-top: 10px;
+    display: block;
+  }
+  .faq-a-inner ul { margin: 10px 0 0 18px; }
+  .faq-a-inner ul li { margin-bottom: 6px; }
+
+  /* ── CLOSING CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--navy-mid) 0%, rgba(201,168,76,0.08) 100%);
+    border: 1px solid var(--gold);
+    border-radius: 20px;
+    padding: 40px 36px;
+    text-align: center;
+  }
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    color: var(--gold-light);
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+  .cta-section p { color: var(--text-light); font-size: 0.95rem; max-width: 560px; margin: 0 auto 28px; }
+  .cta-contacts { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+  .cta-contact {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 12px;
+    padding: 16px 24px;
+    text-align: left;
+    min-width: 200px;
+  }
+  .cta-contact-name { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .cta-contact-num { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--white); }
+  .cta-contact-role { font-size: 0.78rem; color: var(--text-light); margin-top: 2px; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--navy);
+    border-top: 1px solid rgba(201,168,76,0.2);
+    padding: 22px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: rgba(205,214,232,0.5);
+  }
+  .footer-brand { color: var(--gold); font-weight: 600; }
+
+  /* ── 3-CARD PLAN GRID ── */
+  .plan-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .plan-card.mid {
+    border-color: rgba(243,156,18,0.4);
+    background: linear-gradient(160deg, var(--navy-mid) 0%, rgba(243,156,18,0.05) 100%);
+  }
+  .plan-badge-none { height: 0; }
+
+  /* ── TABS ── */
+  .tab-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.25);
+    color: var(--text-light);
+    padding: 9px 22px;
+    border-radius: 30px;
+    font-family: 'Hind', sans-serif;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .tab-btn.active {
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--navy);
+    border-color: var(--gold);
+    font-weight: 700;
+  }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ── 7-COL TABLE ── */
+  .dth-7, .dtr-7 {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    font-size: 0.8rem;
+  }
+  .dth-7 {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    color: var(--navy);
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+  .dth-7.dth-sub {
+    background: rgba(201,168,76,0.15);
+    color: var(--gold-light);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .dth-7 div, .dtr-7 div {
+    padding: 11px 9px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+  .dth-7 div { border-right-color: rgba(0,0,0,0.12); }
+  .dth-7 div:last-child, .dtr-7 div:last-child { border-right: none; }
+  .dtr-7 { border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .dtr-7.alt { background: rgba(255,255,255,0.03); }
+  .dtr-7.total-row {
+    background: rgba(201,168,76,0.07);
+    font-weight: 700;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+
+  /* ── 4-COL TABLE ── */
+  .dth-4, .dtr-4 {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr 1fr 1.1fr;
+    font-size: 0.85rem;
+  }
+  .dth-4 {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    color: var(--navy);
+    font-weight: 700;
+  }
+  .dth-4 div, .dtr-4 div {
+    padding: 13px 12px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+  .dth-4 div { border-right-color: rgba(0,0,0,0.12); }
+  .dth-4 div:last-child, .dtr-4 div:last-child { border-right: none; }
+  .dtr-4 { border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .dtr-4.highlight { background: rgba(255,255,255,0.03); }
+  .dtr-4.total-row {
+    background: rgba(201,168,76,0.07);
+    font-weight: 700;
+    border-top: 1px solid rgba(201,168,76,0.2);
+  }
+
+  /* ── COLOUR VALUES ── */
+  .amber-val { color: var(--accent-amber); font-weight: 600; }
+  .gold-val  { color: var(--gold-light);   font-weight: 700; }
+  .table-note {
+    font-size: 0.76rem;
+    color: rgba(205,214,232,0.45);
+    margin-top: 10px;
+    padding-left: 4px;
+    line-height: 1.6;
+  }
+
+  /* ── RESPONSIVE additions ── */
+  @media (max-width: 720px) {
+    .plan-grid-3 { grid-template-columns: 1fr; }
+    .dth-7, .dtr-7 {
+      grid-template-columns: 1.4fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr;
+      font-size: 0.68rem;
+    }
+    .dth-4, .dtr-4 { font-size: 0.78rem; }
+  }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    .hero h1 { font-size: 1.9rem; }
+    .myth-card { grid-template-columns: 1fr; }
+    .myth-side.wrong { border-right: none; border-bottom: 1px solid rgba(201,168,76,0.15); }
+    .plan-grid { grid-template-columns: 1fr; }
+    .discount-table-head, .discount-table-row {
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+      font-size: 0.75rem;
+    }
+    .header { flex-direction: column; gap: 12px; text-align: center; }
+    .cta-contacts { flex-direction: column; align-items: center; }
+    .footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="brand">
+    <div class="brand-main">Shri Ramanuj Professional</div>
+    <div class="brand-sub">Jai Shrimannarayan • Ichalkaranji</div>
+  </div>
+  <div class="header-badge">Client Guide 2025</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">मेडिकल पॉलिसी – सम्पूर्ण मार्गदर्शन</div>
+  <h1>सही निर्णय, <span>सही समय</span></h1>
+  <p class="hero-sub">मेडिकल पॉलिसी क्यों लें, कब लें और कितने साल के लिए लें — हर सवाल का जवाब, सरल हिंदी में।</p>
+  <div class="hero-divider"></div>
+</section>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- SECTION 1: WHY POLICY -->
+  <div class="section-title">🛡️ मेडिकल पॉलिसी क्यों लें?</div>
+  <p class="section-desc">यह सवाल हर किसी के मन में आता है — और इसका जवाब जानना बहुत जरूरी है।</p>
+
+  <!-- Myth vs Reality -->
+  <div class="myth-card">
+    <div class="myth-side wrong">
+      <div class="myth-label wrong-lbl">🤔 अक्सर यह विचार आता है</div>
+      <div class="myth-heading">"पॉलिसी लेने से क्या बीमारी आ जाएगी? अभी तो सब ठीक है।"</div>
+      <div class="myth-body">
+        यह विचार बहुत स्वाभाविक है। हम सोचते हैं — अगर कभी जरूरत पड़ी तो नजदीक के हॉस्पिटल में इलाज करवा लेंगे, उस समय देख लेंगे।
+        <br><br>
+        👉 पर ज़रा सोचिए — उस समय इलाज का निर्णय <u>पैसों की उपलब्धता</u> के आधार पर होगा, न कि अपनी मर्जी से।
+      </div>
+    </div>
+    <div class="myth-side right">
+      <div class="myth-label right-lbl">💡 एक बेहतर नज़रिया</div>
+      <div class="myth-heading">"पॉलिसी इसलिए है कि जब जरूरत पड़े, हम तैयार रहें — अपनी शर्तों पर।"</div>
+      <div class="myth-body">
+        जब पॉलिसी होती है, तो बीमारी आने पर हम <strong>सबसे अच्छे hospital</strong> में, <strong>सबसे अच्छे doctor</strong> से इलाज करवा सकते हैं — बिना पैसों की चिंता के।
+        <br><br>
+        👉 इलाज का निर्णय <u>quality और आराम के आधार पर</u> होता है — और मन में एक सुकून रहता है।
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: 1yr vs 3yr vs 5yr -->
+  <div class="section-title">📅 कितने साल की पॉलिसी लें?</div>
+  <p class="section-desc">HDFC Ergo Optima Secure+ में 1, 3 या 5 साल — तीनों विकल्प उपलब्ध हैं। नीचे तुलना देखें और समझें कि कौन सा आपके लिए सबसे उपयुक्त है।</p>
+
+  <!-- 3-card grid -->
+  <div class="plan-grid-3">
+    <!-- 1 YEAR -->
+    <div class="plan-card">
+      <div class="plan-badge-none"></div>
+      <div class="plan-term">1 वर्ष</div>
+      <div class="plan-subtitle">हर साल नवीनीकरण</div>
+      <div class="plan-row"><div class="plan-row-label">No-Claim Discount (मिलता कब?)</div><div class="plan-row-val red">अगले साल — एक-एक कर</div></div>
+      <div class="plan-row"><div class="plan-row-label">Upfront Discount (8%)</div><div class="plan-row-val red">❌ नहीं मिलता</div></div>
+      <div class="plan-row"><div class="plan-row-label">Family Discount (10%)</div><div class="plan-row-val red">❌ लागू नहीं</div></div>
+      <div class="plan-row"><div class="plan-row-label">Premium Inflation से सुरक्षा</div><div class="plan-row-val red">❌ हर 2-3 साल बढ़ सकता है</div></div>
+      <div class="plan-row"><div class="plan-row-label">कुल No-Claim Discount (1 साल में)</div><div class="plan-row-val amber">21% (केवल वर्ष 1 का)</div></div>
+      <div class="plan-row"><div class="plan-row-label">निष्कर्ष</div><div class="plan-row-val red">सबसे कम बचत</div></div>
+    </div>
+
+    <!-- 3 YEAR -->
+    <div class="plan-card mid">
+      <div class="plan-term">3 वर्ष</div>
+      <div class="plan-subtitle">बीच का रास्ता</div>
+      <div class="plan-row"><div class="plan-row-label">No-Claim Discount (मिलता कब?)</div><div class="plan-row-val amber">21%+18%+10% — आज ही एकमुश्त</div></div>
+      <div class="plan-row"><div class="plan-row-label">Upfront Discount (8%)</div><div class="plan-row-val green">✅ 8% अतिरिक्त</div></div>
+      <div class="plan-row"><div class="plan-row-label">Family Discount (10%)</div><div class="plan-row-val green">✅ 3 साल तक</div></div>
+      <div class="plan-row"><div class="plan-row-label">Premium Inflation से सुरक्षा</div><div class="plan-row-val green">✅ 3 साल lock-in</div></div>
+      <div class="plan-row"><div class="plan-row-label">कुल No-Claim Discount (3 साल में)</div><div class="plan-row-val amber">49% (21+18+10)</div></div>
+      <div class="plan-row"><div class="plan-row-label">निष्कर्ष</div><div class="plan-row-val amber">👍 अच्छी बचत</div></div>
+    </div>
+
+    <!-- 5 YEAR -->
+    <div class="plan-card recommended">
+      <div class="plan-term">5 वर्ष</div>
+      <div class="plan-subtitle">सबसे समझदार विकल्प</div>
+      <div class="plan-row"><div class="plan-row-label">No-Claim Discount (मिलता कब?)</div><div class="plan-row-val green">21+18+10+5+5% — आज ही एकमुश्त!</div></div>
+      <div class="plan-row"><div class="plan-row-label">Upfront Discount (8%)</div><div class="plan-row-val green">✅ 8% अतिरिक्त</div></div>
+      <div class="plan-row"><div class="plan-row-label">Family Discount (10%)</div><div class="plan-row-val green">✅ 5 साल तक</div></div>
+      <div class="plan-row"><div class="plan-row-label">Premium Inflation से सुरक्षा</div><div class="plan-row-val green">✅ 5 साल lock-in</div></div>
+      <div class="plan-row"><div class="plan-row-label">कुल No-Claim Discount (5 साल में)</div><div class="plan-row-val gold">59% (21+18+10+5+5)</div></div>
+      <div class="plan-row"><div class="plan-row-label">निष्कर्ष</div><div class="plan-row-val gold">🏆 सबसे ज्यादा बचत</div></div>
+    </div>
+  </div>
+
+  <!-- YEAR-WISE COMPARISON TABLE -->
+  <div class="section-title">💰 Optima Secure+ – वर्षवार Discount तुलना</div>
+  <p class="section-desc">तीनों विकल्पों में हर साल कितना No-Claim Discount मिलता है — एक नज़र में देखें।</p>
+
+  <!-- Tab selector -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('ncd')">No-Claim Discount</button>
+    <button class="tab-btn" onclick="showTab('total')">कुल बचत (सभी Discounts)</button>
+  </div>
+
+  <!-- TAB 1: No-Claim Discount only -->
+  <div id="tab-ncd" class="tab-content active">
+    <div class="discount-table-wrap">
+      <div class="dth-7"><div>वर्ष</div><div>1 वर्ष पॉलिसी</div><div></div><div>3 वर्ष पॉलिसी</div><div></div><div>5 वर्ष पॉलिसी</div><div></div></div>
+      <div class="dth-7 dth-sub"><div></div><div>No-Claim %</div><div>संचित कुल</div><div>No-Claim %</div><div>संचित कुल</div><div>No-Claim %</div><div>संचित कुल</div></div>
+      <div class="dtr-7"><div class="yr-label">वर्ष 1</div><div class="amber-val">21%</div><div class="amber-val">21%</div><div class="green-val">21%</div><div class="green-val">21%</div><div class="green-val">21%</div><div class="green-val">21%</div></div>
+      <div class="dtr-7 alt"><div class="yr-label">वर्ष 2</div><div class="amber-val">18%*</div><div class="amber-val">39%</div><div class="green-val">18%</div><div class="green-val">39%</div><div class="green-val">18%</div><div class="green-val">39%</div></div>
+      <div class="dtr-7"><div class="yr-label">वर्ष 3</div><div class="amber-val">10%*</div><div class="amber-val">49%</div><div class="green-val">10%</div><div class="green-val">49%</div><div class="green-val">10%</div><div class="green-val">49%</div></div>
+      <div class="dtr-7 alt"><div class="yr-label">वर्ष 4</div><div class="red-val">5%*</div><div class="red-val">54%</div><div class="amber-val">—</div><div class="amber-val">नई policy</div><div class="green-val">5%</div><div class="green-val">54%</div></div>
+      <div class="dtr-7"><div class="yr-label">वर्ष 5</div><div class="red-val">5%*</div><div class="red-val">59%</div><div class="amber-val">—</div><div class="amber-val">नई policy</div><div class="green-val">5%</div><div class="green-val">59%</div></div>
+      <div class="dtr-7 total-row"><div class="yr-label" style="color:var(--gold-light);">5 साल में कुल</div><div class="red-val">59%</div><div class="red-val">⚠️ बाद में</div><div class="amber-val">49%</div><div class="amber-val">+ नई policy</div><div class="gold-val">59%</div><div class="gold-val">✅ आज ही</div></div>
+    </div>
+    <p class="table-note">* 1 वर्ष की पॉलिसी में यह discount अगले वर्ष की renewal पर मिलता है — आज नहीं। 3 व 5 वर्ष की पॉलिसी में यही discount <strong>पहले दिन ही</strong> मिल जाता है।</p>
+  </div>
+
+  <!-- TAB 2: Total discounts combined -->
+  <div id="tab-total" class="tab-content">
+    <div class="discount-table-wrap">
+      <div class="dth-4"><div>Discount का प्रकार</div><div>1 वर्ष</div><div>3 वर्ष</div><div>5 वर्ष ⭐</div></div>
+      <div class="dtr-4 highlight"><div class="yr-label">No-Claim Discount (संचित)</div><div class="amber-val">21% (वर्ष 1 केवल)</div><div class="amber-val">49% (3 साल में)</div><div class="green-val">59% (5 साल में)</div></div>
+      <div class="dtr-4"><div class="yr-label">Upfront Discount (8%)</div><div class="red-val">❌ नहीं</div><div class="green-val">✅ 8%</div><div class="green-val">✅ 8%</div></div>
+      <div class="dtr-4 highlight"><div class="yr-label">Family Discount (10%)*</div><div class="red-val">❌ नहीं</div><div class="green-val">✅ 10% × 3 साल</div><div class="green-val">✅ 10% × 5 साल</div></div>
+      <div class="dtr-4"><div class="yr-label">Premium Inflation Lock</div><div class="red-val">❌ हर साल खतरा</div><div class="amber-val">3 साल सुरक्षित</div><div class="green-val">5 साल सुरक्षित</div></div>
+      <div class="dtr-4 total-row"><div class="yr-label" style="color:var(--gold-light);">कुल अनुमानित लाभ</div><div class="red-val">सबसे कम</div><div class="amber-val">अच्छा</div><div class="gold-val">🏆 सर्वश्रेष्ठ</div></div>
+    </div>
+    <p class="table-note">* Family Discount: बच्चा 23-24 वर्ष का हो तो 5 साल की policy में 10% discount पूरे 5 साल मिलता है। 25 के बाद बच्चे की अलग policy बनेगी।</p>
+  </div>
+
+  <!-- KEY INSIGHT BOX -->
+  <div class="summary-box">
+    <h3>🔑 मुख्य बात — जो सबसे ज़्यादा मायने रखती है</h3>
+    <ul class="summary-points">
+      <li><strong>Discount आज ही मिलता है:</strong> 3 या 5 साल की पॉलिसी में भविष्य के सारे No-Claim Discounts पहले दिन ही premium में घटा दिए जाते हैं। 1 साल की policy में यही discounts एक-एक साल करके मिलते हैं।</li>
+      <li><strong>Inflation से 5 साल की सुरक्षा:</strong> हर 2-3 साल में hospital का खर्च और premium बढ़ता है। 5 साल की policy में यह rate 5 साल तक lock रहती है — कोई बढ़ोतरी नहीं।</li>
+      <li><strong>3 साल vs 5 साल:</strong> अगर बच्चा 23-24 साल का है और 25 के बाद अलग policy लेनी होगी — तो 5 साल की family policy में 2 अतिरिक्त साल का 10% family discount और 5%+5% No-Claim Discount मिलता है।</li>
+      <li><strong>8% Upfront Discount:</strong> 3 और 5 दोनों में मिलता है — यह अलग से, No-Claim Discount के ऊपर मिलता है।</li>
+    </ul>
+  </div>
+
+  <!-- *small note -->
+  <p class="table-note" style="margin-bottom:40px;">* सभी discount figures HDFC Ergo Optima Secure+ के अनुसार हैं। Family Discount applicable conditions as per underwriting guidelines. Premium figures हेतु कृपया हमसे सम्पर्क करें।</p>
+
+  <!-- SECTION 3: FAQ -->
+  <div class="section-title">❓ अक्सर पूछे जाने वाले सवाल</div>
+  <p class="section-desc">वो सवाल जो हर client के मन में आते हैं — सरल और सीधे जवाब के साथ।</p>
+
+  <div class="faq-list" id="faqList">
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-q-text"><span class="q-icon">Q</span>पॉलिसी में अगर claim न आए तो क्या पैसा बर्बाद हो गया?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        जी, यह सवाल बहुत स्वाभाविक है और हर कोई यही सोचता है। 🙏 असल में, claim न आना पैसे बर्बाद होना नहीं है — बल्कि यह तो सबसे बड़ी खुशी की बात है कि आप और आपका पूरा परिवार स्वस्थ रहे।
+        <br><br>
+        ज़रा इस उदाहरण से सोचिए — घर में <strong>अग्निशामक यंत्र (Fire Extinguisher)</strong> रखते हैं न? अगर कभी आग न लगे, तो क्या वो बेकार है? नहीं — वो हमारी सुरक्षा और शांति की निशानी है। ठीक उसी तरह मेडिकल पॉलिसी हमारे और हमारे परिवार की सुरक्षा है।
+        <br><br>
+        और एक बहुत अच्छी बात — Optima Secure+ में <strong>Plus Bonus</strong> की सुविधा है। हर claim-free साल पर Sum Insured का 50% अतिरिक्त जुड़ता जाता है (अधिकतम 100% तक)। यानी जितने साल स्वस्थ रहें, पॉलिसी उतनी और मज़बूत होती जाती है — बिना कोई अतिरिक्त खर्चे के।
+        <span class="highlight-line">✦ Claim न आए = ज़्यादा Coverage + मन की शांति — दोनों तरफ से लाभ</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-q-text"><span class="q-icon">Q</span>क्या पूरे भारत में इलाज हो सकता है?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        जी हाँ, बिल्कुल। यह एक बहुत महत्वपूर्ण और राहत देने वाली सुविधा है। HDFC Ergo के network में पूरे भारत में <strong>13,000 से अधिक अस्पताल</strong> हैं — चाहे आप मुंबई में हों, दिल्ली में हों, बेंगलुरु में हों, पुणे में हों, या किसी भी शहर में — Cashless treatment की सुविधा उपलब्ध है।
+        <ul>
+          <li>किसी भी network hospital में — Cashless Treatment, बिना cash की कोई चिंता नहीं</li>
+          <li>Network के बाहर के hospital में भी — Reimbursement की सुविधा उपलब्ध</li>
+          <li>Room category या hospital type का कोई restriction नहीं (Optima Secure+ में)</li>
+        </ul>
+        <span class="highlight-line">✦ भारत में कहीं भी — सबसे अच्छा इलाज, बिना किसी रुकावट के</span>
+      </div></div>
+        यानी परिवार का कोई सदस्य बाहर हो और अचानक तबियत खराब हो जाए — तो भी आप निश्चिंत रह सकते हैं।
+        <span class="highlight-line">✦ पूरे भारत में — जहाँ भी जाएं, coverage साथ जाती है</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-q-text"><span class="q-icon">Q</span>Hospital में भर्ती होने से पहले का खर्च (Pre-Hospitalization) कवर होता है?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <strong>हाँ।</strong> Admission से <strong>60 दिन पहले</strong> का — डॉक्टर consultation, tests, medicines — सब cover होता है।
+        <br><br>
+        उदाहरण: अगर आपको operation की जरूरत पड़ी और पहले 2 महीने diagnostics/tests हुए — वो सारा खर्च पॉलिसी में cover होगा।
+        <span class="highlight-line">✦ भर्ती होने से 60 दिन पहले तक — सब कवर</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-q-text"><span class="q-icon">Q</span>Discharge के बाद का खर्च (Post-Hospitalization) भी मिलता है?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <strong>हाँ।</strong> Discharge के बाद <strong>180 दिन तक</strong> — follow-up, medicines, physiotherapy — सब cover होता है।
+        <br><br>
+        इलाज सिर्फ hospital में नहीं होता — असली recovery घर पर होती है। यही 180 दिन का post-hospitalization cover आपकी recovery को financially secure करता है।
+        <span class="highlight-line">✦ Discharge के 180 दिन बाद तक — recovery का खर्च cover</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-q-text"><span class="q-icon">Q</span>Cashless में हमें पैसे देने पड़ते हैं या नहीं?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Network hospital में <strong>Cashless का मतलब — आप सीधे भर्ती होते हो, insurance company hospital को pay करती है।</strong> आपको cash arrange नहीं करना।
+        <br><br>
+        बस एक काम करना है — <strong>Cashless Pre-Intimation:</strong> भर्ती होने से <strong>48 घंटे पहले</strong> (planned surgery) या <strong>24 घंटे के अंदर</strong> (emergency) HDFC Ergo को inform करना। यह process बहुत simple है, हम आपकी मदद करते हैं।
+        <span class="highlight-line">✦ आप बीमार पड़ो — हम बात करेंगे, आप इलाज करवाओ</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-q-text"><span class="q-icon">Q</span>अगर एक साल में बड़ा claim आ जाए और पैसे खत्म हो जाएं तो?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        Optima Secure+ में <strong>Unlimited Restore / Infinite Benefit</strong> है।
+        <ul>
+          <li><strong>Restore:</strong> अगर पूरा Sum Insured use हो जाए, तो उसी साल फिर से restore हो जाता है — उसी बीमारी के लिए भी।</li>
+          <li><strong>Infinite Benefit (Secure+ exclusive):</strong> 10 लाख के ऊपर भी ₹10 लाख/वर्ष unlimited — कोई cap नहीं।</li>
+        </ul>
+        <span class="highlight-line">✦ एक बड़ी बीमारी में पूरा पैसा खर्च हो जाए — तो भी आप protected हैं</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-q-text"><span class="q-icon">Q</span>बच्चे के 25 साल होने पर क्या होगा?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        25 साल के बाद बच्चे को <strong>अलग individual policy</strong> लेनी होगी — वो family floater में नहीं रह सकते।
+        <br><br>
+        <strong>समझदारी यह है:</strong> अगर बच्चा अभी 23-24 साल का है, तो <strong>5 साल की family policy लेकर 10% family discount 5 साल तक</strong> benefit उठाएं। बाद में जब बच्चा 25 के पार हो जाए — उस समय अलग policy लें।
+        <span class="highlight-line">✦ अभी family policy = ज़्यादा discount + longer coverage window</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-q-text"><span class="q-icon">Q</span>5 साल बाद premium बहुत ज़्यादा बढ़ जाएगा तो?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        इसीलिए <strong>5 साल की policy का यह सबसे बड़ा फायदा है</strong> — अगले 5 साल तक premium locked रहता है। Hospital inflation, medical inflation — कुछ भी आपका premium नहीं बढ़ाएगा।
+        <br><br>
+        और 5 साल बाद renewal पर — तब की policy में फिर से no-claim discount, loyalty benefit आदि मिलते हैं।
+        <span class="highlight-line">✦ 5 साल = 5 साल की financial certainty</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-q-text"><span class="q-icon">Q</span>पुरानी बीमारी (Pre-existing Disease) cover होती है?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <strong>हाँ, लेकिन waiting period के बाद।</strong> HDFC Ergo Optima Secure+ में पहले से चल रही बीमारियों (जैसे diabetes, BP, thyroid) के लिए <strong>3 साल का waiting period</strong> होता है। उसके बाद वो भी fully cover।
+        <br><br>
+        इसीलिए <strong>जितना जल्दी policy लो, उतना अच्छा</strong> — क्योंकि waiting period जल्दी पूरा होगा।
+        <span class="highlight-line">✦ आज लो → 3 साल बाद pre-existing diseases भी cover</span>
+      </div></div>
+    </div>
+
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">
+        <div class="faq-q-text"><span class="q-icon">Q</span>Claim आने पर process कठिन होता है?</div>
+        <div class="faq-arrow">▾</div>
+      </div>
+      <div class="faq-a"><div class="faq-a-inner">
+        <strong>नहीं, बिल्कुल नहीं।</strong> और यही तो हमारा काम है और हमारी जिम्मेदारी भी। Shri Ramanuj Professional में हम आपके साथ हैं — hospital में admission से लेकर claim settlement तक — हर कदम पर। आपको कोई परेशानी नहीं होने देंगे।
+        <ul>
+          <li>Cashless Pre-Intimation — हम करते हैं</li>
+          <li>Documents — हम guide करते हैं</li>
+          <li>Follow-up — हम करते हैं</li>
+        </ul>
+        <span class="highlight-line">✦ Claim आए तो हम आपके साथ हैं — हर कदम पर</span>
+      </div></div>
+    </div>
+
+  </div><!-- end faq -->
+
+  <!-- CLOSING CTA -->
+  <div class="cta-section">
+    <h2>अभी निर्णय लें —<br>कल मजबूरी न बने।</h2>
+    <p>मेडिकल पॉलिसी खर्च नहीं, यह आपके परिवार की financial safety और मानसिक शांति है। Premium जानने के लिए आज ही संपर्क करें।</p>
+    <div class="cta-contacts">
+      <div class="cta-contact">
+        <div class="cta-contact-name">CA Pawankumar</div>
+        <div class="cta-contact-num">Call for Premium</div>
+        <div class="cta-contact-role">Mediclaim, Term & Mutual Fund</div>
+      </div>
+      <div class="cta-contact">
+        <div class="cta-contact-name">Dattatray Pujari</div>
+        <div class="cta-contact-num">Call for Premium</div>
+        <div class="cta-contact-role">Insurance Advisor</div>
+      </div>
+      <div class="cta-contact">
+        <div class="cta-contact-name">Archana Soni</div>
+        <div class="cta-contact-num">Call for Premium</div>
+        <div class="cta-contact-role">Insurance Advisor</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>© 2025 Shri Ramanuj Professional, Ichalkaranji</div>
+  <div class="footer-brand">Jai Shrimannarayan 🙏</div>
+  <div>HDFC Ergo Authorized Partner</div>
+</footer>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function toggleFaq(item) {
+    const isOpen = item.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+    // open clicked if it wasn't open
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Auto-open first FAQ on load
+  document.addEventListener('DOMContentLoaded', () => {
+    // Subtle entrance animation for sections
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.myth-card, .plan-grid-3, .tab-bar, .tab-content, .discount-table-wrap, .summary-box, .faq-item, .cta-section').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  });
+</script>
+</body>
+</html>
