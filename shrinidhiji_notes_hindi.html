@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>श्रीनिधि स्वामीजी नोट्स - वृक्ष आरेख</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Cinzel:wght@400;600;700&display=swap');
+
+  :root {
+    --bg: #fdf6ee;
+    --surface: #fff8f0;
+    --gold: #9a6220;
+    --gold-light: #b57a30;
+    --gold-pale: #7a4a10;
+    --saffron: #c04a08;
+    --cream: #3a2a15;
+    --text: #3a2a15;
+    --muted: #8a7060;
+    --border: #e0cdb0;
+    --leaf-bg: #fffaf4;
+    --branch-1: #c8a878;
+    --branch-2: #d4b88a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Tiro Devanagari Hindi', serif;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, rgba(201,147,58,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(212,85,10,0.04) 0%, transparent 60%);
+  }
+
+  header {
+    text-align: center;
+    padding: 3rem 2rem 2rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  header::after {
+    content: '🪷';
+    font-size: 2rem;
+    display: block;
+    margin: 0.5rem auto 0;
+    opacity: 0.6;
+  }
+
+  .title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 30px rgba(201,147,58,0.4);
+  }
+  .subtitle {
+    font-size: 1.1rem;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .search-bar {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem 2rem;
+    gap: 1rem;
+  }
+  .search-bar input {
+    width: min(500px, 90vw);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-bar input:focus { border-color: var(--gold); }
+  .search-bar input::placeholder { color: var(--muted); }
+
+  .expand-all-btn {
+    background: var(--gold);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    font-family: 'Tiro Devanagari Hindi', serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .expand-all-btn:hover { background: var(--gold-light); }
+
+  .tree-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 4rem;
+  }
+
+  /* ROOT node */
+  .root-node {
+    background: linear-gradient(135deg, #fdebd0 0%, #fdf6ee 100%);
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 0;
+    box-shadow: 0 2px 16px rgba(154,98,32,0.15);
+    transition: box-shadow 0.3s;
+  }
+  .root-node:hover { box-shadow: 0 4px 24px rgba(154,98,32,0.25); }
+  .root-node .node-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: var(--gold-pale);
+  }
+
+  /* Tree lines */
+  .tree-branch {
+    position: relative;
+    margin-left: 1.5rem;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--border);
+  }
+  .tree-branch::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 1.5rem;
+    width: 1.5rem; height: 2px;
+    background: var(--border);
+  }
+
+  /* Category (level 1) */
+  .category {
+    margin-top: 0.8rem;
+  }
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    cursor: pointer;
+    padding: 0.7rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border-color 0.2s, background 0.2s;
+    user-select: none;
+  }
+  .category-header:hover {
+    border-color: var(--gold);
+    background: #fef0dc;
+  }
+  .category-header.active {
+    border-color: var(--saffron);
+    background: #fde8d0;
+  }
+
+  .cat-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .cat-title {
+    font-size: 1.05rem;
+    color: var(--gold-light);
+    font-weight: 600;
+    flex: 1;
+  }
+  .toggle-icon {
+    color: var(--muted);
+    font-size: 0.85rem;
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  .toggle-icon.open { transform: rotate(90deg); }
+
+  .category-body {
+    display: none;
+    padding-top: 0.3rem;
+  }
+  .category-body.open { display: block; }
+
+  /* Sub-category (level 2) */
+  .sub-category {
+    margin-top: 0.5rem;
+    margin-left: 1.5rem;
+    padding-left: 1.2rem;
+    border-left: 2px dashed var(--border);
+    position: relative;
+  }
+  .sub-category::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 1.2rem;
+    width: 1.2rem; height: 1px;
+    background: var(--muted);
+  }
+
+  .sub-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    background: var(--leaf-bg);
+    border: 1px solid transparent;
+    transition: border-color 0.2s;
+    margin-top: 0.4rem;
+    user-select: none;
+  }
+  .sub-header:hover { border-color: var(--muted); }
+  .sub-title {
+    font-size: 0.95rem;
+    color: var(--cream);
+  }
+
+  .sub-body {
+    display: none;
+    padding-top: 0.3rem;
+  }
+  .sub-body.open { display: block; }
+
+  /* Leaf items */
+  .leaf-list {
+    list-style: none;
+    margin-left: 1.2rem;
+    padding-left: 1rem;
+    border-left: 1px dotted #d8c4a0;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
+
+  .leaf-item {
+    margin: 0.35rem 0;
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+    background: #fffaf4;
+    border-left: 3px solid transparent;
+    position: relative;
+  }
+  .leaf-item::before {
+    content: '';
+    position: absolute;
+    left: -1rem; top: 50%;
+    width: 0.8rem; height: 1px;
+    background: #2a2010;
+    transform: translateY(-50%);
+  }
+
+  .leaf-term {
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .leaf-meaning {
+    color: var(--text);
+    font-size: 0.85rem;
+    margin-top: 0.15rem;
+    line-height: 1.5;
+  }
+  .leaf-note {
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-style: italic;
+    margin-top: 0.15rem;
+  }
+
+  /* Q&A items */
+  .qa-item {
+    margin: 0.4rem 0;
+    padding: 0.5rem 0.8rem;
+    background: #fff3e8;
+    border-radius: 5px;
+    border-left: 3px solid var(--saffron);
+  }
+  .qa-q { color: var(--saffron); font-size: 0.85rem; font-weight: 600; }
+  .qa-a { color: var(--cream); font-size: 0.83rem; margin-top: 0.2rem; line-height: 1.5; }
+
+  /* highlight for search */
+  .highlight { background: rgba(201,147,58,0.3); border-radius: 2px; }
+
+  .hidden-search { display: none !important; }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+  }
+  .lotus-divider {
+    text-align: center;
+    color: var(--gold);
+    opacity: 0.3;
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title">श्रीनिधि स्वामीजी — श्रीवैष्णव शब्दकोश</div>
+  <div class="subtitle">वृक्ष आरेख नोट्स • तमिल से हिंदी अनुवाद</div>
+</header>
+
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="खोजें... (हिंदी या अंग्रेज़ी में)" oninput="doSearch(this.value)">
+  <button class="expand-all-btn" onclick="toggleAll()">सभी खोलें / बंद करें</button>
+</div>
+
+<div class="tree-container" id="treeRoot">
+
+  <div class="root-node" onclick="toggleAll()">
+    <div class="node-title">🌺 श्रीवैष्णव सम्प्रदाय — सम्पूर्ण शब्द-वृक्ष</div>
+    <div style="font-size:0.85rem;color:var(--muted);margin-top:0.3rem;">अडियेन श्रीनिवास दासन् द्वारा संकलित • क्लिक करें</div>
+  </div>
+
+  <!-- ============ 1. ईश्वर एवं देवी ============ -->
+  <div class="category" data-search>
+    <div class="category-header" onclick="toggleCat(this)">
+      <span class="cat-icon">🪷</span>
+      <span class="cat-title">१. ईश्वर एवं देवियाँ (भगवान एवं देवी)</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="category-body">
+      <ul class="leaf-list">
+        <li class="leaf-item"><span class="leaf-term">श्रियःपति</span><span class="leaf-meaning"> — तिरुमाल (भगवान विष्णु)</span></li>
+        <li class="leaf-item"><span class="leaf-term">दिव्य दम्पती</span><span class="leaf-meaning"> — पेरुमाल और तायार (भगवान और देवी का दिव्य जोड़ा)</span></li>
+        <li class="leaf-item"><span class="leaf-term">तायार, पिराट्टि, देवी</span><span class="leaf-meaning"> — महालक्ष्मी, श्रीदेवी</span></li>
+        <li class="leaf-item"><span class="leaf-term">एम्पेरुमान</span><span class="leaf-meaning"> — भगवान (हमारे प्रभु)</span></li>
+        <li class="leaf-item"><span class="leaf-term">नित्यविभूति</span><span class="leaf-meaning"> — श्रीवैकुण्ठम् (नित्य लोक)</span></li>
+        <li class="leaf-item"><span class="leaf-term">लीलाविभूति</span><span class="leaf-meaning"> — श्रीवैकुण्ठ के अतिरिक्त अन्य अण्डाण्ड, लोक, प्रकृति</span></li>
+        <li class="leaf-item"><span class="leaf-term">उभयविभूति</span><span class="leaf-meaning"> — नित्य और लीला दोनों विभूतियाँ — दोनों भगवान की सम्पत्ति हैं</span></li>
+        <li class="leaf-item"><span class="leaf-term">विराजा नदी</span><span class="leaf-meaning"> — नित्य और लीला विभूति को विभाजित करने वाली नदी</span></li>
+        <li class="leaf-item"><span class="leaf-term">विषयान्तरम्</span><span class="leaf-meaning"> — भगवान को छोड़कर अन्य सभी विषय</span></li>
+        <li class="leaf-item"><span class="leaf-term">देवतान्तरम्</span><span class="leaf-meaning"> — ब्रह्मा, शिव, इन्द्र और अन्य देवता</span></li>
+      </ul>
+
+      <!-- Sub: मूर्तियाँ -->
+      <div class="sub-category">
+        <div class="sub-header" onclick="toggleSub(this)">
+          <span class="toggle-icon">▶</span>
+          <span class="sub-title">🏛️ मन्दिर की मूर्तियाँ</span>
+        </div>
+        <div class="sub-body">
+          <ul class="leaf-list">
+            <li class="leaf-item"><span class="leaf-term">उत्सव मूर्ति</span><span class="leaf-meaning"> — मन्दिर के बाहर उत्सव में निकाली जाने वाली मूर्ति</span></li>
+            <li class="leaf-item"><span class="leaf-term">मूल मूर्ति</span><span class="leaf-meaning"> — मन्दिर में सदा विराजित मूर्ति (ध्रुव बेरम्)</span></li>
+            <li class="leaf-item"><span class="leaf-term">सेल्वर</span><span class="leaf-meaning"> — उत्सव मूर्ति का प्रतिनिधि (उत्सव मूर्ति जैसे पूजे जाते हैं)</span></li>
+            <li class="leaf-item"><span class="leaf-term">याग बेरर</span><span class="leaf-meaning"> — पवित्रोत्सव आदि उत्सवों में याग-शाला में प्रकट होने वाली मूर्ति</span></li>
+            <li class="leaf-item"><span class="leaf-term">तिरुवाळियाळ्वान्</span><span class="leaf-meaning"> — सुदर्शन, चक्र</span></li>
+            <li class="leaf-item"><span class="leaf-term">तिरुवनन्तालवान्</span><span class="leaf-meaning"> — आदिशेष</span></li>
+            <li class="leaf-item"><span class="leaf-term">पेरिय तिरुवडि</span><span class="leaf-meaning"> — गरुड</span></li>
+          </ul>
+          <div class="qa-item">
+            <div class="qa-q">प्रश्न: तिरुवनन्ताळ्वान् कौन हैं?</div>
+            <div class="qa-a">आदिशेष और गरुड — दोनों उत्तर सही हैं।<br>तिरुवडि या छोटी तिरुवडि — आञ्जनेयर को कहते हैं। पेरिय तिरुवडि — गरुड को।</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub: दिव्यदेशम् -->
+      <div class="sub-category">
+        <div class="sub-header" onclick="toggleSub(this)">
+          <span class="toggle-icon">▶</span>
+          <span class="sub-title">🏔️ दिव्यदेशम् और पवित्र स्थान</span>
+        </div>
+        <div class="sub-body">
+          <ul class="leaf-list">
+            <li class="leaf-item"><span class="leaf-term">कोयिल</span><span class="leaf-meaning"> — श्रीरंगम्, कोविल (मन्दिर)</span></li>
+            <li class="leaf-item"><span class="leaf-term">तिरुमलय</span><span class="leaf-meaning"> — तिरुपति की पहाड़ी</span></li>
+            <li class="leaf-item"><span class="leaf-term">पेरुमाल कोयिल</span><span class="leaf-meaning"> — काञ्चीपुरम् पेरुन्देवी पेरुमाल (देवपेरुमाल, वरदराजर) मन्दिर</span></li>
+            <li class="leaf-item"><span class="leaf-term">पेरुवीडु / तिरुनाडु</span><span class="leaf-meaning"> — श्रीवैकुण्डम् (परम पद)</span></li>
+            <li class="leaf-item"><span class="leaf-term">तिरुमामणि मण्डपम्</span><span class="leaf-meaning"> — श्रीवैकुण्ठ में पेरुमाल का विशाल मण्डपम्</span></li>
+            <li class="leaf-item"><span class="leaf-term">दिव्यदेशम्</span><span class="leaf-meaning"> — आळ्वारों द्वारा गाई गई सन्निधि, स्थान</span></li>
+            <li class="leaf-item"><span class="leaf-term">कोयिलाळ्वार्</span><span class="leaf-meaning"> — शालाग्राम या विग्रहम् जो मरत् से बना हो, मन्दिर जैसी पेटी</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2. तिलक एवं शरीर-चिह्न ============ -->
+  <div class="category" data-search>
+    <div class="category-header" onclick="toggleCat(this)">
+      <span class="cat-icon">🔱</span>
+      <span class="cat-title">२. तिलक, शरीर-चिह्न एवं वस्त्र</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="category-body">
+      <ul class="leaf-list">
+        <li class="leaf-item"><span class="leaf-term">तिरुमण पेट्टी</span><span class="leaf-meaning"> — तिलक (श्रीचूर्ण) रखने की पेटी</span></li>
+        <li class="leaf-item"><span class="leaf-term">ऊर्ध्वपुण्ड्र, तिरुमण काप्पु</span><span class="leaf-meaning"> — श्रीवैष्णव का तिलक (नामम्) और श्रीचूर्णम्</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुमेनि</span><span class="leaf-meaning"> — श्रीवैष्णवों का शरीर</span></li>
+        <li class="leaf-item"><span class="leaf-term">द्वादश ऊर्ध्वपुण्ड्र</span><span class="leaf-meaning"> — शरीर के बारह स्थानों पर प्रतिदिन लगाने वाला तिलक</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुपरिवट्टम्</span><span class="leaf-meaning"> — (कपड़े से बँधी) वेष्टि</span></li>
+        <li class="leaf-item"><span class="leaf-term">पीताम्बरम्</span><span class="leaf-meaning"> — पेरुमाल का वस्त्र (पीला वस्त्र)</span></li>
+        <li class="leaf-item"><span class="leaf-term">यज्ञोपवीतम्</span><span class="leaf-meaning"> — जनेऊ (पवित्र धागा)</span></li>
+        <li class="leaf-item"><span class="leaf-term">उपनयनम्</span><span class="leaf-meaning"> — जनेऊ-मुहूर्त — वेद, शास्त्र सीखने के लिए गुरु के पास ले जाना</span></li>
+        <li class="leaf-item"><span class="leaf-term">मडिसञ्जि</span><span class="leaf-meaning"> — शुद्ध वस्त्र आदि रखने की कम्बल की थैली</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुप्पुट् कूडै</span><span class="leaf-meaning"> — पत्तों से बनी पेटी</span></li>
+      </ul>
+      <div class="qa-item">
+        <div class="qa-q">प्रश्न: पीताम्बरन् क्या है?</div>
+        <div class="qa-a">भगवान और पीला वस्त्र — दोनों उत्तर सही हैं। पीताम्बरम् अर्थात् पीला वस्त्र धारण किए हुए भगवान।</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">प्रश्न: मडिसञ्जि क्या है?</div>
+        <div class="qa-a">कम्बल की थैली जिसमें शुद्ध वस्त्र आदि रखे जाते हैं। कभी-कभी "कोझ, मूट्टाळ, पुरानेवाती" (बुजुर्ग, जमे हुए) आदि अर्थों में भी प्रयुक्त।</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 3. नित्यकर्म एवं शुद्धि ============ -->
+  <div class="category" data-search>
+    <div class="category-header" onclick="toggleCat(this)">
+      <span class="cat-icon">🌿</span>
+      <span class="cat-title">३. नित्यकर्म एवं शुद्धिक्रिया</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="category-body">
+      <ul class="leaf-list">
+        <li class="leaf-item"><span class="leaf-term">अनुष्ठानम्</span><span class="leaf-meaning"> — सन्ध्यावन्दन आदि नित्य कर्म; सम्प्रदाय के अनुसार आचरण</span></li>
+        <li class="leaf-item"><span class="leaf-term">अल्पशङ्कै</span><span class="leaf-meaning"> — लघुशंका (मूत्र त्याग)</span></li>
+        <li class="leaf-item"><span class="leaf-term">पहरिश्शङ्कै</span><span class="leaf-meaning"> — शौच (मल त्याग)</span></li>
+        <li class="leaf-item"><span class="leaf-term">प्रक्षालनम्</span><span class="leaf-meaning"> — स्वच्छ करना, जल से शुद्ध करना</span></li>
+        <li class="leaf-item"><span class="leaf-term">दन्त-धावनम्</span><span class="leaf-meaning"> — दाँत साफ करना, कुल्ला करना</span></li>
+        <li class="leaf-item"><span class="leaf-term">तीर्थमाडुतल्, नीराट्टम्</span><span class="leaf-meaning"> — स्नान, नहाना</span></li>
+        <li class="leaf-item"><span class="leaf-term">स्नान साडि</span><span class="leaf-meaning"> — नहाते समय पहनने का वस्त्र</span></li>
+        <li class="leaf-item"><span class="leaf-term">उपवासम्</span><span class="leaf-meaning"> — एकादशी आदि दिन कड़ाई से रहना। भगवान के समीप मन को ले जाना</span></li>
+        <li class="leaf-item"><span class="leaf-term">शयनित्तुकोळ्ळुतल्</span><span class="leaf-meaning"> — लेटना, सोना</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुक्कण वळर्ऱुतल्</span><span class="leaf-meaning"> — सोना (नींद लेना)</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुप्पळ्ळि-एळुच्चि</span><span class="leaf-meaning"> — शय्या से जगाना, उठाना</span></li>
+      </ul>
+      <div class="qa-item">
+        <div class="qa-q">प्रश्न: त्वादश ऊर्ध्वपुण्ड्रम् क्या है?</div>
+        <div class="qa-a">बारह तिलक और बारह दिन प्रदक्षिणा करना।</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 4. पूजा एवं जल पात्र ============ -->
+  <div class="category" data-search>
+    <div class="category-header" onclick="toggleCat(this)">
+      <span class="cat-icon">🫙</span>
+      <span class="cat-title">४. पूजा, जल एवं पात्र</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="category-body">
+      <ul class="leaf-list">
+        <li class="leaf-item"><span class="leaf-term">तिरुवाराधानम्</span><span class="leaf-meaning"> — पूजा करना, पेरुमाल को प्रसन्न करना</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुक्कावेरि</span><span class="leaf-meaning"> — पूजा के लिए जल रखने का पात्र</span></li>
+        <li class="leaf-item"><span class="leaf-term">अर्घ्यम्</span><span class="leaf-meaning"> — हाथ धोने का जल</span></li>
+        <li class="leaf-item"><span class="leaf-term">पाद्यम्</span><span class="leaf-meaning"> — तिरुवडि (चरण) धोने का जल</span></li>
+        <li class="leaf-item"><span class="leaf-term">आचमनीयम्</span><span class="leaf-meaning"> — मुख शुद्धि के लिए जल</span></li>
+        <li class="leaf-item"><span class="leaf-term">पानीयम्</span><span class="leaf-meaning"> — पीने का जल</span></li>
+        <li class="leaf-item"><span class="leaf-term">पञ्चपात्र, रामानुजन्</span><span class="leaf-meaning"> — पूजा पात्र के प्रकार</span></li>
+        <li class="leaf-item"><span class="leaf-term">वट्टिल्</span><span class="leaf-meaning"> — पूजा में अर्घ्यम्, पाद्यम् आदि समर्पित करने का गोल पात्र</span></li>
+        <li class="leaf-item"><span class="leaf-term">उत्तरिणी</span><span class="leaf-meaning"> — वट्टिल से तीर्थ लेने का छोटा चम्मच (करण्डि)</span></li>
+        <li class="leaf-item"><span class="leaf-term">पडिगम्/पडिक्कम्</span><span class="leaf-meaning"> — अर्घ्य-पाद्य जल भगवान को समर्पित करने के बाद पुनः जोड़ने का पात्र</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुवोट्ऱुवाडै</span><span class="leaf-meaning"> — भगवान का शरीर और चरण पोंछने का छोटा वस्त्र</span></li>
+        <li class="leaf-item"><span class="leaf-term">तीर्थम्</span><span class="leaf-meaning"> — भगवत् सम्बन्धी जल</span></li>
+        <li class="leaf-item"><span class="leaf-term">ऊष्ण तीर्थम्</span><span class="leaf-meaning"> — पीने के लिए गरम जल</span></li>
+        <li class="leaf-item"><span class="leaf-term">श्रीतोयम्/तीर्थम्</span><span class="leaf-meaning"> — पीने के लिए ठंडा जल</span></li>
+        <li class="leaf-item"><span class="leaf-term">थार्ग्समान्ति</span><span class="leaf-meaning"> — तीर्थम् या किसी पात्र से प्यास बुझाना</span></li>
+      </ul>
+      <div class="qa-item">
+        <div class="qa-q">प्रश्न: अर्घ्यम् क्या है?</div>
+        <div class="qa-a">हाथ धोने का जल, पैर धोने का जल और वेगम् (तेज़) — पहला उत्तर सही है।</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 5. प्रसाद एवं भोजन ============ -->
+  <div class="category" data-search>
+    <div class="category-header" onclick="toggleCat(this)">
+      <span class="cat-icon">🍚</span>
+      <span class="cat-title">५. प्रसाद, भोजन एवं रसोई</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="category-body">
+      <ul class="leaf-list">
+        <li class="leaf-item"><span class="leaf-term">भोगम्</span><span class="leaf-meaning"> — भगवान को समर्पित करने से पूर्व का भोजन</span></li>
+        <li class="leaf-item"><span class="leaf-term">प्रसादम्</span><span class="leaf-meaning"> — भगवान को समर्पित करने के बाद का भोजन</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुक्कण्णमुदु, अक्कार वडिशिल्</span><span class="leaf-meaning"> — पायसम्</span></li>
+        <li class="leaf-item"><span class="leaf-term">अमुदु पडि</span><span class="leaf-meaning"> — अरिसि (चावल)</span></li>
+        <li class="leaf-item"><span class="leaf-term">क्षीरम्</span><span class="leaf-meaning"> — दूध</span></li>
+        <li class="leaf-item"><span class="leaf-term">आज्यम्, घृतम्</span><span class="leaf-meaning"> — नेय् (घी)</span></li>
+        <li class="leaf-item"><span class="leaf-term">तण्डुलम्</span><span class="leaf-meaning"> — अरिसि (चावल)</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिलम्</span><span class="leaf-meaning"> — एळ्ळु (तिल)</span></li>
+        <li class="leaf-item"><span class="leaf-term">व्रीहि</span><span class="leaf-meaning"> — नेल् (धान)</span></li>
+        <li class="leaf-item"><span class="leaf-term">लवणम्</span><span class="leaf-meaning"> — उप्पु (नमक)</span></li>
+        <li class="leaf-item"><span class="leaf-term">अन्न-सूत्रम्, नेय्यमुदु</span><span class="leaf-meaning"> — नेय् (घी)</span></li>
+        <li class="leaf-item"><span class="leaf-term">ओरैगल्</span><span class="leaf-meaning"> — पुलिसाधम्, तयिर्सादम् आदि मिले साधम्</span></li>
+        <li class="leaf-item"><span class="leaf-term">पुळियोरै (पुळियोधरई)</span><span class="leaf-meaning"> — पुलिसाधम् (इमली चावल)</span></li>
+        <li class="leaf-item"><span class="leaf-term">सात्तमुदु, सारमुदु</span><span class="leaf-meaning"> — रसम्</span></li>
+        <li class="leaf-item"><span class="leaf-term">करियमुदु</span><span class="leaf-meaning"> — पत्तल में परोसी गई सब्जियाँ</span></li>
+        <li class="leaf-item"><span class="leaf-term">व्यञ्जनम्</span><span class="leaf-meaning"> — उबली हुई सब्जियाँ</span></li>
+        <li class="leaf-item"><span class="leaf-term">मुक्काणनम्</span><span class="leaf-meaning"> — पयत्तम् दाल के साथ बना पोंगल</span></li>
+        <li class="leaf-item"><span class="leaf-term">चित्रान्नम्</span><span class="leaf-meaning"> — मिला हुआ साधम्</span></li>
+        <li class="leaf-item"><span class="leaf-term">तत्तयोधनम्</span><span class="leaf-meaning"> — दही-चावल</span></li>
+        <li class="leaf-item"><span class="leaf-term">अमुदु पाड़ै</span><span class="leaf-meaning"> — पुलियोरे आदि बाढ़ा को मिलाने-रखने की परात</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुप्पणियारम्</span><span class="leaf-meaning"> — वडा, अधिरसम् आदि</span></li>
+        <li class="leaf-item"><span class="leaf-term">मनोहरम्</span><span class="leaf-meaning"> — वेल्लपाकु (गुड़) मिलाकर उरुट्डा तेन्गुझल उरुण्डै</span></li>
+        <li class="leaf-item"><span class="leaf-term">उत्तराभोजनम्</span><span class="leaf-meaning"> — भोजन के बाद परिसेचन के लिए तीर्थम् सेवन</span></li>
+        <li class="leaf-item"><span class="leaf-term">अमुदु सेय्तल्</span><span class="leaf-meaning"> — श्रीवैष्णवों का भोजन करना</span></li>
+        <li class="leaf-item"><span class="leaf-term">अधिति</span><span class="leaf-meaning"> — विरुन्थिनर् (अतिथि — बिना बुलाए अचानक आने वाले)</span></li>
+        <li class="leaf-item"><span class="leaf-term">उपदम्पम्</span><span class="leaf-meaning"> — ऊरुकाय् (अचार)</span></li>
+        <li class="leaf-item"><span class="leaf-term">वेळ्ळै सर्क्करे</span><span class="leaf-meaning"> — उप्पु (नमक)</span></li>
+      </ul>
+
+      <div class="sub-category">
+        <div class="sub-header" onclick="toggleSub(this)">
+          <span class="toggle-icon">▶</span>
+          <span class="sub-title">🌿 पत्तल एवं परिसेचन</span>
+        </div>
+        <div class="sub-body">
+          <ul class="leaf-list">
+            <li class="leaf-item"><span class="leaf-term">तळिकै</span><span class="leaf-meaning"> — रसोई (पाकशाला)</span></li>
+            <li class="leaf-item"><span class="leaf-term">तिरुमडैप्पळ्ळि</span><span class="leaf-meaning"> — तळिकै / रसोई का कक्ष</span></li>
+            <li class="leaf-item"><span class="leaf-term">अरङ्गु</span><span class="leaf-meaning"> — रसोई के पास भोजन करने का स्थान</span></li>
+            <li class="leaf-item"><span class="leaf-term">पत्र नियमम्</span><span class="leaf-meaning"> — भोजन परोसने वाले पत्तल के उपयोग की विधि</span></li>
+            <li class="leaf-item"><span class="leaf-term">स्थल शुद्धि</span><span class="leaf-meaning"> — पत्तल रखने से पूर्व गोबर मिले जल से स्थान साफ करना</span></li>
+            <li class="leaf-item"><span class="leaf-term">इलै तळिकै सेर्त्तल्</span><span class="leaf-meaning"> — पत्तल लगाना</span></li>
+            <li class="leaf-item"><span class="leaf-term">परिसेचनम्</span><span class="leaf-meaning"> — भोजन से पूर्व पत्तल के चारों ओर जल छिड़कना</span></li>
+            <li class="leaf-item"><span class="leaf-term">पेरुमाळ् तीर्थम्</span><span class="leaf-meaning"> — परिसेचन के समय की जाने वाली पूजा-तीर्थम्</span></li>
+            <li class="leaf-item"><span class="leaf-term">सोत्तित्तल्</span><span class="leaf-meaning"> — सोल्लुतल् — कहना, या तीर्थम् / साधम् पत्तल में डालना</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">प्रश्न: क्षीरम् क्या है?</div>
+        <div class="qa-a">दूध — क्षीराब्धिनाथन् अर्थात् तिरुपाल् कडलिल् पळ्ळि कोण्डिरुप्पवन् (दूध के समुद्र में शयन करने वाले)।</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 6. उत्सव एवं सेवा ============ -->
+  <div class="category" data-search>
+    <div class="category-header" onclick="toggleCat(this)">
+      <span class="cat-icon">🎺</span>
+      <span class="cat-title">६. उत्सव, सेवा एवं मन्दिर कार्य</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="category-body">
+      <ul class="leaf-list">
+        <li class="leaf-item"><span class="leaf-term">तिरुवाराधानम्</span><span class="leaf-meaning"> — पूजा करना</span></li>
+        <li class="leaf-item"><span class="leaf-term">अरुळिच्चेयल्</span><span class="leaf-meaning"> — नालायिर दिव्यप्रबन्धम्</span></li>
+        <li class="leaf-item"><span class="leaf-term">अत्याभयनम्</span><span class="leaf-meaning"> — वेद पाठ करना, सीखना</span></li>
+        <li class="leaf-item"><span class="leaf-term">अत्ययन उत्सवम्</span><span class="leaf-meaning"> — दिन-रात्रि उत्सव</span></li>
+        <li class="leaf-item"><span class="leaf-term">मङ्गलाशासनम्</span><span class="leaf-meaning"> — श्लोकों और पाशुरों से भगवान के मङ्गल की कामना करना</span></li>
+        <li class="leaf-item"><span class="leaf-term">सेवाकालम्</span><span class="leaf-meaning"> — दिव्यप्रबन्ध अनुसंधानम् (सेवित करना, गाना)</span></li>
+        <li class="leaf-item"><span class="leaf-term">पुष्करिणी</span><span class="leaf-meaning"> — मन्दिर का तालाब</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुनाळ्</span><span class="leaf-meaning"> — उत्सव का दिन</span></li>
+        <li class="leaf-item"><span class="leaf-term">तीर्थावारि, अवभृथ-स्नानम्</span><span class="leaf-meaning"> — मन्दिर का उत्सव समाप्त होने पर पुष्करिणी में होने वाला अभिषेक</span></li>
+        <li class="leaf-item"><span class="leaf-term">वीथि प्रप्पाडु</span><span class="leaf-meaning"> — पेरुमाल, आळ्वार, आचार्यों की उत्सव मूर्तियों का मन्दिर के चारों ओर की सड़कों पर निकलना</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुच्चिन्नम्</span><span class="leaf-meaning"> — पेरुमाल के निकलने का संकेत देने वाली बड़ी शहनाई</span></li>
+        <li class="leaf-item"><span class="leaf-term">मण्डकप्पडि</span><span class="leaf-meaning"> — उत्सवकाल में भगवान का विशेष उत्सव मण्डपम् में विराजमान होकर मनाना</span></li>
+        <li class="leaf-item"><span class="leaf-term">अरैयर</span><span class="leaf-meaning"> — भगवान की थिरुमुन् दिव्यप्रबन्धम् इसाई, पाव, अभिनय से अनुसंधान करने वाले</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुप्पावाडै, पेरुन्तिरुप्पावाडै</span><span class="leaf-meaning"> — बहुत अधिक प्रसाद एकत्र कर भगवान को समर्पित करना</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुआलवट्टम्</span><span class="leaf-meaning"> — भगवान को वीसुम् विशिरी (पंखे से हवा)</span></li>
+        <li class="leaf-item"><span class="leaf-term">ऊरवाडै तीर्थम्</span><span class="leaf-meaning"> — तिरुमञ्जनम् के बाद पेरुमाल के कपड़े से निचोड़ा गया तीर्थम्</span></li>
+        <li class="leaf-item"><span class="leaf-term">पेरुमाळ् तीर्थम्</span><span class="leaf-meaning"> — तिरुवाराधनम् पूर्ण होने के बाद दिया जाने वाला तीर्थम्</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुविळक्कु</span><span class="leaf-meaning"> — भगवान के सामने का दीपक</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुमणि सेवित्तल्</span><span class="leaf-meaning"> — मन्दिर में पूजा में घण्टा बजाना</span></li>
+      </ul>
+
+      <div class="sub-category">
+        <div class="sub-header" onclick="toggleSub(this)">
+          <span class="toggle-icon">▶</span>
+          <span class="sub-title">🌸 पूजा सामग्री</span>
+        </div>
+        <div class="sub-body">
+          <ul class="leaf-list">
+            <li class="leaf-item"><span class="leaf-term">तिरुत्तुळाय</span><span class="leaf-meaning"> — तुलसी</span></li>
+            <li class="leaf-item"><span class="leaf-term">अडैक्काय्</span><span class="leaf-meaning"> — वेट्रिलै, पाक्कु (पान, सुपारी)</span></li>
+            <li class="leaf-item"><span class="leaf-term">तिरुमञ्जनम्, नीराट्टम्</span><span class="leaf-meaning"> — अभिषेकम्</span></li>
+            <li class="leaf-item"><span class="leaf-term">सात्ऱुप्पडि, साथुप्पडि</span><span class="leaf-meaning"> — चन्दन (भगवान को लगाया जाने वाला अलंकार)</span></li>
+            <li class="leaf-item"><span class="leaf-term">परिमळ द्रव्यम्</span><span class="leaf-meaning"> — एलक्काय्, इलवंगम् आदि से मिली सुगन्धित वस्तु</span></li>
+            <li class="leaf-item"><span class="leaf-term">साथुप्पडि</span><span class="leaf-meaning"> — चन्दन, पुष्प अलंकार</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 7. आचार्य एवं गुरु परम्परा ============ -->
+  <div class="category" data-search>
+    <div class="category-header" onclick="toggleCat(this)">
+      <span class="cat-icon">📿</span>
+      <span class="cat-title">७. आचार्य, गुरु एवं परम्परा</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="category-body">
+      <ul class="leaf-list">
+        <li class="leaf-item"><span class="leaf-term">आचार्य</span><span class="leaf-meaning"> — तिरुमंत्र उपदेश देने वाले</span></li>
+        <li class="leaf-item"><span class="leaf-term">परमाचार्य</span><span class="leaf-meaning"> — आचार्य के आचार्य</span></li>
+        <li class="leaf-item"><span class="leaf-term">पूर्वाचार्यगल्</span><span class="leaf-meaning"> — आचार्य की पूर्व परम्परा — पेरिय पेरुमाल् से मनवाळ मामुनिगल् तक</span></li>
+        <li class="leaf-item"><span class="leaf-term">गुरु परम्परा</span><span class="leaf-meaning"> — आचार्य परम्परा (वरिसै)</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुवडि सम्बन्धम्</span><span class="leaf-meaning"> — आचार्य कौन हैं?</span></li>
+        <li class="leaf-item"><span class="leaf-term">पञ्च संस्कारम्</span><span class="leaf-meaning"> — आचार्य द्वारा पाँच संस्कार: (१) शंखु चक्राङ्कन (२) द्वादश तिलक (३) रामानुज दासन् जैसे नाम (४) मंत्रोपदेश (५) याग (तिरुवाराधन, उपदेश)</span></li>
+        <li class="leaf-item"><span class="leaf-term">कैङ्कर्यम्</span><span class="leaf-meaning"> — भगवान और भागवत के लिए सेवा (मन, वचन, कर्म से)</span></li>
+        <li class="leaf-item"><span class="leaf-term">निमन्त्रणम्</span><span class="leaf-meaning"> — श्राद्ध आदि के लिए श्रीवैष्णवों को वारित करना, बुलाना</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुमिडट्रोसे</span><span class="leaf-meaning"> — श्रीवैष्णवों की बोलने की आवाज़</span></li>
+        <li class="leaf-item"><span class="leaf-term">प्रबत्ति</span><span class="leaf-meaning"> — शरणागति</span></li>
+        <li class="leaf-item"><span class="leaf-term">समाश्रयणम्, पञ्च-संस्कारम्</span><span class="leaf-meaning"> — आचार्य को अनुगमन (१ से ५ संस्कार)</span></li>
+      </ul>
+      <div class="qa-item">
+        <div class="qa-q">प्रश्न: सम्प्रदाय के शब्द क्यों बोलने चाहिए?</div>
+        <div class="qa-a">पूर्वाचार्यों की परम्परा में उनके शब्द बोलने की इच्छा होती है। उन्हें बोलने से श्रीवैष्णवों के साथ बातचीत समझ में आती है। सम्प्रदाय के कालक्षेप और ग्रन्थ अच्छी तरह समझ में आते हैं।</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 8. आळ्वार एवं प्रबन्ध ============ -->
+  <div class="category" data-search>
+    <div class="category-header" onclick="toggleCat(this)">
+      <span class="cat-icon">📖</span>
+      <span class="cat-title">८. आळ्वार, प्रबन्ध एवं साहित्य</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="category-body">
+      <ul class="leaf-list">
+        <li class="leaf-item"><span class="leaf-term">अरुळिच्चेयल्</span><span class="leaf-meaning"> — नालायिर दिव्यप्रबन्धम्</span></li>
+        <li class="leaf-item"><span class="leaf-term">अत्याभयनम्</span><span class="leaf-meaning"> — वेद पाठ, अध्ययन</span></li>
+        <li class="leaf-item"><span class="leaf-term">सेवाकालम्</span><span class="leaf-meaning"> — दिव्यप्रबन्ध अनुसन्धानम्</span></li>
+        <li class="leaf-item"><span class="leaf-term">सात्ऱुमरै</span><span class="leaf-meaning"> — दिव्यप्रबन्ध की साट्ऱुपाशुरङ्गल् (अन्तिम पाशुर) अनुसन्धान</span></li>
+        <li class="leaf-item"><span class="leaf-term">पाशुरम्</span><span class="leaf-meaning"> — दिव्यप्रबन्ध का पद्य</span></li>
+        <li class="leaf-item"><span class="leaf-term">पाराणम्</span><span class="leaf-meaning"> — सम्प्रदाय के उच्च ग्रन्थों का प्रतिदिन पाठ</span></li>
+        <li class="leaf-item"><span class="leaf-term">काल-क्षेपम्</span><span class="leaf-meaning"> — सम्प्रदाय ग्रन्थों में गहरे उतरकर उन्हें वरि-वरि (पंक्तिवार) सीखना</span></li>
+        <li class="leaf-item"><span class="leaf-term">श्रीसूक्ति</span><span class="leaf-meaning"> — श्रीवैष्णव बड़ों की (प्राचीन) वाक्य</span></li>
+        <li class="leaf-item"><span class="leaf-term">वेदान्तम्</span><span class="leaf-meaning"> — उपनिषद् — वेद का दूसरा भाग, ब्रह्म भाग</span></li>
+        <li class="leaf-item"><span class="leaf-term">श्रीभाष्यम्</span><span class="leaf-meaning"> — उपनिषद् अर्थों को बताने वाला ब्रह्मसूत्र का स्वामी रामानुज द्वारा विवेचन</span></li>
+        <li class="leaf-item"><span class="leaf-term">भगवद्विषयम्</span><span class="leaf-meaning"> — तिरुवाय्मोळिकु नम्पिळ्ळै द्वारा की गई व्याख्यान, काल-क्षेपम्</span></li>
+        <li class="leaf-item"><span class="leaf-term">इतिहासम्</span><span class="leaf-meaning"> — कथा (कथापात्र जीवित रहते हुए लिखी गई)</span></li>
+        <li class="leaf-item"><span class="leaf-term">उभयवेदान्तम्</span><span class="leaf-meaning"> — संस्कृत वेद और द्राविड वेद (दिव्यप्रबन्धम्)</span></li>
+        <li class="leaf-item"><span class="leaf-term">ग्रन्थम्</span><span class="leaf-meaning"> — सम्प्रदाय की पुस्तक</span></li>
+      </ul>
+      <div class="qa-item">
+        <div class="qa-q">प्रश्न: अरुळिच्चेयल् क्या है?</div>
+        <div class="qa-a">नालायिर दिव्यप्रबन्धम् — पाठ करना, आशीर्वाद देना — दोनों अर्थ प्रचलित हैं। पहला उत्तर ही सही है, दूसरा भी उपयोग में आता है।</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 9. रामायण के पात्र ============ -->
+  <div class="category" data-search>
+    <div class="category-header" onclick="toggleCat(this)">
+      <span class="cat-icon">🏹</span>
+      <span class="cat-title">९. रामायण के पात्र एवं उपाधियाँ</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="category-body">
+      <ul class="leaf-list">
+        <li class="leaf-item"><span class="leaf-term">छोटी तिरुवडि</span><span class="leaf-meaning"> — आञ्जनेयर (हनुमान)</span></li>
+        <li class="leaf-item"><span class="leaf-term">पेरिय उडैयार्</span><span class="leaf-meaning"> — जटायु</span></li>
+        <li class="leaf-item"><span class="leaf-term">चक्रवर्ति</span><span class="leaf-meaning"> — दशरथ</span></li>
+        <li class="leaf-item"><span class="leaf-term">चक्रवर्ति तिरुमगन्</span><span class="leaf-meaning"> — श्रीराम</span></li>
+        <li class="leaf-item"><span class="leaf-term">इळैयाळ्वार्</span><span class="leaf-meaning"> — लक्ष्मण</span></li>
+        <li class="leaf-item"><span class="leaf-term">परताळ्वान्</span><span class="leaf-meaning"> — श्री भरत</span></li>
+        <li class="leaf-item"><span class="leaf-term">सत्रुघ्नाळ्वान्</span><span class="leaf-meaning"> — श्री शत्रुघ्न</span></li>
+        <li class="leaf-item"><span class="leaf-term">महाराजर</span><span class="leaf-meaning"> — सुग्रीव</span></li>
+        <li class="leaf-item"><span class="leaf-term">विभीषणाळ्वान्</span><span class="leaf-meaning"> — रावण के भाई विभीषण</span></li>
+        <li class="leaf-item"><span class="leaf-term">नम्पिमूत्तपिरान्</span><span class="leaf-meaning"> — बलराम</span></li>
+        <li class="leaf-item"><span class="leaf-term">आण्डाळ्</span><span class="leaf-meaning"> — गोदा देवी</span></li>
+        <li class="leaf-item"><span class="leaf-term">आळ्वान्</span><span class="leaf-meaning"> — कूरत्ताळ्वान्</span></li>
+        <li class="leaf-item"><span class="leaf-term">आण्डान्</span><span class="leaf-meaning"> — मुतलियाण्डान्</span></li>
+        <li class="leaf-item"><span class="leaf-term">पोन्नडियाम् सेंगमलम्</span><span class="leaf-meaning"> — मनवाळ मामुनिगल् के दिव्यपाद कमल</span></li>
+      </ul>
+      <div class="qa-item">
+        <div class="qa-q">प्रश्न: तिरुवडि का अर्थ क्या है?</div>
+        <div class="qa-a">आञ्जनेयर और सुग्रीव — तिरुवडि या छोटी तिरुवडि से आञ्जनेयर का बोध होता है। पेरिय तिरुवडि से गरुड का।</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 10. परिवार एवं सम्बोधन ============ -->
+  <div class="category" data-search>
+    <div class="category-header" onclick="toggleCat(this)">
+      <span class="cat-icon">👨‍👩‍👧‍👦</span>
+      <span class="cat-title">१०. परिवार, सम्बन्ध एवं सम्बोधन</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="category-body">
+      <ul class="leaf-list">
+        <li class="leaf-item"><span class="leaf-term">कोळुनन्</span><span class="leaf-meaning"> — पति का भाई</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुत् तकप्पनार्</span><span class="leaf-meaning"> — पिता</span></li>
+        <li class="leaf-item"><span class="leaf-term">जयर</span><span class="leaf-meaning"> — पूज्य पिता</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुत् तायार्</span><span class="leaf-meaning"> — माता</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुत् तमैयन्</span><span class="leaf-meaning"> — बड़ा भाई</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुत् तमक्कै</span><span class="leaf-meaning"> — बड़ी बहन</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुप्पाट्डनार्, पितामह</span><span class="leaf-meaning"> — पिता के पिता (दादा)</span></li>
+        <li class="leaf-item"><span class="leaf-term">पितामही</span><span class="leaf-meaning"> — पिता की माँ (दादी)</span></li>
+        <li class="leaf-item"><span class="leaf-term">मातामह</span><span class="leaf-meaning"> — माँ के पिता (नाना)</span></li>
+        <li class="leaf-item"><span class="leaf-term">मातामही</span><span class="leaf-meaning"> — माँ की माँ (नानी)</span></li>
+        <li class="leaf-item"><span class="leaf-term">पेळत्रन्, पेळत्री</span><span class="leaf-meaning"> — पुत्र के पुत्र-पुत्री (पोता-पोती)</span></li>
+        <li class="leaf-item"><span class="leaf-term">तेळहित्रन्, तेळहित्री</span><span class="leaf-meaning"> — पुत्री के पुत्र-पुत्री (दोहता-दोहती)</span></li>
+        <li class="leaf-item"><span class="leaf-term">अम्माञ्जि</span><span class="leaf-meaning"> — मामा के पुत्र</span></li>
+        <li class="leaf-item"><span class="leaf-term">अम्माङ्का</span><span class="leaf-meaning"> — मामा की पुत्री</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुत्तम्बि</span><span class="leaf-meaning"> — छोटा भाई</span></li>
+        <li class="leaf-item"><span class="leaf-term">देवरीर</span><span class="leaf-meaning"> — आप, आपश्री</span></li>
+        <li class="leaf-item"><span class="leaf-term">अडियेन्</span><span class="leaf-meaning"> — मैं (नम्र)</span></li>
+        <li class="leaf-item"><span class="leaf-term">अडियोङ्गल्</span><span class="leaf-meaning"> — हम</span></li>
+        <li class="leaf-item"><span class="leaf-term">नायन्ते</span><span class="leaf-meaning"> — अडियेन् (मैं)</span></li>
+        <li class="leaf-item"><span class="leaf-term">पोन्नडि</span><span class="leaf-meaning"> — तिरुवडि (श्रीचरण)</span></li>
+      </ul>
+      <div class="qa-item">
+        <div class="qa-q">प्रश्न: कोळुनन् का अर्थ क्या है?</div>
+        <div class="qa-a">पति — दूसरा उत्तर सही है।</div>
+      </div>
+      <div class="qa-item">
+        <div class="qa-q">प्रश्न: अडियोङ्गल् कौन हैं?</div>
+        <div class="qa-a">हम (नाम् + नीङ्गळुम्) — दूसरा उत्तर सही है।</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 11. दार्शनिक शब्द ============ -->
+  <div class="category" data-search>
+    <div class="category-header" onclick="toggleCat(this)">
+      <span class="cat-icon">🧘</span>
+      <span class="cat-title">११. दर्शन एवं तत्त्वज्ञान</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="category-body">
+      <ul class="leaf-list">
+        <li class="leaf-item"><span class="leaf-term">शेषि</span><span class="leaf-meaning"> — स्वामी, नाथ</span></li>
+        <li class="leaf-item"><span class="leaf-term">शेषन्</span><span class="leaf-meaning"> — सेवक</span></li>
+        <li class="leaf-item"><span class="leaf-term">शेषत्वम्</span><span class="leaf-meaning"> — स्वामी की सेवा करने का ज्ञान</span></li>
+        <li class="leaf-item"><span class="leaf-term">पारतन्त्रियम्</span><span class="leaf-meaning"> — सेवक की भाँति स्वामी की इच्छाओं को पूर्ण करने में तत्परता</span></li>
+        <li class="leaf-item"><span class="leaf-term">अन्यशेषत्वम्</span><span class="leaf-meaning"> — भगवान और श्रीवैष्णवों के अतिरिक्त दूसरों की सेवा करना</span></li>
+        <li class="leaf-item"><span class="leaf-term">अभेकैळ</span><span class="leaf-meaning"> — इच्छा</span></li>
+        <li class="leaf-item"><span class="leaf-term">उपेकैळ</span><span class="leaf-meaning"> — उदासीनता, ध्यान न देना</span></li>
+        <li class="leaf-item"><span class="leaf-term">ज्ञानम्</span><span class="leaf-meaning"> — ज्ञान</span></li>
+        <li class="leaf-item"><span class="leaf-term">मोक्ष-उपायम्</span><span class="leaf-meaning"> — मोक्ष का साधन — श्रीमन्नारायण</span></li>
+        <li class="leaf-item"><span class="leaf-term">उपेयम्</span><span class="leaf-meaning"> — पुरुषार्थ-लक्ष्य — श्रीमन्नारायण और उनके भक्तों की कैङ्कर्य सेवा</span></li>
+        <li class="leaf-item"><span class="leaf-term">लैलकिकम्</span><span class="leaf-meaning"> — लौकिक व्यवहार में जीवन, संसार का विषय</span></li>
+        <li class="leaf-item"><span class="leaf-term">वैदिकम्</span><span class="leaf-meaning"> — वेद-शास्त्र के अनुसार जीवन, वेद-विषय</span></li>
+        <li class="leaf-item"><span class="leaf-term">अयोनिजर्</span><span class="leaf-meaning"> — गर्भ से न जन्मे, बिना कारण प्रकट हुए — मुदलाळ्वार् आदि</span></li>
+        <li class="leaf-item"><span class="leaf-term">तमस्</span><span class="leaf-meaning"> — अन्धकार, अज्ञान</span></li>
+        <li class="leaf-item"><span class="leaf-term">दरिद्रम्</span><span class="leaf-meaning"> — दरिद्रता</span></li>
+        <li class="leaf-item"><span class="leaf-term">मद्म् / मतम्</span><span class="leaf-meaning"> — मान्यता, धर्म, मत</span></li>
+        <li class="leaf-item"><span class="leaf-term">मड्म्</span><span class="leaf-meaning"> — तपस्वियों का निवास</span></li>
+        <li class="leaf-item"><span class="leaf-term">उपन्यासम्</span><span class="leaf-meaning"> — सम्प्रदाय के विषय लेकर बताना</span></li>
+        <li class="leaf-item"><span class="leaf-term">व्याख्यानम्</span><span class="leaf-meaning"> — संक्षिप्त और विस्तृत व्याख्या</span></li>
+        <li class="leaf-item"><span class="leaf-term">काल-क्षेपम्</span><span class="leaf-meaning"> — समय को सम्प्रदाय-शास्त्र में बिताना</span></li>
+        <li class="leaf-item"><span class="leaf-term">उत्तरायणम्</span><span class="leaf-meaning"> — थैयम् से आनि मास (उत्तरायण काल)</span></li>
+        <li class="leaf-item"><span class="leaf-term">दक्षिणायनम्</span><span class="leaf-meaning"> — आडि से मार्गळि मास (दक्षिणायन काल)</span></li>
+      </ul>
+      <div class="qa-item">
+        <div class="qa-q">प्रश्न: देवतान्तर पूजन क्या है?</div>
+        <div class="qa-a">श्रीमन्नारायण के अतिरिक्त अन्य देवों की पूजा और इन्द्र पद के लिए यज्ञ — पहला उत्तर सही है; परन्तु श्रीवैष्णवों के लिए यह वर्जित है।</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 12. गलत/सही प्रयोग ============ -->
+  <div class="category" data-search>
+    <div class="category-header" onclick="toggleCat(this)">
+      <span class="cat-icon">⚖️</span>
+      <span class="cat-title">१२. शब्दों के सही एवं गलत प्रयोग</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="category-body">
+      <ul class="leaf-list">
+        <li class="leaf-item">
+          <span class="leaf-term">उस्थवम् → उत्सवम्</span>
+          <span class="leaf-note">गलत → सही</span>
+        </li>
+        <li class="leaf-item">
+          <span class="leaf-term">मोळम् → मेळम्</span>
+          <span class="leaf-note">गलत → सही</span>
+        </li>
+        <li class="leaf-item">
+          <span class="leaf-term">पुरुषोकारम् → पुरुषकारम्</span>
+          <span class="leaf-note">गलत → सही</span>
+        </li>
+        <li class="leaf-item">
+          <span class="leaf-term">प्रमाधम् का अर्थ</span>
+          <span class="leaf-meaning"> — ग़लत अर्थ: "नन्राक इरुक्किरेते" (अच्छा है); सही अर्थ: कवनक्कुरैवु (असावधानी)</span>
+        </li>
+        <li class="leaf-item">
+          <span class="leaf-term">ऑर्यर</span>
+          <span class="leaf-meaning"> — ग़लत: बाहरी लोग; सही: उत्कृष्ट, पुजारी-योग्य</span>
+        </li>
+        <li class="leaf-item">
+          <span class="leaf-term">द्राविडर</span>
+          <span class="leaf-meaning"> — ग़लत: अंतणर-नहीं; सही: तमिल भाषी</span>
+        </li>
+        <li class="leaf-item">
+          <span class="leaf-term">यतेच्चसयाक</span>
+          <span class="leaf-meaning"> — ग़लत: मनमाना; सही: भगवान की इच्छा से</span>
+        </li>
+        <li class="leaf-item">
+          <span class="leaf-term">केवलम्</span>
+          <span class="leaf-meaning"> — ग़लत: तुच्छ; सही: एकमात्र</span>
+        </li>
+        <li class="leaf-item">
+          <span class="leaf-term">केवलन्</span>
+          <span class="leaf-meaning"> — ग़लत: तुच्छ; सही: केवलज्ञानी — जो आत्मा मात्र को मोक्ष मानता है</span>
+        </li>
+        <li class="leaf-item">
+          <span class="leaf-term">इरुप्पिडम् वैकुण्ठम् वेङ्गटम्</span>
+          <span class="leaf-meaning"> — ग़लत: जहाँ हम रहते हैं; सही: जहाँ भगवान रहते हैं — वैकुण्ठम्, वेंकटम् आदि</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ 13. श्रीवैष्णव शब्दों का उपयोग ============ -->
+  <div class="category" data-search>
+    <div class="category-header" onclick="toggleCat(this)">
+      <span class="cat-icon">🗣️</span>
+      <span class="cat-title">१३. श्रीवैष्णव व्यवहार के विशेष शब्द</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="category-body">
+      <ul class="leaf-list">
+        <li class="leaf-item"><span class="leaf-term">स्वामि एन्न सोत्तित्थु</span><span class="leaf-meaning"> — आपने क्या कहा?</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुमेनि पाङ्का</span><span class="leaf-meaning"> — शरीर ठीक है?</span></li>
+        <li class="leaf-item"><span class="leaf-term">स्वामि तिरुनाम</span><span class="leaf-meaning"> — आपका नाम क्या है?</span></li>
+        <li class="leaf-item"><span class="leaf-term">स्वामि तिरुमाळिकै</span><span class="leaf-meaning"> — आपका घर, आचार्य का निवास</span></li>
+        <li class="leaf-item"><span class="leaf-term">अडियेन् कुडिसे</span><span class="leaf-meaning"> — मेरा घर</span></li>
+        <li class="leaf-item"><span class="leaf-term">अन्वयिक्क वेण्डुम्</span><span class="leaf-meaning"> — साथ आना चाहिए</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुच्चेवि साट्तवेण्डुम्</span><span class="leaf-meaning"> — कान देकर सुनना चाहिए</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुवाय्मलर्न्तु अरुळवेण्डुम्</span><span class="leaf-meaning"> — कहना चाहिए</span></li>
+        <li class="leaf-item"><span class="leaf-term">कडाक्षिक्क वेण्डुम्</span><span class="leaf-meaning"> — देखना चाहिए (कृपा करनी चाहिए)</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुवुळ्ळसीट्ऱम्</span><span class="leaf-meaning"> — क्रोध</span></li>
+        <li class="leaf-item"><span class="leaf-term">नियमिक्कवेण्डुम्</span><span class="leaf-meaning"> — आदेश/नियुक्ति देनी चाहिए</span></li>
+        <li class="leaf-item"><span class="leaf-term">क्षमिक्कवेण्डुम्</span><span class="leaf-meaning"> — क्षमा करनी चाहिए</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुनामम्</span><span class="leaf-meaning"> — नाम; तथा माथे पर लगाया गया श्रीचूर्णम्</span></li>
+        <li class="leaf-item"><span class="leaf-term">एमुन्तरुळ वेण्डुम्</span><span class="leaf-meaning"> — पधारना चाहिए (आना चाहिए)</span></li>
+        <li class="leaf-item"><span class="leaf-term">एळुन्तरुळप्पण्णु</span><span class="leaf-meaning"> — श्रीवैष्णवों को आने का आग्रह करना</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुवडि सोतित्तल्</span><span class="leaf-meaning"> — पैर धोना</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुक्कै सोतित्तल्</span><span class="leaf-meaning"> — हाथ धोना</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुवडि तोळुतल्</span><span class="leaf-meaning"> — प्रणाम करना</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुवुळ्ळम् पट्ऱवेण्डुम्</span><span class="leaf-meaning"> — स्वीकार करना चाहिए</span></li>
+        <li class="leaf-item"><span class="leaf-term">परमपतित्तुविट्डार्</span><span class="leaf-meaning"> — परमपद प्राप्त हो गया (स्वर्गवास के लिए)</span></li>
+        <li class="leaf-item"><span class="leaf-term">तिरुवोलक्कम्</span><span class="leaf-meaning"> — पंक्तिवार, कोष्ठकवार होना</span></li>
+      </ul>
+      <div class="qa-item">
+        <div class="qa-q">प्रश्न: श्रीवैष्णवों की सेहत कैसे पूछें?</div>
+        <div class="qa-a">"तिरुमेनि पाङ्का?" और "देवरीदय तिरुमाळिकैयिले तिरुवाराधनङ्गळ् कुरैविल्लामल् नडन्तु वरुगिन्ऱता?" — दोनों उत्तर सही हैं।</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 14. आत्मा का नाम ============ -->
+  <div class="category" data-search>
+    <div class="category-header" onclick="toggleCat(this)">
+      <span class="cat-icon">✨</span>
+      <span class="cat-title">१४. आत्मा का बोध एवं विविध शब्द</span>
+      <span class="toggle-icon">▶</span>
+    </div>
+    <div class="category-body">
+      <ul class="leaf-list">
+        <li class="leaf-item"><span class="leaf-term">अगम्</span><span class="leaf-meaning"> — मन, घर</span></li>
+        <li class="leaf-item"><span class="leaf-term">अरवणै</span><span class="leaf-meaning"> — शयनाधिवासम् — भगवान लेटते हैं</span></li>
+        <li class="leaf-item"><span class="leaf-term">अलगिडुतल्</span><span class="leaf-meaning"> — सजाना, कोलम् (रंगोली) बनाना</span></li>
+        <li class="leaf-item"><span class="leaf-term">अवसानम्</span><span class="leaf-meaning"> — अन्त</span></li>
+        <li class="leaf-item"><span class="leaf-term">अनुतापम्</span><span class="leaf-meaning"> — दूसरों का दुःख देखकर मन में ग्लानि होना</span></li>
+        <li class="leaf-item"><span class="leaf-term">आत्मा का नाश न होने वाला नाम</span><span class="leaf-meaning"> — "पगवत्-पागवत-आचार्य-अडियान्" यह नाम सबसे प्रमुख है</span></li>
+        <li class="leaf-item"><span class="leaf-term">एकान्तम्</span><span class="leaf-meaning"> — रहस्य, एकान्त, निकटता</span></li>
+        <li class="leaf-item"><span class="leaf-term">आराम्</span><span class="leaf-meaning"> — विश्राम; बगीचा, वन</span></li>
+        <li class="leaf-item"><span class="leaf-term">आकाशम्</span><span class="leaf-meaning"> — खुला स्थान</span></li>
+        <li class="leaf-item"><span class="leaf-term">ऐमानन्तम्</span><span class="leaf-meaning"> — वटकिळक्कु (उत्तर-पूर्व)</span></li>
+        <li class="leaf-item"><span class="leaf-term">उत्तरीयम्</span><span class="leaf-meaning"> — ऊपर ओढ़ा जाने वाला वस्त्र</span></li>
+        <li class="leaf-item"><span class="leaf-term">उपहारम्</span><span class="leaf-meaning"> — मन्दिर जाते समय भगवान को अर्पण के लिए फल, पान, नारियल आदि</span></li>
+        <li class="leaf-item"><span class="leaf-term">ओळुक्कम्</span><span class="leaf-meaning"> — आचरण, अनुशासन</span></li>
+        <li class="leaf-item"><span class="leaf-term">कण्डम्</span><span class="leaf-meaning"> — गला</span></li>
+        <li class="leaf-item"><span class="leaf-term">कल्याणम्</span><span class="leaf-meaning"> — मंगल, विवाह</span></li>
+        <li class="leaf-item"><span class="leaf-term">क्रमम्</span><span class="leaf-meaning"> — क्रम, व्यवस्था</span></li>
+        <li class="leaf-item"><span class="leaf-term">किङ्करन्</span><span class="leaf-meaning"> — सेवक; उसका कार्य कैङ्कर्यम्</span></li>
+        <li class="leaf-item"><span class="leaf-term">गिरि</span><span class="leaf-meaning"> — पहाड़</span></li>
+        <li class="leaf-item"><span class="leaf-term">हिरण्यम्</span><span class="leaf-meaning"> — सोना या चाँदी</span></li>
+        <li class="leaf-item"><span class="leaf-term">मङ्गलम्</span><span class="leaf-meaning"> — शुभम्</span></li>
+        <li class="leaf-item"><span class="leaf-term">मूवुलगम्</span><span class="leaf-meaning"> — भूलोक, भुवर्लोक, स्वर्लोक — तीन लोक</span></li>
+      </ul>
+    </div>
+  </div>
+
+</div><!-- /tree-container -->
+
+<footer>
+  <div class="lotus-divider">🪷 ✦ 🪷</div>
+  अडियेन् श्रीनिवास दासन् द्वारा संकलित श्रीवैष्णव शब्दकोश — हिंदी अनुवाद<br>
+  <span style="font-size:0.75rem;opacity:0.6;margin-top:0.3rem;display:block;">सभी अधिकार सुरक्षित • सम्प्रदाय के लिए</span>
+</footer>
+
+<script>
+  let allExpanded = false;
+
+  function toggleCat(header) {
+    const body = header.nextElementSibling;
+    const icon = header.querySelector('.toggle-icon');
+    body.classList.toggle('open');
+    icon.classList.toggle('open');
+    header.classList.toggle('active');
+  }
+
+  function toggleSub(header) {
+    const body = header.nextElementSibling;
+    const icon = header.querySelector('.toggle-icon');
+    body.classList.toggle('open');
+    icon.classList.toggle('open');
+  }
+
+  function toggleAll() {
+    allExpanded = !allExpanded;
+    document.querySelectorAll('.category-body').forEach(b => {
+      b.classList.toggle('open', allExpanded);
+    });
+    document.querySelectorAll('.category-header .toggle-icon').forEach(i => {
+      i.classList.toggle('open', allExpanded);
+    });
+    document.querySelectorAll('.category-header').forEach(h => {
+      h.classList.toggle('active', allExpanded);
+    });
+    document.querySelectorAll('.sub-body').forEach(b => {
+      b.classList.toggle('open', allExpanded);
+    });
+    document.querySelectorAll('.sub-header .toggle-icon').forEach(i => {
+      i.classList.toggle('open', allExpanded);
+    });
+  }
+
+  function doSearch(query) {
+    query = query.trim().toLowerCase();
+    const categories = document.querySelectorAll('.category');
+
+    if (!query) {
+      categories.forEach(cat => {
+        cat.classList.remove('hidden-search');
+        // clear highlights
+        cat.querySelectorAll('.highlight').forEach(el => {
+          el.outerHTML = el.textContent;
+        });
+      });
+      return;
+    }
+
+    categories.forEach(cat => {
+      const text = cat.textContent.toLowerCase();
+      if (text.includes(query)) {
+        cat.classList.remove('hidden-search');
+        // auto-open
+        const body = cat.querySelector('.category-body');
+        const icon = cat.querySelector('.category-header .toggle-icon');
+        if (body) { body.classList.add('open'); icon.classList.add('open'); }
+      } else {
+        cat.classList.add('hidden-search');
+      }
+    });
+  }
+</script>
+</body>
+</html>
