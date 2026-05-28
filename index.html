@@ -446,6 +446,107 @@
 </head>
 <body>
 
+<!-- CONTACT US BUTTON -->
+<div style="position:fixed;top:14px;right:16px;z-index:8888;">
+  <button onclick="openContactModal()" style="background:linear-gradient(135deg,#6B0F1A,#A03C00);color:#F5C842;border:1.5px solid #D4A017;border-radius:25px;padding:9px 18px;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;cursor:pointer;box-shadow:0 4px 16px rgba(107,15,26,0.35);font-family:'Cormorant Garamond',serif;transition:all 0.2s;" onmouseover="this.style.background='linear-gradient(135deg,#A03C00,#6B0F1A)'" onmouseout="this.style.background='linear-gradient(135deg,#6B0F1A,#A03C00)'">
+    📍 Contact Us
+  </button>
+</div>
+
+<!-- CONTACT MODAL -->
+<div id="contactModal" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(44,24,16,0.82);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
+  <div style="background:#FFF8E7;border-radius:20px;max-width:560px;width:92%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(107,15,26,0.45);border:2px solid #D4A017;">
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,#6B0F1A,#A03C00);padding:20px 24px 16px;border-radius:18px 18px 0 0;position:sticky;top:0;z-index:2;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-family:'Noto Serif Devanagari',serif;font-size:1.1rem;font-weight:700;color:#F5C842;">📍 सम्पर्क करें — Contact Us</div>
+          <div style="font-size:0.72rem;color:rgba(255,248,231,0.6);margin-top:3px;font-style:italic;">Shri Ramanuj Sampradaya — Mandirs &amp; Contact</div>
+        </div>
+        <button onclick="closeContactModal()" style="background:rgba(255,255,255,0.12);border:1px solid rgba(245,200,66,0.4);border-radius:50%;width:36px;height:36px;color:#F5C842;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(255,255,255,0.22)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">✕</button>
+      </div>
+    </div>
+    <!-- Body -->
+    <div style="padding:20px 22px 26px;">
+
+      <!-- Mandirs -->
+      <div style="font-family:'Noto Serif Devanagari',serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#FF6B00;margin-bottom:12px;">🛕 हमारे मन्दिर — Our Mandirs</div>
+
+      <a href="https://maps.app.goo.gl/63zqP4cyMRGq21s98" target="_blank" rel="noopener" style="display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:10px;text-decoration:none;color:inherit;border:1px solid rgba(212,160,23,0.2);margin-bottom:8px;background:white;transition:all 0.2s;" onmouseover="this.style.background='#FFF0C8';this.style.borderColor='#D4A017'" onmouseout="this.style.background='white';this.style.borderColor='rgba(212,160,23,0.2)'">
+        <span style="font-size:1.4rem;margin-top:2px;">🛕</span>
+        <div style="flex:1;">
+          <div style="font-family:'Noto Serif Devanagari',serif;font-size:0.88rem;font-weight:700;color:#6B0F1A;">Shri Vanamamalai Thothadri Mutt</div>
+          <div style="font-size:0.78rem;color:#888;margin-top:2px;">Naguneri, Tamil Nadu</div>
+        </div>
+        <div style="color:#D4A017;font-size:0.85rem;font-weight:700;white-space:nowrap;">Maps ↗</div>
+      </a>
+
+      <a href="https://maps.app.goo.gl/sip4V5yzYHjqPVLR6" target="_blank" rel="noopener" style="display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:10px;text-decoration:none;color:inherit;border:1px solid rgba(212,160,23,0.2);margin-bottom:8px;background:white;transition:all 0.2s;" onmouseover="this.style.background='#FFF0C8';this.style.borderColor='#D4A017'" onmouseout="this.style.background='white';this.style.borderColor='rgba(212,160,23,0.2)'">
+        <span style="font-size:1.4rem;margin-top:2px;">🛕</span>
+        <div style="flex:1;">
+          <div style="font-family:'Noto Serif Devanagari',serif;font-size:0.88rem;font-weight:700;color:#6B0F1A;">श्री लक्ष्मीनारायण मन्दिर</div>
+          <div style="font-size:0.78rem;color:#888;margin-top:2px;">Chilbila, Pratapgarh, Uttar Pradesh</div>
+        </div>
+        <div style="color:#D4A017;font-size:0.85rem;font-weight:700;white-space:nowrap;">Maps ↗</div>
+      </a>
+
+      <a href="https://maps.app.goo.gl/ToBRgbT6eRAphH6g7" target="_blank" rel="noopener" style="display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:10px;text-decoration:none;color:inherit;border:1px solid rgba(212,160,23,0.2);margin-bottom:8px;background:white;transition:all 0.2s;" onmouseover="this.style.background='#FFF0C8';this.style.borderColor='#D4A017'" onmouseout="this.style.background='white';this.style.borderColor='rgba(212,160,23,0.2)'">
+        <span style="font-size:1.4rem;margin-top:2px;">🛕</span>
+        <div style="flex:1;">
+          <div style="font-family:'Noto Serif Devanagari',serif;font-size:0.88rem;font-weight:700;color:#6B0F1A;">श्रीवैकुण्ठ मण्डप</div>
+          <div style="font-size:0.78rem;color:#888;margin-top:2px;">Ayodhya, Uttar Pradesh</div>
+        </div>
+        <div style="color:#D4A017;font-size:0.85rem;font-weight:700;white-space:nowrap;">Maps ↗</div>
+      </a>
+
+      <a href="https://maps.app.goo.gl/w9utFi7Gb9M3dyp58" target="_blank" rel="noopener" style="display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:10px;text-decoration:none;color:inherit;border:1px solid rgba(212,160,23,0.2);margin-bottom:16px;background:white;transition:all 0.2s;" onmouseover="this.style.background='#FFF0C8';this.style.borderColor='#D4A017'" onmouseout="this.style.background='white';this.style.borderColor='rgba(212,160,23,0.2)'">
+        <span style="font-size:1.4rem;margin-top:2px;">🛕</span>
+        <div style="flex:1;">
+          <div style="font-family:'Noto Serif Devanagari',serif;font-size:0.88rem;font-weight:700;color:#6B0F1A;">Venkatesh Mandir</div>
+          <div style="font-size:0.78rem;color:#888;margin-top:2px;">Shibpur, Howrah, West Bengal</div>
+        </div>
+        <div style="color:#D4A017;font-size:0.85rem;font-weight:700;white-space:nowrap;">Maps ↗</div>
+      </a>
+
+      <!-- Divider -->
+      <div style="height:1px;background:linear-gradient(90deg,transparent,#D4A017,transparent);margin-bottom:16px;"></div>
+
+      <!-- Email -->
+      <div style="font-family:'Noto Serif Devanagari',serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#FF6B00;margin-bottom:10px;">📧 ईमेल — Email</div>
+      <a href="mailto:laxminarayanmandirchilbila6181@gmail.com" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;text-decoration:none;color:inherit;border:1px solid rgba(212,160,23,0.2);margin-bottom:14px;background:white;transition:all 0.2s;" onmouseover="this.style.background='#FFF0C8';this.style.borderColor='#D4A017'" onmouseout="this.style.background='white';this.style.borderColor='rgba(212,160,23,0.2)'">
+        <span style="font-size:1.4rem;">📧</span>
+        <div>
+          <div style="font-size:0.85rem;font-weight:700;color:#6B0F1A;">laxminarayanmandirchilbila6181@gmail.com</div>
+          <div style="font-size:0.75rem;color:#888;margin-top:2px;font-style:italic;">Click to send email</div>
+        </div>
+      </a>
+
+      <!-- Feedback note -->
+      <div style="background:linear-gradient(135deg,rgba(255,107,0,0.06),rgba(212,160,23,0.06));border:1px solid rgba(212,160,23,0.25);border-radius:10px;padding:12px 14px;">
+        <div style="font-size:0.82rem;color:#6B0F1A;line-height:1.7;font-family:'Noto Serif Devanagari',serif;">
+          💬 <strong>नई सामग्री / सुझाव</strong><br>
+          <span style="font-size:0.78rem;color:#666;font-style:italic;">For any feedback, new content suggestions, or updates to this portal — please write to us at the above email. We welcome contributions from all devotees of the Shrivaishnav Sampradaya.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+function openContactModal(){
+  document.getElementById("contactModal").style.display="flex";
+  document.body.style.overflow="hidden";
+}
+function closeContactModal(){
+  document.getElementById("contactModal").style.display="none";
+  document.body.style.overflow="";
+}
+document.getElementById("contactModal").addEventListener("click",function(e){ if(e.target===this) closeContactModal(); });
+document.addEventListener("keydown",function(e){ if(e.key==="Escape") closeContactModal(); });
+</script>
+
+
 <div class="border-pattern"></div>
 
 <!-- HERO -->
@@ -480,7 +581,7 @@
     <div class="hero-divider-line"></div>
   </div>
 
-  <div class="hero-subtitle">श्रीवैष्णव भक्ति · ज्ञान · प्रपत्ति · शरणागति</div>
+
 
   <!-- Chand 101 from Chandavali Granth -->
   <div class="hero-quote fade-in">
@@ -606,38 +707,325 @@
 
   <div class="cards-grid">
 
-    <a href="https://drive.google.com/drive/folders/1HhPcJhpPFGl1Ikz2lCKO4HDMkRTwRil6?usp=sharing" target="_blank" class="card fade-in">
+    <div class="card fade-in" onclick="openGranthModal()" style="cursor:pointer;">
       <div class="card-top maroon"></div>
       <div class="card-body">
-        <span class="card-icon">🕌</span>
+        <span class="card-icon">🛕</span>
         <div class="card-label">मन्दिर · Temple</div>
         <div class="card-title">वैकुण्ठ मण्डप — श्री लक्ष्मीनारायण मन्दिर, चिलबिला</div>
-        <p class="card-desc">Google Drive folder for Shri Lakshminarayan Mandir, Chilbila — Pratapgarh. Photos, recordings and temple resources.</p>
-        <div class="card-action">Google Drive खोलें →</div>
+        <p class="card-desc">श्रीवैष्णव ग्रन्थमाला — १३ पवित्र ग्रन्थों का संग्रह। किसी भी ग्रन्थ पर क्लिक करें और सीधे पढ़ें या डाउनलोड करें।<br><em>Click to browse &amp; open any Granth directly.</em></p>
+        <div class="card-action">📚 ग्रन्थमाला खोलें →</div>
       </div>
-    </a>
+    </div>
 
-    <a href="https://drive.google.com/file/d/1EgS8wnbSnLxvvZfLu4jxg99hJNE_n3e3/view?usp=sharing" target="_blank" class="card fade-in">
+<!-- GRANTH MODAL -->
+<div id="granthModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(44,24,16,0.82);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
+  <div style="background:#FFF8E7;border-radius:20px;max-width:680px;width:92%;max-height:88vh;overflow-y:auto;box-shadow:0 24px 80px rgba(107,15,26,0.45);border:2px solid #D4A017;position:relative;">
+    <div style="background:linear-gradient(135deg,#6B0F1A,#A03C00);padding:22px 28px 18px;border-radius:18px 18px 0 0;position:sticky;top:0;z-index:2;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-family:'Noto Serif Devanagari',serif;font-size:1.15rem;font-weight:700;color:#F5C842;letter-spacing:0.02em;">📚 श्रीवैष्णव ग्रन्थमाला</div>
+          <div style="font-size:0.75rem;color:rgba(255,248,231,0.6);margin-top:3px;font-style:italic;">Shrivaishnav Granthmala — Click any Granth to open</div>
+        </div>
+        <button onclick="closeGranthModal()" style="background:rgba(255,255,255,0.12);border:1px solid rgba(245,200,66,0.4);border-radius:50%;width:36px;height:36px;color:#F5C842;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(255,255,255,0.22)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">✕</button>
+      </div>
+    </div>
+    <div style="padding:16px 20px 24px;">
+      <div id="granthList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const granths = [
+  { n: "Sarnagati Mimasa Old शरणागति मीमांसा (पुराना)", url: "https://drive.google.com/open?id=1Hx3sT_NTJpiEXN0zN_6AtOwaN8W9nNv0&usp=drive_copy" },
+  { n: "Nitya Lila Granth 18 नित्य लीला ग्रन्थ १८", url: "https://drive.google.com/open?id=1TTtweWAc8YTFcIMJNW5yFY7OBryIBZcl&usp=drive_copy" },
+  { n: "Nitya Lila Granth 20 2013 नित्य लीला ग्रन्थ २० (२०१३)", url: "https://drive.google.com/open?id=1H_yzMLUv3Jbv7URd62HVhv_v3jplGsZP&usp=drive_copy" },
+  { n: "Shri Vaishnav Bhajan Mala श्रीवैष्णव भजन माला", url: "https://drive.google.com/open?id=1mvdU0ir01NM-Osnr25zZozGf2nI-YkDR&usp=drive_copy" },
+  { n: "Chandavali Full Large छन्दावली (बड़ी) सम्पूर्ण", url: "https://drive.google.com/open?id=1cUtuN35zPb-qCFRnwzCk8JJhSSPuedzU&usp=drive_copy" },
+  { n: "Shri Vaishnav Pranadhan 2022 श्रीवैष्णव प्राणधन (२०२२)", url: "https://drive.google.com/open?id=1h_L2ACEKX611D8ceia1up2u2rWQ89jCr&usp=drive_copy" },
+  { n: "New Nitya Lila Granth 16 2018 नूतन नित्य लीला ग्रन्थ १६ (२०१८)", url: "https://drive.google.com/open?id=1idNd6CZyLY5q5OM9IvC8WytgzRe2VjVH&usp=drive_copy" },
+  { n: "Sharnagati Mimansa 2023 शरणागति मीमांसा (२०२३)", url: "https://drive.google.com/file/d/16CIt98XSg6JH-MZCDjBeKv3BBOrhomPj/view?usp=drive_link" },
+  { n: "Mokshmala New Version 2025 मोक्षमाला नवीन संस्करण (२०२५)", url: "https://drive.google.com/open?id=1uI3HWTWW86wv9bkGQJICCJAMC6kYmycD&usp=drive_copy" },
+  { n: "Shri Nitya Lila Granth 13 2016 श्री नित्य लीला ग्रन्थ १३ (२०१६)", url: "https://drive.google.com/open?id=1Chdfbdvzf0JuM-p9EKmJQt3urf5FKvSd&usp=drive_copy" },
+  { n: "Shripati ke Sharnagati ke Liye Updesh 2025 श्रीपति के शरणागति के लिये उपदेश (२०२५)", url: "https://drive.google.com/open?id=1Cg1eoz9PE6D-naRVZU3XdTXnmLFUMLqi&usp=drive_copy" },
+  { n: "Dhanurmas Granthmala December 2024 धनुर्मास ग्रन्थमाला दिसम्बर २०२४", url: "https://drive.google.com/open?id=1dI2oR0XmEExftsGvTP92puXJadn9c3tt&usp=drive_copy" },
+  { n: "Shri Vaishnav Antyeshti Vidhi Prayog श्री वैष्णवान्त्येष्टि विधि प्रयोग", url: "https://drive.google.com/open?id=1MWYehlPhxigu_47HZmXZW2nVFJ_MqIwC&usp=drive_copy" }
+];
+const granthList = document.getElementById("granthList");
+granths.forEach((g, i) => {
+  const div = document.createElement("a");
+  div.href = g.url;
+  div.target = "_blank";
+  div.rel = "noopener";
+  div.style.cssText = "display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:10px;text-decoration:none;color:inherit;border:1px solid rgba(212,160,23,0.2);margin-bottom:8px;background:white;transition:all 0.2s;";
+  div.onmouseover = function(){ this.style.background="#FFF0C8"; this.style.borderColor="#D4A017"; this.style.transform="translateX(4px)"; };
+  div.onmouseout  = function(){ this.style.background="white"; this.style.borderColor="rgba(212,160,23,0.2)"; this.style.transform="translateX(0)"; };
+  div.innerHTML = "<div style=\"min-width:32px;height:32px;background:linear-gradient(135deg,#6B0F1A,#A03C00);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.75rem;font-weight:700;\">" + String(i+1).padStart(2,"0") + "</div><div style=\"flex:1;\"><div style=\"font-family:'Noto Serif Devanagari',serif;font-size:0.9rem;font-weight:600;color:#6B0F1A;line-height:1.4;\">" + g.n + "</div></div><div style=\"color:#D4A017;font-size:1rem;\">↗</div>";
+  granthList.appendChild(div);
+});
+function openGranthModal(){
+  var m = document.getElementById("granthModal");
+  m.style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
+function closeGranthModal(){
+  document.getElementById("granthModal").style.display = "none";
+  document.body.style.overflow = "";
+}
+document.getElementById("granthModal").addEventListener("click", function(e){ if(e.target===this) closeGranthModal(); });
+document.addEventListener("keydown", function(e){ if(e.key==="Escape") closeGranthModal(); });
+</script>
+
+    <div class="card fade-in" onclick="openVaishnавGranthModal()" style="cursor:pointer;">
       <div class="card-top saffron"></div>
       <div class="card-body">
-        <span class="card-icon">🎵</span>
-        <div class="card-label">भजन · Bhajan</div>
-        <div class="card-title">श्रीवैष्णव भजन माला — YouTube Link with Name of Bhajan (v2)</div>
-        <p class="card-desc">Complete index of Shrivaishnav bhajans with YouTube links — a treasure for bhakti sadhana and daily pathan.</p>
-        <div class="card-action">भजन सूची देखें →</div>
+        <span class="card-icon">📖</span>
+        <div class="card-label">ग्रन्थ · Granth</div>
+        <div class="card-title">श्री वैष्णव ग्रन्थ — Shri Vaishnav Granth</div>
+        <p class="card-desc">श्री वैष्णव सिद्धान्त एवं प्रकाशन ग्रन्थों का संग्रह। किसी भी ग्रन्थ पर क्लिक करें और सीधे पढ़ें।<br><em>Click to browse &amp; open any Granth directly.</em></p>
+        <div class="card-action">📖 ग्रन्थ खोलें →</div>
       </div>
-    </a>
+    </div>
 
-    <a href="https://drive.google.com/drive/folders/1v1HbPklsvwBiL3_Rf4orfmLmA8C62n46?usp=sharing" target="_blank" class="card fade-in">
+<!-- SHRI VAISHNAV GRANTH MODAL -->
+<div id="vaishnавGranthModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(44,24,16,0.82);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
+  <div style="background:#FFF8E7;border-radius:20px;max-width:680px;width:92%;max-height:88vh;overflow-y:auto;box-shadow:0 24px 80px rgba(107,15,26,0.45);border:2px solid #D4A017;position:relative;">
+    <div style="background:linear-gradient(135deg,#6B0F1A,#A03C00);padding:22px 28px 18px;border-radius:18px 18px 0 0;position:sticky;top:0;z-index:2;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-family:'Noto Serif Devanagari',serif;font-size:1.15rem;font-weight:700;color:#F5C842;letter-spacing:0.02em;">📖 श्री वैष्णव ग्रन्थ</div>
+          <div style="font-size:0.75rem;color:rgba(255,248,231,0.6);margin-top:3px;font-style:italic;">Shri Vaishnav Granth — Click any Granth to open</div>
+        </div>
+        <button onclick="closeVaishnавGranthModal()" style="background:rgba(255,255,255,0.12);border:1px solid rgba(245,200,66,0.4);border-radius:50%;width:36px;height:36px;color:#F5C842;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(255,255,255,0.22)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">✕</button>
+      </div>
+    </div>
+    <div style="padding:16px 20px 24px;">
+      <div id="vaishnавGranthList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const vaishnавGranths = [
+  { n: "Shri Archiradimaarg श्री अर्चिरादिमार्ग — श्रीदेवी प्रकाशन, वृन्दावन", url: "https://drive.google.com/open?id=1D05mdhnrmyQDcD02OGYXgspoh50daSyP&usp=drive_copy" }
+];
+const vaishnавGranthList = document.getElementById("vaishnавGranthList");
+vaishnавGranths.forEach((g, i) => {
+  const div = document.createElement("a");
+  div.href = g.url;
+  div.target = "_blank";
+  div.rel = "noopener";
+  div.style.cssText = "display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:10px;text-decoration:none;color:inherit;border:1px solid rgba(212,160,23,0.2);margin-bottom:8px;background:white;transition:all 0.2s;";
+  div.onmouseover = function(){ this.style.background="#FFF0C8"; this.style.borderColor="#D4A017"; this.style.transform="translateX(4px)"; };
+  div.onmouseout  = function(){ this.style.background="white"; this.style.borderColor="rgba(212,160,23,0.2)"; this.style.transform="translateX(0)"; };
+  div.innerHTML = "<div style=\"min-width:32px;height:32px;background:linear-gradient(135deg,#6B0F1A,#A03C00);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.75rem;font-weight:700;\">" + String(i+1).padStart(2,"0") + "</div><div style=\"flex:1;\"><div style=\"font-family:'Noto Serif Devanagari',serif;font-size:0.9rem;font-weight:600;color:#6B0F1A;line-height:1.4;\">" + g.n + "</div></div><div style=\"color:#D4A017;font-size:1rem;\">↗</div>";
+  vaishnавGranthList.appendChild(div);
+});
+function openVaishnавGranthModal(){
+  var m = document.getElementById("vaishnавGranthModal");
+  m.style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
+function closeVaishnавGranthModal(){
+  document.getElementById("vaishnавGranthModal").style.display = "none";
+  document.body.style.overflow = "";
+}
+document.getElementById("vaishnавGranthModal").addEventListener("click", function(e){ if(e.target===this) closeVaishnавGranthModal(); });
+document.addEventListener("keydown", function(e){ if(e.key==="Escape"){ closeVaishnавGranthModal(); } });
+</script>
+
+    <div class="card fade-in" onclick="openTVMModal()" style="cursor:pointer;">
       <div class="card-top green"></div>
       <div class="card-body">
-        <span class="card-icon">📚</span>
+        <span class="card-icon">🎙️</span>
         <div class="card-label">सन्धि · Sandhai</div>
-        <div class="card-title">TVM Sandhai</div>
-        <p class="card-desc">Divyaprabandham Sandhai recordings from Thiruvananthapuram — for learning and daily recitation.</p>
-        <div class="card-action">फोल्डर खोलें →</div>
+        <div class="card-title">TVM Sandhai — Divyaprabandham Recordings</div>
+        <p class="card-desc">Thiruvananthapuram Sandhai — ११० व्यक्तिगत रिकॉर्डिंग। किसी भी पाठ पर क्लिक करके सीधे सुनें।<br><em>110 individual recordings — click any to open.</em></p>
+        <div class="card-action">🎙️ रिकॉर्डिंग सुनें →</div>
       </div>
-    </a>
+    </div>
+
+<!-- TVM SANDHAI MODAL -->
+<div id="tvmModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(44,24,16,0.82);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
+  <div style="background:#FFF8E7;border-radius:20px;max-width:700px;width:92%;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(107,15,26,0.45);border:2px solid #D4A017;">
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,#2D6A4F,#1B4332);padding:20px 24px 16px;border-radius:18px 18px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-family:'Noto Serif Devanagari',serif;font-size:1.1rem;font-weight:700;color:#F5C842;">🎙️ TVM Sandhai — Divyaprabandham</div>
+          <div style="font-size:0.72rem;color:rgba(255,255,255,0.55);margin-top:3px;font-style:italic;">Thiruvananthapuram — 110 Recordings — Click any to open &amp; play</div>
+        </div>
+        <button onclick="closeTVMModal()" style="background:rgba(255,255,255,0.12);border:1px solid rgba(245,200,66,0.4);border-radius:50%;width:36px;height:36px;color:#F5C842;font-size:1.2rem;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(255,255,255,0.22)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">✕</button>
+      </div>
+      <!-- Search -->
+      <input type="text" id="tvmSearch" placeholder="🔍  Search by name..." oninput="filterTVM(this.value)" style="width:100%;margin-top:12px;padding:8px 14px;border-radius:8px;border:1px solid rgba(245,200,66,0.3);background:rgba(255,255,255,0.12);color:white;font-size:0.85rem;outline:none;" />
+    </div>
+    <!-- Count -->
+    <div style="padding:8px 20px;font-size:0.75rem;color:#888;flex-shrink:0;border-bottom:1px solid rgba(212,160,23,0.15);">
+      Showing <span id="tvmCount">110</span> of 110 recordings
+    </div>
+    <!-- List -->
+    <div style="overflow-y:auto;padding:12px 16px 20px;flex:1;">
+      <div id="tvmList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const tvmFiles = [
+  {n:"TVM 10.10.wav",url:"https://drive.google.com/open?id=1xfmTcr9o5dybhHZRCNe2azpnbo-7fdjQ",icon:"🎵"},
+  {n:"TVM 9.9.wav",url:"https://drive.google.com/open?id=1xflA7dxj3iUybwRbAcAlXfHRBcyY7zB8",icon:"🎵"},
+  {n:"TVM 4.10.mp4",url:"https://drive.google.com/open?id=1xfRgn9sR21FIl0TwKvf6Hiu-EqfNGb1I",icon:"🎬"},
+  {n:"TVM 10.9.wav",url:"https://drive.google.com/open?id=1xdcGGQtDqqpr66G-yd-64CXWsCwrZuqv",icon:"🎵"},
+  {n:"TVM 10.8.wav",url:"https://drive.google.com/open?id=1xdJcq-v4xio11l6EZaI9IhKZRbJAGj1H",icon:"🎵"},
+  {n:"TVM 10.6.wav",url:"https://drive.google.com/open?id=1x_OlnWM1Qb6kCQVMVQazCTgQWfEpvhKB",icon:"🎵"},
+  {n:"TVM 10.5.wav",url:"https://drive.google.com/open?id=1xZTr5PvYXkw534MlgoXWqJc3_M49jbOo",icon:"🎵"},
+  {n:"TVM 10.4.wav",url:"https://drive.google.com/open?id=1xTsuPp0LsW-IGbQC9trR5gCDjN6MWIms",icon:"🎵"},
+  {n:"TVM 10.3.wav",url:"https://drive.google.com/open?id=1xNFMTYHxwjZHyXOXH0E1uyDbiqkwGFow",icon:"🎵"},
+  {n:"TVM 10.2.wav",url:"https://drive.google.com/open?id=1xLinnQrUcJlTvU-cWrSc9ZkQv-uQtTwJ",icon:"🎵"},
+  {n:"TVM 10.1.wav",url:"https://drive.google.com/open?id=1xIa4XHBwJVtUNj8WAO8vUPN3Y7t3jxu5",icon:"🎵"},
+  {n:"TVM 9.9.wav",url:"https://drive.google.com/open?id=1wXhGUjlCpGqEgCHqxbFK-ypUfDB3U9CK",icon:"🎵"},
+  {n:"TVM 4.99.mp4",url:"https://drive.google.com/open?id=1wXHz2qNLeadMFzSTEWmSDg1tUKvsCwDl",icon:"🎬"},
+  {n:"TVM 10.99.wav",url:"https://drive.google.com/open?id=1wT7Tkp3dcwZ7xsHk5f60_rW7Ed6QsuR_",icon:"🎵"},
+  {n:"TVM 10.9.wav",url:"https://drive.google.com/open?id=1wO3-NxvyF8QZs8YzASdtcbRhRAbYHX0H",icon:"🎵"},
+  {n:"TVM 10.8.wav",url:"https://drive.google.com/open?id=1wM6MdiFijfbjVhbFa1HukTzIbdKZnFYF",icon:"🎵"},
+  {n:"TVM 10.7.wav",url:"https://drive.google.com/open?id=1wLwJ8HHhR3rsGO99TRdNxKe0M_s-4opp",icon:"🎵"},
+  {n:"TVM 10.6.wav",url:"https://drive.google.com/open?id=1wCxl6GiZIhhnfzk9t6V4wV5sk7Tfkenx",icon:"🎵"},
+  {n:"TVM 10.5.wav",url:"https://drive.google.com/open?id=1vzwv210hYxKVZNpNZ6Jansg88pv12JPF",icon:"🎵"},
+  {n:"TVM 10.4.wav",url:"https://drive.google.com/open?id=1vmHYklgVkaTnLPB49yH2VebqEQBvMIca",icon:"🎵"},
+  {n:"TVM 10.3.wav",url:"https://drive.google.com/open?id=1vk4OZ8GMxVHpYD9eBUigNJeZ0y001Wqj",icon:"🎵"},
+  {n:"TVM 10.2.wav",url:"https://drive.google.com/open?id=1vj95X8Q0pZs0T3NK4b2UgzDi39lNpXNM",icon:"🎵"},
+  {n:"TVM 10.1.wav",url:"https://drive.google.com/open?id=1vflBt2UuTnRqh8vBzjpScTf4mFFhJsA4",icon:"🎵"},
+  {n:"TVM-4.6.mp4",url:"https://drive.google.com/open?id=1EHRfspyiZiIXizZ6EXUSz4drWrI1C_yY",icon:"🎬"},
+  {n:"TVM-4.4.mp4",url:"https://drive.google.com/open?id=1EH00AWiZwU_F-__mSbEv0roFCsxDZG72",icon:"🎬"},
+  {n:"TVM-4.5.mp4",url:"https://drive.google.com/open?id=1EBuwO9Bo3a3CghmNHWMw1wIXuBhdWTeG",icon:"🎬"},
+  {n:"TVM-5.4.mp4",url:"https://drive.google.com/open?id=1yRsW-jWEbV3fx4bwtpfYAAF9WUS9ALgL",icon:"🎬"},
+  {n:"TVM-5.1.m4a",url:"https://drive.google.com/open?id=1y8xK4ILq18_AuvKnPChT_q-kpJQIX_hW",icon:"🎵"},
+  {n:"TVM-3.10.mp3",url:"https://drive.google.com/open?id=1xMu1mCrMCcX2vy2wXlCo_Hb2ZFmrJLPv",icon:"🎵"},
+  {n:"TVM-9.8.wav",url:"https://drive.google.com/open?id=10Ji_EdPd_XjEG-e847Ba9I-RpH5scfxY",icon:"🎵"},
+  {n:"TVM-9.7.wav",url:"https://drive.google.com/open?id=10J1HRQM1zVg5BmTo2THKT9KQ7TKS6hYi",icon:"🎵"},
+  {n:"TVM-9.6.wav",url:"https://drive.google.com/open?id=10ACX83YoQhAaqsadGSaCCDFVladQtUMa",icon:"🎵"},
+  {n:"TVM-9.5.wav",url:"https://drive.google.com/open?id=103oMNMAKUV6H-cjuGRnVniXIKc3cazCT",icon:"🎵"},
+  {n:"TVM-9.4.wav",url:"https://drive.google.com/open?id=101WyEl-NrwfKPGv5LNSWyGCz8u4BhWgD",icon:"🎵"},
+  {n:"TVM-9.3.wav",url:"https://drive.google.com/open?id=10-uUjqV24sIDbTc30foMrYXvJ8XfoyD4",icon:"🎵"},
+  {n:"TVM-9.2.wav",url:"https://drive.google.com/open?id=1-yuMB7a6pi1YgZQetwkHuWD3xfx2IYPM",icon:"🎵"},
+  {n:"TVM-9.10.wav",url:"https://drive.google.com/open?id=1-pJ58qnyzJOPyjA2grc4DHk0YUTvheYE",icon:"🎵"},
+  {n:"TVM-9.1.wav",url:"https://drive.google.com/open?id=1-nnbdfQGHEQxXKMOtyxpQ34E8g9O2X_s",icon:"🎵"},
+  {n:"TVM-8.9.wav",url:"https://drive.google.com/open?id=1-dYLkG5e3b8Bxp96f9tnx_QMbkuKtgl1",icon:"🎵"},
+  {n:"TVM-8.8.wav",url:"https://drive.google.com/open?id=1-NlADdavO2t1OW-WgtD4AZA0TZeJcr8J",icon:"🎵"},
+  {n:"TVM-8.7.wav",url:"https://drive.google.com/open?id=1-8NWnpY-T0qK8aoGvA0IXMnG61leZTSB",icon:"🎵"},
+  {n:"TVM-8.6.wav",url:"https://drive.google.com/open?id=1-89qJcsQjFEaRpcEKXi-fa8-0rt2mloi",icon:"🎵"},
+  {n:"TVM-8.5.wav",url:"https://drive.google.com/open?id=1-5sIsgkkaBK1TtsajKOQvYbND0Ignd8-",icon:"🎵"},
+  {n:"TVM-8.4.wav",url:"https://drive.google.com/open?id=1-5TX-rvAIqSEPDAAyZzldo1JBeXU7FqO",icon:"🎵"},
+  {n:"TVM-8.3.wav",url:"https://drive.google.com/open?id=1--GxD-Lio7bcaD-TxP8h2Ok2Eo9nipl9",icon:"🎵"},
+  {n:"TVM-8.2.wav",url:"https://drive.google.com/open?id=1xlx0ReSydGlbg4LNK2-pQzf-62G0sSaJ",icon:"🎵"},
+  {n:"TVM-8.10.wav",url:"https://drive.google.com/open?id=1zzTN6CdN4kSkzPtRiVm2HdaC8M5DVbg8",icon:"🎵"},
+  {n:"TVM-8.1.wav",url:"https://drive.google.com/open?id=1zyX_T482NssHtu8yIFV5FICo0_0GOkGI",icon:"🎵"},
+  {n:"TVM-7.9.wav",url:"https://drive.google.com/open?id=1zwPSyLisM6XGhRtDQy_1Yiv_4nIH2UhO",icon:"🎵"},
+  {n:"TVM-7.8.wav",url:"https://drive.google.com/open?id=1zu75mUlW2AlVrvztLJh49ZV8w6YKY-VT",icon:"🎵"},
+  {n:"TVM-7.7.wav",url:"https://drive.google.com/open?id=1zn7fGIWcyH6uIShhFUocnKU__MALe2bc",icon:"🎵"},
+  {n:"TVM-7.6.wav",url:"https://drive.google.com/open?id=1zlQOnJj5PHB72Rd6V66rzvJd2d9wOycL",icon:"🎵"},
+  {n:"TVM-7.5.wav",url:"https://drive.google.com/open?id=1zioiBASFJfwIaeS6VF-37f9m_iy07uiN",icon:"🎵"},
+  {n:"TVM-7.4.wav",url:"https://drive.google.com/open?id=1zbuWzUdSMI4dRVlpGP4cHjTuNksUzZKH",icon:"🎵"},
+  {n:"TVM-7.3.wav",url:"https://drive.google.com/open?id=1zVmzVKjjS17_XVEkwRYQ8EZAjuSPDG7e",icon:"🎵"},
+  {n:"TVM-7.2.wav",url:"https://drive.google.com/open?id=1zTvHL9QXQYVuMoBW5wHN0RDguH2rA9my",icon:"🎵"},
+  {n:"TVM-7.10.wav",url:"https://drive.google.com/open?id=1zHcaKPB65oqNQap0rIHRM5asWnsC5lBL",icon:"🎵"},
+  {n:"TVM-7.1.wav",url:"https://drive.google.com/open?id=1zHYeEOxrsX9NdcuzSlrlSJTMVFIx_mMc",icon:"🎵"},
+  {n:"TVM-6.9.wav",url:"https://drive.google.com/open?id=1zGDsS0sjVxgXODtNIun4HdMRslJu3LMF",icon:"🎵"},
+  {n:"TVM-6.8.wav",url:"https://drive.google.com/open?id=1zExlBwWVVfIHo1xn9wfowM-Zt00EYLif",icon:"🎵"},
+  {n:"TVM-6.7.wav",url:"https://drive.google.com/open?id=1z6HhOBj9tJKGP2NY_1BpMfWPYzUzCDNB",icon:"🎵"},
+  {n:"TVM-6.6.wav",url:"https://drive.google.com/open?id=1z3rW_xOrCSj3aNB2EumGzYF4j9DBTc6m",icon:"🎵"},
+  {n:"TVM-6.5.wav",url:"https://drive.google.com/open?id=1yzfSRDy1MQaekgd2zuJSXsoo7bSBhQOb",icon:"🎵"},
+  {n:"TVM-6.4.wav",url:"https://drive.google.com/open?id=1yrBErCsMc0p2eZtptz7SzZtqhspt06XO",icon:"🎵"},
+  {n:"TVM-6.3.aac",url:"https://drive.google.com/open?id=1yqAfdlbuZWv0j6vzuLxxTr9k4ebz-9Nx",icon:"🎵"},
+  {n:"TVM-6.2.aac",url:"https://drive.google.com/open?id=1ylSXfNl-aGaH-JsdFaBt1sCLo1Ny-2aP",icon:"🎵"},
+  {n:"TVM-6.10.wav",url:"https://drive.google.com/open?id=1ykPoYQlQgMF88RmS8U3Cr85ZleECDZVs",icon:"🎵"},
+  {n:"TVM-6.1.aac",url:"https://drive.google.com/open?id=1yicFdDK8NKkmJsPk1r4297VP9-Adl1XP",icon:"🎵"},
+  {n:"TVM-5.9.aac",url:"https://drive.google.com/open?id=1yhcLuaw9Qd7SwbLQrwSfD-HnWNU57Yh9",icon:"🎵"},
+  {n:"TVM-5.8.aac",url:"https://drive.google.com/open?id=1ygbYXJkzHG-xGBvUH-5SWIoUvljoiOsN",icon:"🎵"},
+  {n:"TVM-5.7.mp4",url:"https://drive.google.com/open?id=1ydoE6xEdwIo2gxfZXs6wIFN53huJ6p-m",icon:"🎬"},
+  {n:"TVM-5.6.mp4",url:"https://drive.google.com/open?id=1ySemvvkCxmOlDvPpPmpx39hSCJhx0DAc",icon:"🎬"},
+  {n:"TVM-5.3.mp4",url:"https://drive.google.com/open?id=1yRlMKQJsmjZMgm8DBTmuCbEr25szG85U",icon:"🎬"},
+  {n:"TVM-5.2.mp4",url:"https://drive.google.com/open?id=1yMuO3Tub55BA9uifFAY3V1B-K_QmrFU0",icon:"🎬"},
+  {n:"TVM-5.10.aac",url:"https://drive.google.com/open?id=1yCNIgK-NyqZQblTl-eiPF_E5XNB9s60U",icon:"🎵"},
+  {n:"TVM-4.9.m4a",url:"https://drive.google.com/open?id=1y5Fh8GruDikwydDnfMXm9dNyS5T1iZnw",icon:"🎵"},
+  {n:"TVM-4.8.m4a",url:"https://drive.google.com/open?id=1xzWD8ZrUAZgIx--LMwWFk8EmlXHmliDb",icon:"🎵"},
+  {n:"TVM-4.7.m4a",url:"https://drive.google.com/open?id=1xw0kZfLHZF1gGIt1TLQRf69mAweskU3p",icon:"🎵"},
+  {n:"TVM-4.3.mp3",url:"https://drive.google.com/open?id=1xttHbHQAJ6KX29EZO4MLG36l2SyfxQ9w",icon:"🎵"},
+  {n:"TVM-4.2.mp3",url:"https://drive.google.com/open?id=1xpSYr7n3MDByQx-SFNnORJupUlENKCJ2",icon:"🎵"},
+  {n:"TVM-4.1.mp3",url:"https://drive.google.com/open?id=1xoUUHxrzkCiXwOxBdwc77uOP1OJlD3SB",icon:"🎵"},
+  {n:"TVM-3.9.mp3",url:"https://drive.google.com/open?id=1xoO1I98T3ZB2yo8J7shQ6Y1vwwJyReUz",icon:"🎵"},
+  {n:"TVM-3.8.aac",url:"https://drive.google.com/open?id=1xn5MwVx10TD-EDFW1F1wQGza2Syg7krV",icon:"🎵"},
+  {n:"TVM-3.7.mp3",url:"https://drive.google.com/open?id=1xiRXaevV7r2ABx9c7qXjZVfWZW6chyQ0",icon:"🎵"},
+  {n:"TVM-3.6.mp3",url:"https://drive.google.com/open?id=1xhPsn02WVVmkFtRbo8iEhtNbTXWOhYdI",icon:"🎵"},
+  {n:"TVM-3.5.mp3",url:"https://drive.google.com/open?id=1xaB9ZlSTJ-I3nj7eCzQKbYvU6FSS3mdm",icon:"🎵"},
+  {n:"TVM-3.4.mp3",url:"https://drive.google.com/open?id=1x_q6l2CR8-ibwHI1zvr7A2PbWI7GqQRN",icon:"🎵"},
+  {n:"TVM-3.3.mp3",url:"https://drive.google.com/open?id=1xOzTDHXiSZb-KoQJPyVb06h4zO6uQbpl",icon:"🎵"},
+  {n:"TVM-3.2.mp3",url:"https://drive.google.com/open?id=1xOYebSOSKXGGd_0NpgsIJ8QrIiSPkRag",icon:"🎵"},
+  {n:"TVM-3.1.mp3",url:"https://drive.google.com/open?id=1xKcgvDAotocnDjv3m4ubZuXZbS36FjvF",icon:"🎵"},
+  {n:"TVM-2.9.mp3",url:"https://drive.google.com/open?id=1x9NPLqjaPCt-5j-8KjajmkcasRMintLG",icon:"🎵"},
+  {n:"TVM-2.8.mp3",url:"https://drive.google.com/open?id=1x3f9nbbGjughja32uLrD4r9FvvMrSU2z",icon:"🎵"},
+  {n:"TVM-2.7.mp3",url:"https://drive.google.com/open?id=1x2aDo_T-V7hXgJ_JwpYYIY0eAD_Bu_Xc",icon:"🎵"},
+  {n:"TVM-2.6.mp3",url:"https://drive.google.com/open?id=1x1sLVMi9BjsFGgZFPv4pmf82BId2g89k",icon:"🎵"},
+  {n:"TVM-2.5.mp3",url:"https://drive.google.com/open?id=1wsv3W8M1Q7gLqpuB-ymqkX-VzGDheBBJ",icon:"🎵"},
+  {n:"TVM-2.4.mp3",url:"https://drive.google.com/open?id=1wk20HizvHEGrt03kVndqS74ASTqZPQZH",icon:"🎵"},
+  {n:"TVM-2.3.mp3",url:"https://drive.google.com/open?id=1wemmp_uzidXsiJ3zPG-QWxhPLaXFgDzY",icon:"🎵"},
+  {n:"TVM-2.2.mp3",url:"https://drive.google.com/open?id=1wdVW92jFhNyEU8RVdELf7A8UpZt2iYq6",icon:"🎵"},
+  {n:"TVM-2.10.mp3",url:"https://drive.google.com/open?id=1wd13wP7DVjAu-_b1aN4okPzqyYkmo9wE",icon:"🎵"},
+  {n:"TVM-2.1.mp3",url:"https://drive.google.com/open?id=1wV_ApQSrLS1coEoOceiiHrgHImjGscgA",icon:"🎵"},
+  {n:"TVM-1.9.mp3",url:"https://drive.google.com/open?id=1vcpfneYBZGeJFgONVGAJGjcblk5cA6la",icon:"🎵"},
+  {n:"TVM-1.8.mp3",url:"https://drive.google.com/open?id=1vcNfOIIXBjk-1aNv0UrbC09Vbkvov7JR",icon:"🎵"},
+  {n:"TVM-1.7.mp3",url:"https://drive.google.com/open?id=1vaRka1_if2GrDhDqR4aXFlyHxxZkYKJ-",icon:"🎵"},
+  {n:"TVM-1.6.mp3",url:"https://drive.google.com/open?id=1v_jxdcvT3WIatC02hVBC2twT89VBRYCf",icon:"🎵"},
+  {n:"TVM-1.5.mp3",url:"https://drive.google.com/open?id=1vUJ4Tjpw08peMbn0GL0xwkCm0dEHgt0o",icon:"🎵"},
+  {n:"TVM-1.4.mp3",url:"https://drive.google.com/open?id=1vIzzOdex4dEsW1R3kxatTdCHXFVPBApw",icon:"🎵"},
+  {n:"TVM-1.3.mp3",url:"https://drive.google.com/open?id=1vG-rCoBWH77_qgjird6d1kTW18Ypo_iS",icon:"🎵"},
+  {n:"TVM-1.2.mp3",url:"https://drive.google.com/open?id=1vDyZ2uasz2EKKueaS3UWh9u87Ohj9tUw",icon:"🎵"},
+  {n:"TVM-1.10.mp3",url:"https://drive.google.com/open?id=1v8vacRJzXIC25BiPgi7Behc2Dj74QvRR",icon:"🎵"},
+  {n:"TVM-1.1.mp3",url:"https://drive.google.com/open?id=1v3lEfOZS_yKh6xYPjkFckFToOynX7t8a",icon:"🎵"}
+];
+
+function renderTVM(list){
+  const container = document.getElementById("tvmList");
+  container.innerHTML = "";
+  document.getElementById("tvmCount").textContent = list.length;
+  list.forEach((g,i)=>{
+    const ext = g.n.split(".").pop().toLowerCase();
+    const typeColor = (ext==="mp4") ? "#1565c0" : "#2D6A4F";
+    const typeBg = (ext==="mp4") ? "rgba(21,101,192,0.1)" : "rgba(45,106,79,0.1)";
+    const div = document.createElement("a");
+    div.href = g.url; div.target="_blank"; div.rel="noopener";
+    div.style.cssText="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;text-decoration:none;color:inherit;border:1px solid rgba(212,160,23,0.18);margin-bottom:6px;background:white;transition:all 0.18s;";
+    div.onmouseover=function(){this.style.background="#FFF0C8";this.style.borderColor="#D4A017";this.style.transform="translateX(3px)";};
+    div.onmouseout=function(){this.style.background="white";this.style.borderColor="rgba(212,160,23,0.18)";this.style.transform="translateX(0)";};
+    div.innerHTML = "<div style=\"min-width:28px;height:28px;background:"+typeColor+";border-radius:6px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:700;\">"+ext.toUpperCase()+"</div>"
+      +"<div style=\"flex:1;font-size:0.85rem;font-weight:600;color:#2C1810;\">"+g.n+"</div>"
+      +"<div style=\"color:#D4A017;font-size:0.9rem;\">↗</div>";
+    container.appendChild(div);
+  });
+}
+
+function filterTVM(q){
+  const filtered = q.trim()==="" ? tvmFiles : tvmFiles.filter(f=>f.n.toLowerCase().includes(q.toLowerCase()));
+  renderTVM(filtered);
+}
+
+function openTVMModal(){
+  document.getElementById("tvmModal").style.display="flex";
+  document.body.style.overflow="hidden";
+  document.getElementById("tvmSearch").value="";
+  renderTVM(tvmFiles);
+}
+function closeTVMModal(){
+  document.getElementById("tvmModal").style.display="none";
+  document.body.style.overflow="";
+}
+document.getElementById("tvmModal").addEventListener("click",function(e){if(e.target===this)closeTVMModal();});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeTVMModal();});
+
+renderTVM(tvmFiles);
+</script>
 
     <a href="https://drive.google.com/drive/folders/1N3ohkwRxCBetGgteD9ti2l9CT0Hxkj8K?usp=sharing" target="_blank" class="card fade-in">
       <div class="card-top green"></div>
@@ -650,16 +1038,106 @@
       </div>
     </a>
 
-    <a href="https://drive.google.com/drive/folders/1B5LeXkqiUgO_k3OZiC6NwuuDBU77awLU?usp=sharing" target="_blank" class="card fade-in">
+    <div class="card fade-in" onclick="openGoshtiModal()" style="cursor:pointer;">
       <div class="card-top gold"></div>
       <div class="card-body">
         <span class="card-icon">🙏</span>
         <div class="card-label">गोष्ठी · Goshti</div>
-        <div class="card-title">Shri V B Goshti Delhi</div>
-        <p class="card-desc">Recordings and materials from the Vishishtadvaita Bhakti Goshti, Delhi — satsang, pravachans and devotional programs.</p>
-        <div class="card-action">देखें →</div>
+        <div class="card-title">Shri V B Goshti Delhi — ग्रन्थ संग्रह</div>
+        <p class="card-desc">विशिष्टाद्वैत भक्ति गोष्ठी, दिल्ली — २३ पवित्र ग्रन्थों का संग्रह। किसी भी ग्रन्थ पर क्लिक करें और सीधे पढ़ें।<br><em>23 sacred texts — click any to open directly.</em></p>
+        <div class="card-action">📚 ग्रन्थ खोलें →</div>
       </div>
-    </a>
+    </div>
+
+<!-- VB GOSHTI MODAL -->
+<div id="goshtiModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(44,24,16,0.82);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
+  <div style="background:#FFF8E7;border-radius:20px;max-width:680px;width:92%;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(107,15,26,0.45);border:2px solid #D4A017;">
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,#7B5800,#B8860B);padding:20px 24px 16px;border-radius:18px 18px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-family:'Noto Serif Devanagari',serif;font-size:1.1rem;font-weight:700;color:#FFF8E7;">🙏 Shri V B Goshti Delhi</div>
+          <div style="font-size:0.72rem;color:rgba(255,248,231,0.6);margin-top:3px;font-style:italic;">Vishishtadvaita Bhakti Goshti — 23 Sacred Texts — Click any to open</div>
+        </div>
+        <button onclick="closeGoshtiModal()" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,248,231,0.3);border-radius:50%;width:36px;height:36px;color:#FFF8E7;font-size:1.2rem;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(255,255,255,0.22)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">✕</button>
+      </div>
+      <!-- Search -->
+      <input type="text" id="goshtiSearch" placeholder="🔍  Search by name..." oninput="filterGoshti(this.value)" style="width:100%;margin-top:12px;padding:8px 14px;border-radius:8px;border:1px solid rgba(255,248,231,0.25);background:rgba(255,255,255,0.12);color:white;font-size:0.85rem;outline:none;" />
+    </div>
+    <!-- Count -->
+    <div style="padding:8px 20px;font-size:0.75rem;color:#888;flex-shrink:0;border-bottom:1px solid rgba(212,160,23,0.15);">
+      Showing <span id="goshtiCount">23</span> of 23 texts
+    </div>
+    <!-- List -->
+    <div style="overflow-y:auto;padding:12px 16px 20px;flex:1;">
+      <div id="goshtiList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const goshtiFiles = [
+  {n:"Bhagvad Guna Darpan II.pdf",url:"https://drive.google.com/open?id=1KpoctCqwxf72cnQqnw3vRobLGyf7lpOC"},
+  {n:"MOKSHAMALA.pdf",url:"https://drive.google.com/open?id=147wsefUmVhEnPVJrSjiS6WDs9GSjlqPN"},
+  {n:"Bhagvad Guna Darpan I.pdf",url:"https://drive.google.com/open?id=1q1sFd3okx7kf-NtPnwp4STPVzRWtROU5"},
+  {n:"Vishnu Sahastranaam.pdf",url:"https://drive.google.com/open?id=1j4gK7Mtmmy-ehBqGC-CzbbVvrXmUtyA3"},
+  {n:"Sri Vachan Bhushan (Hindi).pdf",url:"https://drive.google.com/open?id=1tPmVKhhITxU3fhFJ8mmAtIt7KKbzvYxl"},
+  {n:"Sri Vachan Bhushanam (Sanskrit).pdf",url:"https://drive.google.com/open?id=1OFUU0HnIGpmTsCqMTLpri60WnfS7pbmI"},
+  {n:"Vedant Deep Feb. 2012.pdf",url:"https://drive.google.com/open?id=1R_wJdz6iEnaXFrBdnzO-HDOkZa2qhwVh"},
+  {n:"Sri Vachan Bhusan Sutra.pdf",url:"https://drive.google.com/open?id=1aBqCtfryFegpS_I5Idn7fxbN3eYIkXUs"},
+  {n:"Parkal Sukat III (Feb. 2012).pdf",url:"https://drive.google.com/open?id=1KIr3pSW6T8Wxlv7493Bf3BFNe2_VdQU9"},
+  {n:"Sri Vachan Bhushan Krodepatra (Prashanottar).pdf",url:"https://drive.google.com/open?id=1WkL5gag78Oi8Qspkl_IxzoavSBSZVtob"},
+  {n:"Parkal Sukta (10 &amp; 11).pdf",url:"https://drive.google.com/open?id=1ATxhlabdOeIutTkxJ0lklnPBrZpeD46N"},
+  {n:"Shri Varvarmunindra Vaibhava.pdf",url:"https://drive.google.com/open?id=1F3NG8_86aQCTbSjOCkKFiSxp2Nwgc0nl"},
+  {n:"Vedarth Sanghrah.pdf",url:"https://drive.google.com/open?id=15IMhVQAvuCar05ZT_zCB4PvYDv4JnVW4"},
+  {n:"YATIRAJ VIMSHATI.pdf",url:"https://drive.google.com/open?id=188zGI5rJL50wpjd3smBPD8GtEphbAXcU"},
+  {n:"Geeta Bhasya 3.pdf",url:"https://drive.google.com/open?id=1amORe-OVlHSsclFEcj1dQbn_e8O0Ccur"},
+  {n:"Geeta Bhasya 1.pdf",url:"https://drive.google.com/open?id=1guWdIc_lcq__YYLJRezdfEWmDL3PnwkG"},
+  {n:"Geeta Bhasya 2.pdf",url:"https://drive.google.com/open?id=1PT-dUIOMSJfyjpLq7jBcbqiD-DRNqCWt"},
+  {n:"Parkal Sukta (1 &amp; 2).pdf",url:"https://drive.google.com/open?id=1kGjwjVpEFEw0jrwb-zRDjPX4iF59JSFs"},
+  {n:"Panch Rahasya.pdf",url:"https://drive.google.com/open?id=1RYsnLAC3FkUGmyuo7kM8YHa9FF5RQDtG"},
+  {n:"Nitya Path Mala.pdf",url:"https://drive.google.com/open?id=1x2alrncgpyUcDzBUI2DUWWpBUDMW6CLW"},
+  {n:"Bhajanawali.pdf",url:"https://drive.google.com/open?id=1OVoBH1PzCru48EvZtD2Bh-tj0IFj_fH-"},
+  {n:"Chatuhshloki &amp; Stotraratna.pdf",url:"https://drive.google.com/open?id=1-IK7TpOgbfrzUSQace5WBzMxaQddpjx_"},
+  {n:"ASTHSLOKI.pdf",url:"https://drive.google.com/open?id=1lg78VVcBlyfLC5sqlPxukpPq3JXHgPR-"}
+];
+
+function renderGoshti(list){
+  const container = document.getElementById("goshtiList");
+  container.innerHTML = "";
+  document.getElementById("goshtiCount").textContent = list.length;
+  list.forEach((g,i)=>{
+    const div = document.createElement("a");
+    div.href = g.url; div.target="_blank"; div.rel="noopener";
+    div.style.cssText="display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:9px;text-decoration:none;color:inherit;border:1px solid rgba(212,160,23,0.2);margin-bottom:7px;background:white;transition:all 0.18s;";
+    div.onmouseover=function(){this.style.background="#FFF0C8";this.style.borderColor="#D4A017";this.style.transform="translateX(3px)";};
+    div.onmouseout=function(){this.style.background="white";this.style.borderColor="rgba(212,160,23,0.2)";this.style.transform="translateX(0)";};
+    div.innerHTML="<div style=\"min-width:32px;height:32px;background:linear-gradient(135deg,#7B5800,#B8860B);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;font-weight:700;\">"+String(i+1).padStart(2,"0")+"</div>"
+      +"<div style=\"flex:1;font-family:'Noto Serif Devanagari',serif;font-size:0.88rem;font-weight:600;color:#2C1810;line-height:1.4;\">"+g.n+"</div>"
+      +"<div style=\"color:#B8860B;font-size:0.9rem;\">↗</div>";
+    container.appendChild(div);
+  });
+}
+
+function filterGoshti(q){
+  const filtered = q.trim()==="" ? goshtiFiles : goshtiFiles.filter(f=>f.n.toLowerCase().includes(q.toLowerCase()));
+  renderGoshti(filtered);
+}
+
+function openGoshtiModal(){
+  document.getElementById("goshtiModal").style.display="flex";
+  document.body.style.overflow="hidden";
+  document.getElementById("goshtiSearch").value="";
+  renderGoshti(goshtiFiles);
+}
+function closeGoshtiModal(){
+  document.getElementById("goshtiModal").style.display="none";
+  document.body.style.overflow="";
+}
+document.getElementById("goshtiModal").addEventListener("click",function(e){if(e.target===this)closeGoshtiModal();});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeGoshtiModal();});
+renderGoshti(goshtiFiles);
+</script>
 
     <a href="https://drive.google.com/drive/folders/0ByVYKwxS7dEecGV2eUNzRE5td2c?resourcekey=0-ZCWPaaKAA4SBavP32qpEwQ&usp=drive_link" target="_blank" class="card fade-in">
       <div class="card-top saffron"></div>
@@ -695,27 +1173,114 @@
       </div>
     </a>
 
-    <a href="https://drive.google.com/drive/folders/12UNykreKFS2hi4CIRgnCQq3zVE7dvJRP?usp=sharing" target="_blank" class="card fade-in">
+    <div class="card fade-in" onclick="openKanchiModal()" style="cursor:pointer;">
       <div class="card-top maroon"></div>
       <div class="card-body">
         <span class="card-icon">🏛️</span>
         <div class="card-label">मठ प्रकाशन · Math Publications</div>
         <div class="card-title">श्रीकांची प्रतिवादि भयंकर मठ — प्रकाशित सामग्री</div>
-        <p class="card-desc">Publications from Shri Kanchi Prativadi Bhayankara Math — Vishishtadvaita philosophy and Shrivaishnav traditions.</p>
-        <div class="card-action">प्रकाशन देखें →</div>
+        <p class="card-desc">श्रीकांची प्रतिवादि भयंकर मठ के २९ प्रकाशित ग्रन्थ। किसी भी ग्रन्थ पर क्लिक करें और सीधे पढ़ें।<br><em>29 publications — click any to open directly.</em></p>
+        <div class="card-action">📚 प्रकाशन देखें →</div>
       </div>
-    </a>
+    </div>
 
-    <a href="https://docs.google.com/document/d/1oCds28MUz1ZP6D8b_vLXWAlV7SHwDM4Q/edit?usp=sharing" target="_blank" class="card fade-in">
-      <div class="card-top green"></div>
-      <div class="card-body">
-        <span class="card-icon">❓</span>
-        <div class="card-label">सामान्य प्रश्न · FAQ</div>
-        <div class="card-title">Frequently Asked Questions — Shrivaishnav Sampradaya</div>
-        <p class="card-desc">Authoritative answers on Shrivaishnav traditions, rituals, philosophy and daily practices — for seekers and devotees.</p>
-        <div class="card-action">प्रश्नोत्तर पढ़ें →</div>
+<!-- KANCHI MATH MODAL -->
+<div id="kanchiModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(44,24,16,0.82);backdrop-filter:blur(4px);align-items:center;justify-content:center;">
+  <div style="background:#FFF8E7;border-radius:20px;max-width:700px;width:92%;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(107,15,26,0.45);border:2px solid #D4A017;">
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,#4A0A12,#6B0F1A);padding:20px 24px 16px;border-radius:18px 18px 0 0;flex-shrink:0;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-family:'Noto Serif Devanagari',serif;font-size:1.05rem;font-weight:700;color:#F5C842;">🏛️ श्रीकांची प्रतिवादि भयंकर मठ</div>
+          <div style="font-size:0.72rem;color:rgba(255,248,231,0.55);margin-top:3px;font-style:italic;">Shri Kanchi Prativadi Bhayankara Math — 29 Publications — Click any to open</div>
+        </div>
+        <button onclick="closeKanchiModal()" style="background:rgba(255,255,255,0.12);border:1px solid rgba(245,200,66,0.35);border-radius:50%;width:36px;height:36px;color:#F5C842;font-size:1.2rem;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(255,255,255,0.22)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">✕</button>
       </div>
-    </a>
+      <!-- Search -->
+      <input type="text" id="kanchiSearch" placeholder="🔍  Search by name..." oninput="filterKanchi(this.value)" style="width:100%;margin-top:12px;padding:8px 14px;border-radius:8px;border:1px solid rgba(245,200,66,0.25);background:rgba(255,255,255,0.1);color:white;font-size:0.85rem;outline:none;" />
+    </div>
+    <!-- Count -->
+    <div style="padding:8px 20px;font-size:0.75rem;color:#888;flex-shrink:0;border-bottom:1px solid rgba(212,160,23,0.15);">
+      Showing <span id="kanchiCount">29</span> of 29 publications
+    </div>
+    <!-- List -->
+    <div style="overflow-y:auto;padding:12px 16px 20px;flex:1;">
+      <div id="kanchiList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const kanchiFiles = [
+  {n:"11.श्रीप्रपन्नामृत.pdf",url:"https://drive.google.com/open?id=1aisaegiRBeoTCBpVUhDCwAwWQORuJ7u8"},
+  {n:"14.रहस्यार्थ सर्वस्वम.pdf",url:"https://drive.google.com/open?id=1YCvp0OY5pqBSN8jWC7WY7xtXpXd1zXgX"},
+  {n:"२७ भगवदाराधनविधी एवं नित्य नियम पाठमाला.pdf",url:"https://drive.google.com/open?id=1DDpbWGqB7aMWrxZbuix2O9e4rrVj8ImF"},
+  {n:"30. श्रीमद् अनन्त शतकम् एवम् श्रीजगद्गुरुस्तुतिरत्नपञ्चामृतम्.pdf",url:"https://drive.google.com/open?id=12Q7NjTqxN0gRqWGb1lxXkDwweG6yR-WZ"},
+  {n:"16 श्रीवेंकटेश स्तोत्ररत्नावली.pdf",url:"https://drive.google.com/open?id=1GfH5im-QLz7AdT5MAUEoRARXx1TKnTpg"},
+  {n:"24 यतिन्द्र प्रवण प्रभाव.pdf",url:"https://drive.google.com/open?id=1ATmkWxW1Vvcb3V_F4yKrRA6EiNQyvpHb"},
+  {n:"२२ शरणागती मीमांसा.pdf",url:"https://drive.google.com/open?id=1VJPQ4k-ZON3HNjYLwbnww1Qx8ruHFsbO"},
+  {n:"२६ आर्ति प्रबन्धम्.pdf",url:"https://drive.google.com/open?id=1ni8DFdr9l_3JTcdvdTLbBW8vS_3Oycje"},
+  {n:"२५ श्रीकूरेश विजय.pdf",url:"https://drive.google.com/open?id=1jppQ10SBxtW4MuIsvsFCtI0OPQdeJbyP"},
+  {n:"21.श्रीधनुर्मास स्तोत्ररत्नावली.pdf",url:"https://drive.google.com/open?id=1R3CCOWBvTtaq9kCVZsOvJneZaaJbhpwS"},
+  {n:"23. अंतिमोपाय निष्ठा.pdf",url:"https://drive.google.com/open?id=1U18y8cTSRjYI4cIpMlVUANIfIuhr_ZwR"},
+  {n:"10.भगवद्विषयसार.pdf",url:"https://drive.google.com/open?id=1mdHhrZiQ8SbEi_8n0OMOQk1aLpAo1NCG"},
+  {n:"9.तिरुप्पावै.pdf",url:"https://drive.google.com/open?id=1USnzz24xz0ybSW-N8s46xMePp4Ef4NT5"},
+  {n:"5.यतिराज वैभव.pdf",url:"https://drive.google.com/open?id=1aEakSITSI3ec64tu_yl6Ll4C19KGb34-"},
+  {n:"4. उपदेश रत्नमाला.pdf",url:"https://drive.google.com/open?id=1KjFv2VIap-99GGZNoFjg2be-rMb5B5rR"},
+  {n:"3.श्रीरामानुज नुत्तंदादी.pdf",url:"https://drive.google.com/open?id=1-6LCS5dMs6SRiPXtwSauAOdutO_yKohj"},
+  {n:"2.श्रीरामानुज वैभव.pdf",url:"https://drive.google.com/open?id=1MsPAg6gNtK5LTDPykHNY6XdURpBumRX2"},
+  {n:"1.श्रीकांची प्रतिवादी भयंकर मठ गुरु परम्परा.pdf",url:"https://drive.google.com/open?id=10nQD0wloeVDU3xs4ixDbUbouVBd5IRci"},
+  {n:"8. बहत्तर वाक्य.pdf",url:"https://drive.google.com/open?id=1PzOyM0ss0jHRNW_zdC5GVNjUZWDVevAt"},
+  {n:"18. श्रीवरवरमुनि स्तोत्ररत्नावली.pdf",url:"https://drive.google.com/open?id=1_PLURf4hK4-LN7ItBIsdJiP9m8ouxwii"},
+  {n:"12. गद्यत्रय.pdf",url:"https://drive.google.com/open?id=1gygpW-r36ntUBncmaYvlD8YxesCjHpgW"},
+  {n:"श्रीअनंताचार्य प्रकाशन माला.pdf",url:"https://drive.google.com/open?id=1hDBODbQBe-nHht9E-7Es78mY41sgi-T7"},
+  {n:"7.श्रीरामानुज स्तोत्ररत्नावली.pdf",url:"https://drive.google.com/open?id=1mgCICjXmQOpiQhIZbCIPKFdJZ_OeJAap"},
+  {n:"6.चरमोपाय निर्णय.pdf",url:"https://drive.google.com/open?id=1-ki3AbYzpBQYDroF-rYR8gCCQrU0eZWk"},
+  {n:"15.श्रीगोदा चरित्र एवं श्रीरामानुज चालीसा.pdf",url:"https://drive.google.com/open?id=1j8UqlKlhSOKXktxsywvOlv7-mZY5-Jti"},
+  {n:"20.श्रीवैष्णव भजन माला.pdf",url:"https://drive.google.com/open?id=1EILEpnxjoPCdQpdPdWVwodAz6kc1oaqa"},
+  {n:"19.चतुःश्लोकी एवं स्तोत्ररत्न.pdf",url:"https://drive.google.com/open?id=1kBbZFYveJetvk7UA8bo1ur2xoE_EYZTi"},
+  {n:"13.श्रीरामानुज सहस्रनामावली.pdf",url:"https://drive.google.com/open?id=1mLDr3HEM-D5T9MjJPxUieSXfc7qoezsh"},
+  {n:"17.श्रीवादिभीकरार्य सूक्तिमालिका.pdf",url:"https://drive.google.com/open?id=1wXeAHARUfpPyNbfPYy8Mk636WDPQq6hC"}
+];
+
+function renderKanchi(list){
+  const container = document.getElementById("kanchiList");
+  container.innerHTML = "";
+  document.getElementById("kanchiCount").textContent = list.length;
+  list.forEach((g,i)=>{
+    const div = document.createElement("a");
+    div.href = g.url; div.target="_blank"; div.rel="noopener";
+    div.style.cssText="display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:9px;text-decoration:none;color:inherit;border:1px solid rgba(212,160,23,0.2);margin-bottom:7px;background:white;transition:all 0.18s;";
+    div.onmouseover=function(){this.style.background="#FFF0C8";this.style.borderColor="#D4A017";this.style.transform="translateX(3px)";};
+    div.onmouseout=function(){this.style.background="white";this.style.borderColor="rgba(212,160,23,0.2)";this.style.transform="translateX(0)";};
+    div.innerHTML="<div style=\"min-width:32px;height:32px;background:linear-gradient(135deg,#4A0A12,#6B0F1A);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#F5C842;font-size:0.7rem;font-weight:700;\">"+String(i+1).padStart(2,"0")+"</div>"
+      +"<div style=\"flex:1;font-family:'Noto Serif Devanagari',serif;font-size:0.88rem;font-weight:600;color:#2C1810;line-height:1.4;\">"+g.n+"</div>"
+      +"<div style=\"color:#D4A017;font-size:0.9rem;\">↗</div>";
+    container.appendChild(div);
+  });
+}
+
+function filterKanchi(q){
+  const filtered = q.trim()==="" ? kanchiFiles : kanchiFiles.filter(f=>f.n.toLowerCase().includes(q.toLowerCase()));
+  renderKanchi(filtered);
+}
+
+function openKanchiModal(){
+  document.getElementById("kanchiModal").style.display="flex";
+  document.body.style.overflow="hidden";
+  document.getElementById("kanchiSearch").value="";
+  renderKanchi(kanchiFiles);
+}
+function closeKanchiModal(){
+  document.getElementById("kanchiModal").style.display="none";
+  document.body.style.overflow="";
+}
+document.getElementById("kanchiModal").addEventListener("click",function(e){if(e.target===this)closeKanchiModal();});
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeKanchiModal();});
+renderKanchi(kanchiFiles);
+</script>
+
+
 
   </div>
 </section>
